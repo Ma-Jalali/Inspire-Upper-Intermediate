@@ -5916,32 +5916,60 @@
   html #app .xc-hero-ico{background:linear-gradient(145deg,#C9B8FF,#7C5CFF 55%,#4526C9);}
   html #app .xc-hero-ico svg{width:30px;height:30px;}
   html #app .xc-rename{margin-top:10px;}
-  html #app .xc-summary{display:flex;align-items:center;gap:14px;padding:14px 16px;margin:0 0 16px;border-radius:22px;background:var(--surface);
-    box-shadow:0 1px 2px rgba(10,16,40,0.05), 0 14px 28px -22px rgba(10,16,40,0.55), inset 0 0 0 1px rgba(124,92,255,0.12);}
-  html #app .xc-ring{width:52px;height:52px;flex-shrink:0;transform:rotate(-90deg);}
-  html #app .xc-ring circle{fill:none;stroke-width:6;}
-  html #app .xc-ring-track{stroke:rgba(124,92,255,0.14);}
-  html #app .xc-ring-fill{stroke:#7C5CFF;stroke-linecap:round;transition:stroke-dashoffset 1s var(--v-ease,ease);}
-  html #app .xc-sum-txt{display:flex;flex-direction:column;gap:2px;min-width:0;}
-  html #app .xc-sum-txt b{font-family:var(--font-display);font-size:16px;color:var(--ink);letter-spacing:-0.01em;}
-  html #app .xc-sum-txt span{font-size:13px;line-height:1.35;color:var(--ink-soft);}
-  html #app .xc-list{display:flex;flex-direction:column;gap:8px;}
-  html #app .xc-row{display:flex;align-items:center;gap:13px;width:100%;padding:11px 14px 11px 11px;border:none;border-radius:20px;cursor:pointer;font:inherit;text-align:left;
-    color:var(--ink);background:var(--surface);animation:xcIn .45s var(--v-spring,ease) both;animation-delay:var(--d,0s);
-    box-shadow:0 1px 2px rgba(10,16,40,0.05), 0 12px 26px -20px rgba(10,16,40,0.5), inset 0 0 0 1px rgba(var(--accent-rgb),0.07), inset 0 1px 0 rgba(255,255,255,0.85);
-    transition:transform .25s var(--v-spring,ease);-webkit-tap-highlight-color:transparent;}
-  html #app .xc-row:active{transform:scale(.975);}
-  html #app .xc-row-ico{position:relative;flex-shrink:0;width:46px;height:46px;border-radius:15px;display:flex;align-items:center;justify-content:center;
-    box-shadow:0 10px 18px -12px rgba(10,16,40,0.6), inset 0 1px 0 rgba(255,255,255,0.4), inset 0 -8px 14px -10px rgba(0,0,0,0.25);}
-  html #app .xc-row-ico span{font-size:23px;line-height:1;filter:drop-shadow(0 2px 3px rgba(0,0,0,0.2));}
-  html #app .xc-row-body{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px;}
-  html #app .xc-row-num{font-family:var(--font-head);font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#7C5CFF;}
+  /* glyph icons (vector, one per lesson) */
+  html #app .xc-glyph{fill:none;stroke:#fff;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 1.5px 2px rgba(0,0,0,0.18));}
+  html #app .xc-glyph .f{fill:rgba(255,255,255,0.30);}
+  html #app .xc-glyph .w{stroke-width:2.8;}
+  /* up next card */
+  html #app .xc-next{position:relative;overflow:hidden;isolation:isolate;display:flex;align-items:center;gap:14px;width:100%;padding:16px 16px 16px 14px;margin:0 0 20px;border:none;border-radius:26px;
+    cursor:pointer;text-align:left;font:inherit;color:#fff;background:var(--bg);animation:xcIn .5s var(--v-spring,ease) both;
+    box-shadow:0 20px 36px -24px rgba(10,16,40,0.8), inset 0 1px 0 rgba(255,255,255,0.35), inset 0 -24px 44px -30px rgba(0,0,0,0.35);transition:transform .25s var(--v-spring,ease);-webkit-tap-highlight-color:transparent;}
+  html #app .xc-next:active{transform:scale(.98);}
+  html #app .xc-next::before{content:'';position:absolute;inset:0;z-index:-1;background:radial-gradient(90% 90% at 0% 0%,rgba(255,255,255,0.3),transparent 60%),radial-gradient(70% 90% at 100% 100%,rgba(0,0,0,0.18),transparent 60%);}
+  html #app .xc-next-art{flex-shrink:0;width:62px;height:62px;border-radius:20px;display:flex;align-items:center;justify-content:center;
+    background:rgba(255,255,255,0.18);box-shadow:inset 0 0 0 1px rgba(255,255,255,0.3), inset 0 1px 0 rgba(255,255,255,0.4);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);}
+  html #app .xc-next-art .xc-glyph{width:36px;height:36px;}
+  html #app .xc-next-txt{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;}
+  html #app .xc-next-k{font-family:var(--font-head);font-size:11px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;opacity:.85;}
+  html #app .xc-next-txt b{font-family:var(--font-display);font-size:21px;font-weight:800;letter-spacing:-0.02em;line-height:1.15;}
+  html #app .xc-next-go{align-self:flex-start;margin-top:8px;padding:5px 12px;border-radius:999px;font-family:var(--font-head);font-size:12.5px;font-weight:700;
+    color:#1B1F33;background:#fff;box-shadow:0 6px 14px -8px rgba(0,0,0,0.5);}
+  html #app .xc-next-go i{font-style:normal;margin-left:2px;}
+  html #app .xc-next-ring{position:relative;flex-shrink:0;width:56px;height:56px;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);}
+  html #app .xc-next-ring svg{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg);}
+  html #app .xc-next-ring circle{fill:none;stroke-width:5;}
+  html #app .xc-next-ring .t{stroke:rgba(255,255,255,0.25);}
+  html #app .xc-next-ring .v{stroke:#fff;stroke-linecap:round;transition:stroke-dashoffset 1s var(--v-ease,ease);}
+  html #app .xc-next-ring b{font-size:17px;font-weight:800;}
+  html #app .xc-next-ring small{font-size:10px;font-weight:700;opacity:.75;}
+  html #app .xc-alldone{display:flex;flex-direction:column;gap:3px;padding:16px 18px;margin:0 0 20px;border-radius:24px;color:#fff;background:linear-gradient(145deg,#5BDB93,#1FA463);}
+  html #app .xc-alldone b{font-family:var(--font-display);font-size:19px;}
+  html #app .xc-alldone span{font-size:13.5px;opacity:.9;}
+  /* grouped list (iOS inset style) */
+  html #app .xc-sec{display:flex;align-items:center;justify-content:space-between;margin:0 6px 8px;}
+  html #app .xc-sec-t{font-family:var(--font-head);font-size:12px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-soft);}
+  html #app .xc-sec-c{padding:2px 8px;border-radius:999px;font-family:var(--font-head);font-size:11.5px;font-weight:700;color:var(--ink-soft);background:rgba(118,118,128,0.12);font-variant-numeric:tabular-nums;}
+  html #app .xc-sec-c.full{color:#fff;background:linear-gradient(145deg,#5BDB93,#1FA463);}
+  html #app .xc-group{margin:0 0 22px;border-radius:22px;overflow:hidden;background:var(--surface);
+    box-shadow:0 1px 2px rgba(10,16,40,0.05), 0 14px 30px -24px rgba(10,16,40,0.55), inset 0 0 0 1px rgba(var(--accent-rgb),0.06);}
+  html #app .xc-row{position:relative;display:flex;align-items:center;gap:13px;width:100%;padding:11px 14px 11px 12px;border:none;border-radius:0;cursor:pointer;font:inherit;text-align:left;
+    color:var(--ink);background:transparent;animation:xcIn .45s var(--v-spring,ease) both;animation-delay:var(--d,0s);transition:background .2s;-webkit-tap-highlight-color:transparent;}
+  html #app .xc-row + .xc-row::before{content:'';position:absolute;left:70px;right:0;top:0;height:.5px;background:var(--hair-strong,rgba(15,25,50,0.12));}
+  html #app .xc-row:active{background:rgba(118,118,128,0.10);}
+  html #app .xc-row-ico{position:relative;flex-shrink:0;width:44px;height:44px;border-radius:14px;display:flex;align-items:center;justify-content:center;
+    box-shadow:0 8px 16px -10px rgba(10,16,40,0.6), inset 0 1px 0 rgba(255,255,255,0.4), inset 0 -8px 14px -10px rgba(0,0,0,0.25);}
+  html #app .xc-row-ico .xc-glyph{width:26px;height:26px;}
+  html #app .xc-row-n{position:absolute;right:-5px;bottom:-4px;min-width:17px;height:17px;padding:0 4px;box-sizing:border-box;border-radius:999px;display:flex;align-items:center;justify-content:center;
+    font-family:var(--font-display);font-size:10px;font-weight:800;color:var(--ink);background:var(--surface);box-shadow:0 2px 5px rgba(10,16,40,0.22);}
+  html #app .xc-row-body{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;}
   html #app .xc-row-body b{font-family:var(--font-display);font-size:16px;font-weight:700;letter-spacing:-0.01em;line-height:1.25;}
   html #app .xc-row-meta{font-size:12.5px;color:var(--ink-soft);}
-  html #app .xc-row-go{font-size:24px;line-height:1;color:var(--ink-soft);opacity:.55;padding-left:4px;}
-  html #app .xc-row-done{flex-shrink:0;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;
-    background:linear-gradient(145deg,#5BDB93,#1FA463);box-shadow:0 6px 12px -6px rgba(19,122,72,0.8), inset 0 1px 0 rgba(255,255,255,0.4);}
-  html #app .xc-row-done svg{width:16px;height:16px;}
+  html #app .xc-score{flex-shrink:0;padding:3px 8px;border-radius:999px;font-family:var(--font-head);font-size:12px;font-weight:700;color:#6A4BF0;background:rgba(124,92,255,0.1);font-variant-numeric:tabular-nums;}
+  html #app .xc-score.perfect{color:#A8650B;background:rgba(245,166,35,0.16);}
+  html #app .xc-row-go{font-size:22px;line-height:1;color:var(--ink-soft);opacity:.5;padding-left:2px;}
+  html #app .xc-row-done{flex-shrink:0;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;
+    background:linear-gradient(145deg,#5BDB93,#1FA463);box-shadow:0 5px 10px -5px rgba(19,122,72,0.8), inset 0 1px 0 rgba(255,255,255,0.4);}
+  html #app .xc-row-done svg{width:14px;height:14px;}
   html #app .xc-loading{display:flex;justify-content:center;gap:8px;padding:60px 0;}
   html #app .xc-loading span{width:10px;height:10px;border-radius:50%;background:#7C5CFF;animation:xcDot 1.2s ease-in-out infinite;}
   html #app .xc-loading span:nth-child(2){animation-delay:.15s;} html #app .xc-loading span:nth-child(3){animation-delay:.3s;}
@@ -5954,7 +5982,10 @@
   html #app .xc-hero::before{content:'';position:absolute;inset:0;z-index:-1;background:radial-gradient(120% 80% at 100% 0%,rgba(255,255,255,0.28),transparent 55%),radial-gradient(90% 70% at 0% 110%,rgba(0,0,0,0.22),transparent 60%);}
   html #app .xc-hero-num{position:absolute;right:-6px;bottom:-34px;z-index:-1;font-family:var(--font-display);font-size:150px;font-weight:800;line-height:1;letter-spacing:-0.06em;
     color:rgba(255,255,255,0.13);pointer-events:none;}
-  html #app .xc-hero-emoji{position:absolute;right:18px;top:16px;font-size:38px;line-height:1;filter:drop-shadow(0 6px 10px rgba(0,0,0,0.25));transform:rotate(8deg);}
+  html #app .xc-hero .xc-hero-num{display:none;}
+  html #app .xc-hero-art{position:absolute;right:16px;top:16px;width:58px;height:58px;border-radius:19px;display:flex;align-items:center;justify-content:center;
+    background:rgba(255,255,255,0.2);box-shadow:inset 0 0 0 1px rgba(255,255,255,0.3), inset 0 1px 0 rgba(255,255,255,0.45);transform:rotate(6deg);}
+  html #app .xc-hero-art .xc-glyph{width:34px;height:34px;}
   html #app .xc-hero-kicker{font-family:var(--font-head);font-size:11.5px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;opacity:.85;padding-right:56px;}
   html #app .xc-hero-title{font-family:var(--font-display);font-size:27px;font-weight:800;line-height:1.1;letter-spacing:-0.025em;margin:6px 0 14px;padding-right:48px;text-wrap:balance;}
   html #app .xc-hero-chips{display:flex;flex-wrap:wrap;gap:6px;}
@@ -6088,10 +6119,10 @@
   html #app .xc-pg b{font-family:var(--font-display);font-size:14px;font-weight:700;line-height:1.25;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%;}
 
   /* dark mode */
-  html[data-theme="dark"] #app .xc-row, html[data-theme="dark"] #app .xc-player, html[data-theme="dark"] #app .xc-read, html[data-theme="dark"] #app .xc-q, html[data-theme="dark"] #app .xc-summary,
+  html[data-theme="dark"] #app .xc-group, html[data-theme="dark"] #app .xc-player, html[data-theme="dark"] #app .xc-read, html[data-theme="dark"] #app .xc-q, 
   html[data-theme="dark"] #app .xc-cols, html[data-theme="dark"] #app .xc-q-top, html[data-theme="dark"] #app .xc-pg{
     box-shadow:0 12px 26px -20px rgba(0,0,0,0.7), inset 0 0 0 1px rgba(255,255,255,0.08), inset 0 1px 0 rgba(255,255,255,0.06);}
-  html[data-theme="dark"] #app .xc-row-num, html[data-theme="dark"] #app .xc-tip, html[data-theme="dark"] #app .xc-bank-lab, html[data-theme="dark"] #app .xc-pg span,
+  html[data-theme="dark"] #app .xc-tip, html[data-theme="dark"] #app .xc-bank-lab, html[data-theme="dark"] #app .xc-pg span,
   html[data-theme="dark"] #app .xc-say, html[data-theme="dark"] #app .xc-add, html[data-theme="dark"] #app .xc-skip, html[data-theme="dark"] #app .xc-rate,
   html[data-theme="dark"] #app .xc-opt-l, html[data-theme="dark"] #app .xc-gloss .xc-col, html[data-theme="dark"] #app .xc-drive-link{color:#B8A6FF;}
   html[data-theme="dark"] #app .xc-say, html[data-theme="dark"] #app .xc-add, html[data-theme="dark"] #app .xc-skip, html[data-theme="dark"] #app .xc-rate{background:rgba(150,125,255,0.16);}
@@ -6107,6 +6138,22 @@
   html[data-theme="dark"] #app .xc-q.right{box-shadow:0 12px 26px -20px rgba(0,0,0,0.7), inset 0 0 0 1.5px rgba(63,191,122,0.5);}
   html[data-theme="dark"] #app .xc-q.wrong{box-shadow:0 12px 26px -20px rgba(0,0,0,0.7), inset 0 0 0 1.5px rgba(242,112,138,0.45);}
   html[data-theme="dark"] #app .xc-seg-btn.on{background:#3A3F55;box-shadow:0 3px 8px rgba(0,0,0,0.3);}
+  /* my mistakes: quiz cards sit on a clean, cool card instead of the warm accent tint */
+  html #app .rv-group .b-quiz{background:#FFFFFF;border:none;
+    box-shadow:0 1px 2px rgba(10,16,40,0.05), 0 16px 32px -24px rgba(10,16,40,0.45), inset 0 0 0 1px rgba(15,25,50,0.07);}
+  html #app .rv-group .quiz-title-row{border-bottom-color:rgba(15,25,50,0.08);}
+  html #app .rv-group .quiz-q{border-top-color:transparent;}
+  html #app .rv-group .quiz-instr-view{background:#F2F5FA;box-shadow:inset 0 0 0 1px rgba(60,80,120,0.08);color:var(--ink);}
+  html #app .rv-group .dd-sel:not(.dd-right):not(.dd-wrong){background-color:#F6F8FB;border-color:rgba(60,80,120,0.2);
+    box-shadow:inset 0 1px 0 #fff, 0 1px 2px rgba(15,25,50,0.06);}
+  @media (hover:hover){ html #app .rv-group .dd-sel:not(.dd-right):not(.dd-wrong):hover{border-color:rgba(var(--accent-rgb),0.55);background-color:#fff;} }
+  html #app .rv-src{margin-top:4px;}
+  html[data-theme="dark"] #app .rv-group .b-quiz{background:#161C2E;box-shadow:0 16px 32px -24px rgba(0,0,0,0.7), inset 0 0 0 1px rgba(255,255,255,0.07);}
+  html[data-theme="dark"] #app .rv-group .quiz-title-row{border-bottom-color:rgba(255,255,255,0.08);}
+  html[data-theme="dark"] #app .rv-group .quiz-instr-view{background:rgba(255,255,255,0.05);box-shadow:inset 0 0 0 1px rgba(255,255,255,0.06);}
+  html[data-theme="dark"] #app .rv-group .dd-sel:not(.dd-right):not(.dd-wrong){background-color:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.14);box-shadow:none;}
+  html[data-theme="dark"] #app .xc-score{color:#C4B5FF;background:rgba(150,125,255,0.16);}
+  html[data-theme="dark"] #app .xc-score.perfect{color:#FFC76B;background:rgba(245,166,35,0.16);}
   html[data-theme="dark"] #app .xc-join{background:#1E2438;color:#B8A6FF;}
 </style>
 </head>
@@ -16027,6 +16074,42 @@ let xcol = null, xcolLoading = false, xcolErr = false, xcolLesson = null, xcolTa
 let xcolMeta = deviceGet('xcol-meta', null) || {title: XCOL_DEFAULT_TITLE};
 const XC_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6.5" width="8" height="11" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><rect x="13" y="6.5" width="8" height="11" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M11 12h2" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>';
 const XC_SPEAK = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" fill="currentColor"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+/* one line-art icon per lesson (24px grid, white strokes, soft fills) */
+const XC_GLYPH = {
+ 1:'<circle class="f" cx="7" cy="6.8" r="2.4"/><circle class="f" cx="17" cy="6.8" r="2.4"/><path d="M3.4 19.5v-3.3a3.6 3.6 0 0 1 3.6-3.6c1 0 1.9.4 2.5 1"/><path d="M20.6 19.5v-3.3a3.6 3.6 0 0 0-3.6-3.6c-1 0-1.9.4-2.5 1"/><circle cx="12" cy="13.4" r="1.7"/><path class="f" d="M9.3 20v-.6a2.7 2.7 0 0 1 5.4 0v.6z"/>',
+ 2:'<path class="f" d="M9.2 20s-6.2-3.8-6.2-8.4A3.3 3.3 0 0 1 9.2 9.9a3.3 3.3 0 0 1 6.2 1.7C15.4 16.2 9.2 20 9.2 20z"/><path d="M15.4 11.6c2.8-1.7 5.6-4 5.6-6.6A2.8 2.8 0 0 0 15.8 3.6 2.8 2.8 0 0 0 11.2 6"/>',
+ 3:'<ellipse class="f" cx="12" cy="9.2" rx="5.6" ry="6.2"/><path class="w" d="M12 15.6v5"/><path d="M9.2 7.4a3.4 3.4 0 0 1 2.2-2.1"/><path d="M19.6 3.4v2.6M18.3 4.7h2.6M4.6 15.4v1.8M3.7 16.3h1.8"/>',
+ 4:'<path class="f" d="M15.4 20.5v-3h2a1.6 1.6 0 0 0 1.6-1.6v-2.6l1.6-.9-1.7-3A7.2 7.2 0 1 0 7.8 15.6v4.9"/><path d="M12.2 6.6l.7 1.5 1.6.2-1.2 1.1.3 1.6-1.4-.8-1.4.8.3-1.6-1.2-1.1 1.6-.2z"/>',
+ 5:'<circle class="f" cx="12" cy="12" r="8.6"/><path d="M8.3 14.1a4.3 4.3 0 0 0 7.4 0"/><path class="w" d="M9.2 9.6v.3M14.8 9.6v.3"/>',
+ 6:'<path class="f" d="M4.2 10.6L12 4.2l7.8 6.4v9.4H4.2z"/><path d="M10 20v-5.2h4V20"/><path d="M2.5 12l9.5-7.8 9.5 7.8"/>',
+ 7:'<circle class="f" cx="12" cy="12.5" r="5.2"/><path d="M3.6 3.5v4.3a1.6 1.6 0 0 0 3.2 0V3.5M5.2 3.5v17"/><path d="M20.4 20.5V3.8c-1.8.8-2.9 3-2.9 6.2v2.4h2.9"/>',
+ 8:'<rect class="f" x="3.5" y="10.5" width="17" height="10" rx="2"/><path d="M3.5 10.5L3 8.2l15.8-4 .6 2.4z"/><path d="M7.6 7.2l2.3 2.6M12.3 6l2.3 2.6"/><path d="M10.6 13.4v4.3l3.6-2.15z"/>',
+ 9:'<path d="M9 17.6V6.2l10.5-2.4v11.6M9 9.6l10.5-2.4"/><circle class="f" cx="6.4" cy="17.6" r="2.6"/><circle class="f" cx="16.9" cy="15.4" r="2.6"/>',
+ 10:'<circle cx="12" cy="12" r="8.7"/><path class="f" d="M12 8.3l3.3 2.4-1.3 3.9H10l-1.3-3.9z"/><path d="M12 8.3V3.4M15.3 10.7l4.6-1.5M14 14.6l2.9 3.9M10 14.6l-2.9 3.9M8.7 10.7L4.1 9.2"/>',
+ 11:'<path class="f" d="M12 20.4s-7.6-4.6-7.6-10.1a4.2 4.2 0 0 1 7.6-2.5 4.2 4.2 0 0 1 7.6 2.5c0 5.5-7.6 10.1-7.6 10.1z"/><path d="M3 12.6h4.4l1.5-2.7 2.6 5.4 2-4 1.3 1.3H21"/>',
+ 12:'<rect class="f" x="4.5" y="4.8" width="15" height="10.4" rx="1.8"/><path d="M2.5 19.2h19"/><path d="M4.5 15.2l-1.6 4M19.5 15.2l1.6 4"/><path d="M8.2 8.4l2 1.6-2 1.6M12 11.6h3.4"/>',
+ 13:'<path class="f" d="M2.5 9.4L12 5l9.5 4.4L12 13.8z"/><path d="M6.4 11.4v4.2c0 1.6 2.5 3.1 5.6 3.1s5.6-1.5 5.6-3.1v-4.2"/><path d="M21.5 9.4v5.2"/>',
+ 14:'<path class="f" d="M6 3.5h8.2l4.3 4.3v12.7H6z"/><path d="M14 3.5v4.4h4.5"/><path d="M9 11.8h6.4M9 14.8h6.4M9 17.8h3.6"/>',
+ 15:'<rect class="f" x="3.4" y="7.6" width="17.2" height="12" rx="2.2"/><path d="M9 7.6V5.6A1.6 1.6 0 0 1 10.6 4h2.8A1.6 1.6 0 0 1 15 5.6v2"/><path d="M3.4 12.6h17.2"/><path d="M10.8 11.6v2.2h2.4v-2.2"/>',
+ 16:'<path d="M3.5 20.3h17"/><rect class="f" x="5" y="14.3" width="3.2" height="4.3" rx=".9"/><rect class="f" x="10.4" y="11.6" width="3.2" height="7" rx=".9"/><rect class="f" x="15.8" y="8.9" width="3.2" height="9.7" rx=".9"/><path d="M4.6 9.4l4.6-3.6 3 2.1 6.6-4.4M15.8 3.5h3v3"/>',
+ 17:'<rect class="f" x="2.6" y="6.6" width="18.8" height="10.8" rx="2.2"/><circle cx="12" cy="12" r="2.7"/><path d="M6.2 9.6v4.8M17.8 9.6v4.8"/>',
+ 18:'<path class="f" d="M20.8 15.2l-7.3-4.6V5.3a1.5 1.5 0 0 0-3 0v5.3l-7.3 4.6v2l7.3-2.3v3.8l-1.9 1.4v1.5l3.4-1 3.4 1v-1.5l-1.9-1.4v-3.8l7.3 2.3z"/>',
+ 19:'<circle cx="8.8" cy="8.6" r="3.1"/><path d="M8.8 2.6v1.3M2.8 8.6h1.3M4.6 4.4l.95.95M13 4.4l-.95.95"/><path class="f" d="M7.8 19.8h9.8a3.6 3.6 0 0 0 .4-7.2 5.1 5.1 0 0 0-9.7.6 3.3 3.3 0 0 0-.5 6.6z"/>',
+ 20:'<path class="f" d="M3.8 20.5V9.2l5.2-2.6v13.9"/><path class="f" d="M9 20.5V3.8h7.2v16.7"/><path class="f" d="M16.2 20.5V11h4v9.5"/><path d="M2.5 20.5h19M11.7 7.4h1.8M11.7 10.4h1.8M11.7 13.4h1.8"/>',
+ 21:'<path class="f" d="M2.4 19.6l6.1-9.1 4.1 5.6 2.6-3.1 6.4 6.6z"/><circle cx="17.2" cy="6.4" r="2.3"/><path d="M6.6 13.3l1.9 1.5 1.5-1.6"/>',
+ 22:'<circle class="f" cx="10.4" cy="10.4" r="6.4"/><path class="w" d="M15.1 15.1l5.2 5.2"/><path d="M7.6 11.6a2.9 2.9 0 0 1 5.6-1.6M8.2 8.2a3.9 3.9 0 0 1 5 0M10.4 13.6v-2.3"/>',
+ 23:'<path d="M12 3.4v16.6M7.4 20h9.2M4.6 6.6h14.8"/><circle cx="12" cy="4.2" r="1.1"/><path class="f" d="M2.4 13.2l2.6-6.6 2.6 6.6a2.6 2.6 0 0 1-5.2 0z"/><path class="f" d="M16.4 13.2L19 6.6l2.6 6.6a2.6 2.6 0 0 1-5.2 0z"/>',
+ 24:'<circle class="f" cx="12" cy="12" r="8.6"/><path d="M12 3.4v17.2M12 12.4l-6 6M12 12.4l6 6"/>',
+ 25:'<circle class="f" cx="12" cy="12" r="8.6"/><path d="M3.4 12h17.2M12 3.4c2.4 2.4 3.6 5.3 3.6 8.6s-1.2 6.2-3.6 8.6c-2.4-2.4-3.6-5.3-3.6-8.6S9.6 5.8 12 3.4z"/>'
+};
+function xcGlyph(n){ return XC_GLYPH[n] ? '<svg class="xc-glyph" viewBox="0 0 24 24" aria-hidden="true">'+XC_GLYPH[n]+'</svg>' : ''; }
+const XC_GROUPS = [
+  {t:'People & feelings', from:1, to:5},
+  {t:'Everyday life', from:6, to:11},
+  {t:'Study, work & money', from:12, to:17},
+  {t:'Travel & places', from:18, to:21},
+  {t:'Society', from:22, to:25}
+];
 function xcolTitle(){ return (xcolMeta && xcolMeta.title) || XCOL_DEFAULT_TITLE; }
 function xcolProgress(){ return deviceGet('xcol', {}); }
 function xcolLessonById(n){ return xcol ? xcol.lessons.find(function(l){ return l.n === n; }) : null; }
@@ -16096,28 +16179,45 @@ function renderXcolList(){
   const p = xcolProgress(), L = xcol.lessons;
   const done = L.filter(function(l){ return p[l.n] && p[l.n].done; }).length;
   const totalCols = L.reduce(function(s, l){ return s + l.k.length; }, 0);
-  const R = 24, C = 2*Math.PI*R, off = C*(1 - done/L.length);
+  const next = L.find(function(l){ return !(p[l.n] && p[l.n].done); });
+  const R = 21, C = 2*Math.PI*R, off = C*(1 - done/L.length);
   let h = '<button class="search-back" onclick="xcolHome()">← Back</button>' +
     '<div class="rv-hero xc-top"><span class="rv-hero-ico xc-hero-ico">'+XC_ICON+'</span>' +
       '<div class="rv-hero-txt"><div class="eyebrow">Extra practice</div><div class="big-title serif">'+escapeHtml(xcolTitle())+'</div>' +
       '<div class="rv-hero-sub">'+L.length+' bonus lessons, '+totalCols+' collocations, each with audio and a quiz. Not part of your coursebook.</div>' +
-      (editMode ? '<button class="chip-btn xc-rename" onclick="xcolRename()">✎ Rename on home page</button>' : '') + '</div></div>' +
-    '<div class="xc-summary">' +
-      '<svg class="xc-ring" viewBox="0 0 56 56" aria-hidden="true"><circle cx="28" cy="28" r="'+R+'" class="xc-ring-track"/><circle cx="28" cy="28" r="'+R+'" class="xc-ring-fill" style="stroke-dasharray:'+C.toFixed(1)+';stroke-dashoffset:'+off.toFixed(1)+'"/></svg>' +
-      '<div class="xc-sum-txt"><b>'+done+' of '+L.length+' lessons done</b><span>'+(done ? 'Keep going — one lesson a day is plenty.' : 'Listen, read, then take the quiz. Start with Lesson 1.')+'</span></div>' +
-    '</div>' +
-    '<div class="xc-list">';
-  L.forEach(function(l, i){
-    const s = p[l.n] || {};
-    const meta = l.k.length+' collocations' + (s.best != null ? ' · Quiz '+s.best+'/'+s.total : '');
-    h += '<button class="xc-row" style="--d:'+(Math.min(i,14)*0.025).toFixed(3)+'s" onclick="xcolOpenLesson('+l.n+')">' +
-      '<span class="xc-row-ico" style="background:'+GRAD_VAR[l.c]+'"><span>'+l.e+'</span></span>' +
-      '<span class="xc-row-body"><span class="xc-row-num">Lesson '+l.n+'</span><b>'+escapeHtml(l.t)+'</b><span class="xc-row-meta">'+meta+'</span></span>' +
-      (s.done ? '<span class="xc-row-done" aria-label="Done"><svg viewBox="0 0 24 24"><path d="M6 12.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>'
-              : '<span class="xc-row-go">›</span>') +
+      (editMode ? '<button class="chip-btn xc-rename" onclick="xcolRename()">✎ Rename on home page</button>' : '') + '</div></div>';
+  /* "up next" card: the first lesson not finished yet */
+  if(next){
+    const s = p[next.n] || {};
+    h += '<button class="xc-next" style="--bg:'+GRAD_VAR[next.c]+'" onclick="xcolOpenLesson('+next.n+')">' +
+      '<span class="xc-next-art">'+xcGlyph(next.n)+'</span>' +
+      '<span class="xc-next-txt"><span class="xc-next-k">'+(done ? 'Up next' : 'Start here')+' · Lesson '+next.n+'</span><b>'+escapeHtml(next.t)+'</b>' +
+        '<span class="xc-next-go">'+(s.seen ? 'Continue' : 'Start lesson')+' <i>›</i></span></span>' +
+      '<span class="xc-next-ring" aria-label="'+done+' of '+L.length+' done"><svg viewBox="0 0 50 50"><circle cx="25" cy="25" r="'+R+'" class="t"/><circle cx="25" cy="25" r="'+R+'" class="v" style="stroke-dasharray:'+C.toFixed(1)+';stroke-dashoffset:'+off.toFixed(1)+'"/></svg><b>'+done+'</b><small>/'+L.length+'</small></span>' +
     '</button>';
+  } else {
+    h += '<div class="xc-alldone"><b>All 25 lessons done!</b><span>Brilliant work. Try any quiz again to beat your best score.</span></div>';
+  }
+  let idx = 0;
+  XC_GROUPS.forEach(function(g){
+    const ls = L.filter(function(l){ return l.n >= g.from && l.n <= g.to; });
+    if(!ls.length) return;
+    const gd = ls.filter(function(l){ return p[l.n] && p[l.n].done; }).length;
+    h += '<div class="xc-sec"><span class="xc-sec-t">'+g.t+'</span><span class="xc-sec-c'+(gd===ls.length?' full':'')+'">'+gd+'/'+ls.length+'</span></div><div class="xc-group">';
+    ls.forEach(function(l){
+      const s = p[l.n] || {};
+      const score = s.best != null ? '<span class="xc-score'+(s.best===s.total?' perfect':'')+'">'+s.best+'/'+s.total+'</span>' : '';
+      h += '<button class="xc-row" style="--d:'+(Math.min(idx++,14)*0.025).toFixed(3)+'s" onclick="xcolOpenLesson('+l.n+')">' +
+        '<span class="xc-row-ico" style="background:'+GRAD_VAR[l.c]+'">'+xcGlyph(l.n)+'<span class="xc-row-n">'+l.n+'</span></span>' +
+        '<span class="xc-row-body"><b>'+escapeHtml(l.t)+'</b><span class="xc-row-meta">'+l.k.length+' collocations · '+l.q.qs.length+' questions</span></span>' +
+        score +
+        (s.done ? '<span class="xc-row-done" aria-label="Done"><svg viewBox="0 0 24 24"><path d="M6 12.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>'
+                : '<span class="xc-row-go">›</span>') +
+      '</button>';
+    });
+    h += '</div>';
   });
-  return h + '</div>';
+  return h;
 }
 function xcolAudioUrl(id){ return 'https://drive.google.com/uc?export=download&id='+encodeURIComponent(id); }
 function renderXcolLesson(l){
@@ -16125,7 +16225,7 @@ function renderXcolLesson(l){
   const prev = xcolLessonById(l.n - 1), next = xcolLessonById(l.n + 1);
   return '<button class="search-back" onclick="xcolCloseLesson()">← All lessons</button>' +
     '<div class="xc-hero" style="background:'+GRAD_VAR[l.c]+'">' +
-      '<span class="xc-hero-emoji" aria-hidden="true">'+l.e+'</span><span class="xc-hero-num" aria-hidden="true">'+l.n+'</span>' +
+      '<span class="xc-hero-art" aria-hidden="true">'+xcGlyph(l.n)+'</span><span class="xc-hero-num" aria-hidden="true">'+l.n+'</span>' +
       '<div class="xc-hero-kicker">'+escapeHtml(xcolTitle())+' · Lesson '+l.n+'</div>' +
       '<div class="xc-hero-title">'+escapeHtml(l.t)+'</div>' +
       '<div class="xc-hero-chips"><span>'+l.k.length+' collocations</span><span>'+l.q.qs.length+' questions</span></div>' +
