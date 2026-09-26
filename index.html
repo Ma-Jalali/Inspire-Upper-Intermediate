@@ -5752,29 +5752,65 @@
   html #app .app-scroll > .prog-panel .prog-sub{font-size:12.5px;margin-top:1px;}
   html #app .app-scroll > .prog-panel .prog-segs{margin-top:8px;}
 
-  html #app .app-scroll > .streak-card{grid-template-columns:auto 1fr;grid-template-areas:"flame title" "flame mini" "week week";
-    padding:12px 16px 13px 14px;margin:0 0 10px;border-radius:24px;column-gap:13px;}
-  html #app .app-scroll > .streak-card .sk-flame{width:44px;height:44px;border-radius:15px;}
-  html #app .app-scroll > .streak-card .sk-flame svg{width:26px;height:26px;}
-  html #app .app-scroll > .streak-card .sk-num{min-width:20px;height:20px;font-size:11px;line-height:1;right:-5px;bottom:-5px;display:inline-flex;align-items:center;justify-content:center;padding:0 5px;}
-  html #app .app-scroll > .streak-card .sk-title{font-size:15.5px;align-self:end;}
-  html #app .app-scroll > .streak-card .sk-sub,html #app .app-scroll > .streak-card .sk-weekhead{display:none;}
-  html #app .app-scroll > .streak-card .sk-mini{display:block;grid-area:mini;align-self:start;font-size:12.5px;color:var(--ink-soft);margin-top:1px;}
-  html #app .app-scroll > .streak-card .sk-week{grid-area:week;margin-top:11px;display:grid;grid-template-columns:repeat(7,1fr);gap:6px;}
-  /* the day letter sits inside its dot; a tick replaces it on days you practised */
-  html #app .app-scroll > .streak-card .sk-day{display:grid;place-items:center;gap:0;}
-  html #app .app-scroll > .streak-card .sk-day > *{grid-area:1/1;}
-  html #app .app-scroll > .streak-card .sk-day i{width:100%;max-width:36px;height:28px;border-radius:999px;}
-  html #app .app-scroll > .streak-card .sk-day b{font-size:11px;font-weight:700;z-index:1;pointer-events:none;}
-  html #app .app-scroll > .streak-card .sk-day.on b{display:none;}
-  html #app .app-scroll > .streak-card .sk-day.missed i::after{display:none;}
-  html #app .app-scroll > .streak-card .sk-day.missed b{opacity:.55;}
-  html #app .app-scroll > .streak-card .sk-day.future b{opacity:.45;}
-  html #app .app-scroll > .streak-card .sk-day.today i{box-shadow:inset 0 0 0 1.5px rgba(240,106,31,0.55);}
-  html #app .app-scroll > .streak-card .sk-day.today b{color:#E0621A;opacity:1;}
-  html #app .app-scroll > .streak-card .sk-day.today:not(.on) i{animation:todayPulse 2.6s ease-in-out infinite;}
-  @keyframes todayPulse{0%,100%{box-shadow:inset 0 0 0 1.5px rgba(240,106,31,0.55), 0 0 0 0 rgba(240,106,31,0);}50%{box-shadow:inset 0 0 0 1.5px rgba(240,106,31,0.7), 0 0 0 4px rgba(240,106,31,0.12);}}
+  /* ---- streak: the full, detailed card, laid out so nothing sits empty ---- */
+  html #app .app-scroll > .streak-card{grid-template-columns:auto 1fr;grid-template-areas:"flame title" "flame sub" "wk wk" "week week";
+    column-gap:14px;padding:15px 16px 14px;margin:0 0 10px;border-radius:24px;}
+  html #app .app-scroll > .streak-card .sk-mini{display:none;}
+  html #app .app-scroll > .streak-card .sk-flame{width:52px;height:52px;border-radius:17px;align-self:center;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,0.8), inset 0 -1px 2px rgba(20,28,52,0.06);}
+  html[data-theme="dark"] #app .app-scroll > .streak-card .sk-flame{box-shadow:inset 0 1px 0 rgba(255,255,255,0.08);}
+  html #app .app-scroll > .streak-card.lit .sk-flame{box-shadow:0 10px 20px -12px rgba(255,138,31,0.85), inset 0 1px 0 #fff, inset 0 -2px 4px rgba(230,110,20,0.18);}
+  html #app .app-scroll > .streak-card .sk-flame svg{width:30px;height:30px;}
+  html #app .app-scroll > .streak-card .sk-num{min-width:22px;height:22px;font-size:11.5px;line-height:1;right:-6px;bottom:-6px;padding:0 6px;
+    display:inline-flex;align-items:center;justify-content:center;box-shadow:0 0 0 2.5px var(--surface,#fff), 0 3px 6px -2px rgba(20,28,52,0.3);}
+  html #app .app-scroll > .streak-card .sk-title{font-size:17px;align-self:end;}
+  html #app .app-scroll > .streak-card .sk-sub{align-self:start;margin:3px 0 0;font-size:12.5px;line-height:1.4;}
+  /* header: THIS WEEK ........ 0/7 DAYS, over a hairline */
+  html #app .app-scroll > .streak-card .sk-weekhead{grid-area:wk;max-width:none;margin:13px 0 9px;padding-top:11px;
+    border-top:.5px solid rgba(20,28,52,0.09);font-size:10.5px;letter-spacing:.08em;}
+  html[data-theme="dark"] #app .app-scroll > .streak-card .sk-weekhead{border-top-color:rgba(255,255,255,0.08);}
+  html #app .app-scroll > .streak-card .sk-weekhead span:last-child{color:var(--ink);opacity:.7;font-variant-numeric:tabular-nums;}
+  /* the week: seven dots on a thin track; practised days next to each other are joined into a chain */
+  html #app .app-scroll > .streak-card .sk-week{grid-area:week;position:relative;display:grid;grid-template-columns:repeat(7,1fr);gap:0;}
+  html #app .app-scroll > .streak-card .sk-week::before{content:'';position:absolute;left:calc(100% / 14);right:calc(100% / 14);top:14px;height:2px;z-index:0;
+    border-radius:2px;background:rgba(120,130,160,0.16);}
+  html #app .app-scroll > .streak-card .sk-day{position:relative;display:flex;flex-direction:column;align-items:center;gap:6px;z-index:auto;}
+  html #app .app-scroll > .streak-card .sk-day i{width:30px;height:30px;position:relative;z-index:2;background:var(--surface,#fff);
+    box-shadow:inset 0 0 0 1.5px rgba(120,130,160,0.18);}
+  html[data-theme="dark"] #app .app-scroll > .streak-card .sk-day i{background:#1A2136;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,0.10);}
+  html #app .app-scroll > .streak-card .sk-day.missed i{background:var(--surface,#fff);}
+  html[data-theme="dark"] #app .app-scroll > .streak-card .sk-day.missed i{background:#1A2136;}
+  html #app .app-scroll > .streak-card .sk-day.missed i::after{width:9px;height:2px;background:rgba(120,130,160,0.5);}
+  html #app .app-scroll > .streak-card .sk-day.future i{background:transparent;box-shadow:inset 0 0 0 1.5px rgba(120,130,160,0.22);}
+  html #app .app-scroll > .streak-card .sk-day.on i{background:linear-gradient(150deg,#FFC069 0%,#F58A2C 55%,#E0621A 100%);
+    box-shadow:0 5px 10px -5px rgba(224,98,26,0.9), inset 0 1px 0 rgba(255,255,255,0.55), inset 0 -1px 1px rgba(160,60,10,0.25);}
+  html #app .app-scroll > .streak-card .sk-day i svg{width:14px;height:14px;filter:drop-shadow(0 1px 0 rgba(150,60,10,0.35));}
+  html #app .app-scroll > .streak-card .sk-day.on + .sk-day.on::before{content:'';position:absolute;top:13px;right:50%;width:100%;height:4px;z-index:1;
+    border-radius:4px;background:linear-gradient(90deg,#F7A043,#EE7A26);}
+  html #app .app-scroll > .streak-card .sk-day b{font-size:10.5px;letter-spacing:.02em;line-height:1;}
+  html #app .app-scroll > .streak-card .sk-day.future b{opacity:.5;}
+  /* today: an orange ring that breathes until you practise, and a small marker under its letter */
+  html #app .app-scroll > .streak-card .sk-day.today:not(.on) i{box-shadow:inset 0 0 0 2px rgba(240,106,31,0.75);animation:todayPulse 2.6s ease-in-out infinite;}
+  html #app .app-scroll > .streak-card .sk-day.today b{color:#E0621A;}
+  html #app .app-scroll > .streak-card .sk-day.today b::after{content:'';display:block;width:4px;height:4px;border-radius:50%;background:#E0621A;margin:4px auto 0;}
+  @keyframes todayPulse{0%,100%{box-shadow:inset 0 0 0 2px rgba(240,106,31,0.75), 0 0 0 0 rgba(240,106,31,0);}50%{box-shadow:inset 0 0 0 2px rgba(240,106,31,0.9), 0 0 0 5px rgba(240,106,31,0.12);}}
   @media (prefers-reduced-motion: reduce){ html #app .app-scroll > .streak-card .sk-day.today i{animation:none;} }
+
+  /* ---- units row: each segment carries its unit number, like the week letters ---- */
+  html #app .app-scroll > .prog-panel .prog-segs{counter-reset:seg;padding-bottom:13px;}
+  html #app .app-scroll > .prog-panel .prog-seg{overflow:visible;counter-increment:seg;}
+  html #app .app-scroll > .prog-panel .prog-seg::after{content:counter(seg);position:absolute;left:0;right:0;top:10px;text-align:center;
+    font:700 9px/1 var(--font-head);color:var(--ink-soft);opacity:.6;font-variant-numeric:tabular-nums;}
+  html #app .app-scroll > .prog-panel .prog-seg.on::after{opacity:1;color:var(--ink);}
+
+  /* ---- link previews shimmer softly while the picture loads ---- */
+  html #app .lp-media:has(> img.lp-thumb:not(.ld))::after{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;
+    background:linear-gradient(100deg, rgba(255,255,255,0) 30%, rgba(255,255,255,0.6) 50%, rgba(255,255,255,0) 70%);
+    background-size:240% 100%;animation:lpShimmer 1.5s linear infinite;}
+  html[data-theme="dark"] #app .lp-media:has(> img.lp-thumb:not(.ld))::after{
+    background-image:linear-gradient(100deg, rgba(255,255,255,0) 30%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0) 70%);}
+  @keyframes lpShimmer{from{background-position:120% 0;}to{background-position:-120% 0;}}
+  @media (prefers-reduced-motion: reduce){ html #app .lp-media::after{animation:none !important;} }
 </style>
 </head>
 <body>
@@ -12397,7 +12433,7 @@ function renderSettings(){
       (teacherView && !editMode ? '<div class="settings-row"><div class="settings-row-left"><div class="settings-icon g-slate">'+iconHTML('lock')+'</div><div>Teacher view<div class="settings-hint">You can see hidden pages on this device</div></div></div><button class="chip-btn" onclick="exitTeacherView()">Close</button></div>' : '') +
       '<div class="settings-row"><div class="settings-row-left"><div class="settings-icon g-slate">'+iconHTML('moon')+'</div><div>Dark mode</div></div><div class="switch '+(darkMode?'on':'')+'" onclick="toggleDark()"><div class="knob"></div></div></div>' +
       '<div class="settings-row"><div class="settings-row-left"><div class="settings-icon g-coral">'+iconHTML('bell')+'</div><div>Haptic feedback<div class="settings-hint">A tiny tap you can feel on supported phones</div></div></div><div class="switch '+(hapticsOn?'on':'')+'" onclick="setHaptics('+(!hapticsOn)+')"><div class="knob"></div></div></div>' +
-      '<div class="settings-row"><div class="settings-row-left"><div class="settings-icon g-teal">'+iconHTML('headphones')+'</div><div>Sounds<div class="settings-hint">Soft sounds when toggles open and quizzes are checked. Follows your silent switch</div></div></div><div class="switch '+(soundsOn?'on':'')+'" onclick="setSounds('+(!soundsOn)+')"><div class="knob"></div></div></div>' +
+      '<div class="settings-row"><div class="settings-row-left"><div class="settings-icon g-teal">'+iconHTML('headphones')+'</div><div>Sounds<div class="settings-hint">Soft sounds for ticks, quiz results and finishing a unit. Follows your silent switch</div></div></div><div class="switch '+(soundsOn?'on':'')+'" onclick="setSounds('+(!soundsOn)+')"><div class="knob"></div></div></div>' +
       '<div class="settings-row stacked"><div class="settings-row-left"><div class="settings-icon g-plum">'+iconHTML('star')+'</div><div>Accent colour</div></div>' +
         '<div class="accent-row">' + ACCENTS.map(function(a){
           return '<button class="accent-opt'+(accent===a[0]?' on':'')+'" onclick="setAccent(\''+a[0]+'\')">' +
@@ -13443,11 +13479,10 @@ function toggleInlineLine(el){
 function tgReduced(){ return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) || !Element.prototype.animate; }
 /* v78: a toggle opens like a drawer. The panel grows downwards and its content
    travels down with it on a gentle ease-out, so you can see it slide into
-   place instead of the rows appearing where they will end up. Closing slides it back up. One soft "tock" marks each. */
+   place instead of the rows appearing where they will end up. Closing slides it back up. */
 const TG_EASE_OPEN = 'cubic-bezier(.3,.6,.2,1)';
 const TG_EASE_CLOSE = 'cubic-bezier(.4,0,.6,1)';
 function tgAnimateOpen(body){
-  try{ uiSound('toggle'); }catch(e){}
   if(tgReduced()) return;
   const h = body.scrollHeight;
   const dur = Math.round(Math.max(460, Math.min(720, 420 + h * 0.25)));
@@ -13465,7 +13500,6 @@ function tgAnimateOpen(body){
   body.classList.remove('rail-in'); void body.offsetWidth; body.classList.add('rail-in');
 }
 function tgAnimateClose(body, done){
-  try{ uiSound('toggle'); }catch(e){}
   if(body._opening){ body._opening.cancel(); body._opening = null; }
   if(tgReduced()){ done(); return; }
   const h = body.offsetHeight;
@@ -13701,6 +13735,36 @@ function driveFileKind(b){
   return t ? 'file' : 'pdf';
 }
 function driveThumb(b){ return 'https://drive.google.com/thumbnail?id='+encodeURIComponent(b.driveId)+'&sz=w1200'; }
+/* Google's thumbnail service sometimes refuses a request (too many at once, or
+   a file that needs a Google sign-in the browser is blocking). Rather than drop
+   straight to the plain icon, try again a moment later, then Google's public
+   image server, then, for Google Slides, the first slide exported as a picture. */
+function driveThumbAlts(b){
+  const id = encodeURIComponent(b.driveId);
+  const alts = [
+    'retry:https://drive.google.com/thumbnail?id='+id+'&sz=w1200',
+    'https://lh3.googleusercontent.com/d/'+id+'=w1200'
+  ];
+  if(b.driveType === 'presentation' && !b.published) alts.push('https://docs.google.com/presentation/d/'+id+'/export/png');
+  return alts;
+}
+function lpThumbRetry(img){
+  const alts = (img.getAttribute('data-alts') || '').split('|').filter(Boolean);
+  const next = alts.shift();
+  img.setAttribute('data-alts', alts.join('|'));
+  if(!next){
+    const m = img.closest('.lp-media');
+    if(m) m.classList.add('no-thumb');
+    img.remove();
+    return;
+  }
+  if(next.indexOf('retry:') === 0){
+    setTimeout(function(){ if(img.isConnected) img.src = next.slice(6) + '&r=' + Date.now(); }, 1200);
+  }else{
+    img.referrerPolicy = 'no-referrer';
+    img.src = next;
+  }
+}
 function drivePreviewSrc(b){
   const id = encodeURIComponent(b.driveId), e = b.published ? 'e/' : '';
   switch(b.driveType){
@@ -13839,7 +13903,7 @@ function linkCardHTML(b){
     const verb = {slides:'Open slides', pdf:'Open PDF', doc:'Open document', sheet:'Open sheet', form:'Open form', video:'Open video', image:'Open image', file:'Open file'}[k];
     return '<a class="lp lp-drive dk-'+k+(busy?' busy':'')+'" href="'+url+'" target="_blank" rel="noopener">' +
       '<span class="lp-media doc">' +
-        '<img class="lp-thumb" src="'+escapeAttr(thumb)+'" alt="" loading="lazy" decoding="async" onload="this.classList.add(\'ld\')" onerror="this.closest(\'.lp-media\').classList.add(\'no-thumb\');this.remove();"/>' +
+        '<img class="lp-thumb" src="'+escapeAttr(thumb)+'" data-alts="'+escapeAttr(own ? '' : driveThumbAlts(b).join('|'))+'" alt="" loading="lazy" decoding="async" onload="this.classList.add(\'ld\')" onerror="lpThumbRetry(this)"/>' +
         '<span class="lp-doc-fallback"><span class="lp-doc-ico">'+DRIVE_LABEL[k]+'</span></span>' +
         '<span class="lp-shade soft"></span>' +
         '<span class="lp-chip type">'+DRIVE_LABEL[k]+'</span>' +
@@ -15697,9 +15761,9 @@ document.addEventListener('click', function(e){
    "ambient" audio session, so they follow the phone's silent switch and never
    stop music or a video that is already playing. */
 let soundsOn = deviceGet('sounds', true) !== false;
-function setSounds(on){ soundsOn = !!on; deviceSet('sounds', soundsOn); render(); if(soundsOn) uiSound('toggle'); }
+function setSounds(on){ soundsOn = !!on; deviceSet('sounds', soundsOn); render(); if(soundsOn) uiSound('tick'); }
 const uiSound = (function(){
-  let ctx = null, noise = null;
+  let ctx = null;
   function get(){
     const C = window.AudioContext || window.webkitAudioContext;
     if(!C) return null;
@@ -15721,48 +15785,13 @@ const uiSound = (function(){
     o.connect(g); g.connect(c.destination);
     o.start(t0); o.stop(t0 + dur + 0.03);
   }
-  /* one short, rounded "tock": a soft woody body that drops a little in pitch,
-     a quiet overtone for the glassy edge, and a tiny click on the attack,
-     all through a gentle low-pass so it never sounds sharp */
-  function tock(c, t0){
-    const out = c.createGain(), lp = c.createBiquadFilter();
-    lp.type = 'lowpass'; lp.frequency.value = 3200; lp.Q.value = 0.4;
-    out.gain.value = 1; out.connect(lp); lp.connect(c.destination);
-    function part(type, f0, f1, dropT, peak, decay){
-      const o = c.createOscillator(), g = c.createGain();
-      o.type = type;
-      o.frequency.setValueAtTime(f0, t0);
-      o.frequency.exponentialRampToValueAtTime(f1, t0 + dropT);
-      g.gain.setValueAtTime(0.0001, t0);
-      g.gain.exponentialRampToValueAtTime(peak, t0 + 0.004);
-      g.gain.exponentialRampToValueAtTime(0.0001, t0 + decay);
-      o.connect(g); g.connect(out);
-      o.start(t0); o.stop(t0 + decay + 0.02);
-    }
-    part('sine', 520, 380, 0.05, 0.11, 0.13);
-    part('sine', 1560, 1240, 0.03, 0.022, 0.06);
-    part('triangle', 1040, 900, 0.02, 0.018, 0.045);
-    if(!noise){
-      noise = c.createBuffer(1, Math.floor(c.sampleRate * 0.5), c.sampleRate);
-      const d = noise.getChannelData(0);
-      for(let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
-    }
-    const src = c.createBufferSource(), bp = c.createBiquadFilter(), g = c.createGain();
-    src.buffer = noise; bp.type = 'bandpass'; bp.frequency.value = 2400; bp.Q.value = 0.9;
-    g.gain.setValueAtTime(0.0001, t0);
-    g.gain.exponentialRampToValueAtTime(0.03, t0 + 0.002);
-    g.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.016);
-    src.connect(bp); bp.connect(g); g.connect(out);
-    src.start(t0); src.stop(t0 + 0.03);
-  }
   return function(kind){
     if(!soundsOn) return;
     const c = get();
     if(!c) return;
     const t = c.currentTime + 0.005;
     try{
-      if(kind === 'toggle'){ tock(c, t); }
-      else if(kind === 'tick'){ tone(c, t, 1500, 1250, 0.045, 0.04, 'triangle'); }
+      if(kind === 'tick'){ tone(c, t, 1500, 1250, 0.045, 0.04, 'triangle'); }
       else if(kind === 'success'){ [784, 988, 1319].forEach(function(f, i){ tone(c, t + i * 0.085, f, f, 0.26, 0.055); }); }
       else if(kind === 'error'){ tone(c, t, 330, 247, 0.2, 0.05, 'triangle'); }
     }catch(e){}
