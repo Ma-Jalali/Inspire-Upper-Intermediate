@@ -6162,45 +6162,50 @@
   html[data-theme="dark"] #app .xc-score.perfect{color:#FFC76B;background:rgba(245,166,35,0.16);}
   html[data-theme="dark"] #app .xc-join{background:#1E2438;color:var(--xc-soft);}
 
-  /* ---- tabs inside a page (view mode): folder tabs joined to a panel, so they read as tappable ---- */
-  html #app .tabs-v2{margin:6px 0 14px;}
-  html #app .tabs-v2 .tabs-hint{display:flex;align-items:center;gap:6px;margin:0 4px 7px;font-family:var(--font-head);font-size:12px;font-weight:700;color:var(--ink-soft);}
-  html #app .tabs-v2 .tabs-hint-ico{font-size:13px;animation:tabsTap 2.4s ease-in-out infinite;display:inline-block;}
-  html #app .tabs-v2 .tabs-count{margin-left:auto;padding:2px 8px;border-radius:999px;font-size:11px;background:rgba(118,118,128,0.12);font-variant-numeric:tabular-nums;}
-  @keyframes tabsTap{0%,70%,100%{transform:translateY(0);}80%{transform:translateY(-3px);}90%{transform:translateY(1px);}}
-  html #app:not(.editing) .tabs-v2 .tabs-bar{display:flex;align-items:flex-end;width:100%;max-width:100%;gap:6px;padding:0;margin:0;border-radius:0;background:none;box-shadow:none;overflow:visible;}
+  /* ---- tabs inside a page (view mode): one card, a tinted tab strip and a sliding accent underline ---- */
+  html #app .tabs-v2{margin:8px 0 16px;}
+  html #app .tabs-v2 .tabs-hint{display:flex;align-items:center;gap:6px;margin:0 6px 8px;font-family:var(--font-head);font-size:12px;font-weight:600;letter-spacing:.01em;color:var(--ink-soft);}
+  html #app .tabs-v2 .tabs-hint-ico{width:15px;height:15px;flex-shrink:0;color:var(--crimson);transform-origin:40% 20%;animation:tabsTap 3s ease-in-out infinite;}
+  @keyframes tabsTap{0%,72%,100%{transform:rotate(0) translateY(0);}80%{transform:rotate(-8deg) translateY(-1.5px);}88%{transform:rotate(0) translateY(1px);}}
+  html #app .tabs-v2 .tabs-dots{margin-left:auto;display:flex;align-items:center;gap:4px;}
+  html #app .tabs-v2 .tabs-dots i{width:6px;height:6px;border-radius:3px;background:rgba(118,118,128,0.28);transition:width .35s cubic-bezier(.32,.72,0,1), background .3s ease;}
+  html #app .tabs-v2 .tabs-dots i.on{width:16px;background:var(--crimson);}
+  html #app .tabs-v2 .tabs-card{position:relative;border-radius:20px;overflow:hidden;background:var(--surface);
+    box-shadow:0 1px 2px rgba(10,16,40,0.05), 0 16px 32px -24px rgba(10,16,40,0.45), inset 0 0 0 1px var(--hair);}
+  html #app:not(.editing) .tabs-v2 .tabs-bar{position:relative;display:flex;align-items:stretch;width:100%;max-width:100%;gap:0;padding:0;margin:0;border-radius:0;overflow:visible;
+    background:linear-gradient(180deg,rgba(118,118,128,0.07),rgba(118,118,128,0.035));box-shadow:inset 0 -1px 0 var(--hair);}
   html #app:not(.editing) .tabs-v2 .tab-pill{position:relative;flex:1;min-width:0;display:flex;align-items:center;justify-content:center;gap:6px;
-    padding:10px 10px 11px;margin-top:6px;border:none;border-radius:16px 16px 0 0;opacity:1;cursor:pointer;
-    font-family:var(--font-head);font-size:14px;font-weight:700;color:var(--ink-soft);
-    background:linear-gradient(180deg,rgba(118,118,128,0.10),rgba(118,118,128,0.16));
-    box-shadow:inset 0 1px 0 rgba(255,255,255,0.7), inset 0 0 0 1px var(--hair);
-    transition:transform .2s var(--v-spring,ease), background .25s ease, color .25s ease;-webkit-tap-highlight-color:transparent;}
-  html #app:not(.editing) .tabs-v2 .tab-pill:not(.on):active{transform:translateY(2px);}
-  @media (hover:hover){ html #app:not(.editing) .tabs-v2 .tab-pill:not(.on):hover{color:var(--ink);background:rgba(var(--accent-rgb),0.10);} }
-  html #app:not(.editing) .tabs-v2 .tab-pill.on{margin-top:0;padding:13px 10px 12px;color:var(--ink);background:var(--surface);
-    box-shadow:0 -6px 14px -10px rgba(20,28,52,0.28), inset 0 0 0 1px var(--hair);z-index:1;}
-  html #app:not(.editing) .tabs-v2 .tab-pill.on::before{content:'';position:absolute;left:14px;right:14px;top:0;height:3px;border-radius:0 0 3px 3px;background:var(--crimson);}
-  html #app:not(.editing) .tabs-v2 .tab-pill.on::after{content:'';position:absolute;left:1px;right:1px;bottom:-2px;height:4px;background:var(--surface);}
-  html #app .tabs-v2 .tab-go{font-size:17px;line-height:1;font-weight:800;color:var(--crimson);opacity:.8;}
-  html #app .tabs-v2 .tab-pill.nudge::after{content:'';position:absolute;top:7px;right:9px;width:8px;height:8px;border-radius:50%;background:var(--crimson);
-    box-shadow:0 0 0 0 rgba(var(--accent-rgb),0.5);animation:tabsNudge 1.8s ease-out infinite;}
-  @keyframes tabsNudge{0%{box-shadow:0 0 0 0 rgba(var(--accent-rgb),0.5);}80%,100%{box-shadow:0 0 0 8px rgba(var(--accent-rgb),0);}}
-  html #app .tabs-v2 .tabs-body{position:relative;padding:14px 14px 10px;border-radius:0 0 20px 20px;background:var(--surface);
-    box-shadow:0 14px 28px -22px rgba(10,16,40,0.5), inset 0 0 0 1px var(--hair);}
+    padding:13px 10px 14px;margin:0;border:none;border-radius:0;opacity:1;cursor:pointer;background:none;box-shadow:none;
+    font-family:var(--font-head);font-size:14px;font-weight:600;letter-spacing:-0.005em;color:var(--ink-soft);
+    transition:color .25s ease, background .25s ease;-webkit-tap-highlight-color:transparent;}
+  html #app:not(.editing) .tabs-v2 .tab-pill + .tab-pill::before{content:'';position:absolute;left:0;top:30%;bottom:30%;width:1px;background:var(--hair);}
+  html #app:not(.editing) .tabs-v2 .tab-pill:not(.on):active{background:rgba(118,118,128,0.08);}
+  @media (hover:hover){ html #app:not(.editing) .tabs-v2 .tab-pill:not(.on):hover{color:var(--ink);} }
+  html #app:not(.editing) .tabs-v2 .tab-pill.on{color:var(--ink);font-weight:700;background:linear-gradient(180deg,rgba(var(--accent-rgb),0),rgba(var(--accent-rgb),0.05));}
+  html #app .tabs-v2 .tabs-ind{position:absolute;left:calc(100% / var(--n) * var(--i));bottom:0;width:calc(100% / var(--n));height:3px;pointer-events:none;z-index:1;}
+  html #app .tabs-v2 .tabs-ind::after{content:'';position:absolute;left:22%;right:22%;bottom:0;height:3px;border-radius:3px 3px 0 0;
+    background:linear-gradient(90deg,var(--crimson),var(--gold-bright,var(--crimson)));box-shadow:0 -2px 8px rgba(var(--accent-rgb),0.35);}
+  html #app .tabs-v2 .tab-pill.nudge .tab-pill-label::after{content:'';display:inline-block;width:6px;height:6px;margin-left:6px;vertical-align:2px;border-radius:50%;background:var(--crimson);
+    animation:tabsNudge 2s ease-out infinite;}
+  @keyframes tabsNudge{0%{box-shadow:0 0 0 0 rgba(var(--accent-rgb),0.45);}70%,100%{box-shadow:0 0 0 6px rgba(var(--accent-rgb),0);}}
+  html #app .tabs-v2 .tabs-body{position:relative;padding:16px 16px 12px;}
   html #app .tabs-v2 .tabs-body > .block-tabpage{padding-top:0;padding-bottom:0;}
   html #app .tabs-v2 .tabs-body .tabpage-body > .block:first-child{padding-top:0;margin-top:0;}
-  html #app .tabs-v2 .tabs-foot{display:flex;justify-content:flex-end;margin-top:6px;padding-top:10px;border-top:.5px solid var(--hair);}
-  html #app .tabs-v2 .tabs-next{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border:none;border-radius:999px;cursor:pointer;
-    font-family:var(--font-head);font-size:13px;font-weight:600;color:var(--crimson-dark);background:rgba(var(--accent-rgb),0.10);transition:transform .2s var(--v-spring,ease);}
-  html #app .tabs-v2 .tabs-next:active{transform:scale(.96);}
-  html #app .tabs-v2 .tabs-next b{font-weight:800;}
-  html #app .tabs-v2 .tabs-next i{font-style:normal;font-size:16px;line-height:1;}
-  html[data-theme="dark"] #app:not(.editing) .tabs-v2 .tab-pill{background:rgba(255,255,255,0.06);box-shadow:inset 0 0 0 1px rgba(255,255,255,0.08);}
-  html[data-theme="dark"] #app:not(.editing) .tabs-v2 .tab-pill.on{background:#1A2136;color:#fff;box-shadow:0 -6px 14px -10px rgba(0,0,0,0.6), inset 0 0 0 1px rgba(255,255,255,0.10);}
-  html[data-theme="dark"] #app:not(.editing) .tabs-v2 .tab-pill.on::after, html[data-theme="dark"] #app .tabs-v2 .tabs-body{background:#1A2136;}
-  html[data-theme="dark"] #app .tabs-v2 .tabs-body{box-shadow:0 14px 28px -22px rgba(0,0,0,0.7), inset 0 0 0 1px rgba(255,255,255,0.10);}
-  html[data-theme="dark"] #app .tabs-v2 .tabs-next{color:var(--crimson);}
-  @media (prefers-reduced-motion: reduce){ html #app .tabs-v2 .tabs-hint-ico, html #app .tabs-v2 .tab-pill.nudge::after{animation:none;} }
+  html #app .tabs-v2 .tabs-foot{display:flex;justify-content:flex-end;margin-top:8px;padding-top:10px;border-top:1px solid var(--hair);}
+  html #app .tabs-v2 .tabs-next{display:inline-flex;align-items:center;gap:6px;padding:6px 6px 6px 12px;border:none;border-radius:999px;cursor:pointer;background:none;
+    font-family:var(--font-head);font-size:12.5px;font-weight:600;color:var(--ink-soft);transition:background .2s ease, transform .2s var(--v-spring,ease);}
+  html #app .tabs-v2 .tabs-next:active{transform:scale(.97);background:rgba(118,118,128,0.08);}
+  html #app .tabs-v2 .tabs-next b{font-weight:700;color:var(--ink);}
+  html #app .tabs-v2 .tabs-next i{font-style:normal;display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;
+    font-size:13px;color:#fff;background:var(--crimson);box-shadow:0 4px 10px -4px rgba(var(--accent-rgb),0.7);}
+  html #app .tabs-v2 .tabs-next i:first-child{margin-right:2px;}
+  html[data-theme="dark"] #app .tabs-v2 .tabs-card{background:#161C2E;box-shadow:0 16px 32px -24px rgba(0,0,0,0.7), inset 0 0 0 1px rgba(255,255,255,0.08);}
+  html[data-theme="dark"] #app:not(.editing) .tabs-v2 .tabs-bar{background:linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.025));box-shadow:inset 0 -1px 0 rgba(255,255,255,0.07);}
+  html[data-theme="dark"] #app:not(.editing) .tabs-v2 .tab-pill.on{color:#fff;background:linear-gradient(180deg,rgba(var(--accent-rgb),0),rgba(var(--accent-rgb),0.10));}
+  html[data-theme="dark"] #app:not(.editing) .tabs-v2 .tab-pill + .tab-pill::before{background:rgba(255,255,255,0.08);}
+  html[data-theme="dark"] #app .tabs-v2 .tabs-foot{border-top-color:rgba(255,255,255,0.07);}
+  html[data-theme="dark"] #app .tabs-v2 .tabs-next b{color:#fff;}
+  @media (prefers-reduced-motion: reduce){ html #app .tabs-v2 .tabs-hint-ico, html #app .tabs-v2 .tab-pill.nudge .tab-pill-label::after{animation:none;} }
 </style>
 </head>
 <body>
@@ -10709,6 +10714,8 @@ function grammarTopics(){
         if(!cur){ cur = {page:c, unit:unum, uid:u.id, id:null, title:'Unit '+unum+' grammar', text:'', quizzes:0}; topics.push(cur); }
         (function walk(x){ if(x.type==='quiz') cur.quizzes++; cur.text += ' ' + stripHtml([x.text, x.title, (x.items||[]).join(' '), (x.rows||[]).map(function(r){ return r.join(' '); }).join(' '), (x.headers||[]).join(' ')].filter(Boolean).join(' ')); (x.blocks||[]).forEach(walk); })(b);
       });
+      /* media above the first heading (a unit video, review slides) belongs to the page, not to its own topic */
+      if(topics.length > 1 && topics[0].id === null){ const lead = topics.shift(); topics[0].text = lead.text + ' ' + topics[0].text; topics[0].quizzes += lead.quizzes; }
       topics.forEach(function(t){ if(t.title.trim()) out.push(t); });
     });
   });
@@ -14586,22 +14593,26 @@ function tabsHTML(b){
   if(v2){
     const nx = active < pages.length - 1 ? active + 1 : 0;
     foot = '<div class="tabs-foot"><button class="tabs-next" onclick="setActiveTab(\'' + b.id + '\',' + nx + ')">' +
-      (nx > active ? 'Next tab: <b>'+label(pages[nx], nx)+'</b> <i>›</i>' : '<i>‹</i> Back to: <b>'+label(pages[nx], nx)+'</b>') + '</button></div>';
+      (nx > active ? '<span>Next</span><b>'+label(pages[nx], nx)+'</b><i aria-hidden="true">→</i>' : '<i aria-hidden="true">←</i><span>Back to</span><b>'+label(pages[nx], nx)+'</b>') + '</button></div>';
   }
   return '<div class="b-tabs'+(v2?' tabs-v2':'')+'" data-tabs="'+b.id+'">' +
-    (v2 ? '<div class="tabs-hint"><span class="tabs-hint-ico" aria-hidden="true">👆</span><span>Tap a tab to switch</span><span class="tabs-count">'+(active+1)+' of '+pages.length+'</span></div>' : '') +
-    '<div class="tabs-bar"'+(v2?' role="tablist"':'')+'>' + pages.map(function(t, ti){
+    (v2 ? '<div class="tabs-hint"><svg class="tabs-hint-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V10m0-1.5a1.5 1.5 0 0 1 3 0V11m0-1a1.5 1.5 0 0 1 3 0v4.5c0 3.6-2.4 6-6 6h-.6c-2 0-3.3-.8-4.4-2.3L4.6 14.3a1.4 1.4 0 0 1 2.2-1.7L9 15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Tap a tab to switch</span>' +
+      '<span class="tabs-dots" aria-label="Tab '+(active+1)+' of '+pages.length+'">' + pages.map(function(t, ti){ return '<i'+(ti===active?' class="on"':'')+'></i>'; }).join('') + '</span></div>' : '') +
+    (v2 ? '<div class="tabs-card">' : '') +
+    '<div class="tabs-bar"'+(v2?' role="tablist" style="--n:'+pages.length+';--i:'+active+'"':'')+'>' + pages.map(function(t, ti){
       return '<button class="tab-pill'+(ti===active?' on':'')+(v2 && !tried && ti!==active?' nudge':'')+'"'+(v2?' role="tab" aria-selected="'+(ti===active)+'"':'')+' onclick="setActiveTab(\'' + b.id + '\',' + ti + ')">' +
         '<span class="tab-pill-label"'+(editMode?' contenteditable="true" onclick="event.stopPropagation()" onkeydown="if(event.key===\'Enter\'){event.preventDefault();this.blur();}" oninput="onBlockField(\'' + t.id + '\',\'title\',this.innerText)" onblur="render()"':'')+'>'+label(t, ti)+'</span>' +
-        (v2 && ti!==active ? '<span class="tab-go" aria-hidden="true">›</span>' : '') +
+
         (editMode && pages.length > 1 ? '<span class="tab-del" onclick="event.stopPropagation();deleteTab(\'' + b.id + '\',' + ti + ')">\u2715</span>' : '') +
       '</button>';
     }).join('') +
     (editMode ? '<button class="tab-add" onclick="addTab(\'' + b.id + '\')">+</button>' : '') +
+    (v2 ? '<span class="tabs-ind" aria-hidden="true"></span>' : '') +
     '</div>' +
     '<div class="tabs-body">' + (pages[active]
       ? renderBlocks([pages[active]], b.id)
       : '<div class="embed-empty">No tabs yet.</div>') + foot + '</div>' +
+    (v2 ? '</div>' : '') +
   '</div>';
 }
 function setActiveTab(id, ti){
@@ -14621,6 +14632,10 @@ function setActiveTab(id, ti){
   if(fresh && !editMode){
     /* if the switch came from the button at the bottom, bring the tabs back into view */
     if(keepTop < 0) fresh.scrollIntoView({block:'start', behavior: motionOK() ? 'smooth' : 'auto'});
+    const ind = fresh.querySelector('.tabs-ind');
+    if(ind && motionOK() && ind.animate && prev !== ti){
+      ind.animate([{transform:'translateX('+((prev-ti)*100)+'%)'}, {transform:'translateX(0)'}], {duration:420, easing:'cubic-bezier(.32,.72,0,1)'});
+    }
     const body = fresh.querySelector('.tabs-body');
     if(body && motionOK() && body.animate){
       const dx = ti > prev ? 18 : -18;
