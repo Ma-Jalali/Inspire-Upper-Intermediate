@@ -5733,6 +5733,54 @@
   html #app .unit-card:active,html #app .page-card:active,html #app .part-row:active,html #app .flash-banner:active,html #app .bd-strip:active,
   html #app .gm-entry:active,html #app .up-card:active,html #app .toc-head:active{transition-duration:.14s;transition-timing-function:cubic-bezier(.3,.7,.4,1);}
   html #app .bd-strip:active,html #app .gm-entry:active{transform:scale(.975);}
+
+  /* ---- an open toggle sits on a soft tray, so you can see it slide down ---- */
+  html #app .b-toggle.open > .toggle-body,html #app .tl-tgbody.open{
+    margin:4px 0 8px;padding:10px 14px 8px 28px;border-radius:16px;
+    background:linear-gradient(180deg, rgba(var(--accent-rgb),0.060), rgba(var(--accent-rgb),0.022));
+    box-shadow:inset 0 0 0 .5px rgba(var(--accent-rgb),0.12), inset 0 1px 0 rgba(255,255,255,0.6);}
+  html[data-theme="dark"] #app .b-toggle.open > .toggle-body,html[data-theme="dark"] #app .tl-tgbody.open{
+    background:linear-gradient(180deg, rgba(255,255,255,0.055), rgba(255,255,255,0.025));
+    box-shadow:inset 0 0 0 .5px rgba(255,255,255,0.08), inset 0 1px 0 rgba(255,255,255,0.06);}
+  html #app .b-toggle.open > .toggle-body::before,html #app .tl-tgbody.open::before{left:13px;top:14px;bottom:14px;}
+  html #app .tl-tgbody.open::after{left:13px;}
+  html #app .toggle-body .toggle-body{padding-left:24px;}
+  html #app .toggle-head .arrow{transition:transform .5s cubic-bezier(.34,1.56,.5,1);}
+
+  /* ---- home: today's date above the hero, like the iOS Today view ---- */
+  html #app .home-date{margin:2px 6px 10px;font-family:var(--font-head);font-size:12.5px;font-weight:700;letter-spacing:.07em;
+    text-transform:uppercase;color:var(--ink-soft);display:flex;align-items:center;gap:8px;}
+  html #app .home-date::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--crimson);
+    box-shadow:0 0 0 3px rgba(var(--accent-rgb),0.16);}
+  html #app .sk-mini{display:none;}
+
+  /* ---- home: progress and streak as a pair of square widgets ---- */
+  html #app .home-widgets{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0 0 12px;}
+  html #app .home-widgets > .prog-panel,html #app .home-widgets > .streak-card{margin:0;min-height:176px;border-radius:26px;padding:16px 16px 14px;}
+  html #app .home-widgets > .prog-panel{display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;gap:10px;}
+  html #app .home-widgets .prog-ring-wrap{width:66px;height:66px;}
+  html #app .home-widgets .prog-ring{width:66px;height:66px;}
+  html #app .home-widgets .prog-text{width:100%;}
+  html #app .home-widgets .prog-title{font-size:15px;line-height:1.2;letter-spacing:-0.015em;}
+  html #app .home-widgets .prog-sub{display:none;}
+  html #app .home-widgets .prog-segs{margin-top:9px;gap:3px;}
+  html #app .home-widgets > .streak-card{display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;gap:8px;}
+  html #app .home-widgets > .streak-card .sk-txt{display:block;width:100%;}
+  html #app .home-widgets .sk-flame{width:52px;height:52px;border-radius:17px;align-self:flex-start;margin:0;}
+  html #app .home-widgets .prog-ring-wrap{margin:0;align-self:flex-start;}
+  html #app .home-widgets .prog-text{margin-top:auto;}
+  html #app .home-widgets .sk-txt{margin-top:auto;}
+  html #app .home-widgets .sk-flame svg{width:30px;height:30px;}
+  html #app .home-widgets .sk-title{font-size:15px;line-height:1.2;}
+  html #app .home-widgets .sk-sub,html #app .home-widgets .sk-weekhead{display:none;}
+  html #app .home-widgets .sk-mini{display:block;font-size:12px;font-weight:600;color:var(--ink-soft);margin:2px 0 9px;}
+  html #app .home-widgets .sk-week{display:flex;justify-content:space-between;gap:0;}
+  html #app .home-widgets .sk-day{gap:3px;}
+  html #app .home-widgets .sk-day i{width:16px;height:16px;}
+  html #app .home-widgets .sk-day i svg{width:9px;height:9px;}
+  html #app .home-widgets .sk-day b{font-size:9px;}
+  html #app .home-widgets .sk-day.missed i::after{width:6px;}
+  @media (max-width:340px){ html #app .home-widgets{grid-template-columns:1fr;} }
 </style>
 </head>
 <body>
@@ -9413,6 +9461,7 @@ function streakHTML(){
       '<span class="sk-num">'+n+'</span></div>' +
     '<div class="sk-txt"><div class="sk-title">'+(n ? n+'-day streak' : 'Start a streak')+'</div>' +
       '<div class="sk-sub">'+(today ? 'Today\u2019s goal done. See you tomorrow!' : 'Practise once today to '+(n ? 'keep your streak' : 'start a streak')+': a quiz, cards or a sound game')+'</div>' +
+      '<div class="sk-mini">'+(today ? 'Done for today' : (n ? 'Practise today to keep it' : 'Practise once today'))+'</div>' +
       '<div class="sk-weekhead"><span>This week</span><span>'+weekDone+'/7 days</span></div>' +
       '<div class="sk-week">'+dots+'</div></div>' +
   '</div>';
@@ -11781,7 +11830,9 @@ function renderHomeGrid(){
   const generals = generalPages();
   const units = unitPages();
   const heroStyle = state.heroColor ? ' style="background:'+GRAD_VAR[state.heroColor]+';"' : '';
+  const today = new Date().toLocaleDateString('en-GB', {weekday:'long', day:'numeric', month:'long'});
   return '' +
+    '<div class="home-date"><span>'+escapeHtml(today)+'</span></div>' +
     '<div class="hero-card'+(state.heroColor?' custom':'')+'"'+heroStyle+'>' +
       /* every decorative layer lives in one rounded, masked wrapper so nothing can poke past the corners (Safari) */
       '<div class="hero-layers" aria-hidden="true">' +
@@ -11802,7 +11853,8 @@ function renderHomeGrid(){
     '</div>' +
     announcementHTML() +
     liveJoinCardHTML() + homeworkHTML() + exitTicketHTML() +
-    progressPanelHTML() + streakHTML() + badgesStripHTML() +
+    '<div class="home-widgets">' + progressPanelHTML() + streakHTML() + '</div>' + badgesStripHTML() +
+    '<div class="section-label">Practice</div>' +
     '<div class="flash-banner" onclick="startFlashcards()">' +
       '<div class="flash-banner-icon">'+iconHTML('cards')+'</div>' +
       '<div class="flash-banner-txt"><div class="flash-banner-title">Word practice</div><div class="flash-banner-sub">10 flashcards from Inspire, by unit</div></div>' +
@@ -12351,6 +12403,7 @@ function renderSettings(){
       (teacherView && !editMode ? '<div class="settings-row"><div class="settings-row-left"><div class="settings-icon g-slate">'+iconHTML('lock')+'</div><div>Teacher view<div class="settings-hint">You can see hidden pages on this device</div></div></div><button class="chip-btn" onclick="exitTeacherView()">Close</button></div>' : '') +
       '<div class="settings-row"><div class="settings-row-left"><div class="settings-icon g-slate">'+iconHTML('moon')+'</div><div>Dark mode</div></div><div class="switch '+(darkMode?'on':'')+'" onclick="toggleDark()"><div class="knob"></div></div></div>' +
       '<div class="settings-row"><div class="settings-row-left"><div class="settings-icon g-coral">'+iconHTML('bell')+'</div><div>Haptic feedback<div class="settings-hint">A tiny tap you can feel on supported phones</div></div></div><div class="switch '+(hapticsOn?'on':'')+'" onclick="setHaptics('+(!hapticsOn)+')"><div class="knob"></div></div></div>' +
+      '<div class="settings-row"><div class="settings-row-left"><div class="settings-icon g-teal">'+iconHTML('headphones')+'</div><div>Sounds<div class="settings-hint">Soft sounds when toggles open and quizzes are checked. Follows your silent switch</div></div></div><div class="switch '+(soundsOn?'on':'')+'" onclick="setSounds('+(!soundsOn)+')"><div class="knob"></div></div></div>' +
       '<div class="settings-row stacked"><div class="settings-row-left"><div class="settings-icon g-plum">'+iconHTML('star')+'</div><div>Accent colour</div></div>' +
         '<div class="accent-row">' + ACCENTS.map(function(a){
           return '<button class="accent-opt'+(accent===a[0]?' on':'')+'" onclick="setAccent(\''+a[0]+'\')">' +
@@ -13394,28 +13447,49 @@ function toggleInlineLine(el){
 }
 /* ---- smooth toggles: height glides, content settles in one row after another, the guide line draws down ---- */
 function tgReduced(){ return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) || !Element.prototype.animate; }
+/* v78: a toggle opens in two beats. First the tray slides down and the guide
+   line draws with it; then, once the tray is mostly out, the content drops in
+   from the top one row after another. Closing plays it backwards: the content
+   lifts away, then the tray folds up. A soft sound marks each. */
 function tgAnimateOpen(body){
+  try{ uiSound('open'); }catch(e){}
   if(tgReduced()) return;
   const h = body.scrollHeight;
-  const dur = Math.max(300, Math.min(560, 260 + h * 0.35));
+  const tray = Math.max(300, Math.min(540, 260 + h * 0.28));
   body.style.overflow = 'hidden';
-  const a = body.animate([{height:'0px', opacity:0.2}, {height:h+'px', opacity:1}], {duration:dur, easing:'cubic-bezier(.2,.9,.22,1)'});
+  const a = body.animate([
+    {height:'0px', clipPath:'inset(0 0 100% 0 round 16px)'},
+    {height:h+'px', clipPath:'inset(0 0 0% 0 round 16px)'}
+  ], {duration:tray, easing:'cubic-bezier(.22,1,.36,1)'});
   a.onfinish = a.oncancel = function(){ body.style.overflow = ''; };
-  const kids = Array.prototype.slice.call(body.children, 0, 14);
+  const kids = Array.prototype.slice.call(body.children, 0, 16);
+  const first = tray * 0.55;
   kids.forEach(function(k, i){
-    k.animate([{opacity:0, transform:'translateY(-10px) scale(.985)'}, {opacity:1, transform:'none'}],
-      {duration:420, delay:70 + i * 55, easing:'cubic-bezier(.2,.8,.2,1)', fill:'backwards'});
+    k.animate([
+      {opacity:0, transform:'translateY(-16px)', filter:'blur(3px)'},
+      {opacity:1, transform:'none', filter:'blur(0)'}
+    ], {duration:420, delay:first + i * 60, easing:'cubic-bezier(.2,.9,.25,1)', fill:'backwards'});
   });
   body.classList.remove('rail-in'); void body.offsetWidth; body.classList.add('rail-in');
 }
 function tgAnimateClose(body, done){
+  try{ uiSound('close'); }catch(e){}
   if(tgReduced()){ done(); return; }
+  const kids = Array.prototype.slice.call(body.children, 0, 16);
+  const lift = kids.map(function(k, i){
+    return k.animate([{opacity:1, transform:'none'}, {opacity:0, transform:'translateY(-10px)'}],
+      {duration:170, delay:(kids.length - 1 - i) * 16, easing:'cubic-bezier(.4,0,1,1)', fill:'forwards'});
+  });
   const h = body.offsetHeight;
   body.style.overflow = 'hidden';
-  const a = body.animate([{height:h+'px', opacity:1}, {height:'0px', opacity:0}],
-    {duration:Math.max(220, Math.min(380, 180 + h * 0.2)), easing:'cubic-bezier(.4,0,.2,1)', fill:'forwards'});
-  body._closing = a;
-  a.onfinish = function(){ body._closing = null; a.cancel(); body.style.overflow = ''; done(); };
+  const a = body.animate([
+    {height:h+'px', clipPath:'inset(0 0 0% 0 round 16px)'},
+    {height:'0px', clipPath:'inset(0 0 100% 0 round 16px)'}
+  ], {duration:Math.max(240, Math.min(400, 200 + h * 0.2)), delay:150, easing:'cubic-bezier(.5,0,.2,1)', fill:'forwards'});
+  let stopped = false;
+  function clear(){ lift.forEach(function(x){ x.cancel(); }); a.cancel(); body.style.overflow = ''; }
+  body._closing = {cancel:function(){ stopped = true; body._closing = null; clear(); }};
+  a.onfinish = function(){ if(stopped) return; body._closing = null; clear(); done(); };
 }
 /* a soft ripple spreads from the finger when a toggle row is tapped */
 document.addEventListener('pointerdown', function(e){
@@ -15626,8 +15700,75 @@ document.addEventListener('click', function(e){
   if(t) haptic();
 }, true);
 
+/* soft interface sounds, made on the fly (no audio files). They use the
+   "ambient" audio session, so they follow the phone's silent switch and never
+   stop music or a video that is already playing. */
+let soundsOn = deviceGet('sounds', true) !== false;
+function setSounds(on){ soundsOn = !!on; deviceSet('sounds', soundsOn); render(); if(soundsOn) uiSound('tick'); }
+const uiSound = (function(){
+  let ctx = null, noise = null;
+  function get(){
+    const C = window.AudioContext || window.webkitAudioContext;
+    if(!C) return null;
+    if(!ctx){
+      try{ if(navigator.audioSession) navigator.audioSession.type = 'ambient'; }catch(e){}
+      ctx = new C();
+    }
+    if(ctx.state === 'suspended'){ try{ ctx.resume(); }catch(e){} }
+    return ctx;
+  }
+  function tone(c, t0, f0, f1, dur, gain, type){
+    const o = c.createOscillator(), g = c.createGain();
+    o.type = type || 'sine';
+    o.frequency.setValueAtTime(f0, t0);
+    o.frequency.exponentialRampToValueAtTime(f1, t0 + dur);
+    g.gain.setValueAtTime(0.0001, t0);
+    g.gain.exponentialRampToValueAtTime(gain, t0 + 0.012);
+    g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+    o.connect(g); g.connect(c.destination);
+    o.start(t0); o.stop(t0 + dur + 0.03);
+  }
+  function whoosh(c, t0, dur, f0, f1, gain){
+    if(!noise){
+      noise = c.createBuffer(1, Math.floor(c.sampleRate * 0.5), c.sampleRate);
+      const d = noise.getChannelData(0);
+      for(let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+    }
+    const src = c.createBufferSource(), bp = c.createBiquadFilter(), g = c.createGain();
+    src.buffer = noise;
+    bp.type = 'bandpass'; bp.Q.value = 1.1;
+    bp.frequency.setValueAtTime(f0, t0);
+    bp.frequency.exponentialRampToValueAtTime(f1, t0 + dur);
+    g.gain.setValueAtTime(0.0001, t0);
+    g.gain.exponentialRampToValueAtTime(gain, t0 + dur * 0.35);
+    g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+    src.connect(bp); bp.connect(g); g.connect(c.destination);
+    src.start(t0); src.stop(t0 + dur + 0.02);
+  }
+  return function(kind){
+    if(!soundsOn) return;
+    const c = get();
+    if(!c) return;
+    const t = c.currentTime + 0.005;
+    try{
+      if(kind === 'open'){ whoosh(c, t, 0.26, 420, 2400, 0.06); tone(c, t + 0.16, 740, 1110, 0.13, 0.045); }
+      else if(kind === 'close'){ whoosh(c, t, 0.22, 2200, 420, 0.05); tone(c, t + 0.1, 990, 620, 0.11, 0.035); }
+      else if(kind === 'tick'){ tone(c, t, 1500, 1250, 0.045, 0.04, 'triangle'); }
+      else if(kind === 'success'){ [784, 988, 1319].forEach(function(f, i){ tone(c, t + i * 0.085, f, f, 0.26, 0.055); }); }
+      else if(kind === 'error'){ tone(c, t, 330, 247, 0.2, 0.05, 'triangle'); }
+    }catch(e){}
+  };
+})();
+document.addEventListener('click', function(e){
+  if(editMode || !e.isTrusted) return;
+  if(e.target.closest && e.target.closest('.task-check,.tl-task,.rv-btn,.rv-head')) uiSound('tick');
+}, true);
+toggleUnitDone = (function(orig){
+  return function(id){ const was = isUnitDone(id); const out = orig.apply(this, arguments); if(!was){ uiSound('success'); haptic('success'); } return out; };
+})(toggleUnitDone);
+
 /* light blooms where the finger lands on a card, the way glass catches it */
-const GLOW_SEL = '.unit-card,.page-card,.part-row,.flash-banner,.bd-strip,.gm-entry,.up-card,.toc-head,.prog-panel,.streak-card,.recent-chip,.quiz-opt,.toggle-head';
+const GLOW_SEL = '.unit-card,.page-card,.part-row,.flash-banner,.bd-strip,.gm-entry,.up-card,.toc-head,.prog-panel,.streak-card,.recent-chip,.quiz-opt';
 document.addEventListener('pointerdown', function(e){
   if(e.pointerType === 'mouse' && e.button !== 0) return;
   if(!motionOK() || editMode) return;
@@ -15754,7 +15895,7 @@ checkQuiz = (function(orig){
       if(!root) return out;
       const qs = root.querySelectorAll('.quiz-q.q-right, .quiz-q.q-wrong');
       const wrong = root.querySelectorAll('.quiz-q.q-wrong').length;
-      if(qs.length) haptic(wrong ? 'tick' : 'success');
+      if(qs.length){ haptic(wrong ? 'tick' : 'success'); uiSound(wrong ? 'error' : 'success'); }
       if(motionOK()) qs.forEach(function(q, i){
         q.style.setProperty('--qi', i);
         q.classList.remove('qa-land'); void q.offsetWidth; q.classList.add('qa-land');
