@@ -5883,6 +5883,231 @@
   html #app #ghList > .hw-empty::after{content:'';position:absolute;top:30px;left:50%;width:24px;height:24px;margin-left:-12px;background:#fff;
     -webkit-mask:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><path d='M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z'/><path d='M5 17a3 3 0 0 1 3-3h11'/><path d='M9 8h6'/></svg>") center/contain no-repeat;
             mask:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><path d='M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z'/><path d='M5 17a3 3 0 0 1 3-3h11'/><path d='M9 8h6'/></svg>") center/contain no-repeat;}
+
+  /* ================= v79: Extra Collocations ================= */
+  @keyframes xcIn{from{opacity:0;transform:translateY(10px) scale(.985);}to{opacity:1;transform:none;}}
+  @keyframes xcFloat{0%,100%{transform:translateY(0) rotate(var(--r,0deg));}50%{transform:translateY(-3px) rotate(var(--r,0deg));}}
+  @keyframes xcSaid{0%{box-shadow:0 0 0 0 rgba(124,92,255,0.45);}100%{box-shadow:0 0 0 10px rgba(124,92,255,0);}}
+  @keyframes xcSpin{to{transform:rotate(360deg);}}
+  @keyframes xcDot{0%,80%,100%{transform:scale(.6);opacity:.35;}40%{transform:scale(1);opacity:1;}}
+  @keyframes xcEq{0%,100%{transform:scaleY(.35);}50%{transform:scaleY(1);}}
+
+  /* home card */
+  html #app .xc-banner::before{background:linear-gradient(180deg,#B9A8FF,#7C5CFF,#FF9A62,#B9A8FF);}
+  html #app .xc-icon{background:linear-gradient(145deg,#C9B8FF,#7C5CFF 55%,#4526C9);color:#fff;}
+  html #app .xc-icon svg{width:24px;height:24px;}
+  html #app .xc-banner .flash-banner-txt{padding-right:104px;}
+  html #app .xc-icon{position:relative;overflow:visible;}
+  html #app .xc-icon::after{border-radius:inherit;}
+  html #app .xc-badge{position:absolute;left:50%;bottom:-7px;transform:translateX(-50%);padding:2px 6px;border-radius:999px;white-space:nowrap;
+    font-family:var(--font-head);font-size:9px;font-weight:800;line-height:1.25;letter-spacing:.07em;text-transform:uppercase;color:#fff;
+    background:linear-gradient(135deg,#FFA56E,#F0643A);box-shadow:0 0 0 2px var(--surface), 0 4px 8px -3px rgba(240,100,58,0.7);}
+  html #app .xc-art{position:absolute;right:12px;top:50%;width:104px;height:68px;transform:translateY(-50%);pointer-events:none;}
+  html #app .xc-chip{position:absolute;padding:3px 8px;border-radius:9px;font-family:var(--font-head);font-size:10.5px;font-weight:700;white-space:nowrap;color:#fff;
+    box-shadow:0 6px 12px -6px rgba(10,16,40,0.55), inset 0 1px 0 rgba(255,255,255,0.35);animation:xcFloat 4.5s ease-in-out infinite;}
+  html #app .xc-chip.a{left:2px;top:2px;background:linear-gradient(145deg,#9E86FF,#6A4BF0);--r:-6deg;}
+  html #app .xc-chip.b{right:0;top:23px;background:linear-gradient(145deg,#FFB27F,#F0703F);--r:4deg;animation-delay:-1.4s;}
+  html #app .xc-chip.c{left:0;bottom:0;background:linear-gradient(145deg,#7FD3FF,#2F8EEA);--r:-2deg;animation-delay:-2.6s;}
+  html #app .xc-join{position:absolute;left:52px;top:6px;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    font:800 12px/1 var(--font-head);color:#6A4BF0;background:#fff;box-shadow:0 3px 8px -3px rgba(10,16,40,0.45);z-index:1;}
+  @media (prefers-reduced-motion: reduce){ html #app .xc-chip{animation:none;transform:rotate(var(--r));} }
+
+  /* list screen */
+  html #app .xc-hero-ico{background:linear-gradient(145deg,#C9B8FF,#7C5CFF 55%,#4526C9);}
+  html #app .xc-hero-ico svg{width:30px;height:30px;}
+  html #app .xc-rename{margin-top:10px;}
+  html #app .xc-summary{display:flex;align-items:center;gap:14px;padding:14px 16px;margin:0 0 16px;border-radius:22px;background:var(--surface);
+    box-shadow:0 1px 2px rgba(10,16,40,0.05), 0 14px 28px -22px rgba(10,16,40,0.55), inset 0 0 0 1px rgba(124,92,255,0.12);}
+  html #app .xc-ring{width:52px;height:52px;flex-shrink:0;transform:rotate(-90deg);}
+  html #app .xc-ring circle{fill:none;stroke-width:6;}
+  html #app .xc-ring-track{stroke:rgba(124,92,255,0.14);}
+  html #app .xc-ring-fill{stroke:#7C5CFF;stroke-linecap:round;transition:stroke-dashoffset 1s var(--v-ease,ease);}
+  html #app .xc-sum-txt{display:flex;flex-direction:column;gap:2px;min-width:0;}
+  html #app .xc-sum-txt b{font-family:var(--font-display);font-size:16px;color:var(--ink);letter-spacing:-0.01em;}
+  html #app .xc-sum-txt span{font-size:13px;line-height:1.35;color:var(--ink-soft);}
+  html #app .xc-list{display:flex;flex-direction:column;gap:8px;}
+  html #app .xc-row{display:flex;align-items:center;gap:13px;width:100%;padding:11px 14px 11px 11px;border:none;border-radius:20px;cursor:pointer;font:inherit;text-align:left;
+    color:var(--ink);background:var(--surface);animation:xcIn .45s var(--v-spring,ease) both;animation-delay:var(--d,0s);
+    box-shadow:0 1px 2px rgba(10,16,40,0.05), 0 12px 26px -20px rgba(10,16,40,0.5), inset 0 0 0 1px rgba(var(--accent-rgb),0.07), inset 0 1px 0 rgba(255,255,255,0.85);
+    transition:transform .25s var(--v-spring,ease);-webkit-tap-highlight-color:transparent;}
+  html #app .xc-row:active{transform:scale(.975);}
+  html #app .xc-row-ico{position:relative;flex-shrink:0;width:46px;height:46px;border-radius:15px;display:flex;align-items:center;justify-content:center;
+    box-shadow:0 10px 18px -12px rgba(10,16,40,0.6), inset 0 1px 0 rgba(255,255,255,0.4), inset 0 -8px 14px -10px rgba(0,0,0,0.25);}
+  html #app .xc-row-ico span{font-size:23px;line-height:1;filter:drop-shadow(0 2px 3px rgba(0,0,0,0.2));}
+  html #app .xc-row-body{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px;}
+  html #app .xc-row-num{font-family:var(--font-head);font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#7C5CFF;}
+  html #app .xc-row-body b{font-family:var(--font-display);font-size:16px;font-weight:700;letter-spacing:-0.01em;line-height:1.25;}
+  html #app .xc-row-meta{font-size:12.5px;color:var(--ink-soft);}
+  html #app .xc-row-go{font-size:24px;line-height:1;color:var(--ink-soft);opacity:.55;padding-left:4px;}
+  html #app .xc-row-done{flex-shrink:0;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;
+    background:linear-gradient(145deg,#5BDB93,#1FA463);box-shadow:0 6px 12px -6px rgba(19,122,72,0.8), inset 0 1px 0 rgba(255,255,255,0.4);}
+  html #app .xc-row-done svg{width:16px;height:16px;}
+  html #app .xc-loading{display:flex;justify-content:center;gap:8px;padding:60px 0;}
+  html #app .xc-loading span{width:10px;height:10px;border-radius:50%;background:#7C5CFF;animation:xcDot 1.2s ease-in-out infinite;}
+  html #app .xc-loading span:nth-child(2){animation-delay:.15s;} html #app .xc-loading span:nth-child(3){animation-delay:.3s;}
+  html #app .xc-empty{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;padding:48px 20px;color:var(--ink-soft);}
+  html #app .xc-empty b{font-family:var(--font-display);font-size:18px;color:var(--ink);}
+
+  /* lesson hero */
+  html #app .xc-hero{position:relative;overflow:hidden;border-radius:28px;padding:22px 20px 18px;margin:4px 0 12px;color:#fff;isolation:isolate;
+    box-shadow:0 22px 40px -26px rgba(10,16,40,0.75), inset 0 1px 0 rgba(255,255,255,0.35), inset 0 -30px 60px -40px rgba(0,0,0,0.35);animation:xcIn .5s var(--v-spring,ease) both;}
+  html #app .xc-hero::before{content:'';position:absolute;inset:0;z-index:-1;background:radial-gradient(120% 80% at 100% 0%,rgba(255,255,255,0.28),transparent 55%),radial-gradient(90% 70% at 0% 110%,rgba(0,0,0,0.22),transparent 60%);}
+  html #app .xc-hero-num{position:absolute;right:-6px;bottom:-34px;z-index:-1;font-family:var(--font-display);font-size:150px;font-weight:800;line-height:1;letter-spacing:-0.06em;
+    color:rgba(255,255,255,0.13);pointer-events:none;}
+  html #app .xc-hero-emoji{position:absolute;right:18px;top:16px;font-size:38px;line-height:1;filter:drop-shadow(0 6px 10px rgba(0,0,0,0.25));transform:rotate(8deg);}
+  html #app .xc-hero-kicker{font-family:var(--font-head);font-size:11.5px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;opacity:.85;padding-right:56px;}
+  html #app .xc-hero-title{font-family:var(--font-display);font-size:27px;font-weight:800;line-height:1.1;letter-spacing:-0.025em;margin:6px 0 14px;padding-right:48px;text-wrap:balance;}
+  html #app .xc-hero-chips{display:flex;flex-wrap:wrap;gap:6px;}
+  html #app .xc-hero-chips span{padding:5px 10px;border-radius:999px;font-family:var(--font-head);font-size:12px;font-weight:700;
+    background:rgba(255,255,255,0.2);box-shadow:inset 0 0 0 1px rgba(255,255,255,0.28);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);}
+
+  /* audio player */
+  html #app .xc-player{display:flex;align-items:center;gap:12px;padding:12px 14px 12px 12px;margin:0 0 14px;border-radius:22px;background:var(--surface);
+    box-shadow:0 1px 2px rgba(10,16,40,0.05), 0 14px 28px -22px rgba(10,16,40,0.55), inset 0 0 0 1px rgba(var(--accent-rgb),0.08), inset 0 1px 0 rgba(255,255,255,0.85);}
+  html #app .xc-play{position:relative;flex-shrink:0;width:50px;height:50px;border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff;
+    background:linear-gradient(145deg,#A58CFF,#6A4BF0 60%,#4526C9);box-shadow:0 10px 20px -10px rgba(69,38,201,0.85), inset 0 1px 0 rgba(255,255,255,0.4);transition:transform .25s var(--v-spring,ease);}
+  html #app .xc-play:active{transform:scale(.9);}
+  html #app .xc-play svg{width:24px;height:24px;transition:opacity .2s, transform .3s var(--v-spring,ease);}
+  html #app .xc-play .i-play{margin-left:3px;}
+  html #app .xc-play .i-pause{position:absolute;opacity:0;transform:scale(.6);}
+  html #app .xc-player.playing .xc-play .i-play{opacity:0;transform:scale(.6);}
+  html #app .xc-player.playing .xc-play .i-pause{opacity:1;transform:none;}
+  html #app .xc-spin{position:absolute;inset:-4px;border-radius:50%;border:2.5px solid transparent;border-top-color:#7C5CFF;opacity:0;transition:opacity .2s;}
+  html #app .xc-player.buffering .xc-spin{opacity:1;animation:xcSpin .8s linear infinite;}
+  html #app .xc-pl-mid{flex:1;min-width:0;}
+  html #app .xc-pl-label{font-family:var(--font-head);font-size:12.5px;font-weight:700;color:var(--ink);margin-bottom:4px;}
+  html #app .xc-seek{-webkit-appearance:none;appearance:none;display:block;width:100%;height:18px;margin:0;background:none;cursor:pointer;--v:0%;}
+  html #app .xc-seek::-webkit-slider-runnable-track{height:5px;border-radius:3px;background:linear-gradient(90deg,#7C5CFF 0 var(--v),rgba(124,92,255,0.16) var(--v) 100%);}
+  html #app .xc-seek::-moz-range-track{height:5px;border-radius:3px;background:linear-gradient(90deg,#7C5CFF 0 var(--v),rgba(124,92,255,0.16) var(--v) 100%);}
+  html #app .xc-seek::-webkit-slider-thumb{-webkit-appearance:none;width:15px;height:15px;margin-top:-5px;border-radius:50%;background:#fff;box-shadow:0 1px 4px rgba(10,16,40,0.35), 0 0 0 .5px rgba(10,16,40,0.1);}
+  html #app .xc-seek::-moz-range-thumb{width:15px;height:15px;border:none;border-radius:50%;background:#fff;box-shadow:0 1px 4px rgba(10,16,40,0.35);}
+  html #app .xc-pl-times{display:flex;justify-content:space-between;font-size:11px;font-weight:600;color:var(--ink-soft);font-variant-numeric:tabular-nums;margin-top:1px;}
+  html #app .xc-pl-side{display:flex;flex-direction:column;gap:5px;flex-shrink:0;}
+  html #app .xc-skip, html #app .xc-rate{min-width:40px;height:26px;padding:0 8px;border:none;border-radius:9px;cursor:pointer;font-family:var(--font-head);font-size:12px;font-weight:800;
+    color:#6A4BF0;background:rgba(124,92,255,0.11);font-variant-numeric:tabular-nums;transition:transform .2s var(--v-spring,ease);}
+  html #app .xc-skip:active, html #app .xc-rate:active{transform:scale(.9);}
+  html #app .xc-player.fallback{flex-direction:column;align-items:stretch;gap:8px;padding:10px;}
+  html #app .xc-drive{width:100%;height:64px;border:none;border-radius:14px;background:rgba(124,92,255,0.06);}
+  html #app .xc-drive-link{align-self:center;font-family:var(--font-head);font-size:12.5px;font-weight:700;color:#6A4BF0;text-decoration:none;padding:2px 6px 4px;}
+
+  /* segmented control */
+  html #app .xc-seg{position:sticky;top:calc(env(safe-area-inset-top,0px) + 8px);z-index:5;display:grid;grid-template-columns:1fr 1.35fr 1fr;gap:2px;padding:3px;margin:0 0 14px;border-radius:14px;
+    background:rgba(228,230,238,0.9);box-shadow:0 8px 20px -14px rgba(10,16,40,0.35);-webkit-backdrop-filter:blur(18px) saturate(1.6);backdrop-filter:blur(18px) saturate(1.6);}
+  html #app .xc-seg-btn{height:34px;border:none;border-radius:11px;cursor:pointer;background:none;font-family:var(--font-head);font-size:13.5px;font-weight:600;color:var(--ink);
+    transition:background .25s, box-shadow .25s, transform .2s var(--v-spring,ease);-webkit-tap-highlight-color:transparent;}
+  html #app .xc-seg-btn.on{font-weight:700;background:var(--surface);box-shadow:0 3px 8px rgba(0,0,0,0.12), 0 0 0 .5px rgba(0,0,0,0.04);}
+  html #app .xc-seg-btn:active{transform:scale(.96);}
+
+  /* read */
+  html #app .xc-read{padding:18px 18px 8px;border-radius:24px;background:var(--surface);
+    box-shadow:0 1px 2px rgba(10,16,40,0.05), 0 14px 28px -22px rgba(10,16,40,0.5), inset 0 0 0 1px rgba(var(--accent-rgb),0.07), inset 0 1px 0 rgba(255,255,255,0.85);}
+  html #app .xc-tip{display:flex;align-items:center;gap:7px;font-family:var(--font-head);font-size:12px;font-weight:700;color:#6A4BF0;margin-bottom:12px;}
+  html #app .xc-tip::before{content:'';width:7px;height:7px;border-radius:50%;background:#7C5CFF;box-shadow:0 0 0 4px rgba(124,92,255,0.18);}
+  html #app .xc-read p{margin:0 0 14px;font-size:16.5px;line-height:1.62;color:var(--ink);}
+  html #app .xc-read p.xc-gloss{margin:-6px 0 12px;padding:9px 12px;border-radius:14px;font-size:14.5px;line-height:1.45;color:var(--ink-soft);background:rgba(124,92,255,0.06);box-shadow:inset 3px 0 0 #7C5CFF;}
+  html #app .xc-col{color:inherit;cursor:pointer;padding:0 3px;margin:0 -1px;border-radius:6px;font-weight:700;
+    background:linear-gradient(180deg,transparent 55%,rgba(124,92,255,0.2) 55%);-webkit-box-decoration-break:clone;box-decoration-break:clone;transition:background .2s;}
+  html #app .xc-col:active{background:rgba(124,92,255,0.25);}
+  html #app .xc-col.said{animation:xcSaid .7s ease-out;background:rgba(124,92,255,0.22);}
+  html #app .xc-gloss .xc-col{background:none;color:#6A4BF0;padding:0;}
+
+  /* collocation list */
+  html #app .xc-cols-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 2px 10px;font-size:13px;font-weight:600;color:var(--ink-soft);}
+  html #app .xc-addall{flex-shrink:0;}
+  html #app .xc-cols{border-radius:22px;overflow:hidden;background:var(--surface);
+    box-shadow:0 1px 2px rgba(10,16,40,0.05), 0 14px 28px -22px rgba(10,16,40,0.5), inset 0 0 0 1px rgba(var(--accent-rgb),0.07);}
+  html #app .xc-colrow{display:flex;align-items:center;gap:10px;padding:9px 12px 9px 10px;position:relative;}
+  html #app .xc-colrow + .xc-colrow::before{content:'';position:absolute;left:54px;right:0;top:0;height:.5px;background:var(--hair-strong,rgba(15,25,50,0.12));}
+  html #app .xc-say{flex-shrink:0;width:34px;height:34px;border:none;border-radius:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#6A4BF0;background:rgba(124,92,255,0.11);transition:transform .2s var(--v-spring,ease);}
+  html #app .xc-say:active{transform:scale(.88);}
+  html #app .xc-say svg{width:18px;height:18px;}
+  html #app .xc-coltxt{flex:1;min-width:0;font-family:var(--font-display);font-size:15.5px;font-weight:600;letter-spacing:-0.005em;color:var(--ink);}
+  html #app .xc-add{flex-shrink:0;height:28px;padding:0 10px;border:none;border-radius:999px;cursor:pointer;font-family:var(--font-head);font-size:12px;font-weight:700;color:#6A4BF0;background:rgba(124,92,255,0.1);transition:all .25s var(--v-spring,ease);}
+  html #app .xc-add.on{color:#1A8A53;background:rgba(31,164,99,0.12);cursor:default;}
+
+  /* quiz */
+  html #app .xc-q-top{position:relative;padding:14px 16px;margin-bottom:12px;border-radius:22px;background:var(--surface);
+    box-shadow:0 1px 2px rgba(10,16,40,0.05), 0 14px 28px -22px rgba(10,16,40,0.5), inset 0 0 0 1px rgba(var(--accent-rgb),0.07);}
+  html #app .xc-q-instr{font-size:14.5px;line-height:1.45;font-weight:600;color:var(--ink);}
+  html #app .xc-q-bar{height:6px;border-radius:3px;margin:12px 0 7px;overflow:hidden;background:rgba(124,92,255,0.13);}
+  html #app .xc-q-bar i{display:block;height:100%;border-radius:3px;background:linear-gradient(90deg,#A58CFF,#6A4BF0);transition:width .5s var(--v-ease,ease);}
+  html #app .xc-q-count{display:flex;justify-content:space-between;font-size:12px;font-weight:600;color:var(--ink-soft);font-variant-numeric:tabular-nums;}
+  html #app .xc-q-count b{color:#1A8A53;}
+  html #app .xc-bank{display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding:12px 14px;margin:4px 0 12px;border-radius:18px;
+    background:rgba(124,92,255,0.07);box-shadow:inset 0 0 0 1px rgba(124,92,255,0.16);}
+  html #app .xc-bank-lab{width:100%;font-family:var(--font-head);font-size:11px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:#6A4BF0;margin-bottom:2px;}
+  html #app .xc-bank span:not(.xc-bank-lab){padding:4px 10px;border-radius:9px;font-family:var(--font-head);font-size:13px;font-weight:600;color:var(--ink);background:var(--surface);box-shadow:0 2px 5px -3px rgba(10,16,40,0.35);}
+  html #app .xc-q{padding:14px;margin-bottom:10px;border-radius:22px;background:var(--surface);transition:box-shadow .3s;
+    box-shadow:0 1px 2px rgba(10,16,40,0.05), 0 12px 26px -20px rgba(10,16,40,0.5), inset 0 0 0 1px rgba(var(--accent-rgb),0.07), inset 0 1px 0 rgba(255,255,255,0.85);}
+  html #app .xc-q.right{box-shadow:0 12px 26px -20px rgba(10,16,40,0.5), inset 0 0 0 1.5px rgba(31,164,99,0.45);}
+  html #app .xc-q.wrong{box-shadow:0 12px 26px -20px rgba(10,16,40,0.5), inset 0 0 0 1.5px rgba(224,51,90,0.4);}
+  html #app .xc-q-p{display:flex;gap:10px;font-size:15.5px;line-height:1.5;color:var(--ink);margin-bottom:12px;}
+  html #app .xc-q-n{flex-shrink:0;width:24px;height:24px;margin-top:1px;border-radius:8px;display:flex;align-items:center;justify-content:center;
+    font-family:var(--font-display);font-size:12px;font-weight:800;color:#fff;background:linear-gradient(145deg,#A58CFF,#6A4BF0);}
+  html #app .xc-q.right .xc-q-n{background:linear-gradient(145deg,#5BDB93,#1FA463);}
+  html #app .xc-q.wrong .xc-q-n{background:linear-gradient(145deg,#FF8A9E,#E0335A);}
+  html #app .xc-blank{display:inline-block;min-width:58px;padding:0 6px;margin:0 2px;border-bottom:2px dashed rgba(124,92,255,0.5);font-weight:700;text-align:center;white-space:pre;}
+  html #app .xc-blank.ok{border-bottom:2px solid #1FA463;color:#1A8A53;white-space:normal;}
+  html #app .xc-blank.no{border-bottom:2px solid #1FA463;color:#1A8A53;white-space:normal;}
+  html #app .xc-opts{display:flex;flex-direction:column;gap:7px;}
+  html #app .xc-opt{display:flex;align-items:center;gap:11px;width:100%;padding:10px 12px;border:none;border-radius:15px;cursor:pointer;font:inherit;text-align:left;color:var(--ink);
+    background:rgba(118,118,128,0.08);box-shadow:inset 0 0 0 1px rgba(118,118,128,0.1);transition:background .2s, opacity .3s, transform .2s var(--v-spring,ease);-webkit-tap-highlight-color:transparent;}
+  html #app .xc-opt:not([disabled]):active{transform:scale(.97);background:rgba(124,92,255,0.14);}
+  html #app .xc-opt-l{flex-shrink:0;width:26px;height:26px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:12.5px;font-weight:800;
+    color:#6A4BF0;background:var(--surface);box-shadow:0 1px 3px rgba(10,16,40,0.14);}
+  html #app .xc-opt-t{font-size:15px;font-weight:600;line-height:1.3;}
+  html #app .xc-opt[disabled]{cursor:default;}
+  html #app .xc-opt.correct{color:#fff;background:linear-gradient(145deg,#4FD08A,#1FA463);box-shadow:0 8px 16px -10px rgba(19,122,72,0.8);}
+  html #app .xc-opt.chosen{color:#fff;background:linear-gradient(145deg,#FF8A9E,#E0335A);box-shadow:0 8px 16px -10px rgba(180,30,70,0.7);}
+  html #app .xc-opt.correct .xc-opt-l, html #app .xc-opt.chosen .xc-opt-l{color:#fff;background:rgba(255,255,255,0.25);box-shadow:none;}
+  html #app .xc-opt.dim{opacity:.45;}
+
+  /* result */
+  html #app .xc-result{display:flex;flex-wrap:wrap;align-items:center;gap:14px;padding:18px;margin:6px 0 4px;border-radius:26px;color:#fff;
+    background:linear-gradient(145deg,#8C6CFF,#5B3BE0 60%,#3A1FB0);box-shadow:0 22px 40px -24px rgba(58,31,176,0.9), inset 0 1px 0 rgba(255,255,255,0.3);}
+  html #app .xc-res-ring{--p:0;flex-shrink:0;width:74px;height:74px;border-radius:50%;display:flex;align-items:baseline;justify-content:center;padding-top:22px;box-sizing:border-box;position:relative;
+    background:conic-gradient(#fff calc(var(--p)*1%), rgba(255,255,255,0.22) 0);}
+  html #app .xc-res-ring::before{content:'';position:absolute;inset:6px;border-radius:50%;background:#5B3BE0;}
+  html #app .xc-res-ring b, html #app .xc-res-ring small{position:relative;font-family:var(--font-display);}
+  html #app .xc-res-ring b{font-size:24px;font-weight:800;}
+  html #app .xc-res-ring small{font-size:12px;font-weight:700;opacity:.8;}
+  html #app .xc-res-txt{flex:1;min-width:140px;display:flex;flex-direction:column;gap:2px;}
+  html #app .xc-res-txt b{font-family:var(--font-display);font-size:20px;letter-spacing:-0.01em;}
+  html #app .xc-res-txt span{font-size:13.5px;opacity:.85;}
+  html #app .xc-res-btns{display:flex;gap:8px;width:100%;}
+  html #app .xc-res-btns .chip-btn{flex:1;border:none;color:#fff;background:rgba(255,255,255,0.18);box-shadow:inset 0 0 0 1px rgba(255,255,255,0.25);}
+  html #app .xc-res-btns .chip-btn.primary{color:#4526C9;background:#fff;box-shadow:0 8px 16px -10px rgba(0,0,0,0.5);}
+
+  /* pager */
+  html #app .xc-pager{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:18px 0 8px;}
+  html #app .xc-pg{display:flex;flex-direction:column;gap:3px;min-width:0;padding:12px 14px;border:none;border-radius:18px;cursor:pointer;font:inherit;text-align:left;color:var(--ink);background:var(--surface);
+    box-shadow:0 1px 2px rgba(10,16,40,0.05), 0 12px 26px -20px rgba(10,16,40,0.5), inset 0 0 0 1px rgba(var(--accent-rgb),0.07);transition:transform .2s var(--v-spring,ease);}
+  html #app .xc-pg:active{transform:scale(.96);}
+  html #app .xc-pg.next{text-align:right;align-items:flex-end;}
+  html #app .xc-pg span{font-family:var(--font-head);font-size:11.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:#6A4BF0;}
+  html #app .xc-pg b{font-family:var(--font-display);font-size:14px;font-weight:700;line-height:1.25;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%;}
+
+  /* dark mode */
+  html[data-theme="dark"] #app .xc-row, html[data-theme="dark"] #app .xc-player, html[data-theme="dark"] #app .xc-read, html[data-theme="dark"] #app .xc-q, html[data-theme="dark"] #app .xc-summary,
+  html[data-theme="dark"] #app .xc-cols, html[data-theme="dark"] #app .xc-q-top, html[data-theme="dark"] #app .xc-pg{
+    box-shadow:0 12px 26px -20px rgba(0,0,0,0.7), inset 0 0 0 1px rgba(255,255,255,0.08), inset 0 1px 0 rgba(255,255,255,0.06);}
+  html[data-theme="dark"] #app .xc-row-num, html[data-theme="dark"] #app .xc-tip, html[data-theme="dark"] #app .xc-bank-lab, html[data-theme="dark"] #app .xc-pg span,
+  html[data-theme="dark"] #app .xc-say, html[data-theme="dark"] #app .xc-add, html[data-theme="dark"] #app .xc-skip, html[data-theme="dark"] #app .xc-rate,
+  html[data-theme="dark"] #app .xc-opt-l, html[data-theme="dark"] #app .xc-gloss .xc-col, html[data-theme="dark"] #app .xc-drive-link{color:#B8A6FF;}
+  html[data-theme="dark"] #app .xc-say, html[data-theme="dark"] #app .xc-add, html[data-theme="dark"] #app .xc-skip, html[data-theme="dark"] #app .xc-rate{background:rgba(150,125,255,0.16);}
+  html[data-theme="dark"] #app .xc-add.on, html[data-theme="dark"] #app .xc-q-count b, html[data-theme="dark"] #app .xc-blank.ok, html[data-theme="dark"] #app .xc-blank.no{color:#5BDB93;}
+  html[data-theme="dark"] #app .xc-col{background:linear-gradient(180deg,transparent 55%,rgba(150,125,255,0.32) 55%);}
+  html[data-theme="dark"] #app .xc-read p.xc-gloss, html[data-theme="dark"] #app .xc-bank{background:rgba(150,125,255,0.1);}
+  html[data-theme="dark"] #app .xc-bank span:not(.xc-bank-lab){background:rgba(255,255,255,0.08);}
+  html[data-theme="dark"] #app .xc-opt{background:rgba(255,255,255,0.06);box-shadow:inset 0 0 0 1px rgba(255,255,255,0.07);}
+  html[data-theme="dark"] #app .xc-seg{background:rgba(44,48,64,0.92);}
+  html[data-theme="dark"] #app .xc-opt.correct{color:#fff;background:linear-gradient(145deg,#3FBF7A,#17854F);box-shadow:0 8px 16px -10px rgba(0,0,0,0.7);}
+  html[data-theme="dark"] #app .xc-opt.chosen{color:#fff;background:linear-gradient(145deg,#F2708A,#C8264D);box-shadow:0 8px 16px -10px rgba(0,0,0,0.7);}
+  html[data-theme="dark"] #app .xc-opt.correct .xc-opt-l, html[data-theme="dark"] #app .xc-opt.chosen .xc-opt-l{color:#fff;background:rgba(255,255,255,0.22);}
+  html[data-theme="dark"] #app .xc-q.right{box-shadow:0 12px 26px -20px rgba(0,0,0,0.7), inset 0 0 0 1.5px rgba(63,191,122,0.5);}
+  html[data-theme="dark"] #app .xc-q.wrong{box-shadow:0 12px 26px -20px rgba(0,0,0,0.7), inset 0 0 0 1.5px rgba(242,112,138,0.45);}
+  html[data-theme="dark"] #app .xc-seg-btn.on{background:#3A3F55;box-shadow:0 3px 8px rgba(0,0,0,0.3);}
+  html[data-theme="dark"] #app .xc-join{background:#1E2438;color:#B8A6FF;}
 </style>
 </head>
 <body>
@@ -11617,6 +11842,7 @@ function render(){
   else if(selectedTab==='exams') body = renderExams();
   else if(selectedTab==='games') body = renderGames();
   else if(selectedTab==='grammar') body = renderGrammarHub();
+  else if(selectedTab==='xcol') body = renderXcol();
   else if(selectedTab==='badges') body = renderBadges();
   else if(selectedTab==='dashboard') body = renderDashboard();
   else if(selectedTab==='live') body = renderLive();
@@ -11962,7 +12188,7 @@ function renderHomeGrid(){
       '<div class="flash-banner-txt"><div class="flash-banner-title">Word practice</div><div class="flash-banner-sub">10 flashcards from Inspire, by unit</div></div>' +
       '<div class="fb-deck" aria-hidden="true"><span class="fb-c c1"></span><span class="fb-c c2"></span><span class="fb-c c3">Aa</span></div>' +
     '</div>' +
-    mistakesBannerHTML() + soundsBannerHTML() + examsBannerHTML() + grammarBannerHTML() +
+    mistakesBannerHTML() + soundsBannerHTML() + examsBannerHTML() + grammarBannerHTML() + xcolBannerHTML() +
     (generals.length ? ('<div class="section-label">Course<span class="sl-count">'+generals.length+'</span></div><div class="card-list">' + generals.map(function(p,i){ return pageCard(p,i,true); }).join('') + '</div>') : '') +
     (units.length ? ('<div class="section-label">Units<span class="sl-count">'+units.filter(function(p){ return isUnitDone(p.id); }).length+'/'+units.length+'</span></div><div class="unit-grid">' + units.map(function(p,i){ return unitCard(p,i); }).join('') + '</div>') : '') +
     (editMode ? '<button class="btn primary full" onclick="openNewPageModal(null)">+ New page</button>' : '');
@@ -15790,6 +16016,314 @@ const QOTD=[
 ["Patience, hope and kindness make every day a little brighter.",""],
 ];
 
+/* ================= v79: Extra Collocations (25 bonus lessons) =================
+   The lessons live in their own Supabase record ('extra-collocations'), so they
+   never touch the course pages. Audio streams from the teacher's Google Drive.
+   Everything inside an open lesson (tabs, quiz answers) updates in place, so the
+   audio keeps playing while students read and answer. */
+const XCOL_KEY = 'extra-collocations', XCOL_META_KEY = 'extra-collocations-meta';
+const XCOL_DEFAULT_TITLE = 'Extra Collocations';
+let xcol = null, xcolLoading = false, xcolErr = false, xcolLesson = null, xcolTab = 'read', xcolAns = {};
+let xcolMeta = deviceGet('xcol-meta', null) || {title: XCOL_DEFAULT_TITLE};
+const XC_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6.5" width="8" height="11" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><rect x="13" y="6.5" width="8" height="11" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M11 12h2" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>';
+const XC_SPEAK = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" fill="currentColor"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+function xcolTitle(){ return (xcolMeta && xcolMeta.title) || XCOL_DEFAULT_TITLE; }
+function xcolProgress(){ return deviceGet('xcol', {}); }
+function xcolLessonById(n){ return xcol ? xcol.lessons.find(function(l){ return l.n === n; }) : null; }
+function xcolLoad(force){
+  if(!xcol){ const c = deviceGet('xcol-cache', null); if(c && c.lessons) xcol = c; }
+  if(xcolLoading || (xcol && !force && xcol._fresh)) return;
+  xcolLoading = true; xcolErr = false;
+  window.storage.get(XCOL_KEY, true).then(function(r){
+    const d = JSON.parse(r.value);
+    if(d && d.lessons){ xcol = d; xcol._fresh = true; try{ deviceSet('xcol-cache', d); }catch(e){} }
+  }).catch(function(){ if(!xcol) xcolErr = true; }).then(function(){
+    xcolLoading = false;
+    if(selectedTab === 'xcol' && !document.getElementById('xcAudio')) render();
+  });
+}
+function xcolLoadMeta(){
+  window.storage.get(XCOL_META_KEY, true).then(function(r){
+    const m = JSON.parse(r.value);
+    if(!m || !m.title) return;
+    xcolMeta = m; deviceSet('xcol-meta', m);
+    document.querySelectorAll('#app .xc-banner .flash-banner-title, #app .xc-top .big-title').forEach(function(el){ el.textContent = m.title; });
+  }).catch(function(){});
+}
+function xcolRename(){
+  const v = prompt('Name shown on the home page', xcolTitle());
+  if(v === null) return;
+  const t = v.trim().slice(0, 40) || XCOL_DEFAULT_TITLE;
+  xcolMeta = {title: t}; deviceSet('xcol-meta', xcolMeta); render();
+  window.storage.set(XCOL_META_KEY, JSON.stringify(xcolMeta), true)
+    .then(function(){ showMiniToast('Name saved for everyone'); })
+    .catch(function(){ showMiniToast('Saved here, but could not reach the database'); });
+}
+function openXcol(){ xcolLoad(); navigate('push', function(){ selectedTab = 'xcol'; xcolLesson = null; pageStack = []; render(); }); }
+function xcolHome(){ xcolStopAudio(); navigate('pop', function(){ selectedTab = 'home'; xcolLesson = null; pageStack = []; render(); }); }
+function xcolOpenLesson(n){
+  xcolStopAudio();
+  const p = xcolProgress(); p[n] = p[n] || {}; p[n].seen = 1; deviceSet('xcol', p);
+  const dir = xcolLesson === null ? 'push' : (n > xcolLesson ? 'push' : 'pop');
+  xcolAns = {}; xcolTab = 'read';
+  navigate(dir, function(){ xcolLesson = n; render(); });
+}
+function xcolCloseLesson(){ xcolStopAudio(); navigate('pop', function(){ xcolLesson = null; render(); }); }
+function xcolStopAudio(){ const a = document.getElementById('xcAudio'); if(a){ try{ a.pause(); }catch(e){} } }
+
+/* ---------- home card ---------- */
+function xcolBannerHTML(){
+  const p = xcolProgress(), done = Object.keys(p).filter(function(k){ return p[k].done; }).length;
+  return '<div class="flash-banner xc-banner" onclick="openXcol()">' +
+    '<div class="flash-banner-icon xc-icon">'+XC_ICON+'<span class="xc-badge">Extra</span></div>' +
+    '<div class="flash-banner-txt"><div class="flash-banner-title">'+escapeHtml(xcolTitle())+'</div>' +
+      '<div class="flash-banner-sub">'+(done ? done+' of 25 lessons done' : '25 bonus lessons with audio')+'</div></div>' +
+    '<div class="xc-art" aria-hidden="true"><span class="xc-chip a">make</span><span class="xc-join">+</span><span class="xc-chip b">a decision</span><span class="xc-chip c">heavy rain</span></div>' +
+  '</div>';
+}
+
+/* ---------- screens ---------- */
+function renderXcol(){
+  if(!xcol){
+    xcolLoad();
+    return '<button class="search-back" onclick="xcolHome()">← Back</button>' +
+      (xcolErr ? '<div class="xc-empty"><b>Could not load the lessons</b><span>Check your internet connection and try again.</span><button class="chip-btn" onclick="xcolLoad(true);render()">Try again</button></div>'
+               : '<div class="xc-loading"><span></span><span></span><span></span></div>');
+  }
+  return xcolLesson === null ? renderXcolList() : renderXcolLesson(xcolLessonById(xcolLesson));
+}
+function renderXcolList(){
+  const p = xcolProgress(), L = xcol.lessons;
+  const done = L.filter(function(l){ return p[l.n] && p[l.n].done; }).length;
+  const totalCols = L.reduce(function(s, l){ return s + l.k.length; }, 0);
+  const R = 24, C = 2*Math.PI*R, off = C*(1 - done/L.length);
+  let h = '<button class="search-back" onclick="xcolHome()">← Back</button>' +
+    '<div class="rv-hero xc-top"><span class="rv-hero-ico xc-hero-ico">'+XC_ICON+'</span>' +
+      '<div class="rv-hero-txt"><div class="eyebrow">Extra practice</div><div class="big-title serif">'+escapeHtml(xcolTitle())+'</div>' +
+      '<div class="rv-hero-sub">'+L.length+' bonus lessons, '+totalCols+' collocations, each with audio and a quiz. Not part of your coursebook.</div>' +
+      (editMode ? '<button class="chip-btn xc-rename" onclick="xcolRename()">✎ Rename on home page</button>' : '') + '</div></div>' +
+    '<div class="xc-summary">' +
+      '<svg class="xc-ring" viewBox="0 0 56 56" aria-hidden="true"><circle cx="28" cy="28" r="'+R+'" class="xc-ring-track"/><circle cx="28" cy="28" r="'+R+'" class="xc-ring-fill" style="stroke-dasharray:'+C.toFixed(1)+';stroke-dashoffset:'+off.toFixed(1)+'"/></svg>' +
+      '<div class="xc-sum-txt"><b>'+done+' of '+L.length+' lessons done</b><span>'+(done ? 'Keep going — one lesson a day is plenty.' : 'Listen, read, then take the quiz. Start with Lesson 1.')+'</span></div>' +
+    '</div>' +
+    '<div class="xc-list">';
+  L.forEach(function(l, i){
+    const s = p[l.n] || {};
+    const meta = l.k.length+' collocations' + (s.best != null ? ' · Quiz '+s.best+'/'+s.total : '');
+    h += '<button class="xc-row" style="--d:'+(Math.min(i,14)*0.025).toFixed(3)+'s" onclick="xcolOpenLesson('+l.n+')">' +
+      '<span class="xc-row-ico" style="background:'+GRAD_VAR[l.c]+'"><span>'+l.e+'</span></span>' +
+      '<span class="xc-row-body"><span class="xc-row-num">Lesson '+l.n+'</span><b>'+escapeHtml(l.t)+'</b><span class="xc-row-meta">'+meta+'</span></span>' +
+      (s.done ? '<span class="xc-row-done" aria-label="Done"><svg viewBox="0 0 24 24"><path d="M6 12.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>'
+              : '<span class="xc-row-go">›</span>') +
+    '</button>';
+  });
+  return h + '</div>';
+}
+function xcolAudioUrl(id){ return 'https://drive.google.com/uc?export=download&id='+encodeURIComponent(id); }
+function renderXcolLesson(l){
+  if(!l){ xcolLesson = null; return renderXcolList(); }
+  const prev = xcolLessonById(l.n - 1), next = xcolLessonById(l.n + 1);
+  return '<button class="search-back" onclick="xcolCloseLesson()">← All lessons</button>' +
+    '<div class="xc-hero" style="background:'+GRAD_VAR[l.c]+'">' +
+      '<span class="xc-hero-emoji" aria-hidden="true">'+l.e+'</span><span class="xc-hero-num" aria-hidden="true">'+l.n+'</span>' +
+      '<div class="xc-hero-kicker">'+escapeHtml(xcolTitle())+' · Lesson '+l.n+'</div>' +
+      '<div class="xc-hero-title">'+escapeHtml(l.t)+'</div>' +
+      '<div class="xc-hero-chips"><span>'+l.k.length+' collocations</span><span>'+l.q.qs.length+' questions</span></div>' +
+    '</div>' +
+    '<div class="xc-player" id="xcPlayer" data-au="'+escapeAttr(l.au)+'">' +
+      '<audio id="xcAudio" preload="none" src="'+escapeAttr(xcolAudioUrl(l.au))+'"></audio>' +
+      '<button class="xc-play" id="xcPlay" onclick="xcolPlay()" aria-label="Play the lesson audio">' +
+        '<svg class="i-play" viewBox="0 0 24 24"><path d="M8 5.5v13l10.5-6.5z" fill="currentColor"/></svg>' +
+        '<svg class="i-pause" viewBox="0 0 24 24"><rect x="6.5" y="5.5" width="4" height="13" rx="1.2" fill="currentColor"/><rect x="13.5" y="5.5" width="4" height="13" rx="1.2" fill="currentColor"/></svg>' +
+        '<span class="xc-spin"></span></button>' +
+      '<div class="xc-pl-mid"><div class="xc-pl-label">Lesson audio</div>' +
+        '<input class="xc-seek" id="xcSeek" type="range" min="0" max="1000" value="0" oninput="xcolSeek(this.value)" aria-label="Position"/>' +
+        '<div class="xc-pl-times"><span id="xcCur">0:00</span><span id="xcDur">--:--</span></div></div>' +
+      '<div class="xc-pl-side"><button class="xc-skip" onclick="xcolSkip(-10)" aria-label="Back 10 seconds">−10</button>' +
+        '<button class="xc-rate" id="xcRate" onclick="xcolRate()" aria-label="Playback speed">1×</button></div>' +
+    '</div>' +
+    '<div class="xc-seg" role="tablist">' +
+      ['read','cols','quiz'].map(function(t){
+        const lab = {read:'Read', cols:'Collocations', quiz:'Quiz'}[t];
+        return '<button class="xc-seg-btn'+(xcolTab===t?' on':'')+'" data-t="'+t+'" role="tab" aria-selected="'+(xcolTab===t)+'" onclick="xcolSetTab(\''+t+'\')">'+lab+'</button>';
+      }).join('') + '</div>' +
+    '<div id="xcBody">'+xcolBodyHTML(l)+'</div>' +
+    '<nav class="xc-pager">' +
+      (prev ? '<button class="xc-pg prev" onclick="xcolOpenLesson('+prev.n+')"><span>← Lesson '+prev.n+'</span><b>'+escapeHtml(prev.t)+'</b></button>' : '<span></span>') +
+      (next ? '<button class="xc-pg next" onclick="xcolOpenLesson('+next.n+')"><span>Lesson '+next.n+' →</span><b>'+escapeHtml(next.t)+'</b></button>' : '<span></span>') +
+    '</nav>';
+}
+function xcolSetTab(t){
+  xcolTab = t;
+  document.querySelectorAll('.xc-seg-btn').forEach(function(b){ const on = b.getAttribute('data-t') === t; b.classList.toggle('on', on); b.setAttribute('aria-selected', on); });
+  const body = document.getElementById('xcBody'), l = xcolLessonById(xcolLesson);
+  if(!body || !l) return;
+  body.innerHTML = xcolBodyHTML(l);
+  if(motionOK() && body.animate) body.animate([{opacity:0, transform:'translateY(8px)'}, {opacity:1, transform:'none'}], {duration:320, easing:'cubic-bezier(.22,1,.36,1)'});
+  const seg = document.querySelector('.xc-seg');
+  if(seg && seg.getBoundingClientRect().top < 0) seg.scrollIntoView({block:'start', behavior: motionOK() ? 'smooth' : 'auto'});
+}
+function xcolBodyHTML(l){
+  if(xcolTab === 'cols') return xcolColsHTML(l);
+  if(xcolTab === 'quiz') return xcolQuizHTML(l);
+  return '<div class="xc-read"><div class="xc-tip">Tap a highlighted collocation to hear it.</div>' +
+    l.p.map(function(p){
+      const gloss = /^<b>[^<]*<\/b>\s*=|^<b>[^<]*=\s*<\/b>/.test(p);
+      return '<p'+(gloss ? ' class="xc-gloss"' : '')+'>' + p.replace(/<b>(.*?)<\/b>/g, '<mark class="xc-col" role="button" tabindex="0" onclick="xcolSay(this)">$1</mark>') + '</p>';
+    }).join('') + '</div>';
+}
+function xcolSay(el){
+  const t = el.textContent.replace(/[“”"=]/g, '').trim();
+  speakWord(t);
+  el.classList.remove('said'); void el.offsetWidth; el.classList.add('said');
+}
+function xcolExample(l, col){
+  const text = l.p.map(function(p){ return p.replace(/<[^>]*>/g, ''); }).join(' ');
+  const sents = text.match(/[^.!?]+[.!?]+/g) || [text];
+  const key = col.toLowerCase().split('/')[0].trim();
+  let s = sents.find(function(x){ return x.toLowerCase().indexOf(key) !== -1; });
+  if(!s){ /* e.g. "long hair" comes from "long, sleek, jet-black hair" */
+    const words = key.split(/\s+/).filter(function(w){ return w.length > 3; }).sort(function(a, b){ return b.length - a.length; });
+    s = sents.find(function(x){ const lx = x.toLowerCase(); return words.length && words.every(function(w){ return lx.indexOf(w) !== -1; }); });
+  }
+  return s ? s.trim() : 'Lesson '+l.n+': '+l.t;
+}
+function xcolColsHTML(l){
+  return '<div class="xc-cols-head"><span>'+l.k.length+' collocations in this lesson</span>' +
+    '<button class="chip-btn xc-addall" onclick="xcolAddAll()">+ Add all to my Cards</button></div>' +
+    '<div class="xc-cols">' + l.k.map(function(c, i){
+      const have = cardFrontExists(c);
+      return '<div class="xc-colrow"><button class="xc-say" onclick="speakWord('+escapeAttr(JSON.stringify(c))+')" aria-label="Listen">'+XC_SPEAK+'</button>' +
+        '<span class="xc-coltxt">'+escapeHtml(c)+'</span>' +
+        '<button class="xc-add'+(have?' on':'')+'" data-i="'+i+'" onclick="xcolAddCard(this)">'+(have ? '✓ In Cards' : '+ Card')+'</button></div>';
+    }).join('') + '</div>';
+}
+function xcolAddCard(btn){
+  const l = xcolLessonById(xcolLesson); if(!l || btn.classList.contains('on')) return;
+  const c = l.k[+btn.getAttribute('data-i')];
+  if(addMyCard(c, xcolExample(l, c))){ btn.classList.add('on'); btn.textContent = '✓ In Cards'; haptic(); }
+}
+function xcolAddAll(){
+  const l = xcolLessonById(xcolLesson); if(!l) return;
+  let n = 0;
+  l.k.forEach(function(c){
+    if(cardFrontExists(c)) return;
+    myCards.unshift({cid: uid(), front: c, back: xcolExample(l, c), created: Date.now(), box: 0, due: Date.now(), reps: 0}); n++;
+  });
+  if(n){ persistCards(); haptic('success'); }
+  showMiniToast(n ? n+' collocations added to your Cards' : 'They are all in your Cards already');
+  const body = document.getElementById('xcBody'); if(body) body.innerHTML = xcolColsHTML(l);
+}
+function xcolQuizHTML(l){
+  const q = l.q, total = q.qs.length;
+  const answered = Object.keys(xcolAns).length;
+  const right = Object.keys(xcolAns).filter(function(k){ return xcolAns[k] === q.qs[k].a; }).length;
+  let h = '<div class="xc-quiz">' +
+    '<div class="xc-q-top"><div class="xc-q-instr">'+escapeHtml(q.i)+'</div>' +
+      '<div class="xc-q-bar"><i style="width:'+(answered/total*100).toFixed(1)+'%"></i></div>' +
+      '<div class="xc-q-count"><span id="xcAnswered">'+answered+' of '+total+' answered</span><b id="xcScore">'+right+' correct</b></div></div>';
+  let lastBank = -1;
+  q.qs.forEach(function(x, i){
+    if(x.b != null && x.b !== lastBank){
+      lastBank = x.b;
+      h += '<div class="xc-bank"><span class="xc-bank-lab">Word bank</span>' + q.b[x.b].map(function(w){ return '<span>'+escapeHtml(w)+'</span>'; }).join('') + '</div>';
+    }
+    const a = xcolAns[i], done = a !== undefined;
+    const prompt = escapeHtml(x.p).replace('___', done ? '<span class="xc-blank '+(a===x.a?'ok':'no')+'">'+escapeHtml(x.o[x.a])+'</span>' : '<span class="xc-blank">   </span>');
+    h += '<div class="xc-q'+(done ? (a===x.a ? ' right' : ' wrong') : '')+'" id="xcq'+i+'">' +
+      '<div class="xc-q-p"><span class="xc-q-n">'+(i+1)+'</span><span>'+prompt+'</span></div>' +
+      '<div class="xc-opts">' + x.o.map(function(o, j){
+        const cls = !done ? '' : (j === x.a ? ' correct' : (j === a ? ' chosen' : ' dim'));
+        return '<button class="xc-opt'+cls+'"'+(done?' disabled':'')+' onclick="xcolAnswer('+i+','+j+')"><span class="xc-opt-l">'+'ABC'[j]+'</span><span class="xc-opt-t">'+escapeHtml(o)+'</span></button>';
+      }).join('') + '</div></div>';
+  });
+  h += '<div id="xcResult">'+(answered === total ? xcolResultHTML(l, right, total) : '')+'</div></div>';
+  return h;
+}
+function xcolAnswer(i, j){
+  const l = xcolLessonById(xcolLesson); if(!l || xcolAns[i] !== undefined) return;
+  xcolAns[i] = j;
+  const x = l.q.qs[i], ok = j === x.a;
+  haptic(); uiSound(ok ? 'tick' : 'error');
+  const card = document.getElementById('xcq'+i);
+  if(card){
+    const tmp = document.createElement('div');
+    const keepTab = xcolTab; xcolTab = 'quiz';
+    tmp.innerHTML = xcolQuizHTML(l);
+    xcolTab = keepTab;
+    const fresh = tmp.querySelector('#xcq'+i);
+    card.replaceWith(fresh);
+    if(motionOK() && fresh.animate) fresh.animate(ok
+      ? [{boxShadow:'0 0 0 0 rgba(31,164,99,0)'}, {boxShadow:'0 0 0 6px rgba(31,164,99,0.18)', offset:.35}, {boxShadow:'0 0 0 0 rgba(31,164,99,0)'}]
+      : [{transform:'none'}, {transform:'translateX(-6px)', offset:.2}, {transform:'translateX(5px)', offset:.4}, {transform:'translateX(-3px)', offset:.6}, {transform:'none'}],
+      {duration: ok ? 700 : 480, easing:'ease-out'});
+  }
+  const total = l.q.qs.length, answered = Object.keys(xcolAns).length;
+  const right = Object.keys(xcolAns).filter(function(k){ return xcolAns[k] === l.q.qs[k].a; }).length;
+  const bar = document.querySelector('.xc-q-bar i'); if(bar) bar.style.width = (answered/total*100).toFixed(1)+'%';
+  const ae = document.getElementById('xcAnswered'); if(ae) ae.textContent = answered+' of '+total+' answered';
+  const se = document.getElementById('xcScore'); if(se) se.textContent = right+' correct';
+  if(answered === total){
+    const p = xcolProgress(), s = p[l.n] || {};
+    s.done = 1; s.total = total; s.best = Math.max(s.best || 0, right); p[l.n] = s; deviceSet('xcol', p);
+    try{ logActivity('quiz'); }catch(e){}
+    if(right === total){ uiSound('success'); haptic('success'); try{ fireConfetti(); }catch(e){} }
+    const res = document.getElementById('xcResult');
+    if(res){ res.innerHTML = xcolResultHTML(l, right, total); if(motionOK() && res.animate) res.animate([{opacity:0, transform:'translateY(12px) scale(.97)'}, {opacity:1, transform:'none'}], {duration:520, easing:'cubic-bezier(.3,1.4,.45,1)'}); setTimeout(function(){ res.scrollIntoView({block:'center', behavior: motionOK() ? 'smooth' : 'auto'}); }, 250); }
+  }
+}
+function xcolResultHTML(l, right, total){
+  const pct = Math.round(right/total*100), next = xcolLessonById(l.n + 1);
+  const msg = pct === 100 ? 'Perfect score!' : (pct >= 80 ? 'Great work!' : (pct >= 60 ? 'Nearly there — check the red ones.' : 'Read the lesson again, then try once more.'));
+  return '<div class="xc-result"><span class="xc-res-ring" style="--p:'+pct+'"><b>'+right+'</b><small>/'+total+'</small></span>' +
+    '<div class="xc-res-txt"><b>'+msg+'</b><span>'+pct+'% correct</span></div>' +
+    '<div class="xc-res-btns"><button class="chip-btn" onclick="xcolRetry()">Try again</button>' +
+    (next ? '<button class="chip-btn primary" onclick="xcolOpenLesson('+next.n+')">Next lesson →</button>' : '') + '</div></div>';
+}
+function xcolRetry(){ xcolAns = {}; const body = document.getElementById('xcBody'), l = xcolLessonById(xcolLesson); if(body && l){ body.innerHTML = xcolQuizHTML(l); const seg = document.querySelector('.xc-seg'); if(seg) seg.scrollIntoView({block:'start', behavior: motionOK() ? 'smooth' : 'auto'}); } }
+
+/* ---------- audio player ---------- */
+function xcolFmt(s){ if(!isFinite(s)) return '--:--'; s = Math.max(0, Math.floor(s)); return Math.floor(s/60)+':'+String(s%60).padStart(2,'0'); }
+function xcolWireAudio(){
+  const a = document.getElementById('xcAudio'); if(!a || a._wired) return;
+  a._wired = true;
+  const pl = document.getElementById('xcPlayer');
+  const upd = function(){
+    const seek = document.getElementById('xcSeek'), cur = document.getElementById('xcCur'), dur = document.getElementById('xcDur');
+    if(cur) cur.textContent = xcolFmt(a.currentTime);
+    if(dur && isFinite(a.duration)) dur.textContent = xcolFmt(a.duration);
+    if(seek && isFinite(a.duration) && a.duration > 0 && !seek._drag){ seek.value = Math.round(a.currentTime / a.duration * 1000); seek.style.setProperty('--v', (a.currentTime/a.duration*100).toFixed(2)+'%'); }
+  };
+  a.addEventListener('timeupdate', upd); a.addEventListener('loadedmetadata', upd);
+  a.addEventListener('play', function(){ pl.classList.add('playing'); });
+  a.addEventListener('pause', function(){ pl.classList.remove('playing'); });
+  a.addEventListener('waiting', function(){ pl.classList.add('buffering'); });
+  a.addEventListener('playing', function(){ pl.classList.remove('buffering'); });
+  a.addEventListener('ended', function(){ pl.classList.remove('playing'); });
+  a.addEventListener('error', function(){ xcolAudioFallback(); });
+}
+function xcolPlay(){
+  const a = document.getElementById('xcAudio'); if(!a) return;
+  xcolWireAudio();
+  if(a.paused){ const pr = a.play(); if(pr && pr.catch) pr.catch(function(err){ if(err && err.name !== 'AbortError' && err.name !== 'NotAllowedError') xcolAudioFallback(); }); }
+  else a.pause();
+}
+function xcolSeek(v){ const a = document.getElementById('xcAudio'), s = document.getElementById('xcSeek'); if(s) s.style.setProperty('--v', (v/10)+'%'); if(a && isFinite(a.duration)) a.currentTime = a.duration * v / 1000; }
+function xcolSkip(d){ const a = document.getElementById('xcAudio'); if(a && isFinite(a.duration)) a.currentTime = Math.max(0, Math.min(a.duration, a.currentTime + d)); }
+function xcolRate(){
+  const a = document.getElementById('xcAudio'), b = document.getElementById('xcRate'); if(!a) return;
+  const r = a.playbackRate === 1 ? 0.75 : (a.playbackRate === 0.75 ? 1.25 : 1);
+  a.playbackRate = r; if(b) b.textContent = (r === 1 ? '1' : String(r).replace(/^0/, ''))+'×';
+}
+/* if the phone can't stream the file directly, fall back to Google Drive's own player */
+function xcolAudioFallback(){
+  const pl = document.getElementById('xcPlayer'); if(!pl || pl.classList.contains('fallback')) return;
+  const id = pl.getAttribute('data-au');
+  pl.classList.add('fallback');
+  pl.innerHTML = '<iframe class="xc-drive" src="https://drive.google.com/file/d/'+encodeURIComponent(id)+'/preview" allow="autoplay" title="Lesson audio"></iframe>' +
+    '<a class="xc-drive-link" href="https://drive.google.com/file/d/'+encodeURIComponent(id)+'/view" target="_blank" rel="noopener">Open the audio in Google Drive ↗</a>';
+}
+
 /* ================= v78: motion, touch and haptics ================= */
 /* a tiny tap you can feel. Android uses the vibration API; iPhone (iOS 18 and
    later) gives a system tick when a hidden switch control is toggled from a real
@@ -15822,7 +16356,7 @@ const haptic = (function(){
     }catch(e){}
   };
 })();
-const HAPTIC_SEL = '.tab-item,.toggle-head,.quiz-opt,.task-check,.tl-check,.switch,.seg-btn,.rv-btn,.tab-pill,.done-btn,.accent-opt,.hfont-opt,.mh-back,.search-fab';
+const HAPTIC_SEL = '.tab-item,.toggle-head,.quiz-opt,.task-check,.tl-check,.switch,.seg-btn,.rv-btn,.tab-pill,.done-btn,.accent-opt,.hfont-opt,.mh-back,.search-fab,.xc-opt,.xc-seg-btn,.xc-row,.xc-play,.xc-pg';
 document.addEventListener('click', function(e){
   if(editMode || !e.isTrusted) return;
   const t = e.target.closest && e.target.closest(HAPTIC_SEL);
@@ -16057,6 +16591,7 @@ function v78AfterRender(sameView){
 }
 
 loadState();
+xcolLoadMeta();
 </script>
 </body>
 </html>
