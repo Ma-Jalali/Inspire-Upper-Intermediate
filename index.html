@@ -5811,6 +5811,78 @@
     background-image:linear-gradient(100deg, rgba(255,255,255,0) 30%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0) 70%);}
   @keyframes lpShimmer{from{background-position:120% 0;}to{background-position:-120% 0;}}
   @media (prefers-reduced-motion: reduce){ html #app .lp-media::after{animation:none !important;} }
+
+  /* ---- back buttons on sub-screens: an iOS glass capsule with a chevron ---- */
+  html #app .search-back{height:38px;padding:0 15px 0 11px;gap:6px;border:none;border-radius:999px;
+    font-family:var(--font-head);font-size:15px;font-weight:600;letter-spacing:-0.01em;color:var(--crimson);
+    background:linear-gradient(180deg, var(--lg-top), var(--lg-bot));
+    -webkit-backdrop-filter:var(--lg-filter);backdrop-filter:var(--lg-filter);
+    box-shadow:inset 0 1px 0 var(--lg-rim), inset 0 0 0 .5px rgba(255,255,255,0.4), 0 0 0 .5px var(--lg-edge), 0 6px 16px -10px rgba(22,30,56,0.35);
+    transition:transform .45s var(--v-spring);}
+  html[data-theme="dark"] #app .search-back{color:var(--crimson);
+    box-shadow:inset 0 1px 0 var(--lg-rim), 0 0 0 .5px var(--lg-edge), 0 8px 18px -10px rgba(0,0,0,0.7);}
+  html #app .search-back .sb-chev{display:inline-flex;width:9px;height:15px;}
+  html #app .search-back .sb-chev svg{width:100%;height:100%;}
+  html #app .search-back:active{transform:scale(.93);transition-duration:.12s;}
+
+  /* ---- search fields: one iOS search-bar look everywhere ---- */
+  html #app .search-box .search-input,html #app .gh-search{height:46px;border:none;border-radius:999px;
+    background:rgba(118,118,128,0.12);box-shadow:inset 0 0 0 .5px rgba(20,28,52,0.05);
+    transition:background .25s ease, box-shadow .25s ease;}
+  html #app .search-box .search-input{padding-left:44px;font-size:16px;}
+  html #app .gh-search{padding:0 16px;margin-bottom:16px;}
+  html[data-theme="dark"] #app .search-box .search-input,html[data-theme="dark"] #app .gh-search{background:rgba(118,118,128,0.24);box-shadow:none;}
+  html #app .search-box .search-input:focus,html #app .gh-search:focus-within{background:var(--surface);outline:none;
+    box-shadow:0 0 0 1px rgba(var(--accent-rgb),0.35), 0 0 0 5px rgba(var(--accent-rgb),0.12), 0 8px 20px -14px rgba(22,30,56,0.4);}
+  html[data-theme="dark"] #app .search-box .search-input:focus,html[data-theme="dark"] #app .gh-search:focus-within{background:rgba(118,118,128,0.30);}
+  html #app .search-box .search-icon{left:16px;}
+  html #app .search-box .search-icon svg,html #app .gh-search svg{width:18px;height:18px;}
+  html #app .dict-search-row{gap:10px;align-items:center;}
+  html #app .dict-go{height:46px;min-width:64px;padding:0 20px;border-radius:999px;font-size:15px;letter-spacing:-0.01em;
+    box-shadow:0 8px 18px -8px rgba(var(--accent-rgb),0.75), inset 0 1px 0 rgba(255,255,255,0.35);transition:transform .45s var(--v-spring);}
+  html #app .dict-go:active{transform:scale(.92);transition-duration:.12s;}
+
+  /* ---- section headers carry a small count pill ---- */
+  html #app .section-label .sl-count{font-family:var(--font-head);font-size:12px;font-weight:700;letter-spacing:0;line-height:1;
+    padding:4px 8px;border-radius:999px;color:var(--ink-soft);background:rgba(118,118,128,0.12);font-variant-numeric:tabular-nums;}
+  html[data-theme="dark"] #app .section-label .sl-count{background:rgba(118,118,128,0.24);}
+
+  /* ---- page chips under a unit banner: glass capsules with a state mark ---- */
+  html #app .page-actions .chip-btn,html #app .head-row .breadcrumb.bc-below{border:none;border-radius:999px;
+    background:linear-gradient(180deg, var(--lg-top), var(--lg-bot));
+    -webkit-backdrop-filter:var(--lg-filter);backdrop-filter:var(--lg-filter);
+    box-shadow:inset 0 1px 0 var(--lg-rim), inset 0 0 0 .5px rgba(255,255,255,0.4), 0 0 0 .5px var(--lg-edge), 0 6px 16px -12px rgba(22,30,56,0.4);}
+  html[data-theme="dark"] #app .page-actions .chip-btn,html[data-theme="dark"] #app .head-row .breadcrumb.bc-below{
+    box-shadow:inset 0 1px 0 var(--lg-rim), 0 0 0 .5px var(--lg-edge), 0 8px 18px -12px rgba(0,0,0,0.7);}
+  html #app .page-actions .chip-btn{gap:7px;font-family:var(--font-head);font-weight:600;letter-spacing:-0.005em;transition:transform .45s var(--v-spring);}
+  html #app .page-actions .chip-btn:active{transform:scale(.94);transition-duration:.12s;}
+  html #app .done-btn:not(.on)::before{content:'';display:inline-block;width:13px;height:13px;border-radius:50%;margin-right:0;vertical-align:-2px;
+    box-shadow:inset 0 0 0 1.6px currentColor;opacity:.45;}
+  html #app .page-actions .done-btn.on{background:var(--g-crimson);color:#fff;
+    box-shadow:0 8px 18px -10px rgba(var(--accent-rgb),0.8), inset 0 1px 0 rgba(255,255,255,0.35);}
+  html #app .page-actions .done-btn.on::before{display:none;}
+  html #app .page-actions .done-btn.on svg{margin-right:5px;}
+  html #app .page-actions .fav-btn.on{color:#D9861C;}
+
+  /* ---- tabs inside a page read as an iOS segmented control ---- */
+  html #app:not(.editing) .tabs-bar{display:flex;width:100%;max-width:100%;gap:0;padding:3px;border-radius:999px;
+    background:rgba(118,118,128,0.12);box-shadow:none;}
+  html[data-theme="dark"] #app:not(.editing) .tabs-bar{background:rgba(118,118,128,0.24);}
+  html #app:not(.editing) .tab-pill{flex:1;min-width:0;border-radius:999px;padding:8px 10px;text-align:center;display:flex;align-items:center;justify-content:center;color:var(--ink);opacity:.72;
+    transition:opacity .2s ease, background .3s var(--v-ease), box-shadow .3s var(--v-ease);}
+  html #app:not(.editing) .tab-pill.on{opacity:1;color:var(--ink);background:var(--surface);
+    box-shadow:0 3px 8px -2px rgba(20,28,52,0.18), 0 0 0 .5px rgba(20,28,52,0.06);}
+  html[data-theme="dark"] #app:not(.editing) .tab-pill.on{background:rgba(255,255,255,0.16);color:#fff;box-shadow:0 3px 8px -2px rgba(0,0,0,0.5);}
+  html #app:not(.editing) .tab-pill-label{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;}
+
+  /* ---- an empty Grammar hub gets a proper empty state ---- */
+  html #app #ghList > .hw-empty{text-align:center;padding:92px 24px 24px;position:relative;color:var(--ink-soft);font-size:14.5px;}
+  html #app #ghList > .hw-empty::before{content:'';position:absolute;top:10px;left:50%;width:64px;height:64px;margin-left:-32px;border-radius:21px;
+    background:radial-gradient(circle at 30% 25%, rgba(255,255,255,0.55), transparent 45%), var(--g-sage);
+    box-shadow:0 16px 30px -14px rgba(31,164,99,0.7), inset 0 1px 0 rgba(255,255,255,0.45);}
+  html #app #ghList > .hw-empty::after{content:'';position:absolute;top:30px;left:50%;width:24px;height:24px;margin-left:-12px;background:#fff;
+    -webkit-mask:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><path d='M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z'/><path d='M5 17a3 3 0 0 1 3-3h11'/><path d='M9 8h6'/></svg>") center/contain no-repeat;
+            mask:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><path d='M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z'/><path d='M5 17a3 3 0 0 1 3-3h11'/><path d='M9 8h6'/></svg>") center/contain no-repeat;}
 </style>
 </head>
 <body>
@@ -11891,8 +11963,8 @@ function renderHomeGrid(){
       '<div class="fb-deck" aria-hidden="true"><span class="fb-c c1"></span><span class="fb-c c2"></span><span class="fb-c c3">Aa</span></div>' +
     '</div>' +
     mistakesBannerHTML() + soundsBannerHTML() + examsBannerHTML() + grammarBannerHTML() +
-    (generals.length ? ('<div class="section-label">Course</div><div class="card-list">' + generals.map(function(p,i){ return pageCard(p,i,true); }).join('') + '</div>') : '') +
-    (units.length ? ('<div class="section-label">Units</div><div class="unit-grid">' + units.map(function(p,i){ return unitCard(p,i); }).join('') + '</div>') : '') +
+    (generals.length ? ('<div class="section-label">Course<span class="sl-count">'+generals.length+'</span></div><div class="card-list">' + generals.map(function(p,i){ return pageCard(p,i,true); }).join('') + '</div>') : '') +
+    (units.length ? ('<div class="section-label">Units<span class="sl-count">'+units.filter(function(p){ return isUnitDone(p.id); }).length+'/'+units.length+'</span></div><div class="unit-grid">' + units.map(function(p,i){ return unitCard(p,i); }).join('') + '</div>') : '') +
     (editMode ? '<button class="btn primary full" onclick="openNewPageModal(null)">+ New page</button>' : '');
 }
 /* a numbered page inside a unit ("1. Vocabulary") reads as a part of that unit */
@@ -15958,7 +16030,23 @@ function countUp(el, to){
     if(k < 1 && node.isConnected) requestAnimationFrame(step);
   })(t0);
 }
+/* sub-screen back buttons: the text arrow becomes a proper iOS chevron */
+const V78_CHEVRON = '<svg viewBox="0 0 12 20" aria-hidden="true"><path d="M10 2 2 10l8 8" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+function v78BackButtons(){
+  document.querySelectorAll('#app .search-back:not([data-v78])').forEach(function(b){
+    b.setAttribute('data-v78', '1');
+    const first = b.firstChild;
+    if(first && first.nodeType === 3 && /^\s*\u2190\s*/.test(first.nodeValue)){
+      first.nodeValue = first.nodeValue.replace(/^\s*\u2190\s*/, '');
+      const ic = document.createElement('span');
+      ic.className = 'sb-chev';
+      ic.innerHTML = V78_CHEVRON;
+      b.insertBefore(ic, first);
+    }
+  });
+}
 function v78AfterRender(sameView){
+  try{ v78BackButtons(); }catch(e){}
   const sc = document.querySelector('#app .app-scroll');
   if(_swipeBackEnter && sc){ _swipeBackEnter = false; sc.classList.add('enter-from-back'); }
   if(sameView) return;
