@@ -5967,8 +5967,6 @@
   html #app .xc-row-ico{position:relative;flex-shrink:0;width:44px;height:44px;border-radius:14px;display:flex;align-items:center;justify-content:center;
     box-shadow:0 8px 16px -10px rgba(10,16,40,0.6), inset 0 1px 0 rgba(255,255,255,0.4), inset 0 -8px 14px -10px rgba(0,0,0,0.25);}
   html #app .xc-row-ico .xc-glyph{width:26px;height:26px;}
-  html #app .xc-row-n{position:absolute;right:-5px;bottom:-4px;min-width:17px;height:17px;padding:0 4px;box-sizing:border-box;border-radius:999px;display:flex;align-items:center;justify-content:center;
-    font-family:var(--font-display);font-size:10px;font-weight:800;color:var(--ink);background:var(--surface);box-shadow:0 2px 5px rgba(10,16,40,0.22);}
   html #app .xc-row-body{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;}
   html #app .xc-row-body b{font-family:var(--font-display);font-size:16px;font-weight:700;letter-spacing:-0.01em;line-height:1.25;}
   html #app .xc-row-meta{font-size:12.5px;color:var(--ink-soft);}
@@ -16199,7 +16197,7 @@ function renderXcolList(){
     const s = p[next.n] || {};
     h += '<button class="xc-next" style="--bg:'+GRAD_VAR[next.c]+'" onclick="xcolOpenLesson('+next.n+')">' +
       '<span class="xc-next-art">'+xcGlyph(next.n)+'</span>' +
-      '<span class="xc-next-txt"><span class="xc-next-k">'+(done ? 'Up next' : 'Start here')+' · Lesson '+next.n+'</span><b>'+escapeHtml(next.t)+'</b>' +
+      '<span class="xc-next-txt"><span class="xc-next-k">'+(done ? 'Up next' : 'Start here')+'</span><b>'+escapeHtml(next.t)+'</b>' +
         '<span class="xc-next-go">'+(s.seen ? 'Continue' : 'Start lesson')+' <i>›</i></span></span>' +
       '<span class="xc-next-ring" aria-label="'+done+' of '+L.length+' done"><svg viewBox="0 0 50 50"><circle cx="25" cy="25" r="'+R+'" class="t"/><circle cx="25" cy="25" r="'+R+'" class="v" style="stroke-dasharray:'+C.toFixed(1)+';stroke-dashoffset:'+off.toFixed(1)+'"/></svg><b>'+done+'</b><small>/'+L.length+'</small></span>' +
     '</button>';
@@ -16216,7 +16214,7 @@ function renderXcolList(){
       const s = p[l.n] || {};
       const score = s.best != null ? '<span class="xc-score'+(s.best===s.total?' perfect':'')+'">'+s.best+'/'+s.total+'</span>' : '';
       h += '<button class="xc-row" style="--d:'+(Math.min(idx++,14)*0.025).toFixed(3)+'s" onclick="xcolOpenLesson('+l.n+')">' +
-        '<span class="xc-row-ico" style="background:'+GRAD_VAR[l.c]+'">'+xcGlyph(l.n)+'<span class="xc-row-n">'+l.n+'</span></span>' +
+        '<span class="xc-row-ico" style="background:'+GRAD_VAR[l.c]+'">'+xcGlyph(l.n)+'</span>' +
         '<span class="xc-row-body"><b>'+escapeHtml(l.t)+'</b><span class="xc-row-meta">'+l.k.length+' collocations · '+l.q.qs.length+' questions</span></span>' +
         score +
         (s.done ? '<span class="xc-row-done" aria-label="Done"><svg viewBox="0 0 24 24"><path d="M6 12.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>'
