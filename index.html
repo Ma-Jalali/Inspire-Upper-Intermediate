@@ -6244,6 +6244,17 @@
 
   html #app .rd-crumbs{margin:-2px 0 12px;}
   html #app .rd-crumbs .breadcrumb{max-width:100%;}
+  /* body text wraps normally. "text-wrap:pretty" made Safari on iPhone re-balance whole paragraphs,
+     pushing words like "were" or "of" down to the next line although they fitted: ragged right edge,
+     shorter lines and more scrolling. Headings keep text-wrap:balance. */
+  html #app .b-text, html #app .b-text-view, html #app .tl, html #app .item-text, html #app .b-callout-text,
+  html #app .def-item, html #app .bnr-body, html #app .dx-def, html #app .ex-model-body p, html #app .ann-text,
+  html #app .hw-text, html #app .xc-read p, html #app .quiz-prompt-view, html #app .b-quote-text,
+  html body .daily-mean, html body .daily-ex, html body .flash-mean{text-wrap:wrap;}
+  /* reading screens: the text sits straight on the reading card (no second card inside), so lines are longer */
+  html #app .rd-body > .block, html #app .rd-body > .sheet > .block{padding-left:0;padding-right:0;background:none;box-shadow:none;border:none;}
+  html #app .rd-body{padding:20px 20px 12px;}
+  html #app .rd-body > .block:first-child, html #app .rd-body > .sheet:first-child > .block:first-child{padding-top:0;margin-top:0;}
   /* quiz number badges: a touch more depth, matching the Extra Collocations ones */
   html #app .quiz-qnum{box-shadow:0 4px 10px -5px rgba(var(--accent-rgb),0.7), inset 0 1px 0 rgba(255,255,255,0.35), inset 0 -1px 2px rgba(0,0,0,0.12);}
 </style>
