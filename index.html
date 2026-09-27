@@ -6264,12 +6264,13 @@
   html #app .xc-drive-ico svg{width:17px;height:17px;}
   html #app .xc-drive-t{flex:1;min-width:0;font-family:var(--font-head);font-size:13.5px;font-weight:700;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
   html #app .xc-drive-head .xc-drive-link{flex-shrink:0;align-self:center;padding:5px 10px;border-radius:999px;font-size:12px;font-weight:700;color:var(--xc-ink);background:rgba(var(--accent-rgb),0.1);text-decoration:none;}
-  /* Drive draws its play row near the top (~22px down) and a volume row ~96px down. Show a 76px window with
-     the player moved 16px down: the play row sits in the middle and the volume row falls outside (phones
-     have their own volume buttons). Background = Drive's own grey, so the extra space is invisible. */
+  /* Drive centres its content in the frame it gets: at 112px tall the play row's centre is ~22px down and the
+     volume row ~96-111px down (a taller frame pushes everything lower). So: a 112px player moved 16px down
+     inside a 76px window puts the play row's centre at 38px (the middle) and leaves the volume row outside
+     (phones have their own volume buttons). Background = Drive's own grey, so the extra space is invisible. */
   html #app .xc-drive-frame{position:relative;height:76px;border-radius:16px;overflow:hidden;background:#282a2c;
     box-shadow:inset 0 0 0 1px rgba(255,255,255,0.06), 0 10px 20px -14px rgba(10,16,40,0.6);}
-  html #app .xc-drive-frame .xc-drive{position:absolute;left:0;right:0;top:16px;width:100%;height:170px;border:none;border-radius:0;background:#282a2c;}
+  html #app .xc-drive-frame .xc-drive{position:absolute;left:0;right:0;top:16px;width:100%;height:112px;border:none;border-radius:0;background:#282a2c;}
   /* quiz number badges: a touch more depth, matching the Extra Collocations ones */
   html #app .quiz-qnum{box-shadow:0 4px 10px -5px rgba(var(--accent-rgb),0.7), inset 0 1px 0 rgba(255,255,255,0.35), inset 0 -1px 2px rgba(0,0,0,0.12);}
 </style>
