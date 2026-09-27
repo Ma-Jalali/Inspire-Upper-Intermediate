@@ -6321,6 +6321,19 @@
     box-shadow:inset 0 0 0 1px rgba(255,210,120,0.14), inset 0 1px 0 rgba(255,236,190,0.10);}
   html[data-theme="dark"] .bn-t-yellow b, html[data-theme="dark"] .bn-t-yellow strong{color:#FFD978;}
 
+  /* badges: a locked badge shows its own emblem, faded, with a small glass lock pin (iOS Game Center style) */
+  html #app .bd-medal{position:relative;}
+  html #app .bd-card:not(.got) .bd-medal{filter:none;opacity:1;}
+  html #app .bd-card:not(.got) .bd-emo{filter:grayscale(1) contrast(.85);opacity:.42;}
+  html #app .bd-pin{position:absolute;right:-3px;bottom:-3px;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    color:var(--ink-soft);background:linear-gradient(180deg,rgba(255,255,255,0.96),rgba(242,244,250,0.9));
+    box-shadow:0 0 0 .5px rgba(15,25,50,0.12), 0 3px 8px -3px rgba(15,25,50,0.35), inset 0 1px 0 #fff;}
+  html #app .bd-pin svg{width:11px;height:11px;}
+  html[data-theme="dark"] #app .bd-pin{color:#C9CFE0;background:linear-gradient(180deg,#3A4058,#2A2F43);box-shadow:0 0 0 .5px rgba(255,255,255,0.12), 0 3px 8px -3px rgba(0,0,0,0.6);}
+  html #app .bd-card:not(.got) b{color:var(--ink);opacity:.8;}
+  /* word games: the selected source chip stays readable even when that source has too few words */
+  html #app .gm-src button.on.off{opacity:.82;}
+
   /* quiz number badges: a touch more depth, matching the Extra Collocations ones */
   html #app .quiz-qnum{box-shadow:0 4px 10px -5px rgba(var(--accent-rgb),0.7), inset 0 1px 0 rgba(255,255,255,0.35), inset 0 -1px 2px rgba(0,0,0,0.12);}
 </style>
@@ -10776,7 +10789,7 @@ function renderBadges(){
     '<div class="bd-hero"><div class="bd-hero-num">'+n+'<small>/'+BADGES.length+'</small></div><div class="bd-hero-t">badges earned</div>' +
     '<div class="bd-bar"><i style="width:'+Math.round(n/BADGES.length*100)+'%"></i></div></div><div class="bd-grid">';
   BADGES.forEach(function(b, i){
-    h += '<div class="bd-card'+(got[b.id]?' got':'')+'" style="--d:'+(i*0.03).toFixed(2)+'s"><span class="bd-medal big">'+(got[b.id] ? b.icon : '\uD83D\uDD12')+'</span><b>'+escapeHtml(b.name)+'</b><span>'+escapeHtml(b.how)+'</span></div>';
+    h += '<div class="bd-card'+(got[b.id]?' got':'')+'" style="--d:'+(i*0.03).toFixed(2)+'s"><span class="bd-medal big"><span class="bd-emo">'+b.icon+'</span>'+(got[b.id] ? '' : '<i class="bd-pin" aria-label="Locked"><svg viewBox="0 0 24 24"><rect x="5.5" y="10.5" width="13" height="10" rx="2.6" fill="currentColor"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></i>')+'</span><b>'+escapeHtml(b.name)+'</b><span>'+escapeHtml(b.how)+'</span></div>';
   });
   return h + '</div>';
 }
