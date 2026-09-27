@@ -6206,6 +6206,47 @@
   html[data-theme="dark"] #app .tabs-v2 .tabs-foot{border-top-color:rgba(255,255,255,0.07);}
   html[data-theme="dark"] #app .tabs-v2 .tabs-next b{color:#fff;}
   @media (prefers-reduced-motion: reduce){ html #app .tabs-v2 .tabs-hint-ico, html #app .tabs-v2 .tab-pill.nudge .tab-pill-label::after{animation:none;} }
+
+  /* ================= v80: one signature red + visual polish ================= */
+  /* Extra Collocations now uses the same bright accent gradient as the quiz badges and buttons (--g-crimson) */
+  html #app{--xc-grad:var(--g-crimson);--xc-l:color-mix(in srgb,var(--crimson) 55%,#fff);--xc-ink:color-mix(in srgb,var(--crimson) 72%,var(--crimson-dark));}
+  @supports not (color: color-mix(in srgb, red 50%, white)){ html #app{--xc-l:var(--crimson);--xc-ink:var(--crimson);} }
+  html #app .xc-q-bar i{background:linear-gradient(90deg,var(--xc-l),var(--crimson));}
+  html #app .xc-res-ring::before{background:linear-gradient(145deg,var(--crimson),color-mix(in srgb,var(--crimson) 60%,var(--crimson-dark)));
+    box-shadow:inset 0 1px 0 rgba(255,255,255,0.25), 0 4px 12px -4px rgba(0,0,0,0.25);}
+  html #app .xc-res-btns .chip-btn.primary{color:var(--xc-ink);}
+  html #app .xc-result{position:relative;overflow:hidden;isolation:isolate;}
+  html #app .xc-result::before{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;
+    background:radial-gradient(110% 80% at 100% 0%,rgba(255,255,255,0.22),transparent 55%),radial-gradient(80% 70% at 0% 100%,rgba(0,0,0,0.14),transparent 60%);}
+  html #app .xc-play, html #app .xc-q-n, html #app .xc-icon, html #app .xc-hero-ico{box-shadow:0 8px 16px -8px rgba(var(--accent-rgb),0.75), inset 0 1px 0 rgba(255,255,255,0.35), inset 0 -1px 2px rgba(0,0,0,0.12);}
+  html #app .xc-q-n{border-radius:7px;}
+  html #app .xc-seg-btn.on{color:var(--xc-ink);}
+  html[data-theme="dark"] #app .xc-seg-btn.on{color:#fff;}
+
+  /* home hero: brighter, in the same family as the quiz red (the deepest stop no longer turns maroon) */
+  html:not([data-theme="dark"]) #app .hero-card{
+    background:
+      radial-gradient(110% 80% at 102% -6%, rgba(var(--gold-rgb),0.55) 0%, rgba(var(--gold-rgb),0) 58%),
+      radial-gradient(95% 85% at -12% 112%, rgba(var(--accent-rgb),0.9) 0%, rgba(var(--accent-rgb),0) 64%),
+      radial-gradient(55% 45% at 64% 58%, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0) 70%),
+      linear-gradient(158deg, color-mix(in srgb,var(--crimson) 82%,#fff) 0%, var(--crimson) 38%, color-mix(in srgb,var(--crimson-dark) 70%,var(--crimson-deep)) 100%);}
+  /* dark hero: less gold wash, so the card stays a clean deep accent instead of going brown */
+  html[data-theme="dark"] #app .hero-card{
+    background:
+      radial-gradient(110% 80% at 102% -6%, rgba(var(--gold-rgb),0.22) 0%, rgba(var(--gold-rgb),0) 55%),
+      radial-gradient(95% 85% at -12% 112%, rgba(var(--accent-rgb),0.42) 0%, rgba(var(--accent-rgb),0) 64%),
+      linear-gradient(158deg, color-mix(in srgb,var(--crimson-dark) 80%,var(--crimson-deep)) 0%, var(--crimson-deep) 48%, var(--hero-deep,#0A0C1A) 100%);}
+
+  /* flash-card "study all" button: same family as the rest of the accent buttons */
+  .fp-all{background:radial-gradient(90% 120% at 100% 0%, rgba(var(--gold-rgb),0.35), transparent 60%), var(--g-crimson);}
+
+  /* word games: the Match card art showed an empty box (its four tiles collapsed to 2px) */
+  html #app .gm-card-art.ma{justify-items:stretch;align-items:stretch;}
+  html #app .gm-card-art.ma i{box-shadow:inset 0 1px 0 rgba(255,255,255,0.6), 0 2px 5px -2px rgba(0,0,0,0.2);}
+  html #app .gm-src button.on{box-shadow:0 6px 14px -8px rgba(60,60,160,0.7), inset 0 1px 0 rgba(255,255,255,0.3);}
+
+  /* quiz number badges: a touch more depth, matching the Extra Collocations ones */
+  html #app .quiz-qnum{box-shadow:0 4px 10px -5px rgba(var(--accent-rgb),0.7), inset 0 1px 0 rgba(255,255,255,0.35), inset 0 -1px 2px rgba(0,0,0,0.12);}
 </style>
 </head>
 <body>
