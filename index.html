@@ -5630,6 +5630,9 @@
   html.swiping-back #app .app-scroll{will-change:transform;}
 
   /* ---- light that blooms under a finger ---- */
+  /* absolute no matter what: rules like ".page-card > *{position:relative}" used to catch it, and the
+     glow then became a real flex child ~1.15x the card's width, blowing the card up to ~440px for a moment */
+  html .touch-glow{position:absolute !important;flex:none !important;margin:0 !important;}
   .touch-glow{position:absolute;border-radius:50%;pointer-events:none;z-index:6;
     background:radial-gradient(circle, rgba(255,255,255,0.42) 0%, rgba(255,255,255,0.16) 32%, rgba(255,255,255,0) 62%);}
   html #app .page-card .touch-glow,html #app .prog-panel .touch-glow,html #app .streak-card .touch-glow,html #app .bd-strip .touch-glow,
@@ -6244,6 +6247,35 @@
   html #app .gm-card-art.ma{justify-items:stretch;align-items:stretch;}
   html #app .gm-card-art.ma i{box-shadow:inset 0 1px 0 rgba(255,255,255,0.6), 0 2px 5px -2px rgba(0,0,0,0.2);}
   html #app .gm-src button.on{box-shadow:0 6px 14px -8px rgba(60,60,160,0.7), inset 0 1px 0 rgba(255,255,255,0.3);}
+
+  /* ---- Reading block: a row that opens its own screen ---- */
+  html #app .rd-row{border-radius:22px;padding:13px 14px 13px 12px;background:var(--surface);
+    box-shadow:0 1px 2px rgba(10,16,40,0.05), 0 14px 28px -22px rgba(10,16,40,0.55), inset 0 0 0 1px rgba(10,16,40,0.05), inset 0 1px 0 rgba(255,255,255,0.85);
+    transition:transform .25s var(--v-spring,ease), box-shadow .25s ease;-webkit-tap-highlight-color:transparent;}
+  html #app .rd-row:active{transform:scale(.98);}
+  html #app .rd-row .xc-row-ico{width:48px;height:48px;border-radius:15px;box-shadow:0 8px 16px -8px rgba(10,16,40,0.45), inset 0 1px 0 rgba(255,255,255,0.35);}
+  html #app .rd-row .xc-row-body b{font-family:var(--font-display);font-size:16.5px;letter-spacing:-0.01em;}
+  html #app .rd-row .xc-row-done{background:linear-gradient(145deg,#5BDB93,#1FA463);}
+  html[data-theme="dark"] #app .rd-row{background:#161C2E;box-shadow:0 16px 32px -24px rgba(0,0,0,0.7), inset 0 0 0 1px rgba(255,255,255,0.08);}
+  html #app .block:has(> .block-body > .rd-row), html #app .block:has(.rd-row){background:none;box-shadow:none;border:none;}
+  html #app .rd-body{padding:18px 18px 10px;border-radius:24px;background:var(--surface);
+    box-shadow:0 1px 2px rgba(10,16,40,0.05), 0 14px 28px -22px rgba(10,16,40,0.55), inset 0 0 0 1px rgba(var(--accent-rgb),0.06), inset 0 1px 0 rgba(255,255,255,0.85);}
+  html #app .rd-body .b-text-view{font-size:16.5px;line-height:1.72;}
+  html #app .rd-empty{padding:28px 18px;text-align:center;color:var(--ink-soft);font-size:14.5px;}
+  html[data-theme="dark"] #app .rd-body{background:#161C2E;box-shadow:0 16px 32px -24px rgba(0,0,0,0.7), inset 0 0 0 1px rgba(255,255,255,0.08);}
+  html #app .rd-hero .xc-hero-art{transform:rotate(-5deg);}
+  html #app .rd-hero .xc-hero-art .xc-glyph{width:36px;height:36px;}
+  /* editing view */
+  html #app .rd-edit{display:flex;flex-direction:column;gap:10px;padding:12px;border-radius:20px;border:1.5px dashed rgba(var(--accent-rgb),0.35);background:rgba(var(--accent-rgb),0.035);}
+  html #app .rd-edit-top{display:flex;align-items:center;gap:12px;}
+  html #app .rd-edit-ico{flex-shrink:0;width:44px;height:44px;border-radius:14px;display:flex;align-items:center;justify-content:center;}
+  html #app .rd-edit-ico .xc-glyph{width:26px;height:26px;}
+  html #app .rd-edit-txt{display:flex;flex-direction:column;gap:2px;min-width:0;flex:1;}
+  html #app .rd-edit-k{font-family:var(--font-head);font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--crimson);}
+  html #app .rd-edit-title{font-family:var(--font-display);font-size:19px;font-weight:700;color:var(--ink);outline:none;border-bottom:1px dashed rgba(var(--accent-rgb),0.3);}
+  html #app .rd-edit-field{display:flex;flex-direction:column;gap:4px;font-size:12.5px;font-weight:600;color:var(--ink-soft);}
+  html #app .rd-edit-field input{font:inherit;font-size:14px;font-weight:500;color:var(--ink);padding:9px 12px;border-radius:12px;border:1px solid var(--hair);background:var(--surface);}
+  html #app .rd-edit-note{font-size:12.5px;color:var(--ink-soft);}
 
   /* quiz number badges: a touch more depth, matching the Extra Collocations ones */
   html #app .quiz-qnum{box-shadow:0 4px 10px -5px rgba(var(--accent-rgb),0.7), inset 0 1px 0 rgba(255,255,255,0.35), inset 0 -1px 2px rgba(0,0,0,0.12);}
@@ -8101,6 +8133,7 @@ function blockPreviewLabel(b){
     case 'tabs': return 'Tabs: '+((b.blocks||[]).map(function(t){ return t.title; }).join(' / '));
     case 'tabpage': return 'Tab: '+(b.title||'Tab');
     case 'reveal': return 'Answer key: '+(b.title||'Answers');
+    case 'reading': return 'Reading: '+(b.title||'Untitled');
   }
   return 'Block';
 }
@@ -8189,10 +8222,12 @@ function reallyDeleteImgKeys(keys){
 function _raNavStop(){ try{ if(raActive) raStop(); }catch(e){} try{ if(exPlay) exStop(); if(shd) shadowClose(); }catch(e){}
   try{ if(selectedTab==='sounds'){ recStop(); window.speechSynthesis.cancel(); snd = null; sndSet = null; } }catch(e){} }
 function motionOK(){ try{ return !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches); }catch(e){ return true; } }
-let _navSkipVT = false, _vtNav = '';
+let _navSkipVT = false, _vtNav = '', _navScrollTo = null;
 function navigate(dir, fn){
   _raNavStop();
-  const run = function(){ fn(); _vtNav = ''; window.scrollTo(0,0); };
+  const run = function(){ fn(); _vtNav = '';
+    const back = _navScrollTo && document.querySelector(_navScrollTo); _navScrollTo = null;
+    if(back) back.scrollIntoView({block:'center'}); else window.scrollTo(0,0); };
   if(_navSkipVT || !document.startViewTransition || !motionOK() || document.hidden){ _navSkipVT = false; run(); return; }
   const root = document.documentElement;
   root.setAttribute('data-nav', dir);
@@ -8208,7 +8243,7 @@ function switchTab(tab){
   const dir = main ? 'tab' : (TAB_ORDER.indexOf(tab) > TAB_ORDER.indexOf(selectedTab) ? 'push' : 'pop');
   navigate(dir, function(){ selectedTab=tab; pageStack=[]; addMenuOpenFor=null; render(); }); }
 function openPage(id){ navigate('push', function(){ pageStack.push(id); addMenuOpenFor=null; noteRecentPage(id); render(); }); }
-function goBack(){ navigate('pop', function(){ pageStack.pop(); addMenuOpenFor=null; render(); }); }
+function goBack(){ if(readingIsOpen()){ closeReading(); return; } navigate('pop', function(){ pageStack.pop(); addMenuOpenFor=null; render(); }); }
 function goHome(){ navigate('pop', function(){ pageStack=[]; render(); }); }
 function goToStackIndex(j){ navigate('pop', function(){ pageStack = pageStack.slice(0,j+1); render(); }); }
 function pathToRoot(id){
@@ -8520,6 +8555,11 @@ function createBlock(type){
     case 'quote': return {id, type, text:'Add a quote…', cite:''};
     case 'timer': return {id, type, label:'Timed task', mins:5};
     case 'reveal': return {id, type, title:'Answers', open:false, blocks:[]};
+    case 'reading': return {id, type, title:'New reading', audio:'', active:0, blocks:[
+      {id:uid(), type:'tabpage', title:'Reading', blocks:[{id:uid(), type:'text', text:'Paste the reading here…'}]},
+      {id:uid(), type:'tabpage', title:'Vocabulary', blocks:[]},
+      {id:uid(), type:'tabpage', title:'Questions', blocks:[]}
+    ]};
     case 'gallery': return {id, type, label:'Gallery', imgKeys:[], cols:2};
     case 'tabs': return {id, type, active:0, blocks:[
       {id:uid(), type:'tabpage', title:'Tab 1', blocks:[]},
@@ -11520,7 +11560,7 @@ function blockPlainText(b){
     }
     else if(n.type==='timer') out.push((n.label||'Timer') + ' (' + (n.mins||5) + ' min)');
     else if(n.label) out.push(stripTags(n.label));
-    if(n.title && (n.type==='toggle' || n.type==='reveal' || n.type==='tabpage')) out.unshift(stripTags(n.title));
+    if(n.title && (n.type==='toggle' || n.type==='reveal' || n.type==='tabpage' || n.type==='reading')) out.unshift(stripTags(n.title));
     if(Array.isArray(n.blocks)) n.blocks.forEach(walk);
   })(b);
   return out.filter(Boolean).join('\n');
@@ -11970,7 +12010,7 @@ function savePinSet(){
 let _lastViewKey = null;
 function render(){
   const app = document.getElementById('app');
-  const viewKey = selectedTab + '|' + pageStack.join('>');
+  const viewKey = selectedTab + '|' + pageStack.join('>') + (readingIsOpen() ? '|rd:' + readingOpen.block : '');
   const sameView = (viewKey === _lastViewKey);
   _lastViewKey = viewKey;
   let body;
@@ -12419,6 +12459,11 @@ function renderPageDetail(){
   const id = pageStack[pageStack.length-1];
   const page = findPage(state.pages, id);
   if(!page){ pageStack=[]; return renderHomeGrid(); }
+  if(readingIsOpen()){
+    const rb = findBlockNode(page.blocks || [], readingOpen.block);
+    if(rb && rb.type === 'reading') return renderReadingScreen(page, rb);
+    readingOpen = null;
+  }
   const loc = findPageParentLoc(state.pages, page.id);
   const isTopLevel = loc && loc.arr===state.pages;
   const idx = isTopLevel ? sectionIndexOf(page) : (loc ? loc.idx : undefined);
@@ -14502,6 +14547,8 @@ function renderBlockBody(b, containerId){
       return galleryHTML(b);
     case 'tabs':
       return tabsHTML(b);
+    case 'reading':
+      return editMode ? readingEditHTML(b) : readingRowHTML(b);
     case 'tabpage':
       return '<div class="tabpage-body">'+renderBlocks(b.blocks, b.id)+(editMode?renderAddBlockControl(b.id):'')+'</div>';
   }
@@ -15151,6 +15198,7 @@ function renderAddMenu(containerId){
     '<button onclick="addBlockTo(\''+containerId+'\',\'audio\')">'+iconHTML('headphones')+' Audio (Drive)</button>' +
     '<button onclick="addBlockTo(\''+containerId+'\',\'reveal\')">\u2691 Answer key (hidden until revealed)</button>' +
     '<button onclick="addBlockTo(\''+containerId+'\',\'tabs\')">\u25F1 Tabs</button>' +
+    '<button onclick="addBlockTo(\''+containerId+'\',\'reading\')">'+iconHTML('document')+' Reading (audio + tabs, opens as its own screen)</button>' +
     '<button onclick="addBlockTo(\''+containerId+'\',\'gallery\')">\u25A6 Image gallery</button>' +
     '<button onclick="addBlockTo(\''+containerId+'\',\'timer\')">\u23F1 Countdown timer</button>' +
     '<button onclick="addBlockTo(\''+containerId+'\',\'divider\')">— Divider</button>' +
@@ -16548,6 +16596,157 @@ function xcolAudioFallback(){
   pl.classList.add('fallback');
   pl.innerHTML = '<iframe class="xc-drive" src="https://drive.google.com/file/d/'+encodeURIComponent(id)+'/preview" allow="autoplay" title="Lesson audio"></iframe>' +
     '<a class="xc-drive-link" href="https://drive.google.com/file/d/'+encodeURIComponent(id)+'/view" target="_blank" rel="noopener">Open the audio in Google Drive ↗</a>';
+}
+
+/* ================= v80: Reading block — a reading that opens as its own screen ================= */
+/* A "reading" block holds a title, an optional audio file (Google Drive link) and tabs (tabpages).
+   Students see it as a row; tapping opens a screen like an Extra Collocations lesson: hero, audio
+   player, then the tabs. Tabs with nothing in them stay hidden from students, so the teacher can add
+   "Vocabulary" or "Questions" later and they simply appear. In editing mode it shows its tabs inline. */
+var readingOpen = null, readingTab = 0;
+const RD_HUES = ['g-teal','g-indigo','g-coral','g-plum','g-sage','g-rose','g-gold','g-sky'];
+function readingIsOpen(){
+  return !!(readingOpen && !editMode && selectedTab === 'home' && pageStack.length === readingOpen.depth &&
+    pageStack[pageStack.length-1] === readingOpen.page);
+}
+function readingDriveId(url){
+  const m = String(url||'').match(/\/d\/([\w-]{10,})|[?&]id=([\w-]{10,})/);
+  return m ? (m[1] || m[2]) : '';
+}
+function readingAudioSrc(url){ const id = readingDriveId(url); return id ? xcolAudioUrl(id) : String(url||'').trim(); }
+function readingTabHasContent(t){
+  return (t.blocks||[]).some(function(x){ return !(x.type === 'text' && !stripTags(x.text||'').trim()); });
+}
+function readingVisibleTabs(b){
+  return (b.blocks||[]).map(function(t, i){ return {t:t, i:i}; }).filter(function(o){ return readingTabHasContent(o.t); });
+}
+function readingWords(b){
+  const t = (b.blocks||[])[0];
+  if(!t) return 0;
+  const txt = (t.blocks||[]).filter(function(x){ return x.type === 'text'; }).map(function(x){ return stripTags(x.text||''); }).join(' ');
+  return (txt.match(/[A-Za-z’']+/g) || []).length;
+}
+function readingSiblings(){
+  const page = currentPage(); const out = [];
+  (function walk(list){ (list||[]).forEach(function(x){ if(x.type === 'reading') out.push(x); else if(x.type === 'toggle') walk(x.blocks); }); })(page ? page.blocks : []);
+  return out;
+}
+function readingHue(b){
+  if(b.color) return b.color;
+  const i = readingSiblings().indexOf(b);
+  return RD_HUES[(i < 0 ? 0 : i) % RD_HUES.length];
+}
+function readingSeen(){ return deviceGet('reading-seen', {}); }
+function readingGlyph(){
+  return '<svg class="xc-glyph" viewBox="0 0 32 32" aria-hidden="true"><path class="f" d="M5 8.5c3.6-1.3 7.3-1 11 1.4v15.2c-3.7-2.4-7.4-2.7-11-1.4z"/><path d="M5 8.5c3.6-1.3 7.3-1 11 1.4v15.2c-3.7-2.4-7.4-2.7-11-1.4zM27 8.5c-3.6-1.3-7.3-1-11 1.4v15.2c3.7-2.4 7.4-2.7 11-1.4z"/><path d="M8.5 13c1.8-.3 3.6 0 5 .8M8.5 17c1.8-.3 3.6 0 5 .8M18.5 13.8c1.4-.8 3.2-1.1 5-.8"/></svg>';
+}
+function readingMeta(b){
+  const w = readingWords(b), bits = [];
+  if(w) bits.push(w + ' words · ' + Math.max(1, Math.round(w/180)) + ' min');
+  if(b.audio) bits.push('audio');
+  const tabs = readingVisibleTabs(b).length;
+  if(tabs > 1) bits.push(tabs + ' tabs');
+  return bits.join(' · ');
+}
+function readingRowHTML(b){
+  const seen = readingSeen()[b.id];
+  return '<button class="xc-row rd-row" data-rd="'+b.id+'" onclick="openReading(\''+b.id+'\')">' +
+    '<span class="xc-row-ico" style="background:'+GRAD_VAR[readingHue(b)]+'">'+readingGlyph()+'</span>' +
+    '<span class="xc-row-body"><b>'+escapeHtml(b.title||'Reading')+'</b><span class="xc-row-meta">'+escapeHtml(readingMeta(b))+'</span></span>' +
+    (seen ? '<span class="xc-row-done" aria-label="Opened"><svg viewBox="0 0 24 24"><path d="M6 12.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>'
+          : '<span class="xc-row-go">›</span>') +
+  '</button>';
+}
+function readingEditHTML(b){
+  return '<div class="rd-edit">' +
+    '<div class="rd-edit-top"><span class="rd-edit-ico" style="background:'+GRAD_VAR[readingHue(b)]+'">'+readingGlyph()+'</span>' +
+      '<div class="rd-edit-txt"><span class="rd-edit-k">Reading · opens as its own screen</span>' +
+      '<span class="rd-edit-title" contenteditable="true" onkeydown="if(event.key===\'Enter\'){event.preventDefault();this.blur();}" oninput="onBlockField(\''+b.id+'\',\'title\',this.innerText)" onblur="render()">'+escapeHtml(b.title||'')+'</span></div></div>' +
+    '<label class="rd-edit-field"><span>Audio (Google Drive link, optional)</span>' +
+      '<input type="url" placeholder="https://drive.google.com/file/d/…" value="'+escapeAttr(b.audio||'')+'" onchange="onBlockField(\''+b.id+'\',\'audio\',this.value.trim());render();"/></label>' +
+    '<div class="rd-edit-note">Tabs with nothing in them are hidden from students until you add something.</div>' +
+    tabsHTML(b) +
+  '</div>';
+}
+function openReading(id){
+  const page = currentPage(); if(!page) return;
+  const b = findBlockNode(page.blocks || [], id); if(!b) return;
+  const vis = readingVisibleTabs(b);
+  const p = readingSeen(); p[id] = 1; deviceSet('reading-seen', p);
+  navigate('push', function(){ readingOpen = {page: page.id, block: id, depth: pageStack.length}; readingTab = vis.length ? vis[0].i : 0; render(); });
+}
+function closeReading(){
+  const id = readingOpen && readingOpen.block;
+  xcolStopAudio();
+  _navScrollTo = id ? '[data-rd="'+id+'"]' : null;
+  navigate('pop', function(){ readingOpen = null; render(); });
+}
+function renderReadingScreen(page, b){
+  const vis = readingVisibleTabs(b);
+  if(vis.length && !vis.some(function(o){ return o.i === readingTab; })) readingTab = vis[0].i;
+  const sibs = readingSiblings(), at = sibs.indexOf(b), prev = sibs[at-1], next = sibs[at+1];
+  const info = childPartInfo(page), unit = info && info.unitNum ? 'Unit ' + info.unitNum + ' · ' : '';
+  const au = readingDriveId(b.audio), w = readingWords(b);
+  let h = '<button class="search-back" onclick="closeReading()">← ' + escapeHtml(info && info.name ? info.name : page.title) + '</button>' +
+    '<div class="xc-hero rd-hero" style="background:'+GRAD_VAR[readingHue(b)]+'">' +
+      '<span class="xc-hero-art" aria-hidden="true">'+readingGlyph()+'</span>' +
+      '<div class="xc-hero-kicker">'+escapeHtml(unit + (info && info.name ? info.name : 'Reading'))+'</div>' +
+      '<div class="xc-hero-title">'+escapeHtml(b.title||'Reading')+'</div>' +
+      '<div class="xc-hero-chips">' + (w ? '<span>'+w+' words</span><span>'+Math.max(1, Math.round(w/180))+' min read</span>' : '') + (b.audio ? '<span>Audio</span>' : '') + '</div>' +
+    '</div>';
+  if(b.audio){
+    h += '<div class="xc-player" id="xcPlayer" data-au="'+escapeAttr(au)+'">' +
+      '<audio id="xcAudio" preload="none" src="'+escapeAttr(readingAudioSrc(b.audio))+'"></audio>' +
+      '<button class="xc-play" id="xcPlay" onclick="xcolPlay()" aria-label="Play the reading">' +
+        '<svg class="i-play" viewBox="0 0 24 24"><path d="M8 5.5v13l10.5-6.5z" fill="currentColor"/></svg>' +
+        '<svg class="i-pause" viewBox="0 0 24 24"><rect x="6.5" y="5.5" width="4" height="13" rx="1.2" fill="currentColor"/><rect x="13.5" y="5.5" width="4" height="13" rx="1.2" fill="currentColor"/></svg>' +
+        '<span class="xc-spin"></span></button>' +
+      '<div class="xc-pl-mid"><div class="xc-pl-label">Listen while you read</div>' +
+        '<input class="xc-seek" id="xcSeek" type="range" min="0" max="1000" value="0" oninput="xcolSeek(this.value)" aria-label="Position"/>' +
+        '<div class="xc-pl-times"><span id="xcCur">0:00</span><span id="xcDur">--:--</span></div></div>' +
+      '<div class="xc-pl-side"><button class="xc-skip" onclick="xcolSkip(-10)" aria-label="Back 10 seconds">−10</button>' +
+        '<button class="xc-rate" id="xcRate" onclick="xcolRate()" aria-label="Playback speed">1×</button></div>' +
+    '</div>';
+  }
+  if(vis.length > 1){
+    h += '<div class="xc-seg rd-seg" role="tablist" style="grid-template-columns:repeat('+vis.length+',1fr)">' + vis.map(function(o){
+      return '<button class="xc-seg-btn'+(o.i===readingTab?' on':'')+'" data-t="'+o.i+'" role="tab" aria-selected="'+(o.i===readingTab)+'" onclick="readingSetTab('+o.i+')">'+escapeHtml(o.t.title||'Tab')+'</button>';
+    }).join('') + '</div>';
+  }
+  h += '<div id="rdBody">' + readingBodyHTML(b) + '</div>';
+  if(prev || next){
+    h += '<nav class="xc-pager">' +
+      (prev ? '<button class="xc-pg prev" onclick="readingJump(\''+prev.id+'\',-1)"><span>← Previous</span><b>'+escapeHtml(prev.title||'Reading')+'</b></button>' : '<span></span>') +
+      (next ? '<button class="xc-pg next" onclick="readingJump(\''+next.id+'\',1)"><span>Next →</span><b>'+escapeHtml(next.title||'Reading')+'</b></button>' : '<span></span>') +
+    '</nav>';
+  }
+  return h;
+}
+function readingBodyHTML(b){
+  const t = (b.blocks||[])[readingTab];
+  if(!t || !readingTabHasContent(t)) return '<div class="rd-body rd-empty">Nothing here yet.</div>';
+  return '<div class="rd-body rd-t'+readingTab+'" data-tabpage="'+t.id+'">' + renderBlocks(t.blocks, t.id) + '</div>';
+}
+function readingSetTab(i){
+  const page = currentPage(); const b = page && readingOpen ? findBlockNode(page.blocks||[], readingOpen.block) : null;
+  if(!b) return;
+  readingTab = i;
+  document.querySelectorAll('.rd-seg .xc-seg-btn').forEach(function(x){ const on = +x.getAttribute('data-t') === i; x.classList.toggle('on', on); x.setAttribute('aria-selected', on); });
+  const body = document.getElementById('rdBody'); if(!body) return;
+  body.innerHTML = readingBodyHTML(b);
+  try{ initInlineToggles(body); }catch(e){}
+  body.querySelectorAll('.reveal').forEach(function(e){ e.classList.add('shown'); });
+  if(motionOK() && body.animate) body.animate([{opacity:0, transform:'translateY(8px)'}, {opacity:1, transform:'none'}], {duration:320, easing:'cubic-bezier(.22,1,.36,1)'});
+  const seg = document.querySelector('.rd-seg');
+  if(seg && seg.getBoundingClientRect().top < 0) seg.scrollIntoView({block:'start', behavior: motionOK() ? 'smooth' : 'auto'});
+}
+function readingJump(id, dir){
+  const page = currentPage(); if(!page) return;
+  const b = findBlockNode(page.blocks || [], id); if(!b) return;
+  xcolStopAudio();
+  const p = readingSeen(); p[id] = 1; deviceSet('reading-seen', p);
+  const vis = readingVisibleTabs(b);
+  navigate(dir > 0 ? 'push' : 'pop', function(){ readingOpen = {page: page.id, block: id, depth: pageStack.length}; readingTab = vis.length ? vis[0].i : 0; render(); });
 }
 
 /* ================= v78: motion, touch and haptics ================= */
