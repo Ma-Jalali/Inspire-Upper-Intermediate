@@ -4693,27 +4693,6 @@
     font-family:var(--font-head);font-size:10.5px;font-weight:800;line-height:17px;text-align:center;color:#fff;
     background:linear-gradient(145deg,#FF8A8A,#E0335A);box-shadow:0 0 0 2px var(--surface,#fff);}
   /* ================= v64 styles ================= */
-  /* read aloud */
-  html #app .ra-bar{display:flex;align-items:center;gap:8px;margin:2px 0 10px;}
-  html #app .ra-play{display:inline-flex;align-items:center;gap:8px;border:none;cursor:pointer;font:inherit;font-family:var(--font-head);font-weight:700;font-size:13.5px;
-    color:#fff;padding:8px 14px 8px 8px;border-radius:999px;background:var(--g-sky);
-    box-shadow:0 10px 18px -12px rgba(37,107,200,0.9), inset 0 1px 0 rgba(255,255,255,0.4);transition:transform .15s var(--spring);}
-  html #app .ra-play:active{transform:scale(.95);}
-  html #app .ra-ico{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.25);box-shadow:inset 0 1px 0 rgba(255,255,255,0.5);}
-  html #app .ra-ico svg{width:14px;height:14px;}
-  html #app .ra-speed{border:none;cursor:pointer;font:inherit;font-family:var(--font-head);font-weight:800;font-size:12.5px;color:var(--ink);
-    padding:8px 11px;border-radius:999px;background:rgba(var(--accent-rgb),0.08);box-shadow:inset 0 0 0 1px rgba(var(--accent-rgb),0.12);}
-  html #app .ra-wave{display:none;align-items:center;gap:3px;height:18px;margin-left:4px;}
-  html #app .ra-bar.playing .ra-wave{display:inline-flex;}
-  html #app .ra-wave i{width:3px;border-radius:2px;background:#3D90F0;animation:raWave 1s ease-in-out infinite;}
-  html #app .ra-wave i:nth-child(1){height:40%;animation-delay:0s} html #app .ra-wave i:nth-child(2){height:80%;animation-delay:.15s}
-  html #app .ra-wave i:nth-child(3){height:55%;animation-delay:.3s} html #app .ra-wave i:nth-child(4){height:95%;animation-delay:.45s}
-  html #app .ra-wave i:nth-child(5){height:45%;animation-delay:.6s}
-  @keyframes raWave{0%,100%{transform:scaleY(.4);}50%{transform:scaleY(1);}}
-  html #app .ra-w{border-radius:5px;transition:background .15s ease,color .15s ease,box-shadow .15s ease;}
-  html #app .ra-w.read{color:var(--ink-soft);}
-  html #app .ra-w.on{background:rgba(61,144,240,0.2);box-shadow:0 0 0 2px rgba(61,144,240,0.2);color:var(--ink);}
-  @media (prefers-reduced-motion: reduce){ html #app .ra-wave i{animation:none;} }
 
   /* sound practice banner */
   html #app .snd-banner::before{background:linear-gradient(180deg,#6FD0FF,#3D90F0,#6A5BFF,#6FD0FF);}
@@ -4885,7 +4864,6 @@
   /* ================= v65 styles ================= */
   .ws-audio{grid-template-columns:repeat(4,1fr) !important;gap:7px !important;}
   .ws-btn{padding:10px 4px !important;font-size:12px !important;}
-  .sh-sheet .ws-audio{grid-template-columns:repeat(3,1fr) !important;}
   .ws-btn.chk, html[data-theme="dark"] .ws-btn.chk{color:#fff;background:var(--g-sage);box-shadow:0 10px 18px -10px rgba(19,122,72,0.8), inset 0 1px 0 rgba(255,255,255,0.4);}
   .ws-btn.chk.on{animation:wsPulse 1.2s ease-in-out infinite;}
   .ws-check{display:flex;align-items:center;gap:8px;margin:0 0 10px;padding:10px 12px;border-radius:14px;font-size:14px;font-weight:600;line-height:1.35;}
@@ -4894,19 +4872,6 @@
   .ws-check.ok{color:#fff;background:var(--g-sage);}
   .ws-check.no{color:#9A3412;background:rgba(255,170,60,0.18);}
   .ws-check.err{color:var(--ink-soft);background:rgba(120,130,160,0.12);}
-  html #app .ra-shadow{display:inline-flex;align-items:center;gap:5px;border:none;cursor:pointer;font:inherit;font-family:var(--font-head);font-weight:800;font-size:12.5px;
-    color:#fff;padding:8px 12px;border-radius:999px;background:var(--g-plum);box-shadow:0 8px 16px -10px rgba(130,60,200,0.9), inset 0 1px 0 rgba(255,255,255,0.35);}
-  html #app .ra-shadow svg{width:14px;height:14px;}
-  .sh-kicker{color:#8A3FD8 !important;}
-  .sh-steps{display:flex;gap:6px;margin:10px 0 12px;}
-  .sh-steps span{flex:1;text-align:center;font-family:var(--font-head);font-size:12px;font-weight:800;padding:6px 4px;border-radius:999px;color:var(--ink-soft);background:rgba(120,130,160,0.12);transition:all .2s;}
-  .sh-steps span.on{color:#fff;background:var(--g-plum);}
-  .sh-sentence{font-family:var(--font-display);font-size:21px;font-weight:700;line-height:1.4;letter-spacing:-0.01em;padding:14px 16px;border-radius:18px;
-    background:rgba(130,100,255,0.08);margin-bottom:10px;}
-  .sh-w.hit{color:#1FA463;} .sh-w.miss{color:#E0335A;text-decoration:underline wavy rgba(224,51,90,0.5);text-underline-offset:4px;}
-  .sh-score{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:14px;margin-bottom:10px;font-size:14px;font-weight:600;}
-  .sh-score b{font-family:var(--font-display);font-size:22px;}
-  .sh-score.great{color:#fff;background:var(--g-sage);} .sh-score.good{color:#7A4B00;background:rgba(255,190,80,0.22);} .sh-score.try{color:#fff;background:linear-gradient(145deg,#FF8A8A,#E0335A);}
   .ws-btn.listen.pulse{animation:wsPulseBlue 1.2s ease-in-out infinite;}
   @keyframes wsPulseBlue{0%,100%{box-shadow:0 0 0 0 rgba(61,144,240,0.45);}50%{box-shadow:0 0 0 8px rgba(61,144,240,0);}}
   .ws-act:disabled{opacity:.45;}
@@ -5468,9 +5433,9 @@
   /* 8. jumping to a heading leaves room for the top bar */
   html #app [data-bid]{scroll-margin-top:92px;}
   /* 9. every small button answers the finger with a gentle press */
-  html #app .chip-btn, html #app .exq-b, html #app .pos-tab, html #app .dx-add, html #app .dx-say, html #app .def-expr, html #app .recent-chip, html #app .snd-slow, html #app .ra-play, html #app .ra-speed, html #app .ra-shadow, html #app .hw-check, html #app .gm-src button, html #app .ex-chips button, html #app .ex-seg button, html #app .sset-pair button, html #app .dx-see button{
+  html #app .chip-btn, html #app .exq-b, html #app .pos-tab, html #app .dx-add, html #app .dx-say, html #app .def-expr, html #app .recent-chip, html #app .snd-slow, html #app .hw-check, html #app .gm-src button, html #app .ex-chips button, html #app .ex-seg button, html #app .sset-pair button, html #app .dx-see button{
     transition:transform .16s cubic-bezier(.2,1.4,.4,1), background-color .2s ease, box-shadow .2s ease;-webkit-tap-highlight-color:transparent;}
-  html #app .chip-btn:active, html #app .exq-b:active, html #app .pos-tab:active, html #app .dx-add:active, html #app .dx-say:active, html #app .def-expr:active, html #app .recent-chip:active, html #app .snd-slow:active, html #app .ra-play:active, html #app .ra-speed:active, html #app .ra-shadow:active, html #app .hw-check:active, html #app .gm-src button:active, html #app .ex-chips button:active, html #app .ex-seg button:active, html #app .sset-pair button:active, html #app .dx-see button:active{transform:scale(.94);}
+  html #app .chip-btn:active, html #app .exq-b:active, html #app .pos-tab:active, html #app .dx-add:active, html #app .dx-say:active, html #app .def-expr:active, html #app .recent-chip:active, html #app .snd-slow:active, html #app .hw-check:active, html #app .gm-src button:active, html #app .ex-chips button:active, html #app .ex-seg button:active, html #app .sset-pair button:active, html #app .dx-see button:active{transform:scale(.94);}
   /* 10. pictures fade in softly instead of popping */
   html #app .b-image img, html #app .pte-img img{animation:imgIn .5s ease both;}
   @keyframes imgIn{from{opacity:0;filter:blur(6px);}to{opacity:1;filter:none;}}
@@ -6277,6 +6242,8 @@
   html #app .rd-edit-field input{font:inherit;font-size:14px;font-weight:500;color:var(--ink);padding:9px 12px;border-radius:12px;border:1px solid var(--hair);background:var(--surface);}
   html #app .rd-edit-note{font-size:12.5px;color:var(--ink-soft);}
 
+  html #app .rd-crumbs{margin:-2px 0 12px;}
+  html #app .rd-crumbs .breadcrumb{max-width:100%;}
   /* quiz number badges: a touch more depth, matching the Extra Collocations ones */
   html #app .quiz-qnum{box-shadow:0 4px 10px -5px rgba(var(--accent-rgb),0.7), inset 0 1px 0 rgba(255,255,255,0.35), inset 0 -1px 2px rgba(0,0,0,0.12);}
 </style>
@@ -8219,7 +8186,7 @@ function reallyDeleteImgKeys(keys){
 /* screen changes animate like an iOS navigation push: the new screen glides in
    from the right while the one behind eases back a little. Uses the browser's
    own view-transition engine where it exists, and falls back to a plain render. */
-function _raNavStop(){ try{ if(raActive) raStop(); }catch(e){} try{ if(exPlay) exStop(); if(shd) shadowClose(); }catch(e){}
+function _raNavStop(){ try{ if(exPlay) exStop(); }catch(e){} try{ xcolStopAudio(); }catch(e){}
   try{ if(selectedTab==='sounds'){ recStop(); window.speechSynthesis.cancel(); snd = null; sndSet = null; } }catch(e){} }
 function motionOK(){ try{ return !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches); }catch(e){ return true; } }
 let _navSkipVT = false, _vtNav = '', _navScrollTo = null;
@@ -9578,115 +9545,6 @@ function wsMaybeHint(){
   setTimeout(function(){ showMiniToast('Tip: tap any word to hear it and see its meaning'); }, 900);
 }
 
-/* ================= v64: read aloud with highlighted words ================= */
-let raActive = null;   /* {block, spans, starts, idx, sentences, rate} */
-function raEnhance(){
-  if(editMode || selectedTab!=='home' || !pageStack.length || !('speechSynthesis' in window)) return;
-  document.querySelectorAll('#app .b-text').forEach(function(el){
-    if(el.getAttribute('contenteditable')==='true' || el.dataset.ra) return;
-    const len = (el.textContent||'').trim().length;
-    if(len < 280) return;
-    el.dataset.ra = '1';
-    const bar = document.createElement('div');
-    bar.className = 'ra-bar';
-    bar.innerHTML = '<button class="ra-play" onclick="raToggle(this)"><span class="ra-ico">'+raIcon('play')+'</span><span class="ra-lab">Read aloud</span></button>' +
-      '<button class="ra-speed" onclick="raSpeed(this)" aria-label="Reading speed">1\u00D7</button>' +
-      '<button class="ra-shadow" onclick="shadowOpen(this)"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3.5" width="6" height="11" rx="3" fill="currentColor"/><path d="M6 11.5a6 6 0 0 0 12 0M12 17.5V21" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>Shadow</button>' +
-      '<span class="ra-wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>';
-    el.parentNode.insertBefore(bar, el);
-  });
-  if(raActive && !document.body.contains(raActive.block)) raStop();
-}
-function raIcon(k){
-  return k==='play' ? '<svg viewBox="0 0 24 24"><path d="M8 5.5v13l10.5-6.5z" fill="currentColor"/></svg>'
-                    : '<svg viewBox="0 0 24 24"><rect x="6.5" y="5.5" width="4" height="13" rx="1.2" fill="currentColor"/><rect x="13.5" y="5.5" width="4" height="13" rx="1.2" fill="currentColor"/></svg>';
-}
-function raSpeed(btn){
-  const bar = btn.closest('.ra-bar');
-  const r = bar.dataset.rate === '0.75' ? '1' : '0.75';
-  bar.dataset.rate = r; btn.textContent = (r==='1' ? '1' : '0.75') + '\u00D7';
-  if(raActive && raActive.bar === bar){ const i = raActive.sIdx; window.speechSynthesis.cancel(); raActive.rate = +r; raSpeakFrom(i); }
-}
-function raWrap(block){
-  /* wrap each word in a span once; remember where each word starts in the plain text */
-  const spans = [], starts = [];
-  let full = '';
-  const walker = document.createTreeWalker(block, NodeFilter.SHOW_TEXT, null);
-  const nodes = []; let n; while((n = walker.nextNode())) nodes.push(n);
-  nodes.forEach(function(tn){
-    const t = tn.textContent; const frag = document.createDocumentFragment();
-    const re = /[A-Za-z\u00C0-\u024F0-9'\u2019-]+|[^A-Za-z\u00C0-\u024F0-9'\u2019-]+/g; let m;
-    while((m = re.exec(t))){
-      if(/[A-Za-z0-9]/.test(m[0])){
-        const sp = document.createElement('span'); sp.className = 'ra-w'; sp.textContent = m[0];
-        spans.push(sp); starts.push(full.length + m.index); frag.appendChild(sp);
-      }else frag.appendChild(document.createTextNode(m[0]));
-    }
-    full += t;
-    tn.parentNode.replaceChild(frag, tn);
-  });
-  return {spans:spans, starts:starts, text:full};
-}
-function raToggle(btn){
-  const bar = btn.closest('.ra-bar');
-  if(raActive && raActive.bar === bar){
-    if(raActive.paused){ raActive.paused = false; raSpeakFrom(raActive.sIdx); }
-    else { raActive.paused = true; window.speechSynthesis.cancel(); }
-    raPaintBar(); return;
-  }
-  raStop();
-  const block = bar.nextElementSibling;
-  if(!block) return;
-  const w = block._ra || (block._ra = raWrap(block));
-  const sentences = []; const re = /[^.!?\n]+[.!?]*["\u201D\u2019)]*\s*/g; let m;
-  while((m = re.exec(w.text))){ if(m[0].trim()) sentences.push({start:m.index, text:m[0]}); }
-  raActive = {bar:bar, block:block, w:w, sentences:sentences, sIdx:0, rate:+(bar.dataset.rate||1), paused:false};
-  raPaintBar(); raSpeakFrom(0);
-}
-function raSpeakFrom(i){
-  if(!raActive) return;
-  const a = raActive;
-  if(i >= a.sentences.length){ raFinish(); return; }
-  a.sIdx = i;
-  const tok = a.tok = (a.tok||0) + 1;
-  const s = a.sentences[i];
-  const u = new SpeechSynthesisUtterance(s.text);
-  u.lang = 'en-GB'; u.rate = 0.9 * a.rate;
-  u.onboundary = function(ev){ if(ev.name && ev.name !== 'word') return; raHighlight(s.start + (ev.charIndex||0)); };
-  u.onstart = function(){ raHighlight(s.start + (s.text.length - s.text.trimStart().length)); };
-  u.onend = function(){ if(raActive === a && !a.paused && a.tok === tok) raSpeakFrom(i + 1); };
-  window.speechSynthesis.speak(u);
-}
-function raHighlight(pos){
-  const a = raActive; if(!a) return;
-  const st = a.w.starts; let lo = 0, hi = st.length - 1, k = 0;
-  while(lo <= hi){ const mid = (lo+hi) >> 1; if(st[mid] <= pos){ k = mid; lo = mid + 1; } else hi = mid - 1; }
-  if(a.cur) a.cur.classList.remove('on');
-  a.cur = a.w.spans[k];
-  if(a.cur){
-    a.cur.classList.add('on');
-    for(let j = Math.max(0, k-40); j < k; j++) a.w.spans[j].classList.add('read');
-    const r = a.cur.getBoundingClientRect();
-    if(r.top < 90 || r.bottom > window.innerHeight - 140) a.cur.scrollIntoView({block:'center', behavior:'smooth'});
-  }
-}
-function raFinish(){ logActivity('read'); raStop(); showMiniToast('Finished reading'); }
-function raStop(){
-  try{ window.speechSynthesis.cancel(); }catch(e){}
-  if(raActive){
-    raActive.block.querySelectorAll('.ra-w.on, .ra-w.read').forEach(function(s){ s.classList.remove('on','read'); });
-    const bar = raActive.bar; raActive = null; raPaintBar(bar);
-  }
-}
-function raPaintBar(forBar){
-  document.querySelectorAll('#app .ra-bar').forEach(function(bar){
-    const on = raActive && raActive.bar === bar;
-    bar.classList.toggle('playing', !!(on && !raActive.paused));
-    bar.querySelector('.ra-ico').innerHTML = raIcon(on && !raActive.paused ? 'pause' : 'play');
-    bar.querySelector('.ra-lab').textContent = on ? (raActive.paused ? 'Resume' : 'Pause') : 'Read aloud';
-  });
-}
-
 /* ================= v64: sound practice (minimal pairs) ================= */
 const SOUND_SETS = [
   {id:'i-ii', a:'/\u026A/', b:'/i\u02D0/', title:'ship or sheep', hue:'g-sky', pairs:[['ship','sheep'],['live','leave'],['fill','feel'],['bit','beat'],['sit','seat'],['chip','cheap'],['hit','heat'],['fit','feet'],['still','steal'],['will','wheel']]},
@@ -10213,66 +10071,6 @@ function wsCheckHTML(){
   return '<div class="ws-check err">'+escapeHtml(wsCheck.heard)+'</div>';
 }
 
-/* ================= v65: shadowing (hear a sentence, repeat, compare) ================= */
-let shd = null;   /* {sentences, i, url, heard, marks, pct, state} */
-function shadowOpen(btn){
-  const bar = btn.closest('.ra-bar'); const block = bar && bar.nextElementSibling; if(!block) return;
-  if(typeof raStop==='function') raStop();
-  const text = (block.innerText || '').replace(/\s+/g,' ').trim();
-  const sentences = (text.match(/[^.!?]+[.!?]+["\u201D\u2019)]*|[^.!?]+$/g) || [text]).map(function(x){ return x.trim(); }).filter(function(x){ return x.split(' ').length >= 3; });
-  if(!sentences.length) return;
-  shd = {sentences:sentences, i:0, state:'idle'}; paintShadow();
-  setTimeout(shadowListen, 300);
-}
-function shadowListen(){ if(!shd) return; recStop(); shd.state='model'; paintShadow(); ttsSay(shd.sentences[shd.i], 0.85, function(){ if(shd && shd.state==='model'){ shd.state='idle'; paintShadow(); } }); }
-function shadowSlow(){ if(!shd) return; ttsSay(shd.sentences[shd.i], 0.6); }
-function shadowRecord(){
-  if(!shd) return;
-  if(shd.state==='rec'){ recStop(); return; }
-  try{ window.speechSynthesis.cancel(); }catch(e){}
-  const s = shd.sentences[shd.i];
-  const maxMs = Math.min(20000, 2500 + s.split(' ').length * 650);
-  shd.url = null; shd.heard = null; shd.marks = null; shd.state = 'rec'; paintShadow();
-  /* record the voice, and let the phone listen at the same time when it can */
-  recStart(maxMs, function(url){ if(!shd) return; shd.url = url; if(shd.state==='rec') shd.state = 'done'; paintShadow(); setTimeout(function(){ playUrl(url); }, 150); });
-  if(srSupported()){
-    srListen(function(alts){
-      if(!shd) return;
-      let best = null; alts.forEach(function(a){ const m = matchWords(s, a); if(!best || m.pct > best.pct) best = m; });
-      shd.heard = alts[0]; shd.marks = best.marks; shd.pct = best.pct; if(best.pct >= 70) logActivity('shadow');
-      recStop(); paintShadow();
-    }, function(){});
-  }
-}
-function shadowCompare(){ if(!shd || !shd.url) return; const url = shd.url; ttsSay(shd.sentences[shd.i], 0.85, function(){ setTimeout(function(){ playUrl(url); }, 250); }); }
-function shadowMove(d){ if(!shd) return; recStop(); const n = shd.i + d; if(n < 0 || n >= shd.sentences.length) return; shd = {sentences:shd.sentences, i:n, state:'idle'}; paintShadow(); setTimeout(shadowListen, 200); }
-function shadowClose(){ recStop(); try{ window.speechSynthesis.cancel(); }catch(e){} shd = null; const h = document.getElementById('shHost'); if(h) h.innerHTML=''; }
-function paintShadow(){
-  let host = document.getElementById('shHost');
-  if(!host){ host = document.createElement('div'); host.id = 'shHost'; document.body.appendChild(host); }
-  if(!shd){ host.innerHTML=''; return; }
-  const s = shd.sentences[shd.i];
-  const words = s.split(/\s+/);
-  let sentence;
-  if(shd.marks){ let k = 0; sentence = words.map(function(w){ const has = normWords(w).length; const cls = has ? (shd.marks[k++] ? 'hit' : 'miss') : ''; return '<span class="sh-w '+cls+'">'+escapeHtml(w)+'</span>'; }).join(' '); }
-  else sentence = escapeHtml(s);
-  const spk = '<svg viewBox="0 0 24 24"><path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
-  const mic = '<svg viewBox="0 0 24 24"><rect x="9" y="3.5" width="6" height="11" rx="3" fill="currentColor"/><path d="M6 11.5a6 6 0 0 0 12 0M12 17.5V21" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
-  const fb = shd.marks ? '<div class="sh-score '+(shd.pct>=85?'great':shd.pct>=60?'good':'try')+'"><b>'+shd.pct+'%</b><span>'+(shd.pct>=85 ? 'Excellent! Very clear.' : shd.pct>=60 ? 'Good. Practise the red words.' : 'Listen again and copy the rhythm.')+'</span></div>'
-    : (shd.state==='done' && !srSupported() ? '<div class="sh-score good"><span>Listen to yourself and compare with the model.</span></div>' : '');
-  host.innerHTML = '<div class="ws-back" onclick="if(event.target===this)shadowClose()"><div class="ws-sheet sh-sheet"><span class="ws-grab"></span>' +
-    '<div class="ws-top"><div class="ws-word-wrap"><div class="ex-kicker sh-kicker">Shadowing \u00B7 sentence '+(shd.i+1)+' of '+shd.sentences.length+'</div></div><button class="ws-x" onclick="shadowClose()">\u2715</button></div>' +
-    '<div class="sh-steps"><span class="'+(shd.state==='model'?'on':'')+'">1 Listen</span><span class="'+(shd.state==='rec'?'on':'')+'">2 Repeat</span><span class="'+(shd.state==='done'||shd.marks?'on':'')+'">3 Compare</span></div>' +
-    '<div class="sh-sentence">'+sentence+'</div>' + fb +
-    '<div class="ws-audio">' +
-      '<button class="ws-btn listen'+(shd.state==='model'?' pulse':'')+'" onclick="shadowListen()">'+spk+'<span>Listen</span></button>' +
-      '<button class="ws-btn slow" onclick="shadowSlow()"><b>0.6\u00D7</b><span>Slowly</span></button>' +
-      '<button class="ws-btn rec'+(shd.state==='rec'?' on':'')+'" onclick="shadowRecord()">'+mic+'<span>'+(shd.state==='rec' ? 'Stop' : (shd.url ? 'Again' : 'Repeat'))+'</span></button>' +
-    '</div>' +
-    (shd.url ? '<div class="ws-compare"><button class="ws-mini" onclick="playUrl(shd.url)">\u25B6 My voice</button><button class="ws-mini strong" onclick="shadowCompare()">Model, then me</button></div>' : '') +
-    '<div class="ws-actions"><button class="ws-act ghost" onclick="shadowMove(-1)"'+(shd.i===0?' disabled':'')+'>\u2039 Back</button><button class="ws-act" onclick="'+(shd.i>=shd.sentences.length-1 ? 'shadowClose()' : 'shadowMove(1)')+'">'+(shd.i>=shd.sentences.length-1 ? 'Finish' : 'Next sentence \u203A')+'</button></div>' +
-  '</div></div>';
-}
 /* ================= v65: International Exams, IELTS Speaking ================= */
 /* ================= v68: PTE Academic speaking ================= */
 const PTE_TASKS = {
@@ -10857,11 +10655,10 @@ const BADGES = [
   {id:'fixed-10', icon:'\uD83D\uDCAA', name:'Comeback', how:'Fix 10 of your mistakes', ok:function(s){ return s.c.fixed >= 10; }},
   {id:'ears', icon:'\uD83D\uDC42', name:'Sharp ears', how:'Score 80% or more in Sound practice', ok:function(s){ return s.sound >= 80; }},
   {id:'ielts-5', icon:'\uD83C\uDFA4', name:'Exam ready', how:'Do 5 IELTS Speaking practices', ok:function(s){ return s.c.ielts >= 5; }},
-  {id:'shadow-10', icon:'\uD83E\uDD9C', name:'Echo', how:'Shadow 10 sentences well', ok:function(s){ return s.c.shadow >= 10; }},
   {id:'games-5', icon:'\uD83C\uDFAE', name:'Game on', how:'Finish 5 word games', ok:function(s){ return s.c.game >= 5; }},
   {id:'unit', icon:'\uD83C\uDF93', name:'Unit complete', how:'Mark a unit as done', ok:function(s){ return s.units >= 1; }},
   {id:'live', icon:'\uD83D\uDE80', name:'Team player', how:'Play a live class quiz', ok:function(s){ return s.c.live >= 1; }},
-  {id:'reader', icon:'\uD83D\uDCD6', name:'Bookworm', how:'Listen to 3 readings to the end', ok:function(s){ return s.c.read >= 3; }}
+  {id:'reader', icon:'\uD83D\uDCD6', name:'Bookworm', how:'Open 3 extra readings', ok:function(s){ return s.c.read >= 3; }}
 ];
 function badgeStats(){
   const c = deviceGet('counts', {});
@@ -12048,7 +11845,7 @@ function render(){
   buildPageToc();
   buildMiniHead();
   try{ wsMaybeHint(); }catch(e){}
-  try{ raEnhance(); markVisited(); }catch(e){}
+  try{ markVisited(); }catch(e){}
   try{ if(selectedTab==='home' && !pageStack.length) livePeekCheck(); }catch(e){}
   if(!sameView) setupReveal();
   try{ v78AfterRender(sameView); }catch(e){}
@@ -12429,7 +12226,7 @@ function crumbLabel(p){
   return String(p.title).replace(/^\s*\d+\s*[.)]\s*/, '');
 }
 /* breadcrumb: shown only inside child pages; follows the page tree, one tappable step per level */
-function renderBreadcrumb(){
+function renderBreadcrumb(extra){
   const id = pageStack[pageStack.length-1];
   const path = pathToRoot(id);
   if(path.length < 1) return '';
@@ -12442,12 +12239,14 @@ function renderBreadcrumb(){
     const loc = findPageParentLoc(state.pages, pid);
     const idx = (loc && loc.arr===state.pages) ? sectionIndexOf(p) : (loc ? loc.idx : undefined);
     const cls = pageColorClass(p, idx);
-    const isLast = k===path.length-1;
+    const isLast = k===path.length-1 && !extra;
     if(k>0) html += chev;
+    if(extra && k===path.length-1){ html += '<button class="bc-item" onclick="closeReading()"><i class="bc-dot" style="background:'+GRAD_VAR[cls]+'"></i>'+escapeHtml(crumbLabel(p))+'</button>'; return; }
     html += isLast
       ? '<span class="bc-item bc-cur" aria-current="page"><i class="bc-dot" style="background:'+GRAD_VAR[cls]+'"></i>'+escapeHtml(crumbLabel(p))+'</span>'
       : '<button class="bc-item" onclick="goToCrumb('+k+')"><i class="bc-dot" style="background:'+GRAD_VAR[cls]+'"></i>'+escapeHtml(crumbLabel(p))+'</button>';
   });
+  if(extra) html += chev + '<span class="bc-item bc-cur" aria-current="page"><i class="bc-dot" style="background:'+GRAD_VAR[extra.cls]+'"></i>'+escapeHtml(extra.label)+'</span>';
   setTimeout(function(){ document.querySelectorAll('.bc-trail').forEach(function(t){ t.scrollLeft = t.scrollWidth; }); }, 0);
   return html + '</nav>';
 }
@@ -16672,7 +16471,7 @@ function openReading(id){
   const page = currentPage(); if(!page) return;
   const b = findBlockNode(page.blocks || [], id); if(!b) return;
   const vis = readingVisibleTabs(b);
-  const p = readingSeen(); p[id] = 1; deviceSet('reading-seen', p);
+  const p = readingSeen(); if(!p[id]){ try{ logActivity('read'); }catch(e){} } p[id] = 1; deviceSet('reading-seen', p);
   navigate('push', function(){ readingOpen = {page: page.id, block: id, depth: pageStack.length}; readingTab = vis.length ? vis[0].i : 0; render(); });
 }
 function closeReading(){
@@ -16694,6 +16493,7 @@ function renderReadingScreen(page, b){
       '<div class="xc-hero-title">'+escapeHtml(b.title||'Reading')+'</div>' +
       '<div class="xc-hero-chips">' + (w ? '<span>'+w+' words</span><span>'+Math.max(1, Math.round(w/180))+' min read</span>' : '') + (b.audio ? '<span>Audio</span>' : '') + '</div>' +
     '</div>';
+  { const bc = renderBreadcrumb({label: b.title || 'Reading', cls: readingHue(b)}); if(bc) h += '<div class="head-row rd-crumbs"><div class="breadcrumb bc-below">'+bc+'</div></div>'; }
   if(b.audio){
     h += '<div class="xc-player" id="xcPlayer" data-au="'+escapeAttr(au)+'">' +
       '<audio id="xcAudio" preload="none" src="'+escapeAttr(readingAudioSrc(b.audio))+'"></audio>' +
