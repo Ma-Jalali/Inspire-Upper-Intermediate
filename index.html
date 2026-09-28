@@ -6336,6 +6336,191 @@
 
   /* quiz number badges: a touch more depth, matching the Extra Collocations ones */
   html #app .quiz-qnum{box-shadow:0 4px 10px -5px rgba(var(--accent-rgb),0.7), inset 0 1px 0 rgba(255,255,255,0.35), inset 0 -1px 2px rgba(0,0,0,0.12);}
+
+  /* ================= v90: vocabulary word lists =================
+     Word cards use the full width: the emoji sits beside the headword instead of holding a column,
+     and meaning and example run edge to edge. Pages that hold a word list also trim the stacked
+     padding of the sheet, the tab card and the section body on phones. */
+  :root{ --vk-rgb:47,111,223; }
+  html[data-theme="dark"]{ --vk-rgb:120,165,255; }
+  @media (max-width:640px){
+    html #app .sheet-part:has(.vk-sec){padding-left:8px;padding-right:8px;}
+    html #app .tabs-v2 .tabs-body:has(.vk-sec){padding-left:9px;padding-right:9px;}
+  }
+  /* other banners next to a word list (the lesson goals) float their icon so the text is not squeezed into a column */
+  html #app .tabpage-body:has(> .block-vksec) > .block-callout .bnr:not(.no-ico),
+  html #app .sheet-part:has(> .block-vksec) > .block-callout .bnr:not(.no-ico){display:block;}
+  html #app .tabpage-body:has(> .block-vksec) > .block-callout .bnr-ico,
+  html #app .sheet-part:has(> .block-vksec) > .block-callout .bnr-ico{float:left;margin:0 9px 0 0;}
+  html #app .tabpage-body:has(> .block-vksec) > .block-callout .bnr-body,
+  html #app .sheet-part:has(> .block-vksec) > .block-callout .bnr-body{display:block;}
+
+  /* ---- study bar ---- */
+  html #app .vk-bar{margin:10px 0 12px;padding:14px;border-radius:20px;background:linear-gradient(160deg,rgba(var(--vk-rgb),0.10),rgba(var(--vk-rgb),0.03));
+    box-shadow:inset 0 0 0 1px rgba(var(--vk-rgb),0.14);}
+  html #app .vk-bar-top{display:flex;align-items:center;gap:12px;}
+  html #app .vk-ring{position:relative;flex-shrink:0;width:46px;height:46px;display:flex;align-items:center;justify-content:center;}
+  html #app .vk-ring svg{position:absolute;inset:0;transform:rotate(-90deg);}
+  html #app .vk-ring circle{fill:none;stroke-width:4.5;}
+  html #app .vk-ring .t{stroke:rgba(var(--vk-rgb),0.16);}
+  html #app .vk-ring .v{stroke:#1FA463;stroke-linecap:round;transition:stroke-dashoffset .5s cubic-bezier(.3,.9,.3,1);}
+  html #app .vk-ring b{font-family:var(--font-head);font-size:15px;font-weight:800;color:var(--ink);}
+  html #app .vk-bar-txt{display:flex;flex-direction:column;min-width:0;gap:1px;}
+  html #app .vk-bar-txt b{font-family:var(--font-head);font-size:15.5px;font-weight:700;color:var(--ink);letter-spacing:-0.01em;}
+  html #app .vk-bar-sub{font-size:12.5px;color:var(--ink-soft);}
+  html #app .vk-chips{display:flex;gap:7px;overflow-x:auto;margin:12px -14px 0;padding:2px 14px 4px;scrollbar-width:none;scroll-snap-type:x proximity;}
+  html #app .vk-chips::-webkit-scrollbar{display:none;}
+  html #app .vk-chip{flex-shrink:0;display:inline-flex;align-items:center;gap:6px;max-width:230px;height:34px;padding:0 10px 0 9px;border:none;border-radius:999px;cursor:pointer;
+    scroll-snap-align:start;font-family:var(--font-head);font-size:13px;font-weight:600;color:var(--ink);background:var(--surface);
+    box-shadow:0 1px 2px rgba(15,25,50,0.08), 0 0 0 1px rgba(15,25,50,0.05);-webkit-tap-highlight-color:transparent;transition:transform .15s ease;}
+  html #app .vk-chip:active{transform:scale(.95);}
+  html #app .vk-chip i{font-style:normal;font-size:15px;}
+  html #app .vk-chip span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  html #app .vk-chip small{font-size:11px;font-weight:800;min-width:18px;height:18px;padding:0 5px;border-radius:9px;display:inline-flex;align-items:center;justify-content:center;
+    color:rgb(var(--vk-rgb));background:rgba(var(--vk-rgb),0.12);}
+  html #app .vk-acts{display:grid;grid-template-columns:repeat(auto-fit,minmax(0,1fr));gap:7px;margin-top:12px;}
+  html #app .vk-act{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;height:56px;padding:0 6px;border:none;border-radius:13px;cursor:pointer;
+    font-family:var(--font-head);font-size:13.5px;font-weight:700;color:var(--ink);background:var(--surface);
+    box-shadow:0 1px 2px rgba(15,25,50,0.08), 0 0 0 1px rgba(15,25,50,0.05);-webkit-tap-highlight-color:transparent;transition:transform .15s ease;white-space:nowrap;}
+  html #app .vk-act svg{width:19px;height:19px;flex-shrink:0;}
+  html #app .vk-act span{font-size:12.5px;}
+  html #app .vk-act:active{transform:scale(.96);}
+  html #app .vk-act.primary{color:#fff;background:var(--g-crimson);box-shadow:0 8px 16px -10px rgba(var(--accent-rgb),0.9), inset 0 1px 0 rgba(255,255,255,0.25);}
+
+  /* ---- section cards ---- */
+  html #app .blocks .block.block-vksec{scroll-margin-top:112px;padding-top:4px;padding-bottom:4px;border-top:none;}
+  html #app .blocks .block.block-vksec + .block.block-vksec{border-top:none;}
+  html #app .b-toggle.vk-sec{border-radius:18px;}
+  html #app .b-toggle.vk-sec > .toggle-head{display:flex;align-items:center;gap:12px;margin:0;padding:11px 12px 11px 11px;border-radius:18px;border:none;
+    background:var(--surface);box-shadow:0 1px 2px rgba(15,25,50,0.06), 0 0 0 1px rgba(15,25,50,0.06);}
+  html #app .b-toggle.vk-sec.open > .toggle-head{box-shadow:0 1px 2px rgba(15,25,50,0.06), 0 0 0 1.5px rgba(var(--vk-rgb),0.35), 0 10px 22px -16px rgba(var(--vk-rgb),0.6);}
+  html #app .vk-sec-emo{flex-shrink:0;width:44px;height:44px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:23px;
+    font-family:var(--font-head);font-weight:800;color:rgb(var(--vk-rgb));background:rgba(var(--vk-rgb),0.10);box-shadow:inset 0 0 0 1px rgba(var(--vk-rgb),0.10);}
+  html #app .vk-sec-txt{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px;}
+  html #app .vk-sec .toggle-title{font-family:var(--font-head);font-size:16px;font-weight:700;line-height:1.25;letter-spacing:-0.012em;color:var(--ink);}
+  html #app .vk-sec-meta{display:flex;gap:8px;font-size:12px;font-weight:600;color:var(--ink-soft);}
+  html #app .vk-sec-k{color:#1A8F55;}
+  html #app .vk-sec-bar{display:block;height:3px;border-radius:3px;background:rgba(var(--vk-rgb),0.12);overflow:hidden;margin-top:2px;max-width:160px;}
+  html #app .vk-sec-bar i{display:block;height:100%;border-radius:3px;background:#1FA463;transition:width .4s ease;}
+  html #app .vk-sec.all-known .vk-sec-emo{background:rgba(31,164,99,0.12);box-shadow:inset 0 0 0 1.5px rgba(31,164,99,0.35);}
+  html #app .b-toggle.vk-sec > .toggle-head .arrow{width:30px;height:30px;border-radius:50%;background:rgba(118,118,128,0.10);color:var(--ink-soft);}
+  html #app .b-toggle.vk-sec.open > .toggle-head .arrow{transform:rotate(90deg);background:var(--g-crimson);color:#fff;}
+  html #app .b-toggle.vk-sec > .toggle-body{padding:10px 0 6px;}
+  html #app .b-toggle.vk-sec > .toggle-body::before{display:none;}
+  html #app .b-toggle.vk-sec > .toggle-body > .block{margin-left:0;padding-left:0;padding-right:0;}
+
+  /* ---- word cards ---- */
+  html #app .block-vk{padding-top:0;padding-bottom:0;}
+  html #app .block-vk + .block-vk{margin-top:8px;}
+  html #app .vk-card{position:relative;padding:13px 13px 13px 14px;border-radius:18px;background:var(--surface);
+    box-shadow:0 1px 2px rgba(15,25,50,0.06), 0 0 0 1px rgba(15,25,50,0.06);transition:box-shadow .25s ease;}
+  html #app .vk-card.known{box-shadow:0 1px 2px rgba(15,25,50,0.06), 0 0 0 1.5px rgba(31,164,99,0.40);}
+  html #app .vk-top{display:flex;align-items:center;gap:10px;}
+  html #app .vk-emo{flex-shrink:0;width:38px;height:38px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:21px;
+    background:rgba(var(--vk-rgb),0.09);}
+  html #app .vk-hw{flex:1;min-width:0;font-family:var(--font-head);font-size:18px;font-weight:700;line-height:1.35;color:var(--ink);letter-spacing:-0.01em;}
+  html #app .vk-hw mark{padding:.06em .42em;border-radius:8px;font-weight:700;-webkit-box-decoration-break:clone;box-decoration-break:clone;}
+  html #app .vk-hw b, html #app .vk-hw strong{font-weight:800;}
+  html #app .vk-btn{flex-shrink:0;width:36px;height:36px;border:none;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;
+    color:rgb(var(--vk-rgb));background:rgba(var(--vk-rgb),0.10);-webkit-tap-highlight-color:transparent;transition:transform .15s ease, background .2s, color .2s;}
+  html #app .vk-btn svg{width:18px;height:18px;}
+  html #app .vk-btn:active{transform:scale(.88);}
+  html #app .vk-say.said{animation:vkPulse .6s ease;}
+  html #app .vk-know{color:var(--ink-soft);background:rgba(118,118,128,0.10);}
+  html #app .vk-know[aria-pressed="true"]{color:#fff;background:linear-gradient(145deg,#4FD08A,#1FA463);box-shadow:0 6px 12px -8px rgba(19,122,72,0.9);}
+  @keyframes vkPulse{0%{box-shadow:0 0 0 0 rgba(var(--vk-rgb),0.45);}100%{box-shadow:0 0 0 12px rgba(var(--vk-rgb),0);}}
+  html #app .vk-def{margin-top:9px;font-size:15.5px;line-height:1.5;color:var(--ink);text-wrap:pretty;}
+  html #app .vk-ex{display:flex;gap:9px;align-items:flex-start;margin-top:9px;padding:9px 11px;border-radius:13px;cursor:pointer;
+    background:rgba(118,118,128,0.07);-webkit-tap-highlight-color:transparent;transition:background .2s;}
+  html #app .vk-ex.said{animation:vkPulse .6s ease;}
+  html #app .vk-ex-ico{flex-shrink:0;width:16px;height:16px;margin-top:3px;color:rgba(var(--vk-rgb),0.75);}
+  html #app .vk-ex-ico svg{width:16px;height:16px;display:block;}
+  html #app .vk-ex-t{flex:1;min-width:0;font-size:15px;line-height:1.5;color:var(--ink);text-wrap:pretty;}
+  html #app .vk-ex-t mark{padding:.04em .28em;border-radius:6px;font-weight:600;}
+  @media (min-width:700px){
+    html #app .b-toggle.vk-sec > .toggle-body{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+    html #app .b-toggle.vk-sec > .toggle-body > .block-vk + .block-vk{margin-top:0;}
+    html #app .b-toggle.vk-sec > .toggle-body > .block:not(.block-vk){grid-column:1 / -1;}
+  }
+  html[data-theme="dark"] #app .vk-card, html[data-theme="dark"] #app .b-toggle.vk-sec > .toggle-head,
+  html[data-theme="dark"] #app .vk-chip, html[data-theme="dark"] #app .vk-act:not(.primary){background:#1B2134;box-shadow:inset 0 0 0 1px rgba(255,255,255,0.08);}
+  html[data-theme="dark"] #app .vk-card.known{box-shadow:inset 0 0 0 1.5px rgba(79,208,138,0.45);}
+  html[data-theme="dark"] #app .vk-ex{background:rgba(255,255,255,0.05);}
+  html[data-theme="dark"] #app .vk-sec-k{color:#5FD796;}
+
+  /* ---- flashcards and quiz sheet ---- */
+  .vkx{position:fixed;inset:0;z-index:450;display:flex;align-items:flex-end;justify-content:center;background:rgba(12,16,30,0);
+    -webkit-backdrop-filter:blur(0);backdrop-filter:blur(0);transition:background .25s ease, backdrop-filter .25s ease;}
+  .vkx.in{background:rgba(12,16,30,0.42);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);}
+  .vkx-sheet{width:100%;max-width:560px;max-height:100%;overflow-y:auto;box-sizing:border-box;
+    padding:14px 16px calc(18px + env(safe-area-inset-bottom,0px));border-radius:28px 28px 0 0;background:var(--bg, #F3F5FA);color:var(--ink);
+    font-family:var(--font-body, Inter, sans-serif);transform:translateY(100%);transition:transform .34s cubic-bezier(.2,.9,.25,1);box-shadow:0 -20px 40px -20px rgba(0,0,0,0.4);}
+  .vkx.in .vkx-sheet{transform:none;}
+  @media (min-width:600px){ .vkx{align-items:center;} .vkx-sheet{border-radius:28px;} }
+  html[data-theme="dark"] .vkx-sheet{background:#10152A;}
+  .vkx-top{display:flex;align-items:center;gap:10px;}
+  .vkx-kick{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;font-family:var(--font-head);font-weight:700;font-size:15px;}
+  .vkx-kick svg{width:18px;height:18px;}
+  .vkx-x,.vkx-mix{border:none;cursor:pointer;height:34px;border-radius:17px;font-family:var(--font-head);font-weight:700;font-size:13px;color:var(--ink);background:rgba(118,118,128,0.14);}
+  .vkx-x{width:34px;padding:0;font-size:14px;}
+  .vkx-mix{padding:0 12px;}
+  .vkx-score{min-width:34px;height:34px;padding:0 10px;border-radius:17px;display:inline-flex;align-items:center;justify-content:center;font-family:var(--font-head);font-weight:800;font-size:13px;color:#fff;background:linear-gradient(145deg,#4FD08A,#1FA463);}
+  .vkx-prog{height:5px;margin:14px 0 10px;border-radius:5px;background:rgba(118,118,128,0.16);overflow:hidden;}
+  .vkx-prog i{display:block;height:100%;border-radius:5px;background:var(--g-crimson);transition:width .35s ease;}
+  .vkx-meta{display:flex;justify-content:space-between;gap:10px;font-size:12.5px;font-weight:600;color:var(--ink-soft);margin-bottom:10px;}
+  .vkx-meta span:last-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .vkx-stage{perspective:1400px;}
+  .vkx-card{position:relative;height:min(52vh,380px);cursor:pointer;transform-style:preserve-3d;transition:transform .5s cubic-bezier(.3,.9,.3,1);touch-action:pan-y;-webkit-tap-highlight-color:transparent;}
+  .vkx-card.flipped{transform:rotateY(180deg);}
+  .vkx-face{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:22px 20px;box-sizing:border-box;text-align:center;
+    border-radius:24px;background:var(--surface);box-shadow:0 18px 40px -24px rgba(15,25,50,0.5), 0 0 0 1px rgba(15,25,50,0.06);
+    -webkit-backface-visibility:hidden;backface-visibility:hidden;overflow:auto;}
+  html[data-theme="dark"] .vkx-face{background:#1B2134;box-shadow:inset 0 0 0 1px rgba(255,255,255,0.08);}
+  .vkx-back{transform:rotateY(180deg);justify-content:flex-start;text-align:left;align-items:stretch;}
+  .vkx-emo{font-size:54px;line-height:1;}
+  .vkx-hw{font-family:var(--font-head);font-size:28px;font-weight:700;line-height:1.3;}
+  .vkx-hw.sm{font-size:19px;}
+  .vkx-hw mark,.vkx-ex mark,.vkq-p mark{padding:.05em .35em;border-radius:8px;-webkit-box-decoration-break:clone;box-decoration-break:clone;}
+  .vkx-hint{font-size:13px;color:var(--ink-soft);}
+  .vkx-def{font-size:17px;line-height:1.5;}
+  .vkx-ex{font-size:16px;line-height:1.5;padding:10px 12px;border-radius:14px;background:rgba(118,118,128,0.08);}
+  .vkx-row{display:flex;gap:8px;margin-top:14px;}
+  .vkx-btn{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:6px;height:48px;border:none;border-radius:16px;cursor:pointer;
+    font-family:var(--font-head);font-size:15px;font-weight:700;color:var(--ink);background:var(--surface);box-shadow:0 0 0 1px rgba(15,25,50,0.08);transition:transform .15s ease;}
+  html[data-theme="dark"] .vkx-btn{background:#1B2134;box-shadow:inset 0 0 0 1px rgba(255,255,255,0.1);}
+  .vkx-btn:active{transform:scale(.96);}
+  .vkx-btn svg{width:18px;height:18px;}
+  .vkx-btn.round{flex:0 0 48px;padding:0;color:rgb(var(--vk-rgb));}
+  .vkx-btn.no{color:#C2410C;}
+  .vkx-btn.yes{color:#fff;background:linear-gradient(145deg,#4FD08A,#1FA463);box-shadow:0 10px 18px -12px rgba(19,122,72,0.9);}
+  .vkx-btn.primary{color:#fff;background:var(--g-crimson);box-shadow:0 10px 18px -12px rgba(var(--accent-rgb),0.9);}
+  .vkx-btn.wide{width:100%;margin-top:14px;flex:none;}
+  .vkx-done{display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;padding:20px 4px 4px;}
+  .vkx-done > b{font-family:var(--font-head);font-size:21px;}
+  .vkx-done > span{color:var(--ink-soft);font-size:14.5px;}
+  .vkx-done .vkx-row{width:100%;margin-top:18px;}
+  .vkx-big{font-size:56px;line-height:1.1;}
+  .vkx-res{--p:0;width:96px;height:96px;border-radius:50%;display:flex;align-items:baseline;justify-content:center;padding-top:30px;box-sizing:border-box;margin-bottom:6px;
+    background:radial-gradient(closest-side,var(--surface) 78%,transparent 80%),conic-gradient(#1FA463 calc(var(--p)*1%),rgba(118,118,128,0.18) 0);font-family:var(--font-head);}
+  .vkx-res b{font-size:28px;font-weight:800;} .vkx-res small{font-size:14px;color:var(--ink-soft);}
+  html[data-theme="dark"] .vkx-res{background:radial-gradient(closest-side,#10152A 78%,transparent 80%),conic-gradient(#3FBF7A calc(var(--p)*1%),rgba(255,255,255,0.12) 0);}
+  .vkq-ask{font-size:12.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft);}
+  .vkq-p{margin:8px 0 14px;padding:16px;border-radius:18px;background:var(--surface);font-size:18px;line-height:1.5;box-shadow:0 0 0 1px rgba(15,25,50,0.06);}
+  html[data-theme="dark"] .vkq-p{background:#1B2134;}
+  .vkq-gap{display:inline-block;min-width:4em;border-bottom:2.5px solid rgba(var(--accent-rgb),0.7);}
+  .vkq-opts{display:flex;flex-direction:column;gap:8px;}
+  .vkq-opt{display:flex;align-items:center;gap:11px;width:100%;padding:11px 12px;border:none;border-radius:15px;cursor:pointer;text-align:left;font-family:inherit;font-size:16px;font-weight:600;
+    color:var(--ink);background:var(--surface);box-shadow:0 0 0 1px rgba(15,25,50,0.08);transition:transform .15s ease, opacity .3s;}
+  html[data-theme="dark"] .vkq-opt{background:#1B2134;box-shadow:inset 0 0 0 1px rgba(255,255,255,0.08);}
+  .vkq-opt:not([disabled]):active{transform:scale(.97);}
+  .vkq-l{flex-shrink:0;width:26px;height:26px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:800;
+    color:rgb(var(--vk-rgb));background:rgba(var(--vk-rgb),0.12);}
+  .vkq-opt.correct{color:#fff;background:linear-gradient(145deg,#4FD08A,#1FA463);}
+  .vkq-opt.chosen{color:#fff;background:linear-gradient(145deg,#FF8A9E,#E0335A);}
+  .vkq-opt.correct .vkq-l,.vkq-opt.chosen .vkq-l{color:#fff;background:rgba(255,255,255,0.25);}
+  .vkq-opt.dim{opacity:.45;}
+  .vkq-opt[disabled]{cursor:default;}
+  @media (prefers-reduced-motion: reduce){ .vkx-card,.vkx-sheet{transition:none;} }
 </style>
 </head>
 <body>
@@ -13080,6 +13265,401 @@ function placeNewBlock(containerId, arr, nb){
   addMenuInsertAt = null; addMenuInsertEnd = false; addAsNewPart = false;
 }
 function setAddAsNewPart(v){ addAsNewPart = !!v; render(); }
+/* ================= v90: vocabulary word lists =================
+   A word list is a toggle ("📏 Big changes · 4 words") holding banner blocks whose first line is a
+   badge-highlighted headword, then a meaning, then "💬 example". In reading mode those banners become
+   full-width word cards, the toggle becomes a section card, and a study bar above the first section
+   adds jump chips, "I know it" ticks, flashcards and a quick quiz. The saved content is never changed;
+   editing mode still shows the plain blocks. */
+const vkParseCache = {};
+function vkPlain(html){ return stripTags(html).replace(/[​ ]/g, ' ').replace(/\s+/g, ' ').trim(); }
+function vkLines(html){
+  const d = document.createElement('div');
+  d.innerHTML = html;
+  const lines = [];
+  let cur = '';
+  const flush = function(){ lines.push(cur); cur = ''; };
+  (function walk(parent){
+    Array.prototype.forEach.call(parent.childNodes, function(n){
+      if(n.nodeType === 1 && n.tagName === 'BR'){ flush(); return; }
+      if(n.nodeType === 1 && /^(DIV|P|LI|UL|OL)$/.test(n.tagName)){ if(vkPlain(cur)) flush(); else cur = ''; walk(n); if(vkPlain(cur)) flush(); else cur = ''; return; }
+      if(n.nodeType === 3){ cur += escapeHtml(n.nodeValue); return; }
+      if(n.nodeType === 1) cur += n.outerHTML;
+    });
+  })(d);
+  flush();
+  return lines.filter(function(l){ return vkPlain(l); });
+}
+/* null unless this banner reads as a word card */
+function vkParse(b){
+  if(!b || b.type !== 'callout' || !b.text || b.text.indexOf('<mark') === -1) return null;
+  const hit = vkParseCache[b.id];
+  if(hit && hit.src === b.text) return hit.p;
+  let p = null;
+  try{
+    const lines = vkLines(b.text);
+    const head = lines[0] || '';
+    const headText = vkPlain(head);
+    if(head.indexOf('<mark') !== -1 && headText.length <= 48 && lines.length >= 2){
+      const hd = document.createElement('div'); hd.innerHTML = head;
+      const mk = hd.querySelector('mark');
+      const word = mk ? vkPlain(mk.innerHTML) : headText;
+      const def = [], ex = [];
+      lines.slice(1).forEach(function(l){
+        if(/^\s*(?:<[^>]+>\s*)*💬/.test(l)) ex.push(l.replace(/💬️?\s*/, ''));
+        else def.push(l);
+      });
+      p = {head:head, headText:headText, word:word, def:def.join('<br>'), ex:ex, emoji:b.emoji || ''};
+    }
+  }catch(e){ p = null; }
+  vkParseCache[b.id] = {src:b.text, p:p};
+  return p;
+}
+function vkCardsOf(t){
+  if(!t || t.type !== 'toggle' || !Array.isArray(t.blocks)) return [];
+  return t.blocks.map(function(x){ const p = vkParse(x); return p ? {id:x.id, p:p} : null; }).filter(Boolean);
+}
+/* a toggle is a word-list section when most of what it holds are word cards */
+function vkIsSection(t){
+  const n = vkCardsOf(t).length;
+  return n > 0 && n * 2 >= t.blocks.length;
+}
+function vkSplitTitle(title){
+  let t = String(title || '').trim(), emo = '';
+  const m = t.match(/^((?:\p{Extended_Pictographic}|\p{Regional_Indicator})(?:️|‍|\p{Extended_Pictographic}|\p{Emoji_Modifier})*)\s*/u);
+  if(m){ emo = m[1]; t = t.slice(m[0].length); }
+  t = t.replace(/\s*[·•|–—-]\s*\d+\s+(?:words?|items?|phrases?|collocations?)\s*$/i, '');
+  return {emo:emo, title:t};
+}
+function vkContainerBlocks(cid){
+  const page = currentPage(); if(!page) return [];
+  if(cid === 'ROOT') return page.blocks || [];
+  const n = findBlockNode(page.blocks || [], cid);
+  return (n && n.blocks) || [];
+}
+function vkSections(cid){ return vkContainerBlocks(cid).filter(function(b){ return b.type === 'toggle' && vkIsSection(b); }); }
+function vkAllCards(cid){
+  const out = [];
+  vkSections(cid).forEach(function(s){
+    const st = vkSplitTitle(s.title);
+    vkCardsOf(s).forEach(function(c){ out.push({id:c.id, p:c.p, sec:s.id, secTitle:st.title, secEmo:st.emo}); });
+  });
+  return out;
+}
+/* "I know it" ticks live on this device only */
+function vkKnownMap(){ return deviceGet('vk-known', {}); }
+function vkIsKnown(id){ return !!vkKnownMap()[id]; }
+function vkSetKnown(id, on){
+  const m = vkKnownMap();
+  if(on) m[id] = 1; else delete m[id];
+  deviceSet('vk-known', m);
+}
+const VK_ICO = {
+  say:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5H4Z" fill="currentColor"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>',
+  check:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  quote:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 18.5c3-1 4.5-3.2 4.5-6.5V6H4v6h3M14.5 18.5c3-1 4.5-3.2 4.5-6.5V6h-5.5v6h3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  cards:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="6.5" width="13" height="14" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 3.5h10a2.5 2.5 0 0 1 2.5 2.5v11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>',
+  quiz:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M9.6 9.6a2.5 2.5 0 1 1 3.4 2.3c-.6.3-1 .8-1 1.5v.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16.8" r="1.1" fill="currentColor"/></svg>',
+  expand:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 9l5 5 5-5M7 4.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" transform="translate(0 3)"/></svg>',
+  chev:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>'
+};
+function vkSayText(p){ return p.headText.replace(/\s*(?:…|\.\.\.)\s*/g, ', ').replace(/,\s*$/, '').trim(); }
+function vkCardHTML(b, p){
+  const known = vkIsKnown(b.id);
+  return '<div class="vk-card'+(known?' known':'')+'" data-vkid="'+b.id+'">' +
+    '<div class="vk-top">' +
+      (p.emoji ? '<span class="vk-emo" aria-hidden="true">'+escapeHtml(p.emoji)+'</span>' : '') +
+      '<div class="vk-hw">'+p.head+'</div>' +
+      '<button class="vk-btn vk-say" onclick="vkSay(\''+b.id+'\',this)" aria-label="Listen">'+VK_ICO.say+'</button>' +
+      '<button class="vk-btn vk-know" onclick="vkToggleKnown(\''+b.id+'\',this)" aria-pressed="'+known+'" aria-label="I know this word">'+VK_ICO.check+'</button>' +
+    '</div>' +
+    (p.def ? '<div class="vk-def">'+p.def+'</div>' : '') +
+    p.ex.map(function(e){
+      return '<div class="vk-ex" role="button" tabindex="0" onclick="vkSayEx(this)" title="Tap to hear the example"><span class="vk-ex-ico">'+VK_ICO.quote+'</span><div class="vk-ex-t">'+e+'</div></div>';
+    }).join('') +
+  '</div>';
+}
+function vkSectionHTML(b){
+  const st = vkSplitTitle(b.title), cards = vkCardsOf(b);
+  const known = cards.filter(function(c){ return vkIsKnown(c.id); }).length;
+  return '<div class="b-toggle vk-sec'+(b.open?' open':'')+(known===cards.length?' all-known':'')+'" data-vks="'+b.id+'">' +
+    '<div class="toggle-head vk-head" role="button" tabindex="0" aria-expanded="'+(b.open?'true':'false')+'" onclick="toggleOpen(\''+b.id+'\')" onkeydown="if((event.key===\'Enter\'||event.key===\' \')&&event.target===this){event.preventDefault();toggleOpen(\''+b.id+'\');}">' +
+      '<span class="vk-sec-emo" aria-hidden="true">'+(st.emo ? escapeHtml(st.emo) : cards.length)+'</span>' +
+      '<span class="vk-sec-txt"><span class="toggle-title">'+escapeHtml(st.title || b.title)+'</span>' +
+        '<span class="vk-sec-meta"><span class="vk-sec-n">'+cards.length+' word'+(cards.length===1?'':'s')+'</span><span class="vk-sec-k">'+vkKnownLabel(known, cards.length)+'</span></span>' +
+        '<span class="vk-sec-bar"><i style="width:'+(cards.length ? known/cards.length*100 : 0).toFixed(1)+'%"></i></span></span>' +
+      '<span class="arrow">'+VK_ICO.chev+'</span>' +
+    '</div>' +
+    (b.open ? '<div class="toggle-body">'+renderBlocks(b.blocks, b.id)+'</div>' : '') +
+  '</div>';
+}
+function vkKnownLabel(k, n){ return k === n && n ? '✓ all known' : (k ? k+' known' : ''); }
+function vkBarHTML(cid){
+  const secs = vkSections(cid), all = vkAllCards(cid);
+  const known = all.filter(function(c){ return vkIsKnown(c.id); }).length;
+  const R = 19, C = 2*Math.PI*R, off = C*(1 - (all.length ? known/all.length : 0));
+  return '<div class="vk-bar" data-vkc="'+cid+'">' +
+    '<div class="vk-bar-top">' +
+      '<span class="vk-ring"><svg viewBox="0 0 46 46"><circle cx="23" cy="23" r="'+R+'" class="t"/><circle cx="23" cy="23" r="'+R+'" class="v" style="stroke-dasharray:'+C.toFixed(1)+';stroke-dashoffset:'+off.toFixed(1)+'"/></svg><b class="vk-ring-n">'+known+'</b></span>' +
+      '<span class="vk-bar-txt"><b>'+all.length+' words in '+secs.length+' group'+(secs.length===1?'':'s')+'</b>' +
+        '<span class="vk-bar-sub">'+(known ? known+' of '+all.length+' known' : 'Tap ✓ on a word when you know it')+'</span></span>' +
+    '</div>' +
+    (secs.length > 1 ? '<div class="vk-chips" role="list">' + secs.map(function(s){
+      const st = vkSplitTitle(s.title);
+      return '<button class="vk-chip" role="listitem" onclick="vkJump(\''+s.id+'\')">'+(st.emo ? '<i aria-hidden="true">'+escapeHtml(st.emo)+'</i>' : '')+'<span>'+escapeHtml(st.title || s.title)+'</span><small>'+vkCardsOf(s).length+'</small></button>';
+    }).join('') + '</div>' : '') +
+    '<div class="vk-acts">' +
+      '<button class="vk-act primary" onclick="vkFlashOpen(\''+cid+'\')">'+VK_ICO.cards+'<span>Flashcards</span></button>' +
+      (all.length >= 3 ? '<button class="vk-act" onclick="vkQuizOpen(\''+cid+'\')">'+VK_ICO.quiz+'<span>Quick quiz</span></button>' : '') +
+      '<button class="vk-act" onclick="vkOpenAll(\''+cid+'\',this)">'+VK_ICO.expand+'<span class="vk-oa">'+(secs.every(function(s){ return s.open; }) ? 'Close all' : 'Open all')+'</span></button>' +
+    '</div>' +
+  '</div>';
+}
+/* ---- actions on the list ---- */
+function vkSay(id, btn){
+  const node = findBlockNode(currentPage().blocks, id), p = vkParse(node);
+  if(!p) return;
+  speakWord(vkSayText(p));
+  if(btn){ btn.classList.remove('said'); void btn.offsetWidth; btn.classList.add('said'); }
+}
+function vkSayEx(el){
+  const t = vkPlain(el.querySelector('.vk-ex-t').innerHTML);
+  try{ ttsSay(t, 0.92); }catch(e){}
+  el.classList.remove('said'); void el.offsetWidth; el.classList.add('said');
+}
+function vkToggleKnown(id, btn){
+  const on = !vkIsKnown(id);
+  vkSetKnown(id, on);
+  try{ haptic(); uiSound(on ? 'tick' : 'tap'); }catch(e){}
+  const card = btn ? btn.closest('.vk-card') : null;
+  if(card){ card.classList.toggle('known', on); btn.setAttribute('aria-pressed', on); }
+  vkRefresh();
+}
+/* update every counter on screen without re-rendering */
+function vkRefresh(){
+  document.querySelectorAll('.vk-sec[data-vks]').forEach(function(el){
+    const node = findBlockNode(currentPage().blocks, el.getAttribute('data-vks'));
+    const cards = vkCardsOf(node), k = cards.filter(function(c){ return vkIsKnown(c.id); }).length;
+    const lab = el.querySelector('.vk-sec-k'); if(lab) lab.textContent = vkKnownLabel(k, cards.length);
+    const bar = el.querySelector('.vk-sec-bar i'); if(bar) bar.style.width = (cards.length ? k/cards.length*100 : 0).toFixed(1)+'%';
+    el.classList.toggle('all-known', k === cards.length);
+  });
+  document.querySelectorAll('.vk-bar[data-vkc]').forEach(function(el){
+    const all = vkAllCards(el.getAttribute('data-vkc')), k = all.filter(function(c){ return vkIsKnown(c.id); }).length;
+    const v = el.querySelector('.vk-ring .v');
+    if(v){ const C = 2*Math.PI*19; v.style.strokeDashoffset = (C*(1 - (all.length ? k/all.length : 0))).toFixed(1); }
+    const n = el.querySelector('.vk-ring-n'); if(n) n.textContent = k;
+    const sub = el.querySelector('.vk-bar-sub'); if(sub) sub.textContent = k ? k+' of '+all.length+' known' : 'Tap ✓ on a word when you know it';
+  });
+  document.querySelectorAll('.vk-card[data-vkid]').forEach(function(el){
+    const on = vkIsKnown(el.getAttribute('data-vkid'));
+    el.classList.toggle('known', on);
+    const b = el.querySelector('.vk-know'); if(b) b.setAttribute('aria-pressed', on);
+  });
+}
+function vkJump(id){
+  const node = findBlockNode(currentPage().blocks, id);
+  if(node && !node.open) toggleOpen(id);
+  const el = document.querySelector('[data-bid="'+id+'"]');
+  if(el) setTimeout(function(){ el.scrollIntoView({block:'start', behavior: motionOK() ? 'smooth' : 'auto'}); }, 30);
+}
+function vkOpenAll(cid, btn){
+  const secs = vkSections(cid), open = !secs.every(function(s){ return s.open; });
+  secs.forEach(function(s){ if(!!s.open !== open) toggleOpen(s.id); });
+  const lab = btn && btn.querySelector('.vk-oa'); if(lab) lab.textContent = open ? 'Close all' : 'Open all';
+}
+function vkShuffle(a){ a = a.slice(); for(let i = a.length - 1; i > 0; i--){ const j = Math.floor(Math.random()*(i+1)); const t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+
+/* ---- flashcards ---- */
+let vkx = null;
+function vkOverlay(inner){
+  let o = document.getElementById('vkx');
+  if(!o){
+    o = document.createElement('div');
+    o.id = 'vkx'; o.className = 'vkx';
+    o.setAttribute('role', 'dialog'); o.setAttribute('aria-modal', 'true');
+    o.addEventListener('click', function(e){ if(e.target === o) vkClose(); });
+    document.body.appendChild(o);
+    document.addEventListener('keydown', vkKeys);
+    requestAnimationFrame(function(){ o.classList.add('in'); });
+  }
+  o.innerHTML = '<div class="vkx-sheet">'+inner+'</div>';
+  return o;
+}
+function vkClose(){
+  const o = document.getElementById('vkx');
+  document.removeEventListener('keydown', vkKeys);
+  vkx = null;
+  if(!o) return;
+  o.classList.remove('in');
+  setTimeout(function(){ if(o.parentNode) o.parentNode.removeChild(o); }, 260);
+  vkRefresh();
+}
+function vkKeys(e){
+  if(!vkx) return;
+  if(e.key === 'Escape'){ vkClose(); return; }
+  if(vkx.mode === 'flash' && vkx.i < vkx.deck.length){
+    if(e.key === ' ' || e.key === 'Enter'){ e.preventDefault(); vkFlip(); }
+    else if(e.key === 'ArrowRight') vkFlashNext(true);
+    else if(e.key === 'ArrowLeft') vkFlashNext(false);
+  }
+}
+function vkFlashOpen(cid){
+  const all = vkAllCards(cid);
+  if(!all.length) return;
+  const todo = all.filter(function(c){ return !vkIsKnown(c.id); });
+  vkx = {mode:'flash', cid:cid, all:all, deck:(todo.length ? todo : all), i:0, flipped:false, got:0, onlyTodo: todo.length && todo.length < all.length};
+  vkFlashPaint();
+}
+function vkFlashPaint(){
+  const x = vkx; if(!x) return;
+  const n = x.deck.length;
+  const top = '<div class="vkx-top"><button class="vkx-x" onclick="vkClose()" aria-label="Close">✕</button>' +
+    '<div class="vkx-kick">'+VK_ICO.cards+'<span>Flashcards</span></div>' +
+    '<button class="vkx-mix" onclick="vkFlashMix()" aria-label="Shuffle">Shuffle</button></div>' +
+    '<div class="vkx-prog"><i style="width:'+(Math.min(x.i, n)/n*100).toFixed(1)+'%"></i></div>';
+  if(x.i >= n){
+    vkOverlay(top + '<div class="vkx-done"><span class="vkx-big">'+(x.got === n ? '🎉' : '💪')+'</span><b>Round finished</b>' +
+      '<span>You knew '+x.got+' of '+n+(x.onlyTodo ? ' new' : '')+' words.</span>' +
+      '<div class="vkx-row"><button class="vkx-btn" onclick="vkFlashOpen(\''+x.cid+'\')">Go again</button><button class="vkx-btn primary" onclick="vkClose()">Done</button></div></div>');
+    if(x.got === n){ try{ uiSound('success'); haptic('success'); fireConfetti(); }catch(e){} }
+    return;
+  }
+  const c = x.deck[x.i], p = c.p;
+  vkOverlay(top +
+    '<div class="vkx-meta"><span>'+(x.i+1)+' / '+n+(x.onlyTodo ? ' · words to learn' : '')+'</span><span>'+(c.secEmo ? escapeHtml(c.secEmo)+' ' : '')+escapeHtml(c.secTitle)+'</span></div>' +
+    '<div class="vkx-stage"><div class="vkx-card'+(x.flipped?' flipped':'')+'" id="vkxCard" role="button" tabindex="0" onclick="vkFlip()">' +
+      '<div class="vkx-face vkx-front">' +
+        (p.emoji ? '<span class="vkx-emo">'+escapeHtml(p.emoji)+'</span>' : '') +
+        '<div class="vkx-hw">'+p.head+'</div>' +
+        '<span class="vkx-hint">Say what it means, then tap to check</span>' +
+      '</div>' +
+      '<div class="vkx-face vkx-back">' +
+        '<div class="vkx-hw sm">'+p.head+'</div>' +
+        (p.def ? '<div class="vkx-def">'+p.def+'</div>' : '') +
+        p.ex.map(function(e){ return '<div class="vkx-ex">'+e+'</div>'; }).join('') +
+      '</div>' +
+    '</div></div>' +
+    '<div class="vkx-row">' +
+      '<button class="vkx-btn no" onclick="vkFlashNext(false)">Still learning</button>' +
+      '<button class="vkx-btn round" onclick="event.stopPropagation();speakWord(vkx.deck[vkx.i] ? vkSayText(vkx.deck[vkx.i].p) : \'\')" aria-label="Listen">'+VK_ICO.say+'</button>' +
+      '<button class="vkx-btn yes" onclick="vkFlashNext(true)">'+VK_ICO.check+'I know it</button>' +
+    '</div>');
+  vkSwipe(document.getElementById('vkxCard'));
+}
+function vkFlip(){
+  if(!vkx) return;
+  vkx.flipped = !vkx.flipped;
+  const el = document.getElementById('vkxCard');
+  if(el) el.classList.toggle('flipped', vkx.flipped);
+}
+function vkFlashNext(knew){
+  const x = vkx; if(!x || x.i >= x.deck.length) return;
+  const c = x.deck[x.i];
+  if(knew){ x.got++; vkSetKnown(c.id, true); }
+  try{ haptic(); uiSound(knew ? 'tick' : 'tap'); }catch(e){}
+  const el = document.getElementById('vkxCard');
+  const go = function(){ x.i++; x.flipped = false; vkFlashPaint(); };
+  if(el && motionOK() && el.animate){
+    el.animate([{transform:el.style.transform || 'none', opacity:1}, {transform:'translateX('+(knew?120:-120)+'%) rotate('+(knew?10:-10)+'deg)', opacity:0}], {duration:260, easing:'cubic-bezier(.4,0,.8,.6)'}).onfinish = go;
+  } else go();
+}
+function vkFlashMix(){ if(!vkx) return; vkx.deck = vkShuffle(vkx.deck); vkx.i = 0; vkx.got = 0; vkx.flipped = false; vkFlashPaint(); }
+/* drag a flashcard right for "I know it", left for "still learning" */
+function vkSwipe(el){
+  if(!el) return;
+  let x0 = null, dx = 0, moved = false;
+  el.addEventListener('pointerdown', function(e){ x0 = e.clientX; dx = 0; moved = false; });
+  el.addEventListener('pointermove', function(e){
+    if(x0 === null) return;
+    dx = e.clientX - x0;
+    if(Math.abs(dx) > 8){ moved = true; el.style.transition = 'none'; el.style.transform = 'translateX('+dx+'px) rotate('+(dx/24)+'deg)'; }
+  });
+  const end = function(){
+    if(x0 === null) return;
+    x0 = null; el.style.transition = '';
+    if(Math.abs(dx) > 90){ vkFlashNext(dx > 0); return; }
+    el.style.transform = '';
+    if(moved) el.addEventListener('click', function stop(ev){ ev.stopPropagation(); el.removeEventListener('click', stop, true); }, true);
+  };
+  el.addEventListener('pointerup', end);
+  el.addEventListener('pointercancel', end);
+}
+
+/* ---- quick quiz: meaning → word, and gap-fills built from the examples ---- */
+function vkExGap(p){
+  for(let i = 0; i < p.ex.length; i++){
+    const d = document.createElement('div'); d.innerHTML = p.ex[i];
+    const mk = d.querySelector('mark');
+    if(!mk) continue;
+    const ans = vkPlain(mk.innerHTML);
+    if(!ans) continue;
+    const gap = document.createElement('span'); gap.className = 'vkq-gap'; gap.textContent = '   ';
+    mk.parentNode.replaceChild(gap, mk);
+    return {html:d.innerHTML, ans:ans};
+  }
+  return null;
+}
+function vkQuizOpen(cid){
+  const all = vkAllCards(cid);
+  if(all.length < 3) return;
+  const pick = vkShuffle(all).slice(0, Math.min(10, all.length));
+  const qs = pick.map(function(c, qi){
+    const gap = qi % 2 ? vkExGap(c.p) : null;
+    let key, promptHTML, kind;
+    if(gap){ kind = 'gap'; key = gap.ans; promptHTML = gap.html; }
+    else if(c.p.def){ kind = 'def'; key = c.p.headText; promptHTML = c.p.def; }
+    else return null;
+    const pool = vkShuffle(all.filter(function(o){ return o.id !== c.id; })).map(function(o){
+      if(kind === 'gap'){ const g = vkExGap(o.p); return g ? g.ans : null; }
+      return o.p.headText;
+    }).filter(Boolean);
+    const opts = [key];
+    pool.forEach(function(t){ if(opts.length < 4 && opts.every(function(x){ return x.toLowerCase() !== t.toLowerCase(); })) opts.push(t); });
+    if(opts.length < 2) return null;
+    return {kind:kind, html:promptHTML, opts:vkShuffle(opts), key:key, emo:c.p.emoji};
+  }).filter(Boolean);
+  if(!qs.length) return;
+  vkx = {mode:'quiz', cid:cid, qs:qs, i:0, right:0, ans:null};
+  vkQuizPaint();
+}
+function vkQuizPaint(){
+  const x = vkx; if(!x) return;
+  const n = x.qs.length;
+  const top = '<div class="vkx-top"><button class="vkx-x" onclick="vkClose()" aria-label="Close">✕</button>' +
+    '<div class="vkx-kick">'+VK_ICO.quiz+'<span>Quick quiz</span></div><span class="vkx-score">'+x.right+' ✓</span></div>' +
+    '<div class="vkx-prog"><i style="width:'+(Math.min(x.i + (x.ans !== null ? 1 : 0), n)/n*100).toFixed(1)+'%"></i></div>';
+  if(x.i >= n){
+    const pct = Math.round(x.right/n*100);
+    vkOverlay(top + '<div class="vkx-done"><span class="vkx-res" style="--p:'+pct+'"><b>'+x.right+'</b><small>/'+n+'</small></span>' +
+      '<b>'+(pct === 100 ? 'Perfect score!' : pct >= 70 ? 'Great work!' : 'Look at the words again, then retry.')+'</b><span>'+pct+'% correct</span>' +
+      '<div class="vkx-row"><button class="vkx-btn" onclick="vkQuizOpen(\''+x.cid+'\')">New quiz</button><button class="vkx-btn primary" onclick="vkClose()">Done</button></div></div>');
+    if(pct === 100){ try{ uiSound('success'); haptic('success'); fireConfetti(); }catch(e){} }
+    return;
+  }
+  const q = x.qs[x.i], done = x.ans !== null;
+  vkOverlay(top +
+    '<div class="vkx-meta"><span>Question '+(x.i+1)+' of '+n+'</span></div>' +
+    '<div class="vkq">' +
+      '<div class="vkq-ask">'+(q.kind === 'gap' ? 'Complete the example' : 'Which word or phrase means…')+'</div>' +
+      '<div class="vkq-p'+(q.kind === 'gap' ? ' gap' : '')+'">'+q.html+'</div>' +
+      '<div class="vkq-opts">' + q.opts.map(function(o, j){
+        const cls = !done ? '' : (o === q.key ? ' correct' : (j === x.ans ? ' chosen' : ' dim'));
+        return '<button class="vkq-opt'+cls+'"'+(done?' disabled':'')+' onclick="vkQuizAnswer('+j+')"><span class="vkq-l">'+'ABCD'[j]+'</span><span>'+escapeHtml(o)+'</span></button>';
+      }).join('') + '</div>' +
+      (done ? '<button class="vkx-btn primary wide" onclick="vkQuizNext()">'+(x.i + 1 < n ? 'Next question →' : 'See my score')+'</button>' : '') +
+    '</div>');
+}
+function vkQuizAnswer(j){
+  const x = vkx; if(!x || x.ans !== null) return;
+  const q = x.qs[x.i]; x.ans = j;
+  const ok = q.opts[j] === q.key;
+  if(ok) x.right++;
+  try{ haptic(); uiSound(ok ? 'tick' : 'error'); }catch(e){}
+  if(ok) speakWord(q.key);
+  vkQuizPaint();
+}
+function vkQuizNext(){ if(!vkx) return; vkx.i++; vkx.ans = null; vkQuizPaint(); }
 function renderBlocks(blocks, containerId){
   return blocks.map(function(b,i){ return renderBlock(b, blocks, i, containerId); }).join('');
 }
@@ -13099,13 +13679,21 @@ function renderBlock(b, arr, i, containerId){
       '<button onclick="deleteBlock(\''+b.id+'\')" title="Delete">✕</button>' +
     '</div>'
   ) : '';
+  /* reading mode: word-list sections and word cards get their own layout (see v90 above) */
+  const vkSec = !editMode && b.type==='toggle' && vkIsSection(b);
+  const vkCard = !editMode && b.type==='callout' ? vkParse(b) : null;
+  const vkFirst = vkSec && arr.findIndex(function(x){ return x.type==='toggle' && vkIsSection(x); }) === i;
   let plain = '';
-  if(b.type==='divider') plain = ' block-plain';
+  if(vkSec) plain = ' block-vksec';
+  else if(vkCard) plain = ' block-vk';
+  else if(b.type==='divider') plain = ' block-plain';
   else if(b.type==='tabpage') plain = ' block-plain block-tabpage';
   else if(b.type==='callout') plain = ' block-callout';
   else if(b.type==='quiz') plain = ' block-quiz-host';
   return (editMode ? insLineHTML(containerId, i) : '') +
-    '<div class="block'+plain+(selIds.indexOf(b.id)>=0?' is-sel':'')+'" data-bid="'+b.id+'">' + controls + renderBlockBody(b, containerId) + '</div>';
+    (vkFirst ? vkBarHTML(containerId) : '') +
+    '<div class="block'+plain+(selIds.indexOf(b.id)>=0?' is-sel':'')+'" data-bid="'+b.id+'">' + controls +
+      (vkSec ? vkSectionHTML(b) : vkCard ? vkCardHTML(b, vkCard) : renderBlockBody(b, containerId)) + '</div>';
 }
 function listItemsHTML(b, marker){
   const leadFor = {
