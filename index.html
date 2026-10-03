@@ -14,7 +14,7 @@
 <title>Inspire Upper-Intermediate Hub</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Outfit:wght@300;400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,600;0,8..60,700;1,8..60,500;1,8..60,600&family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Playfair+Display:wght@600;700&family=Lora:wght@600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Outfit:wght@300;400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,600;0,8..60,700;1,8..60,500;1,8..60,600&family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Playfair+Display:wght@600;700&family=Lora:wght@600;700&family=Space+Grotesk:wght@600;700&family=Lexend:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.plyr.io/3.8.4/plyr.css"/>
 <script src="https://cdn.plyr.io/3.8.4/plyr.polyfilled.js"></script>
 <style>
@@ -97,6 +97,19 @@
     --focus-ring:0 0 0 3px rgba(139,109,255,0.4);
   }
   html[data-textsize="large"] body{zoom:1.12;}
+  /* "Easy-read": a font designed for reading fluency (Lexend), with extra letter and line spacing —
+     both commonly recommended for readers with dyslexia. Only running text changes; headings keep
+     the chosen heading font, and layout-critical bits (buttons, pills, nav) are left alone. */
+  html[data-readfont="easy"]{ --font-read:'Lexend',-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+  html[data-readfont="easy"] .b-text-view,html[data-readfont="easy"] .item-text,html[data-readfont="easy"] .task-text,
+  html[data-readfont="easy"] .quiz-prompt,html[data-readfont="easy"] .quiz-prompt-view,html[data-readfont="easy"] .quiz-opt-label,
+  html[data-readfont="easy"] .quiz-gap-line,html[data-readfont="easy"] .quiz-dd-line,html[data-readfont="easy"] .quiz-explain-view,
+  html[data-readfont="easy"] .match-opt-row,html[data-readfont="easy"] .match-item-text,html[data-readfont="easy"] .b-callout-text,
+  html[data-readfont="easy"] table.b-table td,html[data-readfont="easy"] .def-item,html[data-readfont="easy"] .def-example,
+  html[data-readfont="easy"] .dx-def,html[data-readfont="easy"] .rd-body,html[data-readfont="easy"] .xc-read p{
+    letter-spacing:0.018em !important;word-spacing:0.05em;}
+  html[data-readfont="easy"] .b-text-view,html[data-readfont="easy"] .rd-body,html[data-readfont="easy"] .xc-read p,
+  html[data-readfont="easy"] .def-item{line-height:1.85 !important;}
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
   html,body{height:100%;margin:0;}
   body{
@@ -5074,6 +5087,10 @@
   .bd-pop-k{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:#FFD66B;} .bd-pop-n{font-family:var(--font-display, system-ui);font-size:17px;font-weight:800;}
   @keyframes bdIn{from{transform:translate(-50%,-30px) scale(.8);opacity:0;}to{transform:translate(-50%,0);opacity:1;}}
   @keyframes bdOut{to{transform:translate(-50%,-20px);opacity:0;}}
+  .bd-pop-medal{animation:bdMedalPop .6s cubic-bezier(.2,1.6,.3,1) .15s both, bdMedalGlow 1.8s ease-in-out .7s infinite;}
+  @keyframes bdMedalPop{0%{transform:scale(.4) rotate(-18deg);}60%{transform:scale(1.18) rotate(6deg);}100%{transform:scale(1) rotate(0);}}
+  @keyframes bdMedalGlow{0%,100%{box-shadow:0 0 0 0 rgba(255,214,107,0);}50%{box-shadow:0 0 0 8px rgba(255,214,107,0.18);}}
+  @media (prefers-reduced-motion: reduce){ .bd-pop-medal{animation:none;} }
   /* teacher tools + dashboard */
   html #app .tt-card{margin:12px 0;padding:12px;border-radius:22px;background:rgba(var(--accent-rgb),0.05);border:1.5px dashed rgba(var(--accent-rgb),0.25);}
   html #app .tt-head{font-family:var(--font-head);font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft);margin:0 4px 8px;}
@@ -6684,6 +6701,7 @@ let pageStack = [];
 let editMode = false;
 let darkMode = false;
 let textSize = 'normal';
+let readFont = 'standard';
 let accent = 'ember';
 let recentPages = [];
 let unitsDone = [];
@@ -6938,11 +6956,12 @@ async function loadState(){
     const prefs = JSON.parse(ui.value);
     darkMode = !!prefs.dark;
     textSize = prefs.textSize || 'normal';
+    readFont = prefs.readFont || 'standard';
     /* Ember is the default from v16: a colour only sticks if it was picked on v16 or later */
     accentPicked = (prefs.accentPickedV || 0) >= 16;
     accent = (accentPicked && prefs.accent) ? prefs.accent : 'ember';
     headFont = prefs.headFont || 'bricolage';
-  }catch(e){ darkMode = false; textSize = 'normal'; accent = 'ember'; headFont = 'bricolage'; }
+  }catch(e){ darkMode = false; textSize = 'normal'; accent = 'ember'; headFont = 'bricolage'; readFont = 'standard'; }
   try{
     const rp = await window.storage.get('recent-pages', false);
     recentPages = JSON.parse(rp.value) || [];
@@ -7259,7 +7278,7 @@ async function restoreLocalBackup(){
     alert('Backup restored and saved.');
   }catch(e){ alert('Could not restore backup.'); }
 }
-function persistUI(){ window.storage.set('ui-prefs', JSON.stringify({dark:darkMode, textSize:textSize, accent:accent, accentPickedV:(accentPicked?16:0), headFont:headFont}), false).catch(()=>{}); }
+function persistUI(){ window.storage.set('ui-prefs', JSON.stringify({dark:darkMode, textSize:textSize, accent:accent, accentPickedV:(accentPicked?16:0), headFont:headFont, readFont:readFont}), false).catch(()=>{}); }
 function persistRecent(){ window.storage.set('dict-recent', JSON.stringify(dictRecent), false).catch(()=>{}); }
 function persistRecentPages(){ window.storage.set('recent-pages', JSON.stringify(recentPages), false).catch(()=>{}); }
 function persistUnitsDone(){ window.storage.set('units-done', JSON.stringify(unitsDone), false).catch(()=>{}); }
@@ -7477,7 +7496,7 @@ function greetingText(){
   let lastY = 0, travel = 0;
   window.addEventListener('scroll', onScroll, {passive:true});
 })();
-function fireConfetti(){
+function fireConfetti(big){
   try{
     if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const cv = document.getElementById('confettiCanvas');
@@ -7491,21 +7510,28 @@ function fireConfetti(){
     const cs = getComputedStyle(document.documentElement);
     const COLORS = [cs.getPropertyValue('--crimson').trim()||'#283C82', cs.getPropertyValue('--gold').trim()||'#1880E2',
                     cs.getPropertyValue('--gold-bright').trim()||'#33AEF2', cs.getPropertyValue('--spark').trim()||'#FF4F7E', '#FFFFFF', '#A9DCFB'];
-    const N = 90;
+    const N = big ? 160 : 90;
+    const spread = big ? 200 : 140;
     const parts = [];
-    for(let i=0;i<N;i++){
-      parts.push({
-        x: window.innerWidth/2 + (Math.random()-0.5)*140,
-        y: window.innerHeight*0.35,
-        vx: (Math.random()-0.5)*9,
-        vy: -(4 + Math.random()*7),
-        w: 5 + Math.random()*5,
-        h: 8 + Math.random()*6,
-        rot: Math.random()*Math.PI,
-        vr: (Math.random()-0.5)*0.3,
-        color: COLORS[i % COLORS.length],
-        life: 0
-      });
+    function burst(originY, n, speed){
+      for(let i=0;i<n;i++){
+        parts.push({
+          x: window.innerWidth/2 + (Math.random()-0.5)*spread,
+          y: originY,
+          vx: (Math.random()-0.5)*(big?11:9),
+          vy: -(speed + Math.random()*7),
+          w: 5 + Math.random()*5,
+          h: 8 + Math.random()*6,
+          rot: Math.random()*Math.PI,
+          vr: (Math.random()-0.5)*0.3,
+          color: COLORS[i % COLORS.length],
+          life: 0
+        });
+      }
+    }
+    burst(window.innerHeight*0.35, N, 4);
+    if(big){
+      setTimeout(function(){ burst(window.innerHeight*0.3, 70, 5); }, 160);
     }
     let frames = 0;
     function tick(){
@@ -7529,7 +7555,7 @@ function fireConfetti(){
           ctx.restore();
         }
       });
-      if(alive > 0 && frames < 220){
+      if((alive > 0 || parts.length < (big?230:90)) && frames < (big?320:220)){
         requestAnimationFrame(tick);
       }else{
         ctx.clearRect(0,0,window.innerWidth,window.innerHeight);
@@ -8137,12 +8163,14 @@ function applyTheme(){
   document.documentElement.setAttribute('data-textsize', textSize);
   document.documentElement.setAttribute('data-accent', accent);
   document.documentElement.setAttribute('data-headfont', headFont);
+  document.documentElement.setAttribute('data-readfont', readFont);
   const meta = document.querySelector('meta[name=theme-color]');
   if(meta) meta.setAttribute('content', darkMode ? '#070A16' : '#F2F5FB');
 }
 function setAccent(v){ accent=v; accentPicked=true; applyTheme(); persistUI(); render(); }
 function toggleDark(){ darkMode=!darkMode; applyTheme(); persistUI(); render(); }
 function setTextSize(v){ textSize=v; applyTheme(); persistUI(); render(); }
+function setReadFont(v){ readFont=v; applyTheme(); persistUI(); render(); }
 
 /* ================= tree helpers ================= */
 function findPage(pages, id){
@@ -10808,8 +10836,10 @@ function checkNewBadges(){
 }
 function showBadgePop(b){
   let host = document.getElementById('bdPop'); if(!host){ host = document.createElement('div'); host.id = 'bdPop'; document.body.appendChild(host); }
-  host.innerHTML = '<div class="bd-pop" onclick="this.remove()"><span class="bd-medal big">'+b.icon+'</span><div><div class="bd-pop-k">New badge</div><div class="bd-pop-n">'+escapeHtml(b.name)+'</div></div></div>';
-  if(typeof fireConfetti === 'function') fireConfetti();
+  host.innerHTML = '<div class="bd-pop" onclick="this.remove()"><span class="bd-medal big bd-pop-medal">'+b.icon+'</span><div><div class="bd-pop-k">New badge</div><div class="bd-pop-n">'+escapeHtml(b.name)+'</div></div></div>';
+  try{ haptic('badge'); }catch(e){}
+  try{ uiSound('success'); }catch(e){}
+  if(typeof fireConfetti === 'function') fireConfetti(true);
   setTimeout(function(){ const e = host.querySelector('.bd-pop'); if(e) e.classList.add('out'); setTimeout(function(){ host.innerHTML=''; }, 400); }, 3600);
 }
 function badgesStripHTML(){
@@ -12883,6 +12913,9 @@ function renderSettings(){
       '</div>' +
       '<div class="settings-row"><div class="settings-row-left"><div class="settings-icon g-sky">'+iconHTML('smile')+'</div><div>Text size</div></div>' +
         '<div class="seg-row"><button class="seg-btn compact '+(textSize!=='large'?'picked':'')+'" onclick="setTextSize(\'normal\')">Normal</button><button class="seg-btn compact '+(textSize==='large'?'picked':'')+'" onclick="setTextSize(\'large\')">Large</button></div>' +
+      '</div>' +
+      '<div class="settings-row stacked"><div class="settings-row-left"><div class="settings-icon g-sage">'+iconHTML('book')+'</div><div>Reading font<div class="settings-hint">Wider letter and line spacing, which many readers with dyslexia find easier</div></div></div>' +
+        '<div class="seg-row"><button class="seg-btn compact '+(readFont!=='easy'?'picked':'')+'" onclick="setReadFont(\'standard\')">Standard</button><button class="seg-btn compact '+(readFont==='easy'?'picked':'')+'" onclick="setReadFont(\'easy\')">Easy-read</button></div>' +
       '</div>' +
       '<div class="settings-row stacked"><div style="display:flex;align-items:center;justify-content:space-between;gap:10px;"><div class="settings-row-left"><div class="settings-icon g-gold">'+iconHTML('book')+'</div><div>Daily word</div></div><div class="switch '+(wotdOn?'on':'')+'" onclick="toggleWotd()"><div class="knob"></div></div></div><div class="hint">A useful new word each day, with its meaning and examples.</div></div>' +
       '<div class="settings-row stacked"><div style="display:flex;align-items:center;justify-content:space-between;gap:10px;"><div class="settings-row-left"><div class="settings-icon g-olive">'+iconHTML('check')+'</div><div>My progress on this device</div></div><button class="btn mini" onclick="clearTaskProgress()">Clear ticks</button></div><div class="hint">Tick boxes and quiz scores are kept in this browser, so each student keeps their own.</div></div>' +
@@ -16883,7 +16916,7 @@ const haptic = (function(){
     const a = document.activeElement;
     if(a && (a.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName))) return;
     try{
-      if(navigator.vibrate){ navigator.vibrate(kind === 'success' ? [10, 60, 16] : 8); return; }
+      if(navigator.vibrate){ navigator.vibrate(kind === 'badge' ? [12, 50, 12, 50, 22] : kind === 'success' ? [10, 60, 16] : 8); return; }
       sw().click();
     }catch(e){}
   };
