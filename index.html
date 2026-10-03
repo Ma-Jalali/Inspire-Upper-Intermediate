@@ -4840,6 +4840,21 @@
     color:#4A52D8;font:inherit;font-family:var(--font-head);font-weight:800;font-size:14px;cursor:pointer;}
   html #app .hw-form{display:flex;flex-direction:column;gap:8px;margin:6px 0 6px;}
   html #app .hw-form input{box-sizing:border-box;border-radius:12px;border:1px solid rgba(90,100,230,0.35);background:var(--surface);color:var(--ink);font:inherit;font-size:15px;padding:10px 12px;}
+  html #app .cmt-box{border-radius:22px;padding:14px;background:var(--surface);box-shadow:0 8px 20px -16px rgba(10,16,40,0.5), inset 0 0 0 1px rgba(var(--accent-rgb),0.08);margin-bottom:24px;}
+  html #app .cmt-row{padding:10px 2px;border-bottom:1px solid rgba(var(--accent-rgb),0.08);}
+  html #app .cmt-row:last-of-type{border-bottom:none;}
+  html #app .cmt-head{display:flex;align-items:center;gap:8px;margin-bottom:3px;}
+  html #app .cmt-head b{font-family:var(--font-display);font-size:14.5px;color:var(--ink);}
+  html #app .cmt-head span{font-size:12px;color:var(--ink-soft);}
+  html #app .cmt-del{margin-left:auto;border:none;background:none;color:var(--ink-soft);cursor:pointer;font-size:13px;padding:4px;}
+  html #app .cmt-text{font-size:14.5px;line-height:1.45;color:var(--ink);}
+  html #app .cmt-reply{margin-top:8px;padding:10px 12px;border-radius:14px;background:rgba(var(--accent-rgb),0.07);}
+  html #app .cmt-reply b{display:block;font-family:var(--font-head);font-size:11.5px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:var(--crimson);margin-bottom:2px;}
+  html #app .cmt-reply span{font-size:14px;line-height:1.4;color:var(--ink);}
+  html #app .cmt-reply-btn{margin-top:6px;border:none;background:none;color:var(--crimson);font:inherit;font-weight:700;font-size:13px;cursor:pointer;padding:2px 0;}
+  html #app .cmt-compose{display:flex;gap:8px;margin-top:10px;}
+  html #app .cmt-input{flex:1;min-width:0;box-sizing:border-box;border-radius:14px;border:1px solid rgba(var(--accent-rgb),0.18);background:var(--paper);color:var(--ink);font:inherit;font-size:14.5px;padding:10px 14px;}
+  html #app .cmt-send{flex-shrink:0;}
   html #app .hw-form-row{display:flex;gap:8px;align-items:center;} html #app .hw-form-row input{flex:1;min-width:0;}
   html #app .hw-save{background:var(--g-indigo);color:#fff;border:none;}
 
@@ -11339,6 +11354,80 @@ function liveSpectatePaint(){
   const t = document.getElementById('liveWatchTitle');
   if(t && live.s) t.textContent = live.s.title;
 }
+/* ================= v97: questions & comments per unit ================= */
+let unitComments = {};
+let unitCommentsLoading = {};
+function timeAgo(ts){
+  const s = Math.max(0, Math.round((Date.now()-ts)/1000));
+  if(s < 60) return 'just now';
+  const m = Math.round(s/60); if(m < 60) return m+'m ago';
+  const h = Math.round(m/60); if(h < 24) return h+'h ago';
+  const d = Math.round(h/24); if(d < 30) return d+'d ago';
+  return new Date(ts).toLocaleDateString('en-GB', {day:'numeric', month:'short'});
+}
+async function loadUnitComments(pageId){
+  if(unitCommentsLoading[pageId]) return;
+  unitCommentsLoading[pageId] = true;
+  try{
+    const res = await fetch(SB_TABLE_URL + '?key=like.' + encodeURIComponent('cmt:'+pageId+':*') + '&select=key,value', {headers: SB_HEADERS});
+    const rows = res.ok ? await res.json() : [];
+    unitComments[pageId] = rows.map(function(r){
+      try{ const v = JSON.parse(r.value); v._key = r.key; v._pageId = pageId; return v; }catch(e){ return null; }
+    }).filter(Boolean).sort(function(a,b){ return a.at - b.at; });
+  }catch(e){ unitComments[pageId] = unitComments[pageId] || []; }
+  unitCommentsLoading[pageId] = false;
+  if(pageStack[pageStack.length-1] === pageId) render();
+}
+async function postUnitComment(pageId){
+  const el = document.getElementById('cmtInput-'+pageId); if(!el) return;
+  const text = el.value.trim(); if(!text) return;
+  let name = studentName();
+  if(!name){ name = (prompt('Your name (shown with your comment)')||'').trim().slice(0,40); if(!name) return; setStudentName(name); }
+  const id = uid(), key = 'cmt:'+pageId+':'+id;
+  const c = {id:id, name:name, text:text.slice(0,500), at:Date.now(), _key:key, _pageId:pageId};
+  unitComments[pageId] = (unitComments[pageId]||[]).concat([c]);
+  el.value = ''; render();
+  try{ await window.storage.set(key, JSON.stringify({id:c.id, name:c.name, text:c.text, at:c.at}), true); }
+  catch(e){ showMiniToast('Could not post. Check your internet.'); }
+}
+async function startCommentReply(pageId, key){
+  const c = (unitComments[pageId]||[]).find(function(x){ return x._key===key; }); if(!c) return;
+  const v = prompt('Reply to '+(c.name||'this student')+':', c.reply||'');
+  if(v === null) return;
+  c.reply = v.trim().slice(0,500); c.replyAt = Date.now(); render();
+  try{ await window.storage.set(key, JSON.stringify({id:c.id, name:c.name, text:c.text, at:c.at, reply:c.reply, replyAt:c.replyAt}), true); }
+  catch(e){ showMiniToast('Could not save reply. Check your internet.'); }
+}
+async function deleteUnitComment(pageId, key){
+  if(!confirm('Delete this comment?')) return;
+  unitComments[pageId] = (unitComments[pageId]||[]).filter(function(c){ return c._key!==key; });
+  render();
+  try{ await window.storage.delete(key, true); }catch(e){}
+}
+function commentRowHTML(c){
+  return '<div class="cmt-row">' +
+    '<div class="cmt-head"><b>'+escapeHtml(c.name||'Student')+'</b><span>'+timeAgo(c.at)+'</span>' +
+      (editMode ? '<button class="cmt-del" onclick="deleteUnitComment(\''+c._pageId+'\',\''+escapeAttr(c._key)+'\')" aria-label="Delete">✕</button>' : '') +
+    '</div>' +
+    '<div class="cmt-text">'+escapeHtml(c.text)+'</div>' +
+    (c.reply ? '<div class="cmt-reply"><b>Teacher reply</b><span>'+escapeHtml(c.reply)+'</span></div>' :
+      (editMode ? '<button class="cmt-reply-btn" onclick="startCommentReply(\''+c._pageId+'\',\''+escapeAttr(c._key)+'\')">Reply</button>' : '')) +
+  '</div>';
+}
+function unitCommentsHTML(page){
+  if(!unitParts(page.title)) return '';
+  const list = unitComments[page.id];
+  if(list === undefined) loadUnitComments(page.id);
+  const items = list || [];
+  return '<div class="section-label">Questions & comments'+(items.length ? '<span class="sl-count">'+items.length+'</span>' : '')+'</div>' +
+    '<div class="cmt-box">' +
+      (items.length ? items.map(commentRowHTML).join('') : '<div class="hw-empty">'+(list===undefined ? 'Loading…' : 'No questions yet. Be the first to ask!')+'</div>') +
+      '<div class="cmt-compose">' +
+        '<input class="cmt-input" id="cmtInput-'+page.id+'" maxlength="500" placeholder="Ask a question or leave a comment…" onkeydown="if(event.key===\'Enter\')postUnitComment(\''+page.id+'\')"/>' +
+        '<button class="chip-btn cmt-send" onclick="postUnitComment(\''+page.id+'\')">Post</button>' +
+      '</div>' +
+    '</div>';
+}
 /* ---- player ---- */
 async function livePeekCheck(){
   if(livePeekCheck._busy || editMode) return;
@@ -12814,6 +12903,7 @@ function renderPageDetail(){
     }
     if((page.blocks||[]).length > 8) html += '<div class="to-top-wrap"><button class="to-top" onclick="window.scrollTo({top:0,behavior:\'smooth\'});var sc=document.querySelector(\'.app-scroll\');if(sc)sc.scrollTo({top:0,behavior:\'smooth\'});">\u2191 Back to top</button></div>';
   }
+  html += unitCommentsHTML(page);
   return html;
 }
 /* the end of a unit page points onward: previous and next unit in their own colours */
