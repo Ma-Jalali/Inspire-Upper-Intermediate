@@ -5059,6 +5059,15 @@
   html #app .gh-meta, html #app .gh-snip{font-size:12.5px;color:var(--ink-soft);line-height:1.4;}
   html #app .gh-snip mark{background:rgba(255,200,60,0.45);color:inherit;border-radius:3px;padding:0 2px;}
   html #app .gh-go{font-size:22px;color:var(--ink-soft);}
+  html #app .gh-diag-cta{display:flex;align-items:center;gap:12px;width:100%;padding:13px 14px;margin-bottom:14px;border:none;border-radius:18px;cursor:pointer;font:inherit;text-align:left;
+    background:linear-gradient(145deg,rgba(var(--accent-rgb),0.12),rgba(var(--accent-rgb),0.05));box-shadow:inset 0 0 0 1px rgba(var(--accent-rgb),0.18);}
+  html #app .gh-diag-cta:active{transform:scale(.988);}
+  html #app .gh-diag-ico{flex-shrink:0;width:36px;height:36px;border-radius:12px;display:flex;align-items:center;justify-content:center;color:#fff;background:var(--g-crimson);}
+  html #app .gh-diag-ico svg{width:19px;height:19px;}
+  html #app .gh-diag-txt{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;}
+  html #app .gh-diag-txt b{font-family:var(--font-display);font-size:15.5px;color:var(--ink);letter-spacing:-0.01em;}
+  html #app .gh-diag-txt span{font-size:12.5px;color:var(--ink-soft);}
+  html #app .gh-diag-weak{margin-top:16px;}
   /* badges */
   html #app .bd-strip{display:flex;align-items:center;gap:12px;width:100%;margin:-4px 0 12px;padding:10px 14px;border:none;border-radius:18px;cursor:pointer;font:inherit;text-align:left;
     background:var(--surface);box-shadow:0 8px 20px -16px rgba(10,16,40,0.45), inset 0 0 0 1px rgba(var(--accent-rgb),0.07);}
@@ -6272,6 +6281,16 @@
   html #app .rd-body > .block, html #app .rd-body > .sheet > .block{padding-left:0;padding-right:0;background:none;box-shadow:none;border:none;}
   html #app .rd-body{padding:20px 20px 12px;}
   html #app .rd-body > .block:first-child, html #app .rd-body > .sheet:first-child > .block:first-child{padding-top:0;margin-top:0;}
+
+  /* ---- v94: "explain this differently" toggle ---- */
+  html #app .b-toggle.b-explain > .toggle-head{background:rgba(255,179,41,0.09);}
+  html #app .b-toggle.b-explain.open > .toggle-head{background:rgba(255,179,41,0.16);box-shadow:none;}
+  html #app .b-toggle.b-explain .toggle-head .arrow{background:rgba(255,179,41,0.18);color:#b9790a;transform:none !important;}
+  html #app .b-toggle.b-explain.open .toggle-head .arrow{background:#f0a02a;color:#fff;box-shadow:0 4px 10px -3px rgba(240,160,42,0.55);transform:none !important;}
+  html #app .b-toggle.b-explain .toggle-title{color:#9a6305;}
+  html:not([data-theme="dark"]) #app .b-toggle.b-explain .toggle-title{color:#8a5a06;}
+  html[data-theme="dark"] #app .b-toggle.b-explain .toggle-title{color:#ffcf7a;}
+  html #app .b-toggle.b-explain .toggle-body::before{background:#f0a02a;opacity:.28;}
 
   /* ---- v93: highlights & notes on reading text ---- */
   html #app .rd-hl-chip{display:inline-flex;align-items:center;gap:5px;padding:7px 12px;font-size:13px;font-weight:700;color:var(--crimson);flex-shrink:0;}
@@ -8277,7 +8296,7 @@ function blockPreviewLabel(b){
     case 'numbered': return 'Numbered list';
     case 'tasklist': return 'Task list';
     case 'quiz': return 'Quiz: '+(b.title||'Quick check');
-    case 'toggle': return 'Toggle: '+(b.title||'Untitled');
+    case 'toggle': return b.explain ? ('Explain differently: '+(b.title||'Untitled')) : ('Toggle: '+(b.title||'Untitled'));
     case 'table': return 'Table';
     case 'callout': return 'Banner: '+stripHtmlPreview(b.text);
     case 'quote': return 'Quote: '+stripHtmlPreview(b.text);
@@ -8704,6 +8723,7 @@ function createBlock(type){
     ]};
     case 'divider': return {id, type, style:'hairline'};
     case 'toggle': return {id, type, title:'Toggle', open:false, blocks:[]};
+    case 'explain': return {id, type:'toggle', title:'Explain this differently', open:false, explain:true, blocks:[{id:uid(), type:'text', text:'Write a simpler way to say the same thing…'}]};
     case 'table': return {id, type, headers:['Column 1','Column 2'], rows:[['','']]};
     case 'embed': return {id, type, label:'', url:''};
     case 'audio': return {id, type, label:'', url:''};
@@ -10811,13 +10831,105 @@ function grammarListHTML(){
   return h;
 }
 function renderGrammarHub(){
+  if(gDiag) return renderGrammarDiag();
   const n = grammarTopics().length;
   return '<button class="search-back" onclick="switchTab(\'home\')">\u2190 Back</button>' +
     '<div class="rv-hero"><span class="rv-hero-ico gh-hero-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4.5h10.5a3 3 0 0 1 3 3v12H8a3 3 0 0 1-3-3z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M5 16.5a3 3 0 0 1 3-3h10.5M9 8.5h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>' +
     '<div class="rv-hero-txt"><div class="eyebrow">Reference</div><div class="big-title serif">Grammar hub</div><div class="rv-hero-sub">'+n+' grammar lesson'+(n===1?'':'s')+' from every unit, in one place.</div></div></div>' +
+    '<button class="gh-diag-cta" onclick="openGrammarDiag()"><span class="gh-diag-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/></svg></span><span class="gh-diag-txt"><b>Grammar diagnostic test</b><span>Find out which topics to review</span></span><span class="gh-go">\u203a</span></button>' +
     '<div class="gh-search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 16l4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>' +
     '<input placeholder="Search, e.g. future perfect, will, articles" value="'+escapeAttr(grammarQuery)+'" oninput="onGrammarSearch(this.value)"/></div>' +
     '<div id="ghList">'+grammarListHTML()+'</div>';
+}
+/* ================= v94: grammar diagnostic test ================= */
+let gDiag = null;
+function grammarDiagPool(){
+  const out = [];
+  unitPages().forEach(function(u){
+    if(isLockedForViewer(u.id)) return;
+    const up = unitParts(u.title); const unum = up ? up.num : '';
+    (u.children||[]).forEach(function(c){
+      if(!/grammar/i.test(c.title) || isLockedForViewer(c.id)) return;
+      let curTitle = 'Unit '+unum+' grammar', curId = null;
+      (function walk(list){
+        (list||[]).forEach(function(b){
+          if(b.type==='heading' && (b.level===1 || b.level===2 || b.level==='1' || b.level==='2')){ curTitle = stripHtml(b.text||'') || curTitle; curId = b.id; return; }
+          if(b.type==='quiz' && Array.isArray(b.questions)){
+            b.questions.forEach(function(q){
+              if(q.kind!=='mc' || !Array.isArray(q.options) || q.options.length<2 || !Array.isArray(q.correct) || q.correct.length!==1) return;
+              const prompt = stripHtml(q.prompt||'').trim();
+              if(!prompt) return;
+              out.push({unit:unum, topicTitle:curTitle, pageId:c.id, blockId:curId, prompt:prompt, options:q.options.map(function(o){ return stripHtml(o); }), correct:q.correct[0]});
+            });
+          }
+          if(Array.isArray(b.blocks)) walk(b.blocks);
+        });
+      })(c.blocks);
+    });
+  });
+  return out;
+}
+function openGrammarDiag(){
+  const pool = grammarDiagPool();
+  if(pool.length < 4){ showMiniToast('Not enough grammar practice quizzes yet'); return; }
+  const byUnit = {};
+  pool.forEach(function(q){ (byUnit[q.unit] = byUnit[q.unit] || []).push(q); });
+  let picked = [];
+  Object.keys(byUnit).forEach(function(u){ picked = picked.concat(gmShuffle(byUnit[u]).slice(0, 2)); });
+  picked = gmShuffle(picked).slice(0, 15);
+  const items = picked.map(function(q){
+    const opts = gmShuffle(q.options.map(function(o, i){ return {text:o, ok:i===q.correct}; }));
+    return {prompt:q.prompt, unit:q.unit, topicTitle:q.topicTitle, pageId:q.pageId, blockId:q.blockId, opts:opts};
+  });
+  gDiag = {items:items, i:0, picked:null, score:0, weak:{}};
+  render();
+}
+function closeGrammarDiag(){ gDiag = null; render(); }
+function gDiagPick(k){
+  if(!gDiag || gDiag.picked !== null) return;
+  gDiag.picked = k;
+  const it = gDiag.items[gDiag.i];
+  const ok = it.opts[k].ok;
+  const w = gDiag.weak[it.unit] || {right:0, total:0, topicTitle:it.topicTitle, pageId:it.pageId, blockId:it.blockId};
+  w.total++; if(ok){ w.right++; gDiag.score++; } else { w.topicTitle = it.topicTitle; w.pageId = it.pageId; w.blockId = it.blockId; }
+  gDiag.weak[it.unit] = w;
+  render();
+}
+function gDiagNext(){
+  if(!gDiag) return;
+  if(gDiag.i >= gDiag.items.length-1){ gDiag.finished = true; logActivity('quiz'); if(gDiag.score/gDiag.items.length >= 0.8 && typeof fireConfetti==='function') fireConfetti(); render(); return; }
+  gDiag.i++; gDiag.picked = null; render();
+}
+function gDiagWeakUnits(){
+  return Object.keys(gDiag.weak).map(function(u){ return Object.assign({unit:u}, gDiag.weak[u]); })
+    .filter(function(w){ return w.right/w.total < 0.6; })
+    .sort(function(a,b){ return (a.right/a.total) - (b.right/b.total); });
+}
+function renderGrammarDiag(){
+  const back = '<button class="search-back" onclick="closeGrammarDiag()">\u2190 Grammar hub</button>';
+  if(gDiag.finished){
+    const total = gDiag.items.length, score = gDiag.score;
+    const weak = gDiagWeakUnits();
+    return back + '<div class="snd-done g-crimson"><span class="snd-done-num">'+score+'<small>/'+total+'</small></span>' +
+      '<b>'+(score/total >= 0.8 ? 'Strong grasp of grammar' : score/total >= 0.5 ? 'Good, with some gaps' : 'Let\u2019s review the basics')+'</b>' +
+      '<span>'+(weak.length ? 'Review these topics to improve:' : 'No weak spots found \u2014 nice work!')+'</span></div>' +
+      (weak.length ? '<div class="gh-diag-weak">'+weak.map(function(w){
+        return '<button class="gh-item" onclick="'+(w.blockId ? 'openFromSearchBlock(\''+w.pageId+'\',\''+w.blockId+'\')' : 'openFromSearch(\''+w.pageId+'\')')+'">' +
+          '<span class="gh-ico">'+escapeHtml(w.unit)+'</span><span class="gh-body"><b>'+escapeHtml(w.topicTitle)+'</b><span class="gh-meta">'+w.right+' / '+w.total+' correct</span></span><span class="gh-go">\u203a</span></button>';
+      }).join('')+'</div>' : '') +
+      '<div class="snd-done-row"><button class="snd-cta" onclick="openGrammarDiag()">Try again</button><button class="snd-cta ghost" onclick="closeGrammarDiag()">Done</button></div>';
+  }
+  const it = gDiag.items[gDiag.i];
+  const dots = gDiag.items.map(function(_,k){ return '<i class="'+(k<gDiag.i?'done':k===gDiag.i?'cur':'')+'"></i>'; }).join('');
+  let h = back + '<div class="snd-play g-crimson"><div class="snd-top"><span class="snd-pair">Diagnostic test</span><span class="snd-count">'+(gDiag.i+1)+' / '+gDiag.items.length+'</span></div><div class="snd-dots">'+dots+'</div>' +
+    '<div class="gm-word" style="font-size:18px;line-height:1.35">'+escapeHtml(it.prompt)+'</div></div><div class="gm-opts">';
+  it.opts.forEach(function(o, k){
+    let cls = ''; if(gDiag.picked !== null){ if(o.ok) cls = ' right'; else if(k === gDiag.picked) cls = ' wrong'; else cls = ' dim'; }
+    h += '<button class="gm-opt'+cls+'" onclick="gDiagPick('+k+')"><span class="gm-opt-k">'+'ABCD'[k]+'</span><span>'+escapeHtml(o.text)+'</span></button>';
+  });
+  h += '</div>';
+  if(gDiag.picked !== null) h += '<button class="snd-cta full" onclick="gDiagNext()">'+(gDiag.i >= gDiag.items.length-1 ? 'See my results' : 'Next')+'</button>';
+  return h;
 }
 function grammarBannerHTML(){
   const n = grammarTopics().length;
@@ -14640,9 +14752,9 @@ function renderBlockBody(b, containerId){
     case 'quiz':
       return quizHTML(b);
     case 'toggle':
-      return '<div class="b-toggle '+(b.open?'open':'')+'">' +
+      return '<div class="b-toggle '+(b.explain?'b-explain':'')+' '+(b.open?'open':'')+'">' +
         '<div class="toggle-head" role="button" tabindex="0" aria-expanded="'+(b.open?'true':'false')+'" onclick="toggleOpen(\''+b.id+'\')" onkeydown="if((event.key===\'Enter\'||event.key===\' \')&&event.target===this){event.preventDefault();toggleOpen(\''+b.id+'\');}">' +
-          '<span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></span>' +
+          '<span class="arrow">'+(b.explain ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.4.3.5.7.5 1.1v.5h6v-.5c0-.4.1-.8.5-1.1A6 6 0 0 0 12 3z"/></svg>' : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>')+'</span>' +
           '<span class="toggle-title" contenteditable="'+editMode+'"'+(editMode?' onclick="event.stopPropagation()"':'')+' onkeydown="if(event.key===\'Enter\'){event.preventDefault();this.blur();}" oninput="onBlockField(\''+b.id+'\',\'title\',this.innerText)" onblur="render()">'+escapeHtml(b.title)+'</span>' +
         '</div>' +
         (b.open ? ('<div class="toggle-body">'+renderBlocks(b.blocks,b.id)+(editMode?renderAddBlockControl(b.id):'')+'</div>') : '') +
@@ -15312,6 +15424,7 @@ function renderAddMenu(containerId){
     '<button onclick="addBlockTo(\''+containerId+'\',\'tasklist\')">&#9744; Task list</button>' +
     '<button onclick="addBlockTo(\''+containerId+'\',\'quiz\')">&#10003; Quiz (MCQ / gap fill / dropdown / matching)</button>' +
     '<button onclick="addBlockTo(\''+containerId+'\',\'toggle\')">› Toggle</button>' +
+    '<button onclick="addBlockTo(\''+containerId+'\',\'explain\')">💡 Explain this differently (simpler version)</button>' +
     '<button onclick="addBlockTo(\''+containerId+'\',\'table\')">▦ Table</button>' +
     '<button onclick="addBlockTo(\''+containerId+'\',\'callout\')">▬ Banner</button>' +
     '<button onclick="addBlockTo(\''+containerId+'\',\'quote\')"><b>&rdquo;</b> Quote</button>' +
