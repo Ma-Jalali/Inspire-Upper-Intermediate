@@ -5147,6 +5147,13 @@
   html #app .db-stats span{font-size:11.5px;font-weight:700;padding:3px 8px;border-radius:999px;background:rgba(120,130,160,0.12);color:var(--ink-soft);}
   html #app .db-stats span.good{color:#fff;background:#1FA463;} html #app .db-stats span.low{color:#B4232A;background:rgba(224,51,90,0.12);}
   html #app .db-x{border:none;background:none;color:var(--ink-soft);cursor:pointer;padding:6px;}
+  html #app .asg-list{display:flex;flex-direction:column;gap:8px;margin-bottom:22px;}
+  html #app .asg-row{padding:12px 14px;border-radius:18px;background:var(--surface);box-shadow:0 8px 18px -16px rgba(10,16,40,0.5), inset 0 0 0 1px rgba(var(--accent-rgb),0.07);}
+  html #app .asg-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px;}
+  html #app .asg-head b{font-family:var(--font-display);font-size:15px;color:var(--ink);font-weight:700;}
+  html #app .asg-bar{height:6px;border-radius:999px;background:rgba(120,130,160,0.16);overflow:hidden;margin-bottom:6px;}
+  html #app .asg-bar span{display:block;height:100%;border-radius:999px;background:var(--g-sage);transition:width .3s ease;}
+  html #app .asg-meta{font-size:12px;color:var(--ink-soft);line-height:1.5;}
   /* live quiz */
   html #app .lv-card{position:relative;overflow:hidden;display:flex;align-items:center;gap:12px;width:100%;margin:14px 0 4px;padding:14px;border:none;border-radius:22px;cursor:pointer;font:inherit;text-align:left;color:#fff;
     background:linear-gradient(120deg,#FF7A5C,#E0335A 50%,#8A2BE2);box-shadow:0 18px 32px -18px rgba(224,51,90,0.9), inset 0 1px 0 rgba(255,255,255,0.4);animation:lvPulse 2.4s ease-in-out infinite;}
@@ -11189,7 +11196,8 @@ function progressSnapshot(){
   for(let i=0;i<7;i++){ const d = new Date(); d.setDate(d.getDate()-i); if(act[dayKey(d)]) d7++; }
   return {name:studentName(), t:Date.now(), streak:streakDays(), days7:d7, quizzes:scores.length,
     avg: scores.length ? Math.round(scores.reduce(function(a,b){ return a+b; },0)/scores.length*100) : null,
-    units:(unitsDone||[]).length, cards:myCards.length, mistakes:mistakeCount(), badges:earnedBadges().length};
+    units:(unitsDone||[]).length, cards:myCards.length, mistakes:mistakeCount(), badges:earnedBadges().length,
+    hw: Object.keys(hwDone)};
 }
 function syncProgress(force){
   if(!studentName() || editMode) return;
@@ -11215,6 +11223,22 @@ async function dashRemove(key){
   loadDashboard();
 }
 function agoShort(t){ const m = Math.round((Date.now()-t)/60000); if(m < 2) return 'now'; if(m < 60) return m+'m ago'; const h = Math.round(m/60); if(h < 24) return h+'h ago'; return Math.round(h/24)+'d ago'; }
+/* ================= v99: assignment mode (homework completion, tracked per student) ================= */
+function assignmentsHTML(rows){
+  const items = hwList();
+  if(!items.length) return '';
+  const total = rows.length;
+  return '<div class="section-label">Assignments</div><div class="asg-list">' +
+    items.map(function(it){
+      const doneBy = rows.filter(function(r){ return Array.isArray(r.hw) && r.hw.indexOf(it.id) !== -1; });
+      const notDone = rows.filter(function(r){ return !(Array.isArray(r.hw) && r.hw.indexOf(it.id) !== -1); });
+      const lab = hwDueLabel(it.due);
+      const pct = total ? Math.round(doneBy.length/total*100) : 0;
+      return '<div class="asg-row"><div class="asg-head"><b>'+escapeHtml(it.text)+'</b><span class="hw-due '+lab.c+'">'+lab.t+'</span></div>' +
+        '<div class="asg-bar"><span style="width:'+pct+'%"></span></div>' +
+        '<div class="asg-meta">'+doneBy.length+' / '+total+' done'+(lab.c==='late' && notDone.length ? ' — waiting on '+notDone.map(function(r){ return escapeHtml(r.name); }).join(', ') : '')+'</div></div>';
+    }).join('') + '</div>';
+}
 function renderDashboard(){
   let h = '<button class="search-back" onclick="switchTab(\'home\')">\u2190 Back</button>' +
     '<div class="rv-hero"><span class="rv-hero-ico db-hero-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5h16M7 16v-5M12 16V6M17 16v-8" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></span>' +
@@ -11227,6 +11251,7 @@ function renderDashboard(){
   const classAvg = avgs.length ? Math.round(avgs.reduce(function(a,r){ return a+r.avg; },0)/avgs.length) : null;
   h += '<div class="db-tiles"><div><b>'+rows.length+'</b><span>students</span></div><div><b>'+today+'</b><span>active today</span></div><div><b>'+(classAvg===null?'\u2013':classAvg+'%')+'</b><span>avg best score</span></div></div>';
   if(!rows.length) return h + '<div class="hw-empty">No students yet. Ask them to write their name in Settings.</div>';
+  h += assignmentsHTML(rows);
   h += '<div class="db-list">';
   rows.forEach(function(r, i){
     const init = String(r.name).trim().split(/\s+/).map(function(w){ return w[0]; }).join('').slice(0,2).toUpperCase();
