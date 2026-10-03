@@ -5139,6 +5139,7 @@
   html #app .lv-card-ico{font-size:28px;width:48px;height:48px;border-radius:16px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.2);flex-shrink:0;}
   html #app .lv-card-t{flex:1;display:flex;flex-direction:column;} html #app .lv-card-t b{font-family:var(--font-display);font-size:18px;} html #app .lv-card-t span{font-size:13px;opacity:.9;}
   html #app .lv-card-go{font-family:var(--font-head);font-weight:800;font-size:14px;padding:9px 16px;border-radius:999px;background:#fff;color:#E0335A;}
+  html #app .lv-watch-link{display:block;width:100%;border:none;background:none;cursor:pointer;font:inherit;text-align:center;padding:6px 10px 16px;font-size:13px;font-weight:700;color:var(--crimson);}
   html #app .lv-hero-ico{font-size:28px;background:linear-gradient(135deg,#FF7A5C,#E0335A 60%,#8A2BE2);}
   html #app .lv-ico{background:linear-gradient(135deg,#FF7A5C,#E0335A);}
   html #app .lv-stage{border-radius:30px;padding:18px;margin-bottom:20px;color:#fff;background:linear-gradient(160deg,#2A1B5E,#46207A 55%,#7A1F6B);box-shadow:0 26px 44px -26px rgba(40,10,90,0.9), inset 0 1.5px 0 rgba(255,255,255,0.18);}
@@ -11276,20 +11277,21 @@ async function liveClose(){
   live = null; liveRole = null; switchTab('home');
 }
 function liveBoardList(s){ return Object.keys(s.board||{}).map(function(k){ return s.board[k]; }).sort(function(a,b){ return b.pts - a.pts; }); }
-function liveHostInner(){
+function liveHostInner(spectate){
   const s = live.s;
+  if(!s) return '<div class="lv-wait"><span class="lv-spin"></span><b>Waiting for the teacher to start a quiz\u2026</b></div>';
   if(s.phase === 'lobby'){
     return '<div class="lv-lobby"><div class="lv-join"><span>Students: open the app and tap</span><b>Join live quiz</b></div>' +
       '<div class="lv-count"><b>'+live.joined.length+'</b> joined</div>' +
       '<div class="lv-names">'+(live.joined.length ? live.joined.map(function(j,i){ return '<span style="--d:'+(i*0.04).toFixed(2)+'s">'+escapeHtml(j.name)+'</span>'; }).join('') : '<em>Waiting for players\u2026</em>')+'</div>' +
-      '<button class="snd-cta full" onclick="liveNextQ()"'+(live.joined.length?'':' disabled')+'>Start quiz</button></div>';
+      (spectate ? '' : '<button class="snd-cta full" onclick="liveNextQ()"'+(live.joined.length?'':' disabled')+'>Start quiz</button>')+'</div>';
   }
   const q = s.qs[s.qi];
   if(s.phase === 'q'){
     const left = Math.max(0, Math.ceil(s.dur - (Date.now()-s.qStart)/1000));
     return '<div class="lv-qhead"><span>Question '+(s.qi+1)+' of '+s.qs.length+'</span><span class="lv-timer'+(left<=5?' warn':'')+'">'+left+'</span></div>' +
       '<div class="lv-prompt">'+escapeHtml(q.p)+'</div><div class="lv-opts host">'+q.o.map(function(o,k){ return '<div class="lv-opt" style="--c:'+LIVE_COLORS[k]+'"><i>'+LIVE_SHAPES[k]+'</i><span>'+escapeHtml(o)+'</span></div>'; }).join('')+'</div>' +
-      '<div class="lv-answered"><b>'+live.answers.length+'</b> answered</div><button class="snd-cta full" onclick="liveReveal()">Show answer</button>';
+      '<div class="lv-answered"><b>'+live.answers.length+'</b> answered</div>'+(spectate ? '' : '<button class="snd-cta full" onclick="liveReveal()">Show answer</button>');
   }
   if(s.phase === 'reveal'){
     const counts = q.o.map(function(_,k){ return live.answers.filter(function(a){ return a.c===k; }).length; });
@@ -11298,16 +11300,44 @@ function liveHostInner(){
     return '<div class="lv-qhead"><span>Question '+(s.qi+1)+' of '+s.qs.length+'</span></div><div class="lv-prompt">'+escapeHtml(q.p.replace('_____', q.o[q.a]))+'</div>' +
       '<div class="lv-bars" style="grid-template-columns:repeat('+q.o.length+',1fr)">'+q.o.map(function(o,k){ return '<div class="lv-bar'+(k===q.a?' right':'')+'" style="--c:'+LIVE_COLORS[k]+'"><span class="lv-bar-fill" style="height:'+Math.round(counts[k]/max*100)+'%"></span><b>'+counts[k]+'</b><em>'+LIVE_SHAPES[k]+' '+escapeHtml(o)+(k===q.a?' \u2713':'')+'</em></div>'; }).join('')+'</div>' +
       '<div class="lv-top">'+top.map(function(b,i){ return '<div><span>'+(i+1)+'</span><b>'+escapeHtml(b.name)+'</b><em>'+b.pts+'</em></div>'; }).join('')+'</div>' +
-      '<button class="snd-cta full" onclick="liveNextQ()">'+(s.qi >= s.qs.length-1 ? 'Final results' : 'Next question')+'</button>';
+      (spectate ? '' : '<button class="snd-cta full" onclick="liveNextQ()">'+(s.qi >= s.qs.length-1 ? 'Final results' : 'Next question')+'</button>');
   }
   if(s.phase === 'end'){
     const b = liveBoardList(s);
     const pod = [b[1], b[0], b[2]];
     return '<div class="lv-podium">'+pod.map(function(p, i){ if(!p) return '<div class="lv-pod empty"></div>'; const place = i===1?1:i===0?2:3; return '<div class="lv-pod p'+place+'"><span class="lv-medal">'+(place===1?'\uD83E\uDD47':place===2?'\uD83E\uDD48':'\uD83E\uDD49')+'</span><b>'+escapeHtml(p.name)+'</b><em>'+p.pts+'</em><i></i></div>'; }).join('')+'</div>' +
       '<div class="lv-top">'+b.slice(3,12).map(function(x,i){ return '<div><span>'+(i+4)+'</span><b>'+escapeHtml(x.name)+'</b><em>'+x.pts+'</em></div>'; }).join('')+'</div>' +
-      '<button class="snd-cta full" onclick="liveClose()">Close quiz</button>';
+      (spectate ? '' : '<button class="snd-cta full" onclick="liveClose()">Close quiz</button>');
   }
   return '';
+}
+/* ---- spectator: a read-only projector view, for a second screen with no host controls ---- */
+function openLiveSpectate(){
+  liveRole = 'watch'; live = {s:null, joined:[], answers:[]};
+  navigate('push', function(){ selectedTab='live'; pageStack=[]; render(); liveSpectatePoll(); });
+}
+async function liveSpectatePoll(){
+  clearTimeout(liveSpectatePoll._t);
+  if(liveRole !== 'watch' || selectedTab !== 'live') return;
+  const s = await liveGet();
+  if(s && s.phase !== 'closed'){
+    live.s = s;
+    try{
+      if(s.phase === 'lobby') live.joined = await liveRows('live:'+s.sid+':j:');
+      if(s.phase === 'q' || s.phase === 'reveal') live.answers = await liveRows('live:'+s.sid+':a:'+s.qi+':');
+    }catch(e){}
+  }else{
+    live.s = null;
+  }
+  liveSpectatePaint();
+  liveSpectatePoll._t = setTimeout(liveSpectatePoll, 1500);
+}
+function liveSpectatePaint(){
+  const el = document.getElementById('liveLive');
+  if(!el){ render(); return; }
+  el.innerHTML = liveHostInner(true);
+  const t = document.getElementById('liveWatchTitle');
+  if(t && live.s) t.textContent = live.s.title;
 }
 /* ---- player ---- */
 async function livePeekCheck(){
@@ -11327,7 +11357,8 @@ function liveJoinCardHTML(){
   }
   if(!livePeek) return '';
   return '<button class="lv-card" onclick="openLivePlayer()"><span class="lv-card-glow"></span><span class="lv-card-ico">\uD83D\uDE80</span>' +
-    '<span class="lv-card-t"><b>Live quiz is on!</b><span>'+escapeHtml(livePeek.title)+'</span></span><span class="lv-card-go">Join</span></button>';
+    '<span class="lv-card-t"><b>Live quiz is on!</b><span>'+escapeHtml(livePeek.title)+'</span></span><span class="lv-card-go">Join</span></button>' +
+    '<button class="lv-watch-link" onclick="openLiveSpectate()">Just watching? Open spectator view \u2192</button>';
 }
 function openLivePlayer(){ liveRole = 'player'; live = {s:livePeek, me:null, answered:{}}; navigate('push', function(){ selectedTab='live'; pageStack=[]; render(); }); }
 async function liveJoin(){
@@ -11394,6 +11425,10 @@ function renderLive(){
         (list.length ? list.map(function(q){ return '<button class="gh-item" onclick="liveCreate(\''+q.pageId+'\',\''+q.quizId+'\')"><span class="gh-ico lv-ico">'+q.n+'</span><span class="gh-body"><b>'+escapeHtml(q.title)+'</b><span class="gh-meta">'+escapeHtml(q.trail)+'</span></span><span class="gh-go">\u203A</span></button>'; }).join('') : '<div class="hw-empty">No quizzes with at least 3 one-gap questions yet.</div>');
     }
     return back + '<div class="lv-stage"><div class="lv-title">'+escapeHtml(live.s.title)+'</div><div id="liveLive">'+liveHostInner()+'</div></div>';
+  }
+  if(liveRole === 'watch'){
+    return '<button class="search-back" onclick="liveRole=null;live=null;switchTab(\'home\')">\u2190 Leave</button>' +
+      '<div class="lv-stage"><div class="lv-title" id="liveWatchTitle">'+(live && live.s ? escapeHtml(live.s.title) : 'Spectating')+'</div><div id="liveLive">'+liveHostInner(true)+'</div></div>';
   }
   if(!live) return '<button class="search-back" onclick="switchTab(\'home\')">\u2190 Back</button><div class="lv-wait"><b>No live quiz right now.</b></div>';
   return '<button class="search-back" onclick="liveRole=null;live=null;switchTab(\'home\')">\u2190 Leave</button><div class="lv-stage player"><div class="lv-title">'+escapeHtml(live.s.title)+'</div>'+livePlayerInner()+'</div>';
