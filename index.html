@@ -5016,6 +5016,16 @@
   html #app .gm-tile.done{background:var(--g-sage);color:#fff;opacity:.35;transform:scale(.96);pointer-events:none;}
   html #app .gm-tile.wrong{background:linear-gradient(145deg,#FF8A8A,#E0335A);color:#fff;animation:gmShake .4s ease;}
   @keyframes gmShake{0%,100%{transform:translateX(0);}25%{transform:translateX(-5px);}75%{transform:translateX(5px);}}
+  html #app .gm-card-art.cs{background:rgba(255,255,255,0.2);} html #app .gm-card-art.cs svg{width:34px;height:34px;color:#fff;}
+  html #app .csg-grid{display:grid;gap:3px;margin-bottom:16px;aspect-ratio:1/1;}
+  html #app .csg-cell{display:flex;align-items:center;justify-content:center;border:none;border-radius:5px;cursor:pointer;font:inherit;padding:0;
+    font-family:var(--font-display);font-weight:700;font-size:clamp(10px,3.1vw,15px);color:var(--ink);background:var(--surface);box-shadow:inset 0 0 0 1px rgba(var(--accent-rgb),0.08);transition:background .15s, color .15s, transform .15s var(--spring);}
+  html #app .csg-cell.sel{background:var(--g-plum);color:#fff;transform:scale(1.08);}
+  html #app .csg-cell.found{background:var(--g-sage);color:#fff;}
+  html #app .csg-cell.wrong{background:linear-gradient(145deg,#FF8A8A,#E0335A);color:#fff;animation:gmShake .4s ease;}
+  html #app .csg-words{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px;}
+  html #app .csg-word{font-size:13px;font-weight:700;padding:7px 12px;border-radius:999px;background:var(--surface);color:var(--ink);box-shadow:inset 0 0 0 1px rgba(var(--accent-rgb),0.1);}
+  html #app .csg-word.done{background:var(--g-sage);color:#fff;text-decoration:line-through;opacity:.75;}
   html #app .gm-hint{position:relative;margin-top:14px;font-size:14.5px;line-height:1.45;padding:0 8px;opacity:.95;}
   html #app .gm-input{width:100%;box-sizing:border-box;border-radius:18px;border:1.5px solid rgba(var(--accent-rgb),0.2);background:var(--surface);color:var(--ink);
     font:inherit;font-family:var(--font-display);font-size:22px;font-weight:700;text-align:center;padding:14px;margin-bottom:10px;}
@@ -10726,15 +10736,115 @@ function gmNext(){
 }
 function gmPick(k){ if(!gm || gm.picked !== null) return; gm.picked = k; if(gm.items[gm.i].opts[k] === gm.items[gm.i].ans){ gm.score++; ttsSay(gm.items[gm.i].front, 0.85); } render(); }
 function gmMenu(){ gm = {mode:null, src: gm ? gm.src : 'mine'}; render(); }
+/* ================= v95: collocation word search ================= */
+function csgPool(){
+  if(!xcol || !Array.isArray(xcol.lessons)) return [];
+  const seen = {}, out = [];
+  xcol.lessons.forEach(function(l){ (l.k||[]).forEach(function(c){
+    const clean = String(c).toUpperCase().replace(/[^A-Z]/g,'');
+    if(clean.length < 4 || clean.length > 14 || seen[clean]) return;
+    seen[clean] = true; out.push({original:c, clean:clean});
+  }); });
+  return out;
+}
+function csgBuildGrid(picks){
+  const words = picks.slice().sort(function(a,b){ return b.clean.length - a.clean.length; });
+  const longest = words.reduce(function(m,w){ return Math.max(m, w.clean.length); }, 0);
+  const size = Math.max(10, Math.min(14, longest + 2));
+  const grid = []; for(let r=0;r<size;r++){ grid.push(new Array(size).fill(null)); }
+  const dirs = [[0,1],[0,-1],[1,0],[-1,0],[1,1],[1,-1],[-1,1],[-1,-1]];
+  const placed = [];
+  words.forEach(function(w){
+    const letters = w.clean; let done = false;
+    for(let attempt=0; attempt<200 && !done; attempt++){
+      const dir = dirs[Math.floor(Math.random()*dirs.length)];
+      const r0 = Math.floor(Math.random()*size), c0 = Math.floor(Math.random()*size);
+      const r1 = r0 + dir[0]*(letters.length-1), c1 = c0 + dir[1]*(letters.length-1);
+      if(r1<0 || r1>=size || c1<0 || c1>=size) continue;
+      let fits = true;
+      for(let i=0;i<letters.length;i++){ const r=r0+dir[0]*i, c=c0+dir[1]*i; const ch=grid[r][c]; if(ch && ch!==letters[i]){ fits=false; break; } }
+      if(!fits) continue;
+      for(let i=0;i<letters.length;i++){ const r=r0+dir[0]*i, c=c0+dir[1]*i; grid[r][c]=letters[i]; }
+      placed.push({word:letters, original:w.original, r0:r0, c0:c0, r1:r1, c1:c1});
+      done = true;
+    }
+  });
+  const AZ = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  for(let r=0;r<size;r++){ for(let c=0;c<size;c++){ if(!grid[r][c]) grid[r][c] = AZ[Math.floor(Math.random()*26)]; } }
+  return {size:size, grid:grid, placed:placed};
+}
+function gmStartSearch(){
+  if(!xcol || !Array.isArray(xcol.lessons)){
+    xcolLoad();
+    gm = {mode:'search', searchLoading:true, src: gm ? gm.src : 'mine'};
+    render();
+    const check = setInterval(function(){
+      if(xcol && Array.isArray(xcol.lessons)){ clearInterval(check); if(gm && gm.searchLoading) gmStartSearch(); }
+    }, 300);
+    setTimeout(function(){ clearInterval(check); if(gm && gm.searchLoading){ gm = {mode:null, src: gm.src}; showMiniToast('Could not load collocations'); render(); } }, 8000);
+    return;
+  }
+  const pool = csgPool();
+  if(pool.length < 4){ gm = {mode:null, src: gm ? gm.src : 'mine'}; showMiniToast('Not enough collocations yet'); render(); return; }
+  const picks = gmShuffle(pool).slice(0, 8);
+  const built = csgBuildGrid(picks);
+  gm = {mode:'search', src: gm ? gm.src : 'mine', size:built.size, grid:built.grid, words:built.placed, found:{}, sel:null, wrongFlash:null, start:Date.now()};
+  render();
+}
+function csgTap(i){
+  if(!gm || gm.mode!=='search' || gm.finished) return;
+  const size = gm.size;
+  if(gm.sel === null){ gm.sel = i; render(); return; }
+  if(gm.sel === i){ gm.sel = null; render(); return; }
+  const r0 = Math.floor(gm.sel/size), c0 = gm.sel%size, r1 = Math.floor(i/size), c1 = i%size;
+  const dr = r1-r0, dc = c1-c0;
+  const okLine = (dr===0 || dc===0 || Math.abs(dr)===Math.abs(dc));
+  if(!okLine){ gm.sel = i; render(); return; }
+  const steps = Math.max(Math.abs(dr), Math.abs(dc));
+  const stepR = dr===0 ? 0 : dr/Math.abs(dr), stepC = dc===0 ? 0 : dc/Math.abs(dc);
+  const path = []; for(let k=0;k<=steps;k++){ path.push((r0+stepR*k)*size + (c0+stepC*k)); }
+  const letters = path.map(function(idx){ return gm.grid[Math.floor(idx/size)][idx%size]; }).join('');
+  const rev = letters.split('').reverse().join('');
+  const match = gm.words.find(function(w){ return !gm.found[w.word] && (w.word===letters || w.word===rev); });
+  if(match){
+    gm.found[match.word] = path; gm.sel = null; haptic('success');
+    if(Object.keys(gm.found).length === gm.words.length){ gm.finished = true; gm.time = Math.round((Date.now()-gm.start)/1000); logActivity('game'); if(typeof fireConfetti==='function') fireConfetti(); }
+    render();
+  }else{
+    gm.wrongFlash = path; render();
+    setTimeout(function(){ if(gm){ gm.wrongFlash = null; gm.sel = null; render(); } }, 450);
+  }
+}
 function renderGames(){
   const back = '<button class="search-back" onclick="'+(gm && gm.mode ? 'gmMenu()' : 'switchTab(\'cards\')')+'">\u2190 '+(gm && gm.mode ? 'All games' : 'Cards')+'</button>';
   if(!gm) gm = {mode:null, src:'mine'};
+  if(gm.mode === 'search' && gm.searchLoading){
+    return back + '<div class="rv-hero"><span class="rv-hero-ico gm-hero-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 16l4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>' +
+      '<div class="rv-hero-txt"><div class="eyebrow">Word search</div><div class="big-title serif">Collocation search</div><div class="rv-hero-sub">Loading collocations…</div></div></div>';
+  }
   if(gm.mode && gm.finished){
-    const total = gm.mode==='match' ? gm.n : gm.items.length, score = gm.mode==='match' ? gm.n : gm.score;
-    return back + '<div class="snd-done g-indigo"><span class="snd-done-num">'+(gm.mode==='match' ? gm.time+'<small>s</small>' : score+'<small>/'+total+'</small>')+'</span>' +
-      '<b>'+(gm.mode==='match' ? 'All matched in '+gm.moves+' moves' : (score/total >= 0.8 ? 'Brilliant!' : score/total >= 0.5 ? 'Good work' : 'Keep practising'))+'</b>' +
-      '<span>'+(gm.mode==='match' ? 'Can you beat your time?' : 'Play again with new words')+'</span>' +
-      '<div class="snd-done-row"><button class="snd-cta" onclick="gmStart(\''+gm.mode+'\')">Play again</button><button class="snd-cta ghost" onclick="gmMenu()">Other games</button></div></div>';
+    let total, score, numHTML, headline, sub;
+    if(gm.mode==='match'){ total=gm.n; score=gm.n; numHTML=gm.time+'<small>s</small>'; headline='All matched in '+gm.moves+' moves'; sub='Can you beat your time?'; }
+    else if(gm.mode==='search'){ total=gm.words.length; score=total; numHTML=gm.time+'<small>s</small>'; headline='All '+total+' collocations found'; sub='Can you beat your time?'; }
+    else { total=gm.items.length; score=gm.score; numHTML=score+'<small>/'+total+'</small>'; headline=(score/total >= 0.8 ? 'Brilliant!' : score/total >= 0.5 ? 'Good work' : 'Keep practising'); sub='Play again with new words'; }
+    return back + '<div class="snd-done g-indigo"><span class="snd-done-num">'+numHTML+'</span>' +
+      '<b>'+headline+'</b><span>'+sub+'</span>' +
+      '<div class="snd-done-row"><button class="snd-cta" onclick="'+(gm.mode==='search' ? 'gmStartSearch()' : 'gmStart(\''+gm.mode+'\')')+'">Play again</button><button class="snd-cta ghost" onclick="gmMenu()">Other games</button></div></div>';
+  }
+  if(gm.mode === 'search'){
+    const size = gm.size;
+    let h = back + '<div class="gm-head"><div><div class="eyebrow">Word search</div><div class="gm-title">Find the hidden collocations</div></div><span class="gm-pill">'+Object.keys(gm.found).length+' / '+gm.words.length+'</span></div>';
+    const foundCells = {}; Object.keys(gm.found).forEach(function(w){ gm.found[w].forEach(function(i){ foundCells[i]=true; }); });
+    h += '<div class="csg-grid" style="grid-template-columns:repeat('+size+',1fr)">';
+    for(let r=0;r<size;r++){ for(let c=0;c<size;c++){
+      const i = r*size+c;
+      const cls = (foundCells[i]?' found':'') + (gm.sel===i?' sel':'') + (gm.wrongFlash && gm.wrongFlash.indexOf(i)!==-1 ? ' wrong':'');
+      h += '<button class="csg-cell'+cls+'" onclick="csgTap('+i+')">'+gm.grid[r][c]+'</button>';
+    } }
+    h += '</div><div class="csg-words">' + gm.words.map(function(w){
+      return '<span class="csg-word'+(gm.found[w.word]?' done':'')+'">'+escapeHtml(w.original)+'</span>';
+    }).join('') + '</div>';
+    return h;
   }
   if(gm.mode === 'match'){
     const secs = Math.round((Date.now()-gm.start)/1000);
@@ -10782,6 +10892,7 @@ function renderGames(){
       '<button class="gm-card g-plum" onclick="gmStart(\'match\')"><span class="gm-card-art ma"><i></i><i></i><i></i><i></i></span><b>Match</b><span>Pair each word with its meaning. Beat the clock.</span></button>' +
       '<button class="gm-card g-teal" onclick="gmStart(\'spell\')"><span class="gm-card-art sp">Aa</span><b>Spelling</b><span>Hear a word and type it correctly.</span></button>' +
       '<button class="gm-card g-indigo" onclick="gmStart(\'test\')"><span class="gm-card-art qt">A B<br>C D</span><b>Quick test</b><span>10 questions. Choose the right meaning.</span></button>' +
+      '<button class="gm-card g-sage" onclick="gmStartSearch()"><span class="gm-card-art cs"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6" fill="none" stroke="currentColor" stroke-width="2"/><path d="M19 19l-4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span><b>Collocation search</b><span>Find hidden collocations in a letter grid.</span></button>' +
     '</div>';
   return h;
 }
