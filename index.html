@@ -1133,6 +1133,7 @@
   .modal-actions{display:flex;justify-content:space-between;gap:8px;align-items:center;}
   .modal-actions .right-group{display:flex;gap:8px;}
   .modal .hint,.settings-card .hint{font-size:11.5px;color:var(--ink-soft);line-height:1.5;}
+  .rem-time{font:inherit;font-weight:700;color:var(--ink);background:rgba(var(--accent-rgb),0.08);border:none;border-radius:8px;padding:2px 7px;margin:0 2px;}
   .modal .hint{margin:-6px 0 12px;}
 
   [contenteditable="true"]:focus{outline:2px solid var(--gold-bright);outline-offset:2px;border-radius:6px;}
@@ -10025,6 +10026,50 @@ function soundsBannerHTML(){
     '<div class="sb-art" aria-hidden="true"><span class="sb-chip a">ship</span><span class="sb-chip b">sheep</span><span class="sb-wave"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div>' +
   '</div>';
 }
+/* ================= v98: study reminders (local notifications) ================= */
+let reminderPrefs = Object.assign({on:false, time:'19:00'}, deviceGet('reminder-prefs', null) || {});
+let _reminderTimer = null;
+async function toggleStudyReminders(){
+  if(!reminderPrefs.on && typeof Notification !== 'undefined' && Notification.permission === 'default'){
+    try{ await Notification.requestPermission(); }catch(e){}
+  }
+  reminderPrefs.on = !reminderPrefs.on;
+  deviceSet('reminder-prefs', reminderPrefs);
+  render();
+  armReminderTimer();
+}
+function setReminderTime(v){
+  if(!/^\d{2}:\d{2}$/.test(v)) return;
+  reminderPrefs.time = v; deviceSet('reminder-prefs', reminderPrefs);
+  deviceSet('reminder-shown', ''); /* a new time today should still be able to fire */
+  armReminderTimer();
+}
+function armReminderTimer(){
+  clearInterval(_reminderTimer);
+  if(!reminderPrefs.on) return;
+  checkReminderDue();
+  _reminderTimer = setInterval(checkReminderDue, 60000);
+}
+function checkReminderDue(){
+  if(!reminderPrefs.on) return;
+  const today = dayKey();
+  if(deviceGet('reminder-shown', '') === today) return;       /* already nudged today */
+  const act = deviceGet('activity', {});
+  if(act[today]) return;                                      /* already studied today */
+  const now = new Date();
+  const hhmm = String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0');
+  if(hhmm < reminderPrefs.time) return;                        /* not time yet */
+  deviceSet('reminder-shown', today);
+  fireStudyReminder();
+}
+function fireStudyReminder(){
+  const body = 'You haven’t studied yet today. A quick five minutes keeps your streak alive!';
+  if(typeof Notification !== 'undefined' && Notification.permission === 'granted' && document.hidden){
+    try{ new Notification('Time to study 📚', {body: body, tag:'inspire-study-reminder'}); return; }catch(e){}
+  }
+  showMiniToast('📚 Time for a quick review — keep your streak going!');
+}
+document.addEventListener('visibilitychange', function(){ if(!document.hidden) checkReminderDue(); });
 /* ================= v64: daily streak and goal ================= */
 function dayKey(d){ d = d || new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
 function logActivity(kind){
@@ -13304,6 +13349,11 @@ function renderSettings(){
       '<div class="settings-row stacked"><div style="display:flex;align-items:center;justify-content:space-between;gap:10px;"><div class="settings-row-left"><div class="settings-icon g-gold">'+iconHTML('book')+'</div><div>Daily word</div></div><div class="switch '+(wotdOn?'on':'')+'" onclick="toggleWotd()"><div class="knob"></div></div></div><div class="hint">A useful new word each day, with its meaning and examples.</div></div>' +
       '<div class="settings-row stacked"><div style="display:flex;align-items:center;justify-content:space-between;gap:10px;"><div class="settings-row-left"><div class="settings-icon g-olive">'+iconHTML('check')+'</div><div>My progress on this device</div></div><button class="btn mini" onclick="clearTaskProgress()">Clear ticks</button></div><div class="hint">Tick boxes and quiz scores are kept in this browser, so each student keeps their own.</div></div>' +
       '<div class="settings-row stacked"><div style="display:flex;align-items:center;justify-content:space-between;gap:10px;"><div class="settings-row-left"><div class="settings-icon g-crimson">'+iconHTML('chat')+'</div><div>Daily quote</div></div><div class="switch '+(qotdOn?'on':'')+'" onclick="toggleQotd()"><div class="knob"></div></div></div><div class="hint">A short, encouraging quote each day.</div></div>' +
+      '<div class="settings-row stacked"><div style="display:flex;align-items:center;justify-content:space-between;gap:10px;"><div class="settings-row-left"><div class="settings-icon g-plum">'+iconHTML('bell')+'</div><div>Study reminders</div></div><div class="switch '+(reminderPrefs.on?'on':'')+'" onclick="toggleStudyReminders()"><div class="knob"></div></div></div>' +
+        (reminderPrefs.on
+          ? ('<div class="hint">We’ll nudge you at <input type="time" class="rem-time" value="'+escapeAttr(reminderPrefs.time)+'" onchange="setReminderTime(this.value)"/> on days you haven’t studied yet.'+(typeof Notification!=='undefined' && Notification.permission==='denied' ? ' Notifications are blocked in your browser, so you’ll see this as a reminder inside the app instead.' : '')+'</div>')
+          : '<div class="hint">Get a gentle nudge on days you haven’t studied yet, at a time you choose.</div>') +
+      '</div>' +
     '</div>';
   if(editMode){
     if(!state.pin){
@@ -17790,6 +17840,7 @@ function v78AfterRender(sameView){
 
 loadState();
 xcolLoadMeta();
+armReminderTimer();
 </script>
 </body>
 </html>
