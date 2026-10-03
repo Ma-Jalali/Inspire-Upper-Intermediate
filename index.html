@@ -5134,6 +5134,7 @@
     box-shadow:0 12px 22px -14px rgba(10,16,40,0.6), inset 0 1px 0 rgba(255,255,255,0.35);}
   html #app .tt-btn span{font-size:22px;} html #app .tt-btn b{font-family:var(--font-display);font-size:15px;}
   html #app .tt-btn.lv{background:linear-gradient(135deg,#FF7A5C,#E0335A 60%,#8A2BE2);} html #app .tt-btn.db{background:linear-gradient(135deg,#3D90F0,#4A52D8);}
+  html #app .tt-btn.qb{background:linear-gradient(135deg,#31C87E,#137A48);grid-column:1 / -1;}
   html #app .db-hero-ico{background:linear-gradient(145deg,#8FD3FF,#3D90F0 55%,#2A4FC8);box-shadow:0 14px 26px -14px rgba(37,107,200,0.8), inset 0 1px 0 rgba(255,255,255,0.4);}
   html #app .db-tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px;}
   html #app .db-tiles div{display:flex;flex-direction:column;align-items:center;padding:14px 6px;border-radius:18px;background:var(--surface);box-shadow:inset 0 0 0 1px rgba(var(--accent-rgb),0.07);}
@@ -5154,6 +5155,22 @@
   html #app .asg-bar{height:6px;border-radius:999px;background:rgba(120,130,160,0.16);overflow:hidden;margin-bottom:6px;}
   html #app .asg-bar span{display:block;height:100%;border-radius:999px;background:var(--g-sage);transition:width .3s ease;}
   html #app .asg-meta{font-size:12px;color:var(--ink-soft);line-height:1.5;}
+  html #app .qb-hero-ico{background:linear-gradient(135deg,#31C87E,#137A48);}
+  html #app .qb-tags{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:14px;}
+  html #app .qb-tagchip{border:none;border-radius:999px;padding:7px 13px;font-size:12.5px;font-weight:700;background:var(--surface);color:var(--ink-soft);box-shadow:inset 0 0 0 1px rgba(var(--accent-rgb),0.1);cursor:pointer;}
+  html #app .qb-tagchip.on{background:var(--g-sage);color:#fff;box-shadow:none;}
+  html #app .qb-list{display:flex;flex-direction:column;gap:8px;margin-top:14px;}
+  html #app .qb-row{display:flex;align-items:flex-start;gap:10px;padding:13px 14px;border-radius:18px;background:var(--surface);box-shadow:0 8px 18px -16px rgba(10,16,40,0.5), inset 0 0 0 1px rgba(var(--accent-rgb),0.07);}
+  html #app .qb-row-main{flex:1;min-width:0;}
+  html #app .qb-row-prompt{font-size:14.5px;font-weight:600;color:var(--ink);line-height:1.4;}
+  html #app .qb-row-ans{font-size:12.5px;color:#1FA463;font-weight:600;margin-top:3px;}
+  html #app .qb-tag{display:inline-block;margin-top:6px;font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:rgba(var(--accent-rgb),0.08);color:var(--ink-soft);}
+  html #app .qb-row-actions{display:flex;align-items:center;gap:6px;flex-shrink:0;}
+  html #app .qb-form{border-radius:22px;padding:16px;background:var(--surface);box-shadow:0 8px 20px -16px rgba(10,16,40,0.5), inset 0 0 0 1px rgba(var(--accent-rgb),0.08);margin-top:10px;}
+  html #app .qb-form h3{margin:0 0 10px;font-family:var(--font-display);font-size:17px;color:var(--ink);}
+  html #app .qb-opt-input{flex:1;font-family:var(--font-read);font-size:14.5px;border:1px dashed var(--line);border-radius:8px;padding:6px 9px;outline:none;color:var(--ink);background:var(--surface);}
+  html #app .qb-tag-input{width:100%;box-sizing:border-box;border:1px dashed var(--line);border-radius:10px;padding:8px 11px;font:inherit;font-size:14px;color:var(--ink);background:var(--surface);outline:none;margin:4px 0 10px;}
+  html #app .quiz-qbank-save{border:none;background:none;color:var(--gold-bright,#C9980C);cursor:pointer;font-size:15px;margin-left:8px;padding:2px 4px;}
   /* live quiz */
   html #app .lv-card{position:relative;overflow:hidden;display:flex;align-items:center;gap:12px;width:100%;margin:14px 0 4px;padding:14px;border:none;border-radius:22px;cursor:pointer;font:inherit;text-align:left;color:#fff;
     background:linear-gradient(120deg,#FF7A5C,#E0335A 50%,#8A2BE2);box-shadow:0 18px 32px -18px rgba(224,51,90,0.9), inset 0 1px 0 rgba(255,255,255,0.4);animation:lvPulse 2.4s ease-in-out infinite;}
@@ -11512,7 +11529,8 @@ function liveJoinCardHTML(){
   if(editMode){
     return '<div class="tt-card"><div class="tt-head">Teacher tools</div><div class="tt-row">' +
       '<button class="tt-btn lv" onclick="openLiveHost()"><span>\uD83D\uDE80</span><b>Live class quiz</b></button>' +
-      '<button class="tt-btn db" onclick="openDashboard()"><span>\uD83D\uDCCA</span><b>Class progress</b></button></div></div>';
+      '<button class="tt-btn db" onclick="openDashboard()"><span>\uD83D\uDCCA</span><b>Class progress</b></button>' +
+      '<button class="tt-btn qb" onclick="openQuestionBank()"><span>\uD83D\uDCDA</span><b>Question bank</b></button></div></div>';
   }
   if(!livePeek) return '';
   return '<button class="lv-card" onclick="openLivePlayer()"><span class="lv-card-glow"></span><span class="lv-card-ico">\uD83D\uDE80</span>' +
@@ -12435,6 +12453,7 @@ function render(){
   else if(selectedTab==='badges') body = renderBadges();
   else if(selectedTab==='dashboard') body = renderDashboard();
   else if(selectedTab==='live') body = renderLive();
+  else if(selectedTab==='qbank') body = renderQuestionBank();
   else body = renderSettings();
   app.classList.toggle('editing', !!editMode);
   app.innerHTML =
@@ -12449,7 +12468,8 @@ function render(){
     (showPinSetModal ? renderPinSetModal() : '') +
     (showPinGateModal ? renderPinGateModal() : '') +
     (addMenuOpenFor ? renderAddMenu(addMenuOpenFor) : '') +
-    (moveBlockId ? renderMoveModal() : '');
+    (moveBlockId ? renderMoveModal() : '') +
+    (qbPickerFor ? renderQbPickerModal() : '');
   paintLinkModal();
   fitHeroTitle();
   placeTabIndicator();
@@ -13849,6 +13869,7 @@ function quizEditHTML(b){
         '<option value="dd"'+(q.kind==='dd'?' selected':'')+'>Dropdown</option>'+
         '<option value="match"'+(q.kind==='match'?' selected':'')+'>Matching</option>'+
       '</select>'+
+      (q.kind==='mc' ? '<button class="quiz-qbank-save" title="Save to question bank" onclick="saveQuizQToBank(\''+b.id+'\',\''+q.qid+'\')">\u2605</button>' : '')+
       '<button class="quiz-qdel" onclick="deleteQuizQ(\''+b.id+'\',\''+q.qid+'\')">\u2715</button></div>';
     h += '<div class="quiz-instr-wrap"><span class="quiz-instr-label">Instruction (optional, shown above the question)</span>'+
       '<textarea class="quiz-instr-input" placeholder="e.g. Read the sentences and choose the correct answer." oninput="onQuizField(\''+b.id+'\',\''+q.qid+'\',\'instr\',this.value)">'+escapeHtml(q.instr||'')+'</textarea></div>';
@@ -13915,7 +13936,8 @@ function quizEditHTML(b){
   h += '<div class="quiz-add-row"><button class="quiz-add-q" onclick="addQuizQ(\''+b.id+'\',\'mc\')">+ Multiple choice</button>'+
        '<button class="quiz-add-q" onclick="addQuizQ(\''+b.id+'\',\'gap\')">+ Gap fill</button>'+
        '<button class="quiz-add-q" onclick="addQuizQ(\''+b.id+'\',\'dd\')">+ Dropdown</button>'+
-       '<button class="quiz-add-q" onclick="addQuizQ(\''+b.id+'\',\'match\')">+ Matching</button></div>';
+       '<button class="quiz-add-q" onclick="addQuizQ(\''+b.id+'\',\'match\')">+ Matching</button>'+
+       '<button class="quiz-add-q" onclick="openQbPicker(\''+b.id+'\')">★ From question bank</button></div>';
   h += '</div>';
   return h;
 }
@@ -14241,6 +14263,143 @@ function quizQ(id, qid){
   const node = findBlockNode(currentPage().blocks, id);
   if(!node) return null;
   return node.questions.find(function(q){ return q.qid===qid; });
+}
+/* ================= v100: question bank ================= */
+let qbDraft = null, qbQuery = '', qbTagFilter = '';
+let qbPickerFor = null, qbPickerQuery = '';
+function openQuestionBank(){ qbQuery=''; qbTagFilter=''; qbDraft=null; navigate('push', function(){ selectedTab='qbank'; pageStack=[]; render(); }); }
+function qbList(){
+  let items = (state.questionBank||[]).slice().sort(function(a,b){ return (a.tag||'').localeCompare(b.tag||'') || a.prompt.localeCompare(b.prompt); });
+  if(qbTagFilter) items = items.filter(function(q){ return q.tag===qbTagFilter; });
+  const q = qbQuery.trim().toLowerCase();
+  if(q) items = items.filter(function(x){ return (x.prompt+' '+x.options.join(' ')+' '+(x.tag||'')).toLowerCase().indexOf(q) !== -1; });
+  return items;
+}
+function qbTags(){ const t = {}; (state.questionBank||[]).forEach(function(q){ if(q.tag) t[q.tag]=1; }); return Object.keys(t).sort(); }
+function qbSetTagFilter(t){ qbTagFilter = t; render(); }
+function qbOnSearch(v){ qbQuery = v; const list = document.getElementById('qbList'); if(list) list.innerHTML = qbListHTML(); }
+function qbStartAdd(){ qbDraft = {id:null, prompt:'', options:['',''], correct:[], tag:qbTagFilter||'', explain:''}; render(); }
+function qbEdit(id){ const q = (state.questionBank||[]).find(function(x){ return x.id===id; }); if(!q) return; qbDraft = JSON.parse(JSON.stringify(q)); render(); }
+function qbCancel(){ qbDraft = null; render(); }
+function qbFieldInput(field, val){ if(qbDraft) qbDraft[field] = val; }
+function qbOptInput(i, val){ if(qbDraft) qbDraft.options[i] = val; }
+function qbAddOpt(){ if(qbDraft && qbDraft.options.length < 6) qbDraft.options.push(''); render(); }
+function qbDelOpt(i){
+  if(!qbDraft) return;
+  qbDraft.options.splice(i,1);
+  qbDraft.correct = qbDraft.correct.filter(function(c){ return c!==i; }).map(function(c){ return c>i?c-1:c; });
+  render();
+}
+function qbToggleCorrect(i){
+  if(!qbDraft) return;
+  const at = qbDraft.correct.indexOf(i);
+  if(at>=0) qbDraft.correct.splice(at,1); else qbDraft.correct.push(i);
+  render();
+}
+function qbSave(){
+  if(!qbDraft) return;
+  const text = (qbDraft.prompt||'').trim();
+  const opts = (qbDraft.options||[]).map(function(o){ return (o||'').trim(); });
+  if(!text){ showMiniToast('Write the question first'); return; }
+  if(opts.length<2 || opts.some(function(o){ return !o; })){ showMiniToast('Add at least 2 options, none empty'); return; }
+  if(!qbDraft.correct || !qbDraft.correct.length){ showMiniToast('Mark the correct answer'); return; }
+  const bank = state.questionBank = state.questionBank || [];
+  const rec = {id: qbDraft.id || uid(), prompt:text, options:opts, correct:qbDraft.correct.slice().sort(), tag:(qbDraft.tag||'').trim(), explain:(qbDraft.explain||'').trim()};
+  const idx = bank.findIndex(function(b){ return b.id===rec.id; });
+  if(idx>=0) bank[idx]=rec; else bank.push(rec);
+  qbDraft = null; persist(); render(); showMiniToast('Saved to question bank');
+}
+function qbDelete(id){
+  if(!confirm('Delete this question from the bank?')) return;
+  state.questionBank = (state.questionBank||[]).filter(function(q){ return q.id!==id; });
+  persist(); render();
+}
+function qbRowHTML(q){
+  const correctTxt = q.correct.map(function(i){ return q.options[i]; }).join(', ');
+  return '<div class="qb-row"><div class="qb-row-main"><div class="qb-row-prompt">'+escapeHtml(q.prompt)+'</div>' +
+    '<div class="qb-row-ans">\u2713 '+escapeHtml(correctTxt)+'</div>' +
+    (q.tag ? '<span class="qb-tag">'+escapeHtml(q.tag)+'</span>' : '') + '</div>' +
+    '<div class="qb-row-actions"><button class="btn mini" onclick="qbEdit(\''+q.id+'\')">Edit</button><button class="hw-del" onclick="qbDelete(\''+q.id+'\')" aria-label="Delete">\u2715</button></div></div>';
+}
+function qbListHTML(){
+  const items = qbList();
+  if(!items.length) return '<div class="hw-empty">'+(qbQuery||qbTagFilter ? 'Nothing found.' : 'No questions yet. Add one, or save one from any quiz block while editing a page.')+'</div>';
+  return items.map(qbRowHTML).join('');
+}
+function qbDraftFormHTML(){
+  const d = qbDraft;
+  return '<div class="qb-form"><h3>'+(d.id ? 'Edit question' : 'New question')+'</h3>' +
+    '<textarea class="quiz-prompt-input" placeholder="Question text\u2026" oninput="qbFieldInput(\'prompt\',this.value)">'+escapeHtml(d.prompt)+'</textarea>' +
+    '<div class="quiz-hint">Tick the box next to the correct answer (one or more).</div>' +
+    d.options.map(function(opt,i){
+      const on = d.correct.indexOf(i)>=0;
+      return '<div class="quiz-opt-edit">' +
+        '<span class="quiz-mark'+(on?' on':'')+'" onclick="qbToggleCorrect('+i+')" title="Mark correct"></span>' +
+        '<input class="qb-opt-input" value="'+escapeAttr(opt)+'" oninput="qbOptInput('+i+',this.value)"/>' +
+        '<button class="quiz-opt-del" onclick="qbDelOpt('+i+')">\u2715</button>' +
+      '</div>';
+    }).join('') +
+    (d.options.length<6 ? '<button class="quiz-add-opt" onclick="qbAddOpt()">+ Add option</button>' : '') +
+    '<input class="qb-tag-input" maxlength="40" placeholder="Tag (e.g. Unit 3, Present perfect)" value="'+escapeAttr(d.tag)+'" oninput="qbFieldInput(\'tag\',this.value)"/>' +
+    '<textarea class="quiz-explain-input" placeholder="Explanation (optional, shown when wrong)" oninput="qbFieldInput(\'explain\',this.value)">'+escapeHtml(d.explain)+'</textarea>' +
+    '<div class="modal-actions"><span></span><span class="right-group"><button class="btn" onclick="qbCancel()">Cancel</button><button class="btn primary" onclick="qbSave()">Save</button></span></div>' +
+  '</div>';
+}
+function renderQuestionBank(){
+  const tags = qbTags();
+  return '<button class="search-back" onclick="switchTab(\'home\')">\u2190 Back</button>' +
+    '<div class="rv-hero"><span class="rv-hero-ico qb-hero-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 8h8M8 12h8M8 16h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>' +
+    '<div class="rv-hero-txt"><div class="eyebrow">Teacher</div><div class="big-title serif">Question bank</div><div class="rv-hero-sub">A reusable pool of questions for quizzes, live games and tests.</div></div></div>' +
+    (qbDraft ? qbDraftFormHTML() : (
+      '<div class="gh-search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 16l4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>' +
+      '<input placeholder="Search questions" value="'+escapeAttr(qbQuery)+'" oninput="qbOnSearch(this.value)"/></div>' +
+      (tags.length ? '<div class="qb-tags"><button class="qb-tagchip'+(!qbTagFilter?' on':'')+'" onclick="qbSetTagFilter(\'\')">All</button>' +
+        tags.map(function(t){ return '<button class="qb-tagchip'+(qbTagFilter===t?' on':'')+'" onclick="qbSetTagFilter(\''+escapeAttr(t).replace(/'/g,"\\'")+'\')">'+escapeHtml(t)+'</button>'; }).join('') + '</div>' : '') +
+      '<button class="btn primary full" onclick="qbStartAdd()">+ Add question</button>' +
+      '<div id="qbList" class="qb-list">'+qbListHTML()+'</div>'
+    ));
+}
+/* ---- insert-from-bank picker, used inside a page's quiz block editor ---- */
+function openQbPicker(blockId){ qbPickerFor = blockId; qbPickerQuery = ''; render(); }
+function closeQbPicker(){ qbPickerFor = null; render(); }
+function qbPickerSearch(v){ qbPickerQuery = v; const list = document.getElementById('qbPickerList'); if(list) list.innerHTML = qbPickerListHTML(); }
+function qbPickerListHTML(){
+  const q = qbPickerQuery.trim().toLowerCase();
+  let items = (state.questionBank||[]).slice();
+  if(q) items = items.filter(function(x){ return (x.prompt+' '+(x.tag||'')).toLowerCase().indexOf(q) !== -1; });
+  if(!items.length) return '<div class="hw-empty">'+((state.questionBank||[]).length ? 'Nothing found.' : 'The question bank is empty. Save a question to it from any quiz first.')+'</div>';
+  return items.map(function(q2){
+    return '<div class="qb-row"><div class="qb-row-main"><div class="qb-row-prompt">'+escapeHtml(q2.prompt)+'</div>' +
+      (q2.tag ? '<span class="qb-tag">'+escapeHtml(q2.tag)+'</span>' : '') + '</div>' +
+      '<button class="btn mini" onclick="qbPickerInsert(\''+q2.id+'\')">Add</button></div>';
+  }).join('');
+}
+function qbPickerInsert(qid){
+  const src = (state.questionBank||[]).find(function(q){ return q.id===qid; });
+  if(!src || !qbPickerFor) return;
+  const node = findBlockNode(currentPage().blocks, qbPickerFor);
+  if(!node) return;
+  node.questions.push({qid:uid(), kind:'mc', prompt:src.prompt, options:src.options.slice(), correct:src.correct.slice(), explain:src.explain||''});
+  qbPickerFor = null; persist(); render(); showMiniToast('Question added');
+}
+function renderQbPickerModal(){
+  return '<div class="modal-overlay" onclick="if(event.target===this)closeQbPicker()">' +
+    '<div class="modal modal-lg"><h3>Add from question bank</h3>' +
+    '<div class="gh-search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 16l4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>' +
+    '<input placeholder="Search questions" value="'+escapeAttr(qbPickerQuery)+'" oninput="qbPickerSearch(this.value)"/></div>' +
+    '<div id="qbPickerList" class="qb-list">'+qbPickerListHTML()+'</div>' +
+    '<div class="modal-actions"><span></span><span class="right-group"><button class="btn" onclick="closeQbPicker()">Close</button></span></div>' +
+    '</div></div>';
+}
+/* ---- save an in-page quiz question into the bank ---- */
+function saveQuizQToBank(id, qid){
+  const q = quizQ(id, qid); if(!q) return;
+  if(q.kind !== 'mc'){ showMiniToast('Only multiple-choice questions can be saved to the bank'); return; }
+  if(!q.options || !q.options.length || !q.correct || !q.correct.length){ showMiniToast('Add options and mark a correct answer first'); return; }
+  const tag = (prompt('Tag for this question (e.g. Unit 3, Present perfect)', '')||'').trim();
+  state.questionBank = state.questionBank || [];
+  state.questionBank.push({id:uid(), prompt:q.prompt||'', options:q.options.slice(), correct:q.correct.slice(), tag:tag, explain:q.explain||''});
+  persist(); showMiniToast('Saved to question bank');
 }
 function onQuizField(id, qid, field, val){ const q=quizQ(id,qid); if(q){ q[field]=val; scheduleSave(); } }
 function onQuizOpt(id, qid, oi, val){ const q=quizQ(id,qid); if(q&&q.options){ q.options[oi]=val; scheduleSave(); } }
