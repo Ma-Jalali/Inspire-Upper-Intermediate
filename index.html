@@ -6272,6 +6272,42 @@
   html #app .rd-body > .block, html #app .rd-body > .sheet > .block{padding-left:0;padding-right:0;background:none;box-shadow:none;border:none;}
   html #app .rd-body{padding:20px 20px 12px;}
   html #app .rd-body > .block:first-child, html #app .rd-body > .sheet:first-child > .block:first-child{padding-top:0;margin-top:0;}
+
+  /* ---- v93: highlights & notes on reading text ---- */
+  html #app .rd-hl-chip{display:inline-flex;align-items:center;gap:5px;padding:7px 12px;font-size:13px;font-weight:700;color:var(--crimson);flex-shrink:0;}
+  html #app .rd-hl-chip svg{width:15px;height:15px;}
+  mark.rd-hl{background:rgba(255,208,58,0.55);color:inherit;border-radius:3px;padding:0 1px;margin:0 -1px;cursor:pointer;box-decoration-break:clone;-webkit-box-decoration-break:clone;transition:background .15s ease;}
+  mark.rd-hl:active{background:rgba(255,208,58,0.8);}
+  mark.rd-hl.has-note{box-shadow:inset 0 -2px 0 rgba(224,69,60,0.75);}
+  html[data-theme="dark"] mark.rd-hl{background:rgba(255,208,58,0.32);}
+  html[data-theme="dark"] mark.rd-hl.has-note{box-shadow:inset 0 -2px 0 rgba(255,138,127,0.85);}
+  .rd-sel-toolbar{position:absolute;z-index:500;display:flex;align-items:center;background:#1C1E28;color:#fff;border-radius:13px;
+    box-shadow:0 14px 30px -10px rgba(0,0,0,0.5);animation:rdSelIn .15s var(--spring);}
+  @keyframes rdSelIn{from{opacity:0;transform:translateY(4px) scale(.92);}to{opacity:1;transform:none;}}
+  .rd-sel-toolbar button{display:flex;align-items:center;gap:6px;border:none;background:none;color:inherit;font:inherit;font-family:var(--font-head);
+    font-size:13px;font-weight:700;padding:9px 13px;cursor:pointer;white-space:nowrap;}
+  .rd-sel-toolbar button svg{width:15px;height:15px;}
+  .rd-sel-toolbar button:active{opacity:.6;}
+  .rd-sel-sep{width:1px;align-self:stretch;margin:7px 0;background:rgba(255,255,255,0.18);}
+  .rd-note-modal{width:320px;}
+  .rd-note-quote{font-family:var(--font-display);font-style:italic;font-size:15px;line-height:1.5;color:var(--ink);padding:10px 12px;margin:0 0 12px;
+    border-radius:12px;background:rgba(255,208,58,0.14);border-left:3px solid rgba(224,69,60,0.6);}
+  .rd-note-input{width:100%;box-sizing:border-box;border:var(--edge);border-radius:12px;padding:10px 12px;font-family:var(--font-read);font-size:14.5px;
+    line-height:1.5;color:var(--ink);background:var(--paper);outline:none;resize:vertical;margin-bottom:4px;}
+  .rd-note-del{display:inline-flex;align-items:center;gap:6px;color:#C0335A !important;}
+  .rd-note-del svg{width:15px;height:15px;}
+  .rd-list-modal h3{display:flex;align-items:center;gap:8px;}
+  .rd-list-count{font-size:12.5px;font-weight:700;color:var(--ink-soft);background:rgba(120,130,160,0.14);border-radius:999px;padding:2px 9px;}
+  .rd-list{display:flex;flex-direction:column;gap:8px;max-height:52vh;overflow-y:auto;margin:4px 0 14px;}
+  .rd-list-item{display:flex;flex-direction:column;align-items:flex-start;gap:3px;width:100%;text-align:left;border:var(--edge);border-radius:14px;
+    padding:10px 12px;background:var(--paper);cursor:pointer;font:inherit;}
+  .rd-list-item:active{transform:scale(.98);}
+  .rd-list-tab{font-family:var(--font-head);font-size:10.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--crimson);}
+  .rd-list-quote{font-family:var(--font-display);font-style:italic;font-size:14.5px;line-height:1.4;color:var(--ink);}
+  .rd-list-note{display:flex;align-items:flex-start;gap:5px;font-size:13px;line-height:1.4;color:var(--ink-soft);}
+  .rd-list-note svg{width:13px;height:13px;flex-shrink:0;margin-top:2px;}
+  .rd-list-empty{padding:18px 4px 6px;text-align:center;color:var(--ink-soft);font-size:14px;line-height:1.5;}
+
   /* Google Drive's own player (used when the file can't be streamed directly): a tidy dark card, tall
      enough that Drive's controls are never cut off, instead of a clipped strip */
   html #app .xc-player.fallback{display:flex;flex-direction:column;align-items:stretch;gap:10px;padding:12px 12px 12px;}
@@ -9514,7 +9550,7 @@ function wsOnTap(e){
   if(editMode || selectedTab!=='home' || !pageStack.length) return;
   const t = e.target;
   if(!t || !t.closest) return;
-  if(t.closest('a, button, input, select, textarea, label, .b-quiz, [contenteditable="true"], .ws-sheet')) return;
+  if(t.closest('a, button, input, select, textarea, label, .b-quiz, [contenteditable="true"], .ws-sheet, .rd-hl, .rd-sel-toolbar')) return;
   const block = t.closest(WS_TEXT_SEL);
   if(!block) return;
   const sel = window.getSelection && window.getSelection();
@@ -16762,7 +16798,10 @@ const RD_ICO = {
   audio:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 14v-2a7.5 7.5 0 0 1 15 0v2" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><rect x="3.5" y="13" width="4.5" height="7" rx="2" fill="currentColor"/><rect x="16" y="13" width="4.5" height="7" rx="2" fill="currentColor"/></svg>',
   read:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 6.2c2.9-1 5.8-.8 8.5 1v12c-2.7-1.8-5.6-2-8.5-1zM20.5 6.2c-2.9-1-5.8-.8-8.5 1v12c2.7-1.8 5.6-2 8.5-1z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>',
   vocab:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 18 8 6h1l4.5 12M5.2 13.6h6.6" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/><path d="M19.5 11.5v6.5M19.5 13.8c0-1.5-1-2.3-2.3-2.3s-2.4 1-2.4 3.2 1 3.3 2.4 3.3 2.3-.9 2.3-2.4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
-  quiz:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="2.1"/><path d="M9.6 9.6a2.5 2.5 0 1 1 3.6 2.2c-.8.4-1.2.9-1.2 1.8" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/><circle cx="12" cy="16.6" r="1.2" fill="currentColor"/></svg>'
+  quiz:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="2.1"/><path d="M9.6 9.6a2.5 2.5 0 1 1 3.6 2.2c-.8.4-1.2.9-1.2 1.8" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/><circle cx="12" cy="16.6" r="1.2" fill="currentColor"/></svg>',
+  hl:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.5 15.5 4 19l1 1 3.5-3.5M9.5 13.5l6-6 4 4-6 6-4-4Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 5.5l4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
+  note:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4.5h11.5L19 7v12.5H5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M8.2 10.5h7.6M8.2 14h5.4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
+  trash:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14M9.5 7V5.3a1.3 1.3 0 0 1 1.3-1.3h2.4a1.3 1.3 0 0 1 1.3 1.3V7M7 7l.8 12.2a1.5 1.5 0 0 0 1.5 1.4h5.4a1.5 1.5 0 0 0 1.5-1.4L17 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>'
 };
 function readingTabIcon(title){
   const t = String(title||'').toLowerCase();
@@ -16815,6 +16854,7 @@ function openReading(id){
 function closeReading(){
   const id = readingOpen && readingOpen.block;
   xcolStopAudio();
+  rdHideSelToolbar(); rdCloseNote(); rdCloseList();
   _navScrollTo = id ? '[data-rd="'+id+'"]' : null;
   navigate('pop', function(){ readingOpen = null; render(); });
 }
@@ -16833,7 +16873,10 @@ function renderReadingScreen(page, b){
       '<span class="rd-hero-lines" aria-hidden="true"></span>' +
       '<div class="xc-hero-chips">' + (w ? '<span>'+RD_ICO.clock+Math.max(1, Math.round(w/180))+' min read</span><span>'+w+' words</span>' : '') + (b.audio ? '<span>'+RD_ICO.audio+'Audio</span>' : '') + '</div>' +
     '</div>';
-  { const bc = renderBreadcrumb({label: b.title || 'Reading', cls: readingHue(b)}); if(bc) h += '<div class="head-row rd-crumbs"><div class="breadcrumb bc-below">'+bc+'</div></div>'; }
+  { const bc = renderBreadcrumb({label: b.title || 'Reading', cls: readingHue(b)});
+    const hc = rdHlCount(b.id);
+    const chip = '<button class="chip-btn rd-hl-chip" onclick="rdOpenList()">'+RD_ICO.hl+(hc ? ' '+hc : '')+'</button>';
+    if(bc) h += '<div class="head-row rd-crumbs"><div class="breadcrumb bc-below">'+bc+'</div>'+chip+'</div>'; }
   if(b.audio){
     h += '<div class="xc-player" id="xcPlayer" data-au="'+escapeAttr(au)+'">' +
       '<audio id="xcAudio" preload="none" src="'+escapeAttr(readingAudioSrc(b.audio))+'"></audio>' +
@@ -16877,6 +16920,7 @@ function readingSetTab(i){
   try{ initInlineToggles(body); }catch(e){}
   body.querySelectorAll('.reveal').forEach(function(e){ e.classList.add('shown'); });
   if(motionOK() && body.animate) body.animate([{opacity:0, transform:'translateY(8px)'}, {opacity:1, transform:'none'}], {duration:320, easing:'cubic-bezier(.22,1,.36,1)'});
+  try{ rdApplyHighlights(); }catch(e){}
   const seg = document.querySelector('.rd-seg');
   if(seg && seg.getBoundingClientRect().top < 0) seg.scrollIntoView({block:'start', behavior: motionOK() ? 'smooth' : 'auto'});
 }
@@ -16884,10 +16928,249 @@ function readingJump(id, dir){
   const page = currentPage(); if(!page) return;
   const b = findBlockNode(page.blocks || [], id); if(!b) return;
   xcolStopAudio();
+  rdHideSelToolbar(); rdCloseNote(); rdCloseList();
   const p = readingSeen(); p[id] = 1; deviceSet('reading-seen', p);
   const vis = readingVisibleTabs(b);
   navigate(dir > 0 ? 'push' : 'pop', function(){ readingOpen = {page: page.id, block: id, depth: pageStack.length}; readingTab = vis.length ? vis[0].i : 0; render(); });
 }
+
+/* ================= v93: highlights & notes on reading blocks ================= */
+/* Select text inside a reading (any tab) to highlight it, with an optional personal note.
+   Kept purely on-device (like cards/mistakes/badges), keyed by the reading block's id and
+   the tabpage it was made in, so Vocabulary/Questions keep their own highlights too.
+   A highlight is re-found after each render using a quote + a little surrounding context
+   (the same technique web annotation tools use), so it survives as long as the text itself
+   doesn't change. */
+function rdHlStore(){ return deviceGet('rd-highlights', {}); }
+function rdHlSaveStore(store){ deviceSet('rd-highlights', store); }
+function rdScopeKey(readingId, tabId){ return readingId + ':' + tabId; }
+function rdHlCount(readingId){
+  const store = rdHlStore(); let n = 0;
+  Object.keys(store).forEach(function(k){ if(k.indexOf(readingId + ':') === 0) n += (store[k]||[]).length; });
+  return n;
+}
+function rdHlForReading(readingId){
+  const page = currentPage(); const b = page ? findBlockNode(page.blocks||[], readingId) : null;
+  const store = rdHlStore(); const out = [];
+  (b ? (b.blocks||[]) : []).forEach(function(t){
+    (store[rdScopeKey(readingId, t.id)] || []).forEach(function(h){ out.push(Object.assign({tabId:t.id, tabTitle:t.title||'Tab'}, h)); });
+  });
+  out.sort(function(a,c){ return (a.ts||0) - (c.ts||0); });
+  return out;
+}
+/* walk a container's text nodes as one string, so a quote can span inline tags like <b> */
+function rdWalkText(container){
+  const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT, null);
+  let full = ''; const map = []; let n;
+  while((n = walker.nextNode())){
+    if(n.parentElement && n.parentElement.closest('.rd-hl')) continue; /* don't re-match inside an existing highlight */
+    const text = n.nodeValue;
+    for(let i=0;i<text.length;i++) map.push({node:n, offset:i});
+    full += text;
+  }
+  return {full:full, map:map};
+}
+function rdFindRange(container, quote, prefix, suffix){
+  if(!quote) return null;
+  const w = rdWalkText(container);
+  let qStart = -1;
+  const needle = (prefix||'') + quote + (suffix||'');
+  let idx = needle ? w.full.indexOf(needle) : -1;
+  if(idx >= 0) qStart = idx + (prefix||'').length;
+  else { idx = w.full.indexOf(quote); if(idx >= 0) qStart = idx; }
+  if(qStart < 0) return null;
+  const qEnd = qStart + quote.length;
+  if(qEnd > w.map.length) return null;
+  try{
+    const range = document.createRange();
+    range.setStart(w.map[qStart].node, w.map[qStart].offset);
+    range.setEnd(w.map[qEnd-1].node, w.map[qEnd-1].offset + 1);
+    return range;
+  }catch(e){ return null; }
+}
+function rdWrapRange(range, hlid, hasNote){
+  const mark = document.createElement('mark');
+  mark.className = 'rd-hl' + (hasNote ? ' has-note' : '');
+  mark.setAttribute('data-hlid', hlid);
+  mark.setAttribute('role', 'button'); mark.tabIndex = 0;
+  try{ range.surroundContents(mark); return mark; }
+  catch(e){
+    try{ const frag = range.extractContents(); mark.appendChild(frag); range.insertNode(mark); return mark; }
+    catch(e2){ return null; }
+  }
+}
+/* re-apply saved highlights after any render that shows a reading body */
+function rdApplyHighlights(){
+  if(!readingOpen) return;
+  const bodyEl = document.querySelector('#rdBody .rd-body[data-tabpage]');
+  if(!bodyEl) return;
+  const scope = rdScopeKey(readingOpen.block, bodyEl.getAttribute('data-tabpage'));
+  const list = rdHlStore()[scope];
+  if(!list || !list.length) return;
+  list.forEach(function(h){
+    const host = bodyEl.querySelector('[data-bid="'+h.bid+'"]');
+    if(!host || host.querySelector('[data-hlid="'+h.id+'"]')) return;
+    const range = rdFindRange(host, h.quote, h.prefix, h.suffix);
+    if(range) rdWrapRange(range, h.id, !!h.note);
+  });
+}
+/* ---- selection toolbar: pick a quote, then Highlight or Add note ---- */
+let _rdSel = null;
+function rdSelectionInfo(){
+  const sel = window.getSelection();
+  if(!sel || sel.isCollapsed || sel.rangeCount === 0) return null;
+  const range = sel.getRangeAt(0);
+  const quote = range.toString().trim();
+  if(!quote || quote.length > 400) return null;
+  const host = range.commonAncestorContainer;
+  const el = host.nodeType === 1 ? host : host.parentElement;
+  const block = el && el.closest ? el.closest('#rdBody .rd-body [data-bid]') : null;
+  if(!block) return null;
+  if(el.closest('.rd-hl')) return null; /* selecting inside an existing highlight: let the tap handler deal with it */
+  const full = rdWalkText(block).full;
+  const i = full.indexOf(quote);
+  const prefix = i > 0 ? full.slice(Math.max(0, i-24), i) : '';
+  const suffix = i >= 0 ? full.slice(i+quote.length, i+quote.length+24) : '';
+  return {bid: block.getAttribute('data-bid'), quote: quote, prefix: prefix, suffix: suffix, range: range.cloneRange()};
+}
+function rdHideSelToolbar(){ const el = document.getElementById('rdSelToolbar'); if(el) el.remove(); }
+function rdShowSelToolbar(info){
+  rdHideSelToolbar();
+  const r = info.range.getBoundingClientRect();
+  if(!r || (!r.width && !r.height)) return;
+  const el = document.createElement('div');
+  el.id = 'rdSelToolbar'; el.className = 'rd-sel-toolbar';
+  el.innerHTML = '<button onclick="rdCommitSelection(false)">'+RD_ICO.hl+'<span>Highlight</span></button>' +
+    '<span class="rd-sel-sep"></span><button onclick="rdCommitSelection(true)">'+RD_ICO.note+'<span>Add note</span></button>';
+  document.body.appendChild(el);
+  const top = Math.max(8, r.top - el.offsetHeight - 10) + window.scrollY;
+  let left = r.left + r.width/2 - el.offsetWidth/2 + window.scrollX;
+  left = Math.min(Math.max(8, left), window.innerWidth - el.offsetWidth - 8);
+  el.style.top = top + 'px'; el.style.left = left + 'px';
+}
+document.addEventListener('selectionchange', function(){
+  if(editMode || !readingIsOpen()) return;
+  clearTimeout(rdSelDebounce._t);
+  rdSelDebounce._t = setTimeout(rdSelDebounce, 120);
+});
+function rdSelDebounce(){
+  const info = rdSelectionInfo();
+  _rdSel = info;
+  if(info) rdShowSelToolbar(info); else rdHideSelToolbar();
+}
+document.addEventListener('pointerdown', function(e){
+  if(e.target.closest && (e.target.closest('#rdSelToolbar') || e.target.closest('.rd-hl'))) return;
+  rdHideSelToolbar();
+}, true);
+function rdCommitSelection(withNote){
+  const info = _rdSel; if(!info || !readingOpen) return;
+  rdHideSelToolbar();
+  const bodyEl = document.querySelector('#rdBody .rd-body[data-tabpage]'); if(!bodyEl) return;
+  const scope = rdScopeKey(readingOpen.block, bodyEl.getAttribute('data-tabpage'));
+  const store = rdHlStore();
+  const h = {id:'hl'+uid(), bid:info.bid, quote:info.quote, prefix:info.prefix, suffix:info.suffix, note:'', ts:Date.now()};
+  store[scope] = store[scope] || [];
+  store[scope].push(h);
+  rdHlSaveStore(store);
+  try{ window.getSelection().removeAllRanges(); }catch(e){}
+  const mark = rdWrapRange(info.range, h.id, false);
+  haptic('success');
+  if(mark && mark.animate && motionOK()) mark.animate([{backgroundColor:'rgba(255,208,58,0.9)'},{}], {duration:500, easing:'ease-out'});
+  if(withNote) rdOpenNote(h.id);
+}
+/* ---- tap an existing highlight to view/edit its note, or remove it ---- */
+document.addEventListener('click', function(e){
+  const m = e.target.closest && e.target.closest('.rd-hl');
+  if(!m || !readingIsOpen()) return;
+  e.preventDefault();
+  rdOpenNote(m.getAttribute('data-hlid'));
+});
+function rdFindHl(hlid){
+  const store = rdHlStore();
+  for(const scope of Object.keys(store)){
+    const i = (store[scope]||[]).findIndex(function(x){ return x.id === hlid; });
+    if(i >= 0) return {scope:scope, idx:i, h:store[scope][i], store:store};
+  }
+  return null;
+}
+function rdOpenNote(hlid){
+  const found = rdFindHl(hlid); if(!found) return;
+  let host = document.getElementById('rdNoteHost'); if(!host){ host = document.createElement('div'); host.id='rdNoteHost'; document.body.appendChild(host); }
+  host.innerHTML = rdNoteModalHTML(found.h);
+  setTimeout(function(){ const ta = document.getElementById('rdNoteInput'); if(ta) ta.focus(); }, 60);
+}
+function rdNoteModalHTML(h){
+  return '<div class="modal-overlay" onclick="if(event.target===this)rdCloseNote()">' +
+    '<div class="modal rd-note-modal">' +
+      '<h3>Your highlight</h3>' +
+      '<div class="rd-note-quote">“'+escapeHtml(h.quote)+'”</div>' +
+      '<textarea id="rdNoteInput" class="rd-note-input" rows="3" placeholder="Add a note (optional)…">'+escapeHtml(h.note||'')+'</textarea>' +
+      '<div class="modal-actions"><button class="btn ghost rd-note-del" onclick="rdRemoveHighlight(\''+h.id+'\')">'+RD_ICO.trash+' Remove</button>' +
+        '<span class="right-group"><button class="btn" onclick="rdCloseNote()">Cancel</button><button class="btn primary" onclick="rdSaveNote(\''+h.id+'\')">Save</button></span></div>' +
+    '</div></div>';
+}
+function rdCloseNote(){ const host = document.getElementById('rdNoteHost'); if(host) host.innerHTML=''; }
+function rdSaveNote(hlid){
+  const found = rdFindHl(hlid); if(!found) return;
+  const ta = document.getElementById('rdNoteInput');
+  found.h.note = ta ? ta.value.trim() : found.h.note;
+  found.store[found.scope][found.idx] = found.h;
+  rdHlSaveStore(found.store);
+  const mark = document.querySelector('.rd-hl[data-hlid="'+hlid+'"]');
+  if(mark) mark.classList.toggle('has-note', !!found.h.note);
+  rdCloseNote();
+  showMiniToast(found.h.note ? 'Note saved' : 'Highlight saved');
+  if(rdListOpen) rdRenderList();
+}
+function rdRemoveHighlight(hlid){
+  const found = rdFindHl(hlid); if(!found) return;
+  found.store[found.scope].splice(found.idx, 1);
+  rdHlSaveStore(found.store);
+  const mark = document.querySelector('.rd-hl[data-hlid="'+hlid+'"]');
+  if(mark){ const parent = mark.parentNode; while(mark.firstChild) parent.insertBefore(mark.firstChild, mark); parent.removeChild(mark); parent.normalize(); }
+  rdCloseNote();
+  if(rdListOpen) rdRenderList();
+}
+/* ---- "My highlights" list for this reading, across all its tabs ---- */
+let rdListOpen = false;
+function rdOpenList(){
+  rdListOpen = true;
+  let host = document.getElementById('rdListHost'); if(!host){ host = document.createElement('div'); host.id='rdListHost'; document.body.appendChild(host); }
+  rdRenderList();
+}
+function rdCloseList(){ rdListOpen = false; const host = document.getElementById('rdListHost'); if(host) host.innerHTML=''; }
+function rdRenderList(){
+  const host = document.getElementById('rdListHost'); if(!host || !readingOpen) return;
+  const items = rdHlForReading(readingOpen.block);
+  host.innerHTML = '<div class="modal-overlay" onclick="if(event.target===this)rdCloseList()">' +
+    '<div class="modal modal-lg rd-list-modal"><h3>Your highlights'+(items.length?' <span class="rd-list-count">'+items.length+'</span>':'')+'</h3>' +
+    (items.length ? ('<div class="rd-list">' + items.map(function(h){
+      return '<button class="rd-list-item" onclick="rdJumpTo(\''+h.tabId+'\',\''+h.id+'\')">' +
+        '<span class="rd-list-tab">'+escapeHtml(h.tabTitle)+'</span>' +
+        '<span class="rd-list-quote">“'+escapeHtml(h.quote.length>90?h.quote.slice(0,90)+'…':h.quote)+'”</span>' +
+        (h.note ? '<span class="rd-list-note">'+RD_ICO.note+' '+escapeHtml(h.note.length>80?h.note.slice(0,80)+'…':h.note)+'</span>' : '') +
+      '</button>';
+    }).join('') + '</div>')
+    : '<div class="rd-list-empty">Select any text in the reading to highlight it or add a note.</div>') +
+    '<div class="modal-actions"><span></span><button class="btn" onclick="rdCloseList()">Close</button></div>' +
+    '</div></div>';
+}
+function rdJumpTo(tabId, hlid){
+  const page = currentPage(); const b = page && readingOpen ? findBlockNode(page.blocks||[], readingOpen.block) : null;
+  if(!b) return;
+  const vis = readingVisibleTabs(b);
+  const o = vis.find(function(x){ return x.t.id === tabId; });
+  rdCloseList();
+  if(o && o.i !== readingTab) readingSetTab(o.i);
+  setTimeout(function(){
+    const mark = document.querySelector('.rd-hl[data-hlid="'+hlid+'"]');
+    if(mark){
+      mark.scrollIntoView({block:'center', behavior: motionOK() ? 'smooth' : 'auto'});
+      if(motionOK() && mark.animate) mark.animate([{outline:'2px solid transparent'},{outline:'2px solid rgba(255,170,30,0.9)'},{outline:'2px solid transparent'}], {duration:1100});
+    }
+  }, 260);
+}
+
 
 /* ================= v78: motion, touch and haptics ================= */
 /* a tiny tap you can feel. Android uses the vibration API; iPhone (iOS 18 and
@@ -17146,6 +17429,7 @@ function v78BackButtons(){
 }
 function v78AfterRender(sameView){
   try{ v78BackButtons(); }catch(e){}
+  try{ rdApplyHighlights(); }catch(e){}
   const sc = document.querySelector('#app .app-scroll');
   if(_swipeBackEnter && sc){ _swipeBackEnter = false; sc.classList.add('enter-from-back'); }
   if(sameView) return;
