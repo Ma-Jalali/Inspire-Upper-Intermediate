@@ -6497,6 +6497,294 @@
     html #app .vk-sec > .toggle-body{column-count:2;column-gap:28px;}
     html #app .block-vk{break-inside:avoid;}
   }
+  /* ================================================================
+     v101 — iOS 27 light appearance
+     Light mode only: every rule is scoped to html:not([data-theme="dark"]),
+     so the dark appearance is untouched.
+     Principle (as in iOS): content sits on clean opaque platters; the
+     clear, lit Liquid Glass material is kept for the floating control
+     layer (tab bar, search orb, back buttons, chips, sheets).
+     ================================================================ */
+  html:not([data-theme="dark"]){
+    --paper:#F2F3F7;
+    --surface:#FFFFFF;
+    --ink:#0D1220;
+    --ink-soft:#696F82;
+    --ink-read:#1A2031;
+    --line:rgba(60,60,67,0.13);
+    /* platter: an opaque white sheet, defined by a hairline and soft layered light */
+    --pl-bg:#FFFFFF;
+    --pl-rad:26px;
+    --pl-shadow:0 0 0 .5px rgba(17,22,38,0.07), 0 1px 1.5px rgba(17,22,38,0.04), 0 6px 14px -8px rgba(17,22,38,0.10), 0 22px 40px -28px rgba(17,22,38,0.16);
+    --pl-shadow-press:0 0 0 .5px rgba(17,22,38,0.08), 0 1px 1px rgba(17,22,38,0.05), 0 4px 10px -8px rgba(17,22,38,0.14);
+    --hair:rgba(60,60,67,0.12);
+    /* Liquid Glass 27: clearer body, brighter specular rim, lensing along the edges */
+    --lg-top:rgba(255,255,255,0.62);
+    --lg-bot:rgba(255,255,255,0.40);
+    --lg-rim:rgba(255,255,255,1);
+    --lg-edge:rgba(17,22,38,0.08);
+    --lg-filter:blur(22px) saturate(210%) brightness(1.05) contrast(1.02);
+    --lg-shadow:0 1px 2px rgba(17,22,38,0.06), 0 8px 18px -10px rgba(17,22,38,0.16), 0 28px 50px -30px rgba(17,22,38,0.28);
+    --lg-insets:inset 0 1px .5px rgba(255,255,255,0.98), inset 0 -1px .5px rgba(255,255,255,0.55), inset 1px 0 .5px rgba(255,255,255,0.35), inset -1px 0 .5px rgba(255,255,255,0.35), inset 0 0 14px rgba(255,255,255,0.32), inset 0 -10px 18px -14px rgba(17,22,38,0.10);
+    /* glossy icon tiles */
+    --ic-gloss:inset 0 1px 0 rgba(255,255,255,0.55), inset 0 0 0 .5px rgba(255,255,255,0.22), inset 0 12px 14px -10px rgba(255,255,255,0.38), inset 0 -9px 12px -9px rgba(0,0,0,0.20), 0 1px 1.5px rgba(17,22,38,0.14), 0 6px 12px -7px rgba(17,22,38,0.30);
+  }
+
+  /* ---- the canvas: a grouped background lit softly from above ---- */
+  html:not([data-theme="dark"]) body{background:#E9EBF1;}
+  html:not([data-theme="dark"]) #app{
+    background:
+      radial-gradient(130% 48% at 50% -14%, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0) 62%),
+      radial-gradient(64% 30% at 104% -2%, rgba(var(--gold-rgb),0.10), rgba(var(--gold-rgb),0) 70%),
+      radial-gradient(58% 28% at -6% 6%, rgba(var(--accent-rgb),0.065), rgba(var(--accent-rgb),0) 72%),
+      radial-gradient(70% 40% at 50% 112%, rgba(120,136,190,0.08), rgba(120,136,190,0) 70%),
+      linear-gradient(180deg, #F6F7FA 0%, #F2F3F7 38%, #EEF0F4 100%);
+  }
+  html:not([data-theme="dark"]) ::selection{background:rgba(var(--accent-rgb),0.18);}
+
+  /* ---- scroll edges dissolve into the new canvas ---- */
+  html:not([data-theme="dark"]) #app .edge-fade.bottom{
+    background:linear-gradient(to top, rgba(238,240,244,0.94) 0%, rgba(238,240,244,0.6) 45%, rgba(238,240,244,0) 100%);}
+  html:not([data-theme="dark"]) #app .edge-fade.top{background:linear-gradient(to bottom, rgba(246,247,250,0.94), rgba(246,247,250,0));}
+
+  /* ================= content platters ================= */
+  html:not([data-theme="dark"]) #app .prog-panel,
+  html:not([data-theme="dark"]) #app .streak-card,
+  html:not([data-theme="dark"]) #app .bd-strip,
+  html:not([data-theme="dark"]) #app .flash-banner,
+  html:not([data-theme="dark"]) #app .card-list,
+  html:not([data-theme="dark"]) #app .settings-card,
+  html:not([data-theme="dark"]) #app .sheet-part,
+  html:not([data-theme="dark"]) #app .toc-card,
+  html:not([data-theme="dark"]) #app .tabs-card,
+  html:not([data-theme="dark"]) #app .cmt-box,
+  html:not([data-theme="dark"]) #app .mc-add-card,
+  html:not([data-theme="dark"]) #app .mc-stat,
+  html:not([data-theme="dark"]) #app .exc,
+  html:not([data-theme="dark"]) #app .search-row,
+  html:not([data-theme="dark"]) #app .bd-card,
+  html:not([data-theme="dark"]) #app .gh-item,
+  html:not([data-theme="dark"]) #app .hw-card,
+  html:not([data-theme="dark"]) #app .qb-row,
+  html:not([data-theme="dark"]) #app .qb-form,
+  html:not([data-theme="dark"]) #app .asg-row,
+  html:not([data-theme="dark"]) #app .db-row,
+  html:not([data-theme="dark"]) #app .db-tiles > div,
+  html:not([data-theme="dark"]) #app .gm-opt:not(.right):not(.wrong),
+  html:not([data-theme="dark"]) #app .about-card{
+    background:var(--pl-bg);border:none;
+    -webkit-backdrop-filter:none;backdrop-filter:none;
+    box-shadow:var(--pl-shadow);}
+  /* big panels get the larger, concentric radius; small rows keep a tighter one */
+  html:not([data-theme="dark"]) #app .app-scroll > .prog-panel,
+  html:not([data-theme="dark"]) #app .app-scroll > .streak-card,
+  html:not([data-theme="dark"]) #app .card-list,
+  html:not([data-theme="dark"]) #app .settings-card,
+  html:not([data-theme="dark"]) #app .sheet-part,
+  html:not([data-theme="dark"]) #app .mc-add-card,
+  html:not([data-theme="dark"]) #app .cmt-box,
+  html:not([data-theme="dark"]) #app .hw-card{border-radius:var(--pl-rad);}
+  html:not([data-theme="dark"]) #app .flash-banner{border-radius:24px;}
+  html:not([data-theme="dark"]) #app .bd-strip{border-radius:22px;}
+  /* pressing a platter: it sinks a little and its light tightens */
+  html:not([data-theme="dark"]) #app .flash-banner:active,
+  html:not([data-theme="dark"]) #app .bd-strip:active,
+  html:not([data-theme="dark"]) #app .gh-item:active,
+  html:not([data-theme="dark"]) #app .search-row:active{box-shadow:var(--pl-shadow-press);}
+  /* the old frosted top edge and white borders read as grey on a solid sheet */
+  html:not([data-theme="dark"]) #app .flash-banner::before{opacity:0;}
+
+  /* ---- grouped list rows: hairlines inset to the text, like Settings ---- */
+  html:not([data-theme="dark"]) #app .card-list .page-card + .page-card,
+  html:not([data-theme="dark"]) #app .settings-card .settings-row + .settings-row{border-top-color:var(--hair);}
+  html:not([data-theme="dark"]) #app .settings-row{border-color:var(--hair);}
+
+  /* ================= glossy icon tiles ================= */
+  html:not([data-theme="dark"]) #app .flash-banner-icon,
+  html:not([data-theme="dark"]) #app .settings-icon,
+  html:not([data-theme="dark"]) #app .gh-ico,
+  html:not([data-theme="dark"]) #app .gh-diag-ico,
+  html:not([data-theme="dark"]) #app .hw-ico,
+  html:not([data-theme="dark"]) #app .rv-hero-ico,
+  html:not([data-theme="dark"]) #app .gm-entry-ico,
+  html:not([data-theme="dark"]) #app .gm-opt-k,
+  html:not([data-theme="dark"]) #app .exc-num,
+  html:not([data-theme="dark"]) #app .qb-hero-ico{box-shadow:var(--ic-gloss);}
+  html:not([data-theme="dark"]) #app .settings-icon{border-radius:9px;}
+  html:not([data-theme="dark"]) #app .flash-banner-icon{border-radius:13px;}
+  html:not([data-theme="dark"]) #app .rv-hero-ico{border-radius:24px;
+    box-shadow:inset 0 1.5px 0 rgba(255,255,255,0.6), inset 0 0 0 .5px rgba(255,255,255,0.25), inset 0 22px 24px -18px rgba(255,255,255,0.42), inset 0 -16px 20px -16px rgba(0,0,0,0.22), 0 2px 3px rgba(17,22,38,0.10), 0 18px 30px -16px rgba(17,22,38,0.34);}
+  html:not([data-theme="dark"]) #app .settings-icon svg,
+  html:not([data-theme="dark"]) #app .flash-banner-icon svg{filter:drop-shadow(0 1px 1px rgba(0,0,0,0.18));}
+
+  /* ================= Liquid Glass 27: the control layer ================= */
+  html:not([data-theme="dark"]) #app .tab-bar,
+  html:not([data-theme="dark"]) #app .search-fab,
+  html:not([data-theme="dark"]) #toTopBtn,
+  html:not([data-theme="dark"]) #app .to-top,
+  html:not([data-theme="dark"]) #app .search-back,
+  html:not([data-theme="dark"]) #app .page-actions .chip-btn,
+  html:not([data-theme="dark"]) #app .head-row .breadcrumb.bc-below{
+    background:linear-gradient(180deg, var(--lg-top), var(--lg-bot));border:none;
+    -webkit-backdrop-filter:var(--lg-filter);backdrop-filter:var(--lg-filter);
+    box-shadow:var(--lg-insets), 0 0 0 .5px var(--lg-edge), var(--lg-shadow);}
+  html:not([data-theme="dark"]) #app .search-back,
+  html:not([data-theme="dark"]) #app .page-actions .chip-btn,
+  html:not([data-theme="dark"]) #app .head-row .breadcrumb.bc-below{
+    box-shadow:var(--lg-insets), 0 0 0 .5px var(--lg-edge), 0 1px 2px rgba(17,22,38,0.05), 0 8px 18px -12px rgba(17,22,38,0.28);}
+  /* a specular rim that is brightest where the light falls (top-left) and fades round the edge */
+  html:not([data-theme="dark"]) #app .tb-sheen{
+    background:
+      radial-gradient(70% 140% at 12% -50%, rgba(255,255,255,0.85), rgba(255,255,255,0) 60%),
+      radial-gradient(50% 120% at 100% 150%, rgba(var(--accent-rgb),0.07), rgba(var(--accent-rgb),0) 60%);}
+  html:not([data-theme="dark"]) #app .tab-bar::after{content:'';position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;z-index:3;
+    background:linear-gradient(115deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.35) 26%, rgba(255,255,255,0) 50%, rgba(255,255,255,0.25) 78%, rgba(255,255,255,0.9) 100%);
+    -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);-webkit-mask-composite:xor;
+    mask:linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);}
+  /* the selection: a raised lens of brighter glass carrying a breath of the accent */
+  html:not([data-theme="dark"]) #app .tab-bar .tab-ind{
+    background:radial-gradient(120% 90% at 50% 0%, rgba(255,255,255,0.98), rgba(255,255,255,0.72) 60%, rgba(var(--accent-rgb),0.10) 120%);
+    box-shadow:inset 0 1px 0 #fff, inset 0 -1px 1px rgba(var(--accent-rgb),0.10), inset 0 0 0 .5px rgba(17,22,38,0.05), 0 1px 2px rgba(17,22,38,0.08), 0 6px 14px -8px rgba(17,22,38,0.22);}
+  html:not([data-theme="dark"]) #app .tab-item{color:#3B4154;opacity:.82;}
+  html:not([data-theme="dark"]) #app .tab-item.active{color:var(--crimson);opacity:1;box-shadow:none;}
+  html:not([data-theme="dark"]) #app .tab-item.active .tab-icon svg{filter:none;}
+  /* selected tab symbols turn "filled", the way SF Symbols do: a soft tint inside the outline */
+  html:not([data-theme="dark"]) #app .tab-item.active .tab-icon svg :is(path,rect,circle){fill:currentColor;fill-opacity:.16;}
+  html:not([data-theme="dark"]) #app .tab-label{letter-spacing:.01em;}
+  html:not([data-theme="dark"]) #app .search-fab{color:#2A3042;}
+  html:not([data-theme="dark"]) #app .search-fab.on{color:var(--crimson);
+    background:radial-gradient(120% 90% at 50% 0%, rgba(255,255,255,0.98), rgba(255,255,255,0.7) 60%, rgba(var(--accent-rgb),0.12) 120%);}
+  html:not([data-theme="dark"]) #app .search-back{color:var(--crimson);}
+  /* while a screen slides, glass has nothing to see through: keep the near-solid stand-in */
+  html:not([data-theme="dark"])[data-nav] #app .tab-bar,
+  html:not([data-theme="dark"])[data-nav] #app .search-fab{-webkit-backdrop-filter:none;backdrop-filter:none;
+    background:linear-gradient(180deg, rgba(255,255,255,0.97), rgba(246,247,250,0.95));}
+
+  /* ================= controls ================= */
+  /* switches: iOS proportions; solid track; a glass knob that stretches when pressed */
+  html:not([data-theme="dark"]) #app .switch{width:51px;height:31px;border-radius:999px;
+    background:rgba(120,120,128,0.16) !important;box-shadow:inset 0 0 0 .5px rgba(17,22,38,0.04) !important;transition:background .3s ease;}
+  html:not([data-theme="dark"]) #app .switch.on{
+    background:linear-gradient(180deg, rgba(255,255,255,0.14), rgba(255,255,255,0) 60%), var(--crimson) !important;
+    box-shadow:inset 0 1px 1px rgba(0,0,0,0.10), inset 0 0 0 .5px rgba(0,0,0,0.06) !important;}
+  html:not([data-theme="dark"]) #app .switch .knob{top:2px;left:2px;width:27px;height:27px;border-radius:999px;
+    background:radial-gradient(120% 100% at 30% 15%, #FFFFFF 0%, #FBFBFD 55%, #EEF0F4 100%);
+    box-shadow:0 0 0 .5px rgba(17,22,38,0.04), 0 3px 8px rgba(17,22,38,0.15), 0 3px 1px rgba(17,22,38,0.06), inset 0 -1px 1px rgba(17,22,38,0.04);
+    transition:left .42s var(--v-spring), width .25s var(--v-ease);}
+  html:not([data-theme="dark"]) #app .switch.on .knob{left:22px;}
+  html:not([data-theme="dark"]) #app .switch:active .knob{width:33px;}
+  html:not([data-theme="dark"]) #app .switch.on:active .knob{left:16px;}
+
+  /* segmented controls: a grey capsule track with a lifted white thumb */
+  html:not([data-theme="dark"]) #app .seg-row{padding:2px;border-radius:999px;background:rgba(118,118,128,0.12);box-shadow:none;gap:2px;}
+  html:not([data-theme="dark"]) #app .seg-btn{border-radius:999px;color:#3E4457;font-weight:600;}
+  html:not([data-theme="dark"]) #app .seg-btn.picked{background:#fff;color:var(--ink);
+    box-shadow:0 3px 8px rgba(17,22,38,0.12), 0 3px 1px rgba(17,22,38,0.04), 0 0 0 .5px rgba(17,22,38,0.04);text-shadow:none;}
+
+  /* prominent buttons: tinted glass — colour with a lit top and a soft caustic underneath */
+  html:not([data-theme="dark"]) #app .btn.primary,
+  html:not([data-theme="dark"]) #app .snd-cta:not(.ghost),
+  html:not([data-theme="dark"]) #app .dict-go,
+  html:not([data-theme="dark"]) #app .quiz-check-btn{
+    background:linear-gradient(180deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.04) 48%, rgba(0,0,0,0.06) 100%), var(--crimson);
+    border:none;color:#fff;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,0.45), inset 0 0 0 .5px rgba(255,255,255,0.18), inset 0 -2px 6px rgba(0,0,0,0.10), 0 1px 2px rgba(var(--accent-rgb),0.25), 0 10px 22px -12px rgba(var(--accent-rgb),0.75);}
+  html:not([data-theme="dark"]) #app .btn.primary:active,
+  html:not([data-theme="dark"]) #app .snd-cta:not(.ghost):active,
+  html:not([data-theme="dark"]) #app .dict-go:active{box-shadow:inset 0 1px 0 rgba(255,255,255,0.35), inset 0 2px 8px rgba(0,0,0,0.14), 0 4px 10px -8px rgba(var(--accent-rgb),0.7);}
+
+  /* search fields: the iOS fill, a touch crisper */
+  html:not([data-theme="dark"]) #app .search-box .search-input,
+  html:not([data-theme="dark"]) #app .gh-search{background:rgba(118,118,128,0.12);box-shadow:none;}
+  html:not([data-theme="dark"]) #app .search-box .search-input:focus,
+  html:not([data-theme="dark"]) #app .gh-search:focus-within{background:#fff;
+    box-shadow:0 0 0 .5px rgba(17,22,38,0.08), 0 0 0 4px rgba(var(--accent-rgb),0.14), 0 8px 20px -14px rgba(17,22,38,0.35);}
+
+  /* count pills beside section titles */
+  html:not([data-theme="dark"]) #app .section-label .sl-count{background:rgba(118,118,128,0.12);color:#5C6275;}
+
+  /* ================= typography: SF-like rhythm ================= */
+  html:not([data-theme="dark"]) #app .big-title{letter-spacing:-0.035em;color:var(--ink);}
+  html:not([data-theme="dark"]) #app .section-label{letter-spacing:-0.028em;color:var(--ink);}
+  html:not([data-theme="dark"]) #app .home-date{color:#7A8093;}
+
+  /* ================= hero: deeper liquid, softer lift ================= */
+  html:not([data-theme="dark"]) #app .hero-card{
+    box-shadow:0 0 0 .5px rgba(0,0,0,0.06), 0 2px 4px rgba(var(--accent-rgb),0.14), 0 26px 48px -28px rgba(var(--accent-rgb),0.62), 0 12px 24px -18px rgba(17,22,38,0.30), inset 0 1px 0 rgba(255,255,255,0.32);}
+  html:not([data-theme="dark"]) #app .hero-card::after{
+    background:linear-gradient(150deg, rgba(255,255,255,0.75), rgba(255,255,255,0.14) 26%, rgba(255,255,255,0) 52%, rgba(255,255,255,0.10) 80%, rgba(255,255,255,0.40));}
+  html:not([data-theme="dark"]) #app .hero-greet{background:rgba(255,255,255,0.18);
+    -webkit-backdrop-filter:blur(10px) saturate(160%);backdrop-filter:blur(10px) saturate(160%);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,0.45), inset 0 0 0 .5px rgba(255,255,255,0.28), 0 4px 10px -6px rgba(0,0,0,0.25);}
+  html:not([data-theme="dark"]) #app .hero-appicon{box-shadow:0 0 0 .5px rgba(0,0,0,0.08), 0 4px 10px -4px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.8);}
+
+  /* ================= unit tiles: glass rim, contained glow ================= */
+  html:not([data-theme="dark"]) #app .unit-card{outline:.5px solid rgba(255,255,255,0.30);outline-offset:-.5px;}
+
+  /* ================= sheets and modals: thick frosted glass ================= */
+  html:not([data-theme="dark"]) .modal{border-radius:32px;border:none;
+    background:linear-gradient(180deg, rgba(255,255,255,0.90), rgba(250,250,252,0.84));
+    -webkit-backdrop-filter:blur(40px) saturate(200%);backdrop-filter:blur(40px) saturate(200%);
+    box-shadow:inset 0 1px 0 #fff, inset 0 0 0 .5px rgba(255,255,255,0.8), 0 0 0 .5px rgba(17,22,38,0.08), 0 30px 70px -24px rgba(17,22,38,0.40);}
+  html:not([data-theme="dark"]) .modal-overlay{background:rgba(17,22,38,0.22);}
+
+  /* ================= quiz answers: clean rows with a crisp ring ================= */
+  html:not([data-theme="dark"]) #app .quiz-opt{background:#fff;border-color:transparent;
+    box-shadow:0 0 0 .5px rgba(17,22,38,0.10), 0 1px 2px rgba(17,22,38,0.04);}
+  /* ================= the light illustration shows only in the light appearance ================= */
+  .dict-art.da-v27{display:none;}
+  html:not([data-theme="dark"]) .dict-art.da-v1{display:none;}
+  html:not([data-theme="dark"]) .dict-art.da-v27{display:flex;margin:24px 0 -14px;}
+  html:not([data-theme="dark"]) .dict-art.da-v27 svg{width:236px;height:170px;overflow:visible;}
+  .d27-ch{font-family:var(--font-display);font-weight:800;fill:#fff;letter-spacing:-0.02em;}
+  .d27f{animation:d27Bob 5s ease-in-out infinite;}
+  .d27-sp{transform-box:fill-box;transform-origin:center;animation:d27Twinkle 3.2s ease-in-out infinite;}
+  .d27-sp.s2{animation-delay:1.1s;} .d27-sp.s3{animation-delay:2s;}
+  .d27-lens{animation:d27Lens 6s ease-in-out infinite;}
+  @keyframes d27Bob{0%,100%{translate:0 0;}50%{translate:0 -5px;}}
+  @keyframes d27Twinkle{0%,100%{scale:1;opacity:1;}50%{scale:.55;opacity:.45;}}
+  @keyframes d27Lens{0%,100%{translate:0 0;}50%{translate:-3px -2px;}}
+  @media (prefers-reduced-motion: reduce){ .d27f,.d27-sp,.d27-lens{animation:none !important;} }
+
+  /* ================= badges: locked medals as frosted, engraved discs ================= */
+  html:not([data-theme="dark"]) #app .bd-card:not(.got) .bd-medal{
+    background:radial-gradient(120% 100% at 30% 20%, #FFFFFF 0%, #F3F5F9 45%, #E3E7EF 100%);
+    box-shadow:inset 0 1px 0 #fff, inset 0 -2px 4px rgba(17,22,38,0.08), inset 0 0 0 1px rgba(17,22,38,0.05), 0 0 0 4px rgba(118,118,128,0.07), 0 6px 12px -8px rgba(17,22,38,0.25);}
+  html:not([data-theme="dark"]) #app .bd-card:not(.got) .bd-emo{filter:grayscale(1) contrast(.9) brightness(1.05) drop-shadow(0 1px 0 #fff);opacity:.38;}
+  html:not([data-theme="dark"]) #app .bd-pin{background:linear-gradient(180deg,#4A5063,#262B3A);color:#fff;
+    box-shadow:0 0 0 2px #fff, 0 3px 6px -2px rgba(17,22,38,0.4), inset 0 1px 0 rgba(255,255,255,0.25);}
+  html:not([data-theme="dark"]) #app .bd-card.got .bd-medal{box-shadow:inset 0 1px 0 rgba(255,255,255,0.8), inset 0 -3px 6px rgba(160,90,0,0.22), 0 0 0 4px rgba(255,196,64,0.18), 0 10px 18px -10px rgba(200,120,0,0.6);}
+  html:not([data-theme="dark"]) #app .bd-hero{box-shadow:inset 0 1px 0 rgba(255,255,255,0.7), inset 0 0 0 .5px rgba(255,255,255,0.5), 0 0 0 .5px rgba(160,110,0,0.12), 0 24px 40px -26px rgba(200,140,0,0.55);}
+
+  /* ================= lesson content: neutral iOS tints instead of warm washes ================= */
+  html:not([data-theme="dark"]) #app .b-quiz{background:#FAFAFC;border:none;
+    box-shadow:inset 0 0 0 .5px rgba(17,22,38,0.08), inset 0 1px 0 #fff;}
+  html:not([data-theme="dark"]) #app table.b-table th{background:#F3F4F8;border-bottom:.5px solid var(--hair);}
+  html:not([data-theme="dark"]) #app .b-table-wrap{box-shadow:0 0 0 .5px rgba(17,22,38,0.08), 0 1px 2px rgba(17,22,38,0.04);}
+  html:not([data-theme="dark"]) #app .b-quote{background:#fff;box-shadow:0 0 0 .5px rgba(17,22,38,0.07), 0 8px 20px -16px rgba(17,22,38,0.22);}
+
+  /* ================= small fields ================= */
+  html:not([data-theme="dark"]) #app .set-name,
+  html:not([data-theme="dark"]) #app .mc-add-card input,
+  html:not([data-theme="dark"]) #app .mc-add-card textarea{border:none;background:rgba(118,118,128,0.10);box-shadow:none;}
+  html:not([data-theme="dark"]) #app .set-name:focus,
+  html:not([data-theme="dark"]) #app .mc-add-card input:focus,
+  html:not([data-theme="dark"]) #app .mc-add-card textarea:focus{background:#fff;outline:none;box-shadow:0 0 0 .5px rgba(17,22,38,0.08), 0 0 0 4px rgba(var(--accent-rgb),0.14);}
+
+  /* ================= the compact header that follows you down a page ================= */
+  html:not([data-theme="dark"]) .mini-head{background:linear-gradient(180deg, rgba(255,255,255,0.80), rgba(255,255,255,0.62));
+    -webkit-backdrop-filter:blur(24px) saturate(200%);backdrop-filter:blur(24px) saturate(200%);
+    box-shadow:0 .5px 0 rgba(17,22,38,0.10), 0 10px 24px -18px rgba(17,22,38,0.35);}
+  html:not([data-theme="dark"]) .mh-back,html:not([data-theme="dark"]) .mh-top{
+    background:linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.70));
+    box-shadow:inset 0 1px 0 #fff, 0 0 0 .5px rgba(17,22,38,0.08), 0 4px 10px -6px rgba(17,22,38,0.25);}
+  /* ================= streak: an unlit flame sits in a frosted well ================= */
+  html:not([data-theme="dark"]) #app .app-scroll > .streak-card:not(.lit) .sk-flame{
+    background:radial-gradient(120% 100% at 30% 15%, #FFFFFF 0%, #F2F4F8 55%, #E4E8F0 100%);
+    box-shadow:inset 0 1px 0 #fff, inset 0 -2px 5px rgba(17,22,38,0.07), inset 0 0 0 .5px rgba(17,22,38,0.06), 0 6px 14px -10px rgba(17,22,38,0.3);}
+  html:not([data-theme="dark"]) #app .app-scroll > .streak-card .sk-num{box-shadow:0 0 0 2.5px #fff, 0 3px 6px -2px rgba(17,22,38,0.3);}
+  html:not([data-theme="dark"]) #app .app-scroll > .streak-card .sk-weekhead{border-top-color:var(--hair);}
+  html:not([data-theme="dark"]) #app .app-scroll > .streak-card .sk-day i{box-shadow:inset 0 0 0 1.5px rgba(118,118,128,0.20);}
 </style>
 </head>
 <body>
@@ -13077,8 +13365,75 @@ function miniArt(kind){
   }[kind] || '';
   return '<div class="mini-art ma-'+kind+'" aria-hidden="true">'+svg+'</div>';
 }
+/* light appearance: an iOS 27 illustration — layered open book, glass magnifier, glossy letter tiles */
+function dictArt27SVG(){
+  const tile = function(x, y, s, rot, grad, ch, fs, delay){
+    return '<g class="d27f" style="animation-delay:'+delay+'s"><g transform="translate('+x+' '+y+') rotate('+rot+' '+(s/2)+' '+(s/2)+')" filter="url(#d27ds)">' +
+      '<rect width="'+s+'" height="'+s+'" rx="'+(s*0.3)+'" fill="url(#'+grad+')"/>' +
+      '<rect x="1" y="1" width="'+(s-2)+'" height="'+(s*0.5)+'" rx="'+(s*0.28)+'" fill="url(#d27gloss)"/>' +
+      '<rect x=".5" y=".5" width="'+(s-1)+'" height="'+(s-1)+'" rx="'+(s*0.3-.5)+'" fill="none" stroke="#fff" stroke-opacity=".35"/>' +
+      '<text x="'+(s/2)+'" y="'+(s/2+fs*0.36)+'" text-anchor="middle" class="d27-ch" style="font-size:'+fs+'px">'+ch+'</text></g></g>';
+  };
+  return '<div class="dict-art da-v27" aria-hidden="true"><svg viewBox="0 0 240 172">' +
+    '<defs>' +
+      '<linearGradient id="d27pl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#EEF1F7"/></linearGradient>' +
+      '<linearGradient id="d27pr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#E8ECF4"/></linearGradient>' +
+      '<linearGradient id="d27ed" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#D9DEEA"/><stop offset="1" stop-color="#C3CADA"/></linearGradient>' +
+      '<linearGradient id="d27sp" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--gold-bright)"/><stop offset="1" style="stop-color:var(--crimson)"/></linearGradient>' +
+      '<linearGradient id="d27gl" x1="1" y1="0" x2="0" y2="0"><stop offset="0" stop-color="#11162A" stop-opacity=".10"/><stop offset="1" stop-color="#11162A" stop-opacity="0"/></linearGradient>' +
+      '<linearGradient id="d27gr" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#11162A" stop-opacity=".10"/><stop offset="1" stop-color="#11162A" stop-opacity="0"/></linearGradient>' +
+      '<linearGradient id="d27ta" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color:color-mix(in srgb, var(--crimson) 55%, #fff)"/><stop offset="1" style="stop-color:var(--crimson-dark)"/></linearGradient>' +
+      '<linearGradient id="d27tb" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9DAEFF"/><stop offset="1" stop-color="#4554D8"/></linearGradient>' +
+      '<linearGradient id="d27tc" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFD98A"/><stop offset="1" stop-color="#EE8F1E"/></linearGradient>' +
+      '<linearGradient id="d27gloss" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>' +
+      '<linearGradient id="d27hd" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color:color-mix(in srgb, var(--crimson) 70%, #fff)"/><stop offset="1" style="stop-color:var(--crimson-dark)"/></linearGradient>' +
+      '<radialGradient id="d27ln" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#fff" stop-opacity=".75"/><stop offset=".6" stop-color="#fff" stop-opacity=".28"/><stop offset="1" stop-color="#DDE4F4" stop-opacity=".45"/></radialGradient>' +
+      '<clipPath id="d27clip"><circle cx="168" cy="94" r="21"/></clipPath>' +
+      '<filter id="d27bl" x="-50%" y="-200%" width="200%" height="500%"><feGaussianBlur stdDeviation="5"/></filter>' +
+      '<filter id="d27ds" x="-40%" y="-40%" width="180%" height="190%"><feDropShadow dx="0" dy="4" stdDeviation="3.5" flood-color="#11162A" flood-opacity=".22"/></filter>' +
+      '<filter id="d27bk" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="10" stdDeviation="8" flood-color="#11162A" flood-opacity=".14"/></filter>' +
+    '</defs>' +
+    '<ellipse cx="120" cy="156" rx="80" ry="7" fill="#11162A" opacity=".13" filter="url(#d27bl)" class="d27-shadow"/>' +
+    '<g filter="url(#d27bk)">' +
+      /* page block thickness */
+      '<path d="M120 70C98 58 66 56 40 62v76c26-6 58-4 80 8 22-12 54-14 80-8V62c-26-6-58-4-80 8z" fill="url(#d27ed)"/>' +
+      '<path d="M120 64C98 52 66 50 40 56v76c26-6 58-4 80 8z" fill="url(#d27pl)"/>' +
+      '<path d="M120 64c22-12 54-14 80-8v76c-26-6-58-4-80 8z" fill="url(#d27pr)"/>' +
+    '</g>' +
+    /* gutter shading either side of the spine, and a lit outer edge */
+    '<path d="M120 64c-6-3.3-12.6-5.8-19.5-7.6v77.5c6.9 1.8 13.5 4.3 19.5 7.6z" fill="url(#d27gl)"/>' +
+    '<path d="M120 64c6-3.3 12.6-5.8 19.5-7.6v77.5c-6.9 1.8-13.5 4.3-19.5 7.6z" fill="url(#d27gr)"/>' +
+    '<path d="M40 56c26-6 58-4 80 8 22-12 54-14 80-8" fill="none" stroke="#fff" stroke-width="1.4" stroke-linecap="round"/>' +
+    '<path d="M120 64v76" stroke="url(#d27sp)" stroke-width="2.6" stroke-linecap="round"/>' +
+    /* text lines */
+    '<g fill="none" stroke-linecap="round" stroke-width="3.2">' +
+      '<path d="M54 76c13-3 30-2 50 4" stroke="#D3D9E6"/><path d="M54 88c13-3 30-2 50 4" stroke="#D3D9E6"/><path d="M54 100c13-3 30-2 50 4" stroke="#D3D9E6"/><path d="M54 112c13-3 26-2 36 2" stroke="#D3D9E6"/>' +
+      '<path d="M136 80c13-5 30-6 50-4" style="stroke:rgba(var(--accent-rgb),0.45)"/><path d="M136 92c10-4 18-5 24-5" stroke="#D3D9E6"/><path d="M136 104c13-5 30-6 50-4" stroke="#D3D9E6"/><path d="M136 116c10-4 22-5 32-4" stroke="#D3D9E6"/>' +
+    '</g>' +
+    /* glass magnifier: the lines under it are drawn larger, as if refracted */
+    '<g class="d27-lens">' +
+      '<path d="M183 109l15 16" stroke="url(#d27hd)" stroke-width="8" stroke-linecap="round"/>' +
+      '<path d="M184.5 111l12 12.6" stroke="#fff" stroke-opacity=".45" stroke-width="2" stroke-linecap="round"/>' +
+      '<g clip-path="url(#d27clip)"><rect x="140" y="66" width="60" height="60" fill="#F7F9FD"/>' +
+        '<path d="M144 86c14-6 30-7 48-5" fill="none" style="stroke:rgba(var(--accent-rgb),0.55)" stroke-width="5" stroke-linecap="round"/>' +
+        '<path d="M150 104c8-4 16-5 22-5" fill="none" stroke="#C9D0DF" stroke-width="5" stroke-linecap="round"/></g>' +
+      '<circle cx="168" cy="94" r="21" fill="url(#d27ln)"/>' +
+      '<circle cx="168" cy="94" r="21" fill="none" stroke="#fff" stroke-width="3.5"/>' +
+      '<circle cx="168" cy="94" r="23" fill="none" stroke="#11162A" stroke-opacity=".10" stroke-width="1"/>' +
+      '<path d="M154 86a16 16 0 0 1 12-9" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/>' +
+    '</g>' +
+    /* floating letter tiles */
+    tile(62, 18, 32, -10, 'd27ta', 'A', 19, 0) +
+    tile(106, 4, 27, 7, 'd27tb', 'b', 17, .6) +
+    tile(146, 20, 29, 12, 'd27tc', '?', 18, 1.2) +
+    /* sparkles */
+    '<path class="d27-sp" d="M42 32l1.6 4.4L48 38l-4.4 1.6L42 44l-1.6-4.4L36 38l4.4-1.6z" style="fill:var(--gold-bright)"/>' +
+    '<path class="d27-sp s2" d="M200 30l1.2 3.3L204.5 34.5l-3.3 1.2L200 39l-1.2-3.3-3.3-1.2 3.3-1.2z" style="fill:var(--crimson)"/>' +
+    '<circle class="d27-sp s3" cx="190" cy="52" r="2" fill="#7E8CF0"/>' +
+  '</svg></div>';
+}
 function dictArtSVG(){
-  return '<div class="dict-art" aria-hidden="true"><svg viewBox="0 0 200 140">' +
+  return dictArt27SVG() + '<div class="dict-art da-v1" aria-hidden="true"><svg viewBox="0 0 200 140">' +
     '<defs><linearGradient id="daL" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color:var(--gold-bright)"/><stop offset="1" style="stop-color:var(--crimson)"/></linearGradient></defs>' +
     '<ellipse cx="100" cy="128" rx="62" ry="7" class="da-shadow"/>' +
     '<path d="M100 58c-18-12-44-14-64-8v66c20-6 46-4 64 8z" class="da-page"/>' +
