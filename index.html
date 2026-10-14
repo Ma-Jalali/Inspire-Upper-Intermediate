@@ -164,6 +164,7 @@
   .hero-waves{display:none;}
   .banner-wm,.banner-arcs{display:none;}
   .mc-glyph{display:none;}
+  .pt-art{display:none;}
   .app-scroll > .practice-grid{animation:none;}
   .app-scroll > .practice-grid > *{animation:blockIn .5s cubic-bezier(.22,.9,.3,1) .3s both;}
   html #app .app-scroll.vt-push > .practice-grid > *,html #app .app-scroll.vt-pop > .practice-grid > *,html #app .app-scroll.enter-from-back > .practice-grid > *{animation:none;}
@@ -6901,6 +6902,56 @@
   html:not([data-theme="dark"]) #app .mc-stat-ico .mc-glyph{display:flex;width:19px;height:19px;color:#fff;filter:drop-shadow(0 1px 1px rgba(0,0,0,0.2));}
   html:not([data-theme="dark"]) #app .mc-stat-ico .mc-glyph svg{width:100%;height:100%;}
   html:not([data-theme="dark"]) #app .mc-stat-ico{box-shadow:var(--ic-gloss);}
+
+  /* ================= v103: illustrated practice tiles ================= */
+  html:not([data-theme="dark"]) #app .practice-grid > .flash-banner:not(.fb-word):not(.xc-banner)::after{display:none;}
+  html:not([data-theme="dark"]) #app .practice-grid > .flash-banner:not(.fb-word):not(.xc-banner) .flash-banner-icon{display:none;}
+  html:not([data-theme="dark"]) #app .practice-grid > .flash-banner:not(.fb-word):not(.xc-banner){gap:0;padding:12px 14px 15px;min-height:0;}
+  html:not([data-theme="dark"]) #app .practice-grid > .flash-banner:not(.fb-word):not(.xc-banner) .flash-banner-txt{margin-top:0;}
+  html:not([data-theme="dark"]) #app .practice-grid > .flash-banner:not(.fb-word):not(.xc-banner) .pt-art{display:block;order:-1;flex:none;align-self:stretch;
+    width:auto;height:auto;aspect-ratio:150 / 72;margin:0 -4px 11px;overflow:visible;
+    filter:drop-shadow(0 5px 7px rgba(24,32,64,0.10)) drop-shadow(0 1px 1.5px rgba(24,32,64,0.08));
+    transition:transform .5s cubic-bezier(.3,1.4,.5,1);}
+  html:not([data-theme="dark"]) #app .practice-grid > .flash-banner:not(.fb-word):not(.xc-banner):active .pt-art{transform:scale(1.04) translateY(-1px);}
+  html:not([data-theme="dark"]) #app .pt-art text{font-family:var(--font-display, system-ui), system-ui, sans-serif;}
+  /* a crisp tinted stage behind each illustration */
+  html:not([data-theme="dark"]) #app .practice-grid > .mist-banner{background:linear-gradient(180deg,#FFF1F4 0%,#FFF7F9 38%,#fff 64%);}
+  html:not([data-theme="dark"]) #app .practice-grid > .snd-banner{background:linear-gradient(180deg,#EEF5FF 0%,#F6FAFF 38%,#fff 64%);}
+  html:not([data-theme="dark"]) #app .practice-grid > .exam-banner{background:linear-gradient(180deg,#FFF4E8 0%,#FFF9F2 38%,#fff 64%);}
+  html:not([data-theme="dark"]) #app .practice-grid > .gh-banner{background:linear-gradient(180deg,#ECFAF2 0%,#F5FCF8 38%,#fff 64%);}
+  /* depth: the back layer drifts with the scroll, the front layer against it */
+  html:not([data-theme="dark"]) #app .pt-art .pl-b{transform:translateY(calc(var(--tp, 0) * 5px));transition:transform .25s linear;}
+  html:not([data-theme="dark"]) #app .pt-art .pl-f{transform:translateY(calc(var(--tp, 0) * -4px));transition:transform .25s linear;}
+  /* idle motion, one small story per tile */
+  html:not([data-theme="dark"]) #app .pt-art .pt-tw{transform-box:fill-box;transform-origin:center;animation:ptTwinkle 3.2s ease-in-out infinite;}
+  @keyframes ptTwinkle{0%,100%{opacity:.25;transform:scale(.6) rotate(0deg);}50%{opacity:1;transform:scale(1) rotate(45deg);}}
+  html:not([data-theme="dark"]) #app .pt-mist .pt-ink{stroke-dasharray:36;stroke-dashoffset:36;animation:ptInk 4.8s ease-in-out infinite;}
+  @keyframes ptInk{0%,8%{stroke-dashoffset:36;opacity:1;}46%,84%{stroke-dashoffset:0;opacity:1;}96%,100%{stroke-dashoffset:0;opacity:0;}}
+  html:not([data-theme="dark"]) #app .pt-mist .pt-pencil{animation:ptWrite 4.8s ease-in-out infinite;}
+  @keyframes ptWrite{0%,8%{transform:translate(-26px,-4px);}16%{transform:translate(-22px,-6px);}24%{transform:translate(-17px,-4px);}32%{transform:translate(-12px,-6px);}40%,46%{transform:translate(-6px,-4px);}70%,100%{transform:translate(0,0);}}
+  html:not([data-theme="dark"]) #app .pt-mist .pt-badge{transform-box:fill-box;transform-origin:center;animation:ptBadge 4.8s cubic-bezier(.3,1.6,.5,1) infinite;}
+  @keyframes ptBadge{0%,44%,64%,100%{transform:scale(1);}52%{transform:scale(1.16);}}
+  html:not([data-theme="dark"]) #app .pt-snd .pt-bar{transform-box:fill-box;transform-origin:center;animation:ptEq 1.3s ease-in-out infinite alternate;}
+  @keyframes ptEq{0%{transform:scaleY(.35);}100%{transform:scaleY(1);}}
+  html:not([data-theme="dark"]) #app .pt-snd .pt-arc{animation:ptArc 2.1s ease-out infinite;}
+  html:not([data-theme="dark"]) #app .pt-snd .pt-arc.a2{animation-delay:.25s;} html:not([data-theme="dark"]) #app .pt-snd .pt-arc.a3{animation-delay:.5s;}
+  @keyframes ptArc{0%{opacity:0;}25%{opacity:1;}70%,100%{opacity:0;}}
+  html:not([data-theme="dark"]) #app .pt-snd .pt-woof{transform-box:fill-box;transform-origin:center;animation:ptWoof 2.1s ease-in-out infinite;}
+  @keyframes ptWoof{0%,100%{transform:scale(1);}12%{transform:scale(1.07);}24%{transform:scale(.98);}}
+  html:not([data-theme="dark"]) #app .pt-snd .pt-chip{animation:ptFloat 4.2s ease-in-out infinite;}
+  html:not([data-theme="dark"]) #app .pt-snd .pt-chip.c2{animation-delay:-2.1s;}
+  @keyframes ptFloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-2.5px);}}
+  html:not([data-theme="dark"]) #app .pt-exam .pt-land > g{animation:ptSpin 16s linear infinite;}
+  @keyframes ptSpin{from{transform:translateX(-52px);}to{transform:translateX(0);}}
+  html:not([data-theme="dark"]) #app .pt-exam .pt-hand{transform-box:view-box;transform-origin:124px 52px;animation:ptHand 6s steps(60) infinite;}
+  @keyframes ptHand{to{transform:rotate(360deg);}}
+  html:not([data-theme="dark"]) #app .pt-gh .pt-lens{animation:ptLens 6.5s ease-in-out infinite;}
+  @keyframes ptLens{0%,100%{transform:translate(0,0) rotate(0deg);}45%{transform:translate(-19px,9px) rotate(-6deg);}60%{transform:translate(-19px,9px) rotate(-6deg);}}
+  @media (prefers-reduced-motion: reduce){
+    html:not([data-theme="dark"]) #app .pt-art *{animation:none !important;}
+    html:not([data-theme="dark"]) #app .pt-mist .pt-ink{stroke-dashoffset:0;}
+    html:not([data-theme="dark"]) #app .pt-art .pl-b,html:not([data-theme="dark"]) #app .pt-art .pl-f{transform:none;}
+  }
 </style>
 </head>
 <body>
@@ -7983,6 +8034,13 @@ function greetingText(){
         const y = Math.min(window.scrollY, 260);
         bn.style.setProperty('--par', (y * 0.14).toFixed(1) + 'px');
         bn.style.setProperty('--parf', (y * 0.32).toFixed(1) + 'px');
+      }
+      if(!bnNoMotion && document.documentElement.getAttribute('data-theme') !== 'dark'){
+        const vh = window.innerHeight;
+        document.querySelectorAll('.practice-grid .pt-art').forEach(function(a){
+          const r = a.getBoundingClientRect();
+          if(r.height && r.bottom > -40 && r.top < vh + 40) a.style.setProperty('--tp', Math.max(-1, Math.min(1, (r.top + r.height/2 - vh/2) / (vh/2))).toFixed(3));
+        });
       }
       const btn = document.getElementById('toTopBtn');
       if(btn){
@@ -10449,7 +10507,7 @@ function renderSounds(){
 }
 function soundsBannerHTML(){
   return '<div class="flash-banner snd-banner" onclick="openSounds()">' +
-    '<div class="flash-banner-icon snd-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>' +
+    '<div class="flash-banner-icon snd-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>' + practiceArtSVG('snd') +
     '<div class="flash-banner-txt"><div class="flash-banner-title">Sound practice</div><div class="flash-banner-sub">Ship or sheep? Train your ears</div></div>' +
     '<div class="sb-art" aria-hidden="true"><span class="sb-chip a">ship</span><span class="sb-chip b">sheep</span><span class="sb-wave"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div>' +
   '</div>';
@@ -11065,7 +11123,7 @@ function exDelete(id){
 }
 function examsBannerHTML(){
   return '<div class="flash-banner exam-banner" onclick="openExams()">' +
-    '<div class="flash-banner-icon exam-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3.5 12h17M12 3.5c2.4 2.4 3.4 5.4 3.4 8.5s-1 6.1-3.4 8.5c-2.4-2.4-3.4-5.4-3.4-8.5s1-6.1 3.4-8.5z" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></div>' +
+    '<div class="flash-banner-icon exam-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3.5 12h17M12 3.5c2.4 2.4 3.4 5.4 3.4 8.5s-1 6.1-3.4 8.5c-2.4-2.4-3.4-5.4-3.4-8.5s1-6.1 3.4-8.5z" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></div>' + practiceArtSVG('exam') +
     '<div class="flash-banner-txt"><div class="flash-banner-title">International Exams</div><div class="flash-banner-sub">IELTS and PTE Speaking, timed like the real test</div></div>' +
     '<div class="eb-art" aria-hidden="true"><span class="eb-card back"></span><span class="eb-card front"><span class="eb-mic"><svg viewBox="0 0 24 24"><rect x="9" y="3.5" width="6" height="11" rx="3" fill="currentColor"/><path d="M6 11.5a6 6 0 0 0 12 0M12 17.5V21" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></span><span class="eb-wave"><i></i><i></i><i></i><i></i><i></i></span><i class="ln"></i><i class="ln s"></i></span><span class="eb-timer"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="7.5" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M12 9.5V13l2.5 1.5M10 3h4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></span></div>' +
   '</div>';
@@ -11534,7 +11592,7 @@ function renderGrammarDiag(){
 function grammarBannerHTML(){
   const n = grammarTopics().length;
   return '<div class="flash-banner gh-banner" onclick="openGrammarHub()">' +
-    '<div class="flash-banner-icon gh-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4.5h10.5a3 3 0 0 1 3 3v12H8a3 3 0 0 1-3-3z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M5 16.5a3 3 0 0 1 3-3h10.5M9 8.5h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>' +
+    '<div class="flash-banner-icon gh-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4.5h10.5a3 3 0 0 1 3 3v12H8a3 3 0 0 1-3-3z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M5 16.5a3 3 0 0 1 3-3h10.5M9 8.5h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>' + practiceArtSVG('gh') +
     '<div class="flash-banner-txt"><div class="flash-banner-title">Grammar hub</div><div class="flash-banner-sub">'+(n ? n+' lessons, one search' : 'All grammar in one place')+'</div></div>' +
     '<div class="gb-art" aria-hidden="true"><span class="gb-book b3"></span><span class="gb-book b2"></span><span class="gb-book b1"><i></i><i></i></span><span class="gb-lens"></span></div>' +
   '</div>';
@@ -11595,13 +11653,17 @@ function badgesStripHTML(){
   const show = got.slice(-5);
   return '<button class="bd-strip" onclick="openBadges()"><span class="bd-row">' +
     (show.length ? show.map(function(b){ return '<span class="bd-medal">'+b.icon+'</span>'; }).join('') : '<span class="bd-medal lock">\uD83C\uDFC5</span>') +
-    '</span><span class="bd-strip-t"><b>Badges</b><span>'+got.length+' of '+BADGES.length+' earned</span></span><span class="gm-entry-go">\u203A</span></button>';
+    '</span><span class="bd-strip-t"><b>My progress</b><span>Units, daily streak and '+got.length+' of '+BADGES.length+' badges</span></span><span class="gm-entry-go">\u203A</span></button>';
 }
 function openBadges(){ navigate('push', function(){ selectedTab='badges'; pageStack=[]; render(); }); }
 function renderBadges(){
   const got = {}; earnedBadges().forEach(function(b){ got[b.id]=1; });
   const n = Object.keys(got).length;
   let h = '<button class="search-back" onclick="switchTab(\'home\')">\u2190 Back</button>' +
+    '<div class="eyebrow" style="margin:6px 0 4px;">Just for you</div><div class="big-title serif" style="margin-bottom:6px;">My progress</div>' +
+    (progressPanelHTML() ? '<div class="section-label">Units done</div>' + progressPanelHTML() : '') +
+    '<div class="section-label">Daily streak</div>' + streakHTML() +
+    '<div class="section-label">Badges</div>' +
     '<div class="bd-hero"><div class="bd-hero-num">'+n+'<small>/'+BADGES.length+'</small></div><div class="bd-hero-t">badges earned</div>' +
     '<div class="bd-bar"><i style="width:'+Math.round(n/BADGES.length*100)+'%"></i></div></div><div class="bd-grid">';
   BADGES.forEach(function(b, i){
@@ -13172,10 +13234,202 @@ function announcementHTML(){
     (editMode ? '<div class="ann-actions"><button class="chip-btn danger" onclick="removeAnn()">Remove</button><button class="chip-btn" onclick="startAnnEdit()">Edit</button></div>' : '') +
   '</div>';
 }
+/* v103: hand-built practice-tile illustrations (light appearance only; hidden in dark).
+   Each scene sits in a 150 x 72 box; .pl-b / .pl-f are the parallax layers. */
+const ptNoMotion = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+function practiceArtSVG(kind, n){
+  const S = '<svg class="pt-art pt-'+kind+'" viewBox="0 0 150 72" aria-hidden="true" focusable="false">';
+  const spark = function(x, y, s, c, d){ return '<path class="pt-tw" style="animation-delay:'+d+'s" transform="translate('+x+' '+y+') scale('+s+')" d="M0-5C.6-1.4 1.4-.6 5 0 1.4.6.6 1.4 0 5-.6 1.4-1.4.6-5 0-1.4-.6-.6-1.4 0-5z" fill="'+c+'"/>'; };
+  if(kind === 'mist'){
+    const bad = n > 0;
+    return S + '<defs>' +
+      '<linearGradient id="ptmPen" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFD66B"/><stop offset=".5" stop-color="#FFB627"/><stop offset="1" stop-color="#F08C00"/></linearGradient>' +
+      '<linearGradient id="ptmBad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FF7A93"/><stop offset="1" stop-color="#E3264F"/></linearGradient>' +
+      '<linearGradient id="ptmOk" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5FE0A0"/><stop offset="1" stop-color="#16A866"/></linearGradient>' +
+      '<linearGradient id="ptmFer" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#EEF1F6"/><stop offset=".5" stop-color="#B9C0CE"/><stop offset="1" stop-color="#8D95A6"/></linearGradient>' +
+    '</defs>' +
+    '<g class="pl-b">' +
+      '<rect x="30" y="9" width="60" height="58" rx="7" transform="rotate(-9 60 38)" fill="#FFE4EA"/>' +
+      '<rect x="30" y="9" width="60" height="58" rx="7" transform="rotate(-9 60 38)" fill="none" stroke="#F7B9C6" stroke-width=".7"/>' +
+      spark(18, 18, .9, '#FF8FA6', 0) + spark(132, 60, .7, '#FFC24A', 1.1) +
+    '</g>' +
+    '<g class="pl-f">' +
+      '<g transform="rotate(3 72 37)">' +
+        '<rect x="40" y="4" width="66" height="64" rx="8" fill="#fff"/>' +
+        '<rect x="40" y="4" width="66" height="64" rx="8" fill="none" stroke="#EDD3D9" stroke-width=".7"/>' +
+        '<path d="M106 54v6a8 8 0 0 1-8 8h-6z" fill="#F4E6EA"/>' +
+        '<rect x="48" y="11" width="24" height="4" rx="2" fill="#F0506E"/><rect x="75" y="11" width="11" height="4" rx="2" fill="#FBD0D9"/>' +
+        '<path d="M45.5 19.5v44" stroke="#FCC6D1" stroke-width=".8"/>' +
+        /* row 1: wrong, with a red correction being written over it */
+        '<circle cx="53" cy="26" r="4.4" fill="url(#'+(bad?'ptmBad':'ptmOk')+')"/>' +
+        (bad ? '<path d="M51.2 24.2l3.6 3.6M54.8 24.2l-3.6 3.6" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>'
+             : '<path d="M51 26.2l1.4 1.4 2.8-3" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>') +
+        '<rect x="61" y="24.6" width="34" height="2.8" rx="1.4" fill="#E3E6EE"/>' +
+        (bad ? '<path d="M60 26h36" stroke="#F0506E" stroke-width="1.3" stroke-linecap="round" opacity=".85"/>' : '') +
+        '<path class="pt-ink" d="M62 21.2c2.4-2.6 4.2 1.6 6.4-.6s3.6-2.4 5.6-.2 3.8.6 5.6-.8 3.4.4 5.2-.4" fill="none" stroke="'+(bad?'#E3264F':'#16A866')+'" stroke-width="1.2" stroke-linecap="round"/>' +
+        /* row 2: right */
+        '<circle cx="53" cy="39" r="4.4" fill="url(#ptmOk)"/>' +
+        '<path d="M51 39.2l1.4 1.4 2.8-3" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>' +
+        '<rect x="61" y="37.6" width="26" height="2.8" rx="1.4" fill="#E3E6EE"/><rect x="61" y="42" width="16" height="2.2" rx="1.1" fill="#EEF0F5"/>' +
+        /* row 3 */
+        '<circle cx="53" cy="52" r="4.4" fill="url(#'+(n>1?'ptmBad':'ptmOk')+')"/>' +
+        (n>1 ? '<path d="M51.2 50.2l3.6 3.6M54.8 50.2l-3.6 3.6" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>'
+             : '<path d="M51 52.2l1.4 1.4 2.8-3" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>') +
+        '<rect x="61" y="50.6" width="30" height="2.8" rx="1.4" fill="#E3E6EE"/><rect x="61" y="55" width="20" height="2.2" rx="1.1" fill="#EEF0F5"/>' +
+      '</g>' +
+      /* pencil: eraser, ferrule, hexagonal body, sharpened wood, graphite */
+      '<g class="pt-pencil"><g transform="translate(130 64) rotate(135)">' +
+        '<rect x="-3.6" y="-2" width="7.2" height="7" rx="2" fill="#FF9AAE"/>' +
+        '<rect x="-3.8" y="4.4" width="7.6" height="6.4" fill="url(#ptmFer)"/>' +
+        '<path d="M-3.8 6.4h7.6M-3.8 8.6h7.6" stroke="#7D8596" stroke-width=".5"/>' +
+        '<rect x="-3.6" y="10.8" width="7.2" height="30" fill="url(#ptmPen)"/>' +
+        '<rect x="-1.1" y="10.8" width="1.6" height="30" fill="#FFE59A" opacity=".8"/>' +
+        '<path d="M-3.6 40.8h7.2L0 50.4z" fill="#F7D5A6"/>' +
+        '<path d="M-1.35 46.8h2.7L0 50.4z" fill="#3B4150"/>' +
+      '</g></g>' +
+      '<g class="pt-badge"><circle cx="129" cy="14" r="10.5" fill="url(#'+(bad?'ptmBad':'ptmOk')+')"/>' +
+        '<circle cx="129" cy="14" r="10.5" fill="none" stroke="#fff" stroke-width="2"/>' +
+        (bad ? '<text x="129" y="17.6" text-anchor="middle" font-size="'+(n>9?8.5:10)+'" font-weight="800" fill="#fff">'+(n>99?'99+':n)+'</text>'
+             : '<path d="M124.6 14.2l3 3 5.6-6" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>') +
+      '</g>' +
+    '</g></svg>';
+  }
+  if(kind === 'snd'){
+    const hs = [6,11,17,9,22,14,27,18,12,24,16,9,20,13,7,15,10,5];
+    let bars = '';
+    hs.forEach(function(h, i){
+      const x = 61 + i*4.75;
+      bars += '<rect class="pt-bar" style="animation-delay:'+(-(i*0.11)).toFixed(2)+'s" x="'+x.toFixed(1)+'" y="'+(60-h/2).toFixed(1)+'" width="2.6" height="'+h+'" rx="1.3" fill="url(#ptsBar)"/>';
+    });
+    return S + '<defs>' +
+      '<linearGradient id="ptsCab" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6CB4FF"/><stop offset="1" stop-color="#2459D8"/></linearGradient>' +
+      '<radialGradient id="ptsCone" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="#4F7FE8"/><stop offset=".7" stop-color="#173B9C"/><stop offset="1" stop-color="#0F2A78"/></radialGradient>' +
+      '<radialGradient id="ptsCap" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#A9C6FF"/></radialGradient>' +
+      '<linearGradient id="ptsBar" gradientUnits="userSpaceOnUse" x1="60" y1="0" x2="146" y2="0"><stop offset="0" stop-color="#3D90F0"/><stop offset="1" stop-color="#7B61FF"/></linearGradient>' +
+      '<linearGradient id="ptsPill" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5AA6FF"/><stop offset="1" stop-color="#3366F0"/></linearGradient>' +
+    '</defs>' +
+    '<g class="pl-b">' +
+      '<path d="M60 60h86" stroke="#DCE7F8" stroke-width=".8" stroke-dasharray="1.5 2.5"/>' +
+      bars +
+      spark(140, 8, .8, '#8FB8FF', .4) +
+    '</g>' +
+    '<g class="pl-f">' +
+      /* loudspeaker cabinet with tweeter, woofer surround, cone and dust cap */
+      '<rect x="6" y="12" width="34" height="50" rx="9" fill="url(#ptsCab)"/>' +
+      '<rect x="6.6" y="12.6" width="32.8" height="48.8" rx="8.5" fill="none" stroke="#fff" stroke-opacity=".45" stroke-width=".8"/>' +
+      '<path d="M10 16h20" stroke="#fff" stroke-opacity=".35" stroke-width="1.6" stroke-linecap="round"/>' +
+      '<circle cx="23" cy="23.5" r="5" fill="#1B3F9E"/><circle cx="23" cy="23.5" r="3.4" fill="url(#ptsCone)"/><circle cx="22.2" cy="22.7" r="1.1" fill="#fff" opacity=".85"/>' +
+      '<circle class="pt-woof" cx="23" cy="45" r="12" fill="#163A95"/>' +
+      '<circle cx="23" cy="45" r="10.6" fill="none" stroke="#6E9BFF" stroke-opacity=".55" stroke-width="1.2"/>' +
+      '<circle class="pt-woof" cx="23" cy="45" r="9" fill="url(#ptsCone)"/>' +
+      '<circle cx="23" cy="45" r="3.8" fill="url(#ptsCap)"/>' +
+      '<circle cx="11" cy="57.5" r="1" fill="#0F2A78" opacity=".5"/><circle cx="35" cy="57.5" r="1" fill="#0F2A78" opacity=".5"/>' +
+      /* emitted sound */
+      '<g fill="none" stroke="#3D90F0" stroke-width="1.8" stroke-linecap="round">' +
+        '<path class="pt-arc a1" d="M45 37a10 10 0 0 1 0 16"/><path class="pt-arc a2" d="M49.5 32a16 16 0 0 1 0 26"/><path class="pt-arc a3" d="M54 27a22 22 0 0 1 0 36"/>' +
+      '</g>' +
+      /* minimal pair */
+      '<g class="pt-chip c1"><rect x="62" y="5" width="48" height="19" rx="9.5" fill="#fff"/><rect x="62" y="5" width="48" height="19" rx="9.5" fill="none" stroke="#CFE0FA" stroke-width=".8"/>' +
+        '<text x="70" y="18" font-size="10" font-weight="800" fill="#2F6FE0">ship</text><text x="94.5" y="17.6" font-size="7" font-weight="600" fill="#8AA3C8">/ɪ/</text></g>' +
+      '<g class="pt-chip c2"><rect x="88" y="26" width="60" height="19" rx="9.5" fill="url(#ptsPill)"/><path d="M95 28.4h46" stroke="#fff" stroke-opacity=".35" stroke-width="1.2" stroke-linecap="round"/>' +
+        '<text x="96" y="39" font-size="10" font-weight="800" fill="#fff">sheep</text><text x="129" y="38.6" font-size="7" font-weight="600" fill="#DCE8FF">/iː/</text></g>' +
+    '</g></svg>';
+  }
+  if(kind === 'exam'){
+    let ticks = '';
+    for(let i=0;i<12;i++){ const a = i*30*Math.PI/180, r1 = i%3 ? 9.2 : 8.2; ticks += '<path d="M'+(124+Math.sin(a)*r1).toFixed(2)+' '+(52-Math.cos(a)*r1).toFixed(2)+'L'+(124+Math.sin(a)*10.4).toFixed(2)+' '+(52-Math.cos(a)*10.4).toFixed(2)+'" stroke="'+(i%3?'#C9CFDB':'#5B6275')+'" stroke-width="'+(i%3?.6:.9)+'" stroke-linecap="round"/>'; }
+    const land = '<path d="M4 20c4-6 12-7 16-3 3 3 0 7 4 9 5 2 4 9-1 11-4 2-6 8-11 6-3-1-2-6-5-8-4-3-7-11-3-15z"/>' +
+      '<path d="M30 9c5-3 13-2 16 2 2 3-2 5 1 8 2 3 0 6-4 5-3-1-5 2-8 0-4-3-1-7-5-9-2-2-2-5 0-6z"/>' +
+      '<path d="M33 34c4-2 9 0 10 4 1 3-1 6 1 9 1 3-3 6-6 4-4-2-3-6-6-8-2-3-3-7 1-9z"/>' +
+      '<path d="M48 26c2-1 4 0 4 2s-2 3-4 2-2-3 0-4z"/>';
+    return S + '<defs>' +
+      '<radialGradient id="pteSea" cx=".38" cy=".32" r=".75"><stop offset="0" stop-color="#FFC77A"/><stop offset=".6" stop-color="#F7922E"/><stop offset="1" stop-color="#D9620F"/></radialGradient>' +
+      '<radialGradient id="pteShade" cx=".32" cy=".28" r=".85"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset=".35" stop-color="#fff" stop-opacity="0"/><stop offset=".8" stop-color="#7A2E00" stop-opacity="0"/><stop offset="1" stop-color="#7A2E00" stop-opacity=".35"/></radialGradient>' +
+      '<clipPath id="pteClip"><circle cx="44" cy="38" r="25"/></clipPath>' +
+      '<linearGradient id="pteMic" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFB357"/><stop offset="1" stop-color="#F06A1F"/></linearGradient>' +
+      '<linearGradient id="pteRing" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFB357"/><stop offset="1" stop-color="#E8590C"/></linearGradient>' +
+    '</defs>' +
+    '<g class="pl-b">' +
+      /* IELTS cue card */
+      '<g transform="rotate(5 112 28)">' +
+        '<rect x="84" y="6" width="56" height="42" rx="7" fill="#fff"/><rect x="84" y="6" width="56" height="42" rx="7" fill="none" stroke="#F2DCC6" stroke-width=".7"/>' +
+        '<rect x="90" y="11.5" width="22" height="7" rx="3.5" fill="#FFE7CF"/><text x="101" y="16.9" text-anchor="middle" font-size="5.2" font-weight="800" fill="#D9620F" letter-spacing=".3">IELTS</text>' +
+        '<text x="116" y="16.9" font-size="4.6" font-weight="700" fill="#A6AEBF">Part 2</text>' +
+        '<rect x="90" y="23" width="40" height="2.6" rx="1.3" fill="#E3E6EE"/><rect x="90" y="28.5" width="32" height="2.2" rx="1.1" fill="#EEF0F5"/><rect x="90" y="33.5" width="36" height="2.2" rx="1.1" fill="#EEF0F5"/>' +
+        '<circle cx="92" cy="41.5" r="1.1" fill="#F7922E"/><rect x="95" y="40.6" width="20" height="1.8" rx=".9" fill="#EEF0F5"/>' +
+      '</g>' +
+      spark(78, 8, .8, '#FFB45E', .6) +
+    '</g>' +
+    '<g class="pl-f">' +
+      /* orbit behind the globe */
+      '<ellipse cx="44" cy="38" rx="37" ry="11" transform="rotate(-16 44 38)" fill="none" stroke="#F7B26A" stroke-width=".9" stroke-dasharray="2 2.6" opacity=".9"/>' +
+      /* globe: sea, drifting continents, graticule, light */
+      '<circle cx="44" cy="38" r="25" fill="url(#pteSea)"/>' +
+      '<g clip-path="url(#pteClip)"><g class="pt-land" fill="#FFF1DE" opacity=".92"><g><g transform="translate(19 13)">'+land+'</g><g transform="translate(71 13)">'+land+'</g></g></g>' +
+        '<g fill="none" stroke="#fff" stroke-opacity=".38" stroke-width=".6"><ellipse cx="44" cy="38" rx="9" ry="25"/><ellipse cx="44" cy="38" rx="18" ry="25"/><path d="M44 13v50M19 38h50M22 26h44M22 50h44"/></g>' +
+      '</g>' +
+      '<circle cx="44" cy="38" r="25" fill="url(#pteShade)"/>' +
+      '<circle cx="44" cy="38" r="24.6" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width=".8"/>' +
+      /* front half of the orbit, with a paper plane flying round */
+      '<path d="M8.43 48.2A37 11 -16 0 0 79.57 27.8" fill="none" stroke="#F08A24" stroke-width="1" stroke-dasharray="2 2.6"/>' +
+      '<g class="pt-plane"'+(ptNoMotion ? ' transform="translate(47 48.6) rotate(-8)"' : '')+'><path d="M-5-3.2L5.6 0-5 3.2-2.6 0z" fill="#fff" stroke="#E8590C" stroke-width=".9" stroke-linejoin="round"/><path d="M-2.6 0h8" stroke="#E8590C" stroke-width=".6"/>' +
+        (ptNoMotion ? '' : '<animateMotion dur="7s" repeatCount="indefinite" rotate="auto" path="M8.43 48.2A37 11 -16 0 0 79.57 27.8"/><animate attributeName="opacity" dur="7s" repeatCount="indefinite" values="0;1;1;0" keyTimes="0;.12;.86;1"/>') + '</g>' +
+      /* microphone puck */
+      '<g transform="translate(76 52)"><circle r="9" fill="url(#pteMic)"/><circle r="9" fill="none" stroke="#fff" stroke-width="1.6"/>' +
+        '<rect x="-2.2" y="-5.4" width="4.4" height="7" rx="2.2" fill="#fff"/><path d="M-4 0a4 4 0 0 0 8 0M0 4v2.4" fill="none" stroke="#fff" stroke-width="1.2" stroke-linecap="round"/></g>' +
+      /* stopwatch: crown, side button, face, ticks, sweeping hand */
+      '<rect x="121.6" y="35.4" width="4.8" height="4" rx="1" fill="#C9CFDB"/><rect x="120.4" y="33.4" width="7.2" height="3" rx="1.5" fill="#E8590C"/>' +
+      '<path d="M133 41.5l2.2-2.2" stroke="#C9CFDB" stroke-width="2.4" stroke-linecap="round"/>' +
+      '<circle cx="124" cy="52" r="13" fill="url(#pteRing)"/><circle cx="124" cy="52" r="11.2" fill="#fff"/>' +
+      '<path d="M124 52L124 41.6A10.4 10.4 0 0 1 133.9 48.8z" fill="#FFE7CF"/>' +
+      ticks +
+      '<g class="pt-hand"><path d="M124 54.4V43.4" stroke="#E8590C" stroke-width="1.1" stroke-linecap="round"/></g>' +
+      '<circle cx="124" cy="52" r="1.6" fill="#E8590C"/><circle cx="124" cy="52" r=".6" fill="#fff"/>' +
+    '</g></svg>';
+  }
+  /* grammar hub */
+  return S + '<defs>' +
+    '<linearGradient id="ptgB1" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#1E9E62"/><stop offset=".45" stop-color="#3CCB86"/><stop offset="1" stop-color="#178452"/></linearGradient>' +
+    '<linearGradient id="ptgB2" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#0E8A8A"/><stop offset=".45" stop-color="#2CC2BE"/><stop offset="1" stop-color="#0B7272"/></linearGradient>' +
+    '<linearGradient id="ptgB3" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#7DB51F"/><stop offset=".45" stop-color="#A9DC45"/><stop offset="1" stop-color="#6A9A16"/></linearGradient>' +
+    '<linearGradient id="ptgB4" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#2E6A4F"/><stop offset=".45" stop-color="#4C8F6E"/><stop offset="1" stop-color="#24553F"/></linearGradient>' +
+    '<linearGradient id="ptgPage" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#F1F5F2"/></linearGradient>' +
+    '<linearGradient id="ptgRim" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4FD99A"/><stop offset="1" stop-color="#127A4A"/></linearGradient>' +
+    '<radialGradient id="ptgGlass" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset="1" stop-color="#DDF7EA" stop-opacity=".9"/></radialGradient>' +
+  '</defs>' +
+  '<g class="pl-b">' +
+    /* shelf of books: bands, labels and gold foil */
+    '<path d="M4 64h58" stroke="#CFE3D8" stroke-width="2" stroke-linecap="round"/>' +
+    '<rect x="8" y="16" width="11" height="47" rx="2" fill="url(#ptgB1)"/><path d="M8 22h11M8 57h11" stroke="#0F6B3F" stroke-opacity=".5" stroke-width="1.2"/><rect x="10.5" y="30" width="6" height="10" rx="1" fill="#fff" opacity=".85"/><path d="M11.8 33h3.4M11.8 35.4h3.4M11.8 37.6h2" stroke="#1E9E62" stroke-width=".7"/>' +
+    '<rect x="20.5" y="9" width="12" height="54" rx="2" fill="url(#ptgB2)"/><path d="M20.5 15h12M20.5 17.4h12M20.5 55h12M20.5 57.4h12" stroke="#F8D57E" stroke-width=".8"/><circle cx="26.5" cy="35" r="3.2" fill="none" stroke="#F8D57E" stroke-width=".9"/>' +
+    '<rect x="34" y="21" width="10" height="42" rx="2" fill="url(#ptgB3)"/><path d="M34 27h10M34 57h10" stroke="#4E7A0E" stroke-opacity=".5" stroke-width="1.1"/><text x="39" y="45" text-anchor="middle" font-size="6" font-weight="800" fill="#fff" transform="rotate(-90 39 42)">Aa</text>' +
+    '<g transform="rotate(14 52 63)"><rect x="46" y="17" width="10" height="46" rx="2" fill="url(#ptgB4)"/><path d="M46 23h10M46 57h10" stroke="#F8D57E" stroke-width=".8"/><rect x="48.4" y="33" width="5.2" height="8" rx="1" fill="#F8D57E" opacity=".85"/></g>' +
+    spark(140, 10, .8, '#5FE0A0', .3) +
+  '</g>' +
+  '<g class="pl-f">' +
+    /* open book: page block, two curved pages, gutter shading, text lines */
+    '<path d="M64 62c11-3 23-3 36 1 13-4 25-4 36-1v3c-11-3-23-3-36 1-13-4-25-4-36-1z" fill="#D2E6DA"/>' +
+    '<path d="M65 22c11-3 23-2 35 3v36c-12-5-24-6-35-3z" fill="url(#ptgPage)"/>' +
+    '<path d="M135 22c-11-3-23-2-35 3v36c12-5 24-6 35-3z" fill="url(#ptgPage)"/>' +
+    '<path d="M65 22c11-3 23-2 35 3v36c-12-5-24-6-35-3zM135 22c-11-3-23-2-35 3v36c12-5 24-6 35-3z" fill="none" stroke="#C7DDD0" stroke-width=".7"/>' +
+    '<path d="M96 25.5c1.6.6 2.8 1 4 1.5s2.4-.9 4-1.5v35c-1.6.6-2.8 1-4 1.5s-2.4-.9-4-1.5z" fill="#1A9B5C" opacity=".1"/>' +
+    '<g stroke-linecap="round" stroke-width="1.6"><path d="M71 30c7-1.6 14-1.2 22 .8" stroke="#1A9B5C"/><path d="M71 36c7-1.4 14-1 22 .8M71 41.4c7-1.4 14-1 22 .8M71 46.8c5-1 10-.9 15 0" stroke="#D5DED8"/>' +
+    '<path d="M107 31c7-2 14-2.4 22-.8M107 36.6c7-1.8 14-2.2 22-.8M107 42c7-1.8 14-2.2 22-.8M107 47.4c7-1.8 14-2.2 22-.8M107 52.8c5-1.3 10-1.6 14-.8" stroke="#D5DED8"/></g>' +
+    '<rect x="70.5" y="51" width="17" height="6" rx="3" fill="#E1F6EB"/><text x="79" y="55.4" text-anchor="middle" font-size="4.2" font-weight="800" fill="#1A9B5C">have + V3</text>' +
+    /* magnifier: rim, glass with a magnified word, handle with grip */
+    '<g class="pt-lens">' +
+      '<path d="M126.5 30.5l9 9" stroke="#0F5E38" stroke-width="5" stroke-linecap="round"/><path d="M129.8 33.8l4.6 4.6" stroke="#2C9C66" stroke-width="2.2" stroke-linecap="round"/>' +
+      '<circle cx="117" cy="21" r="13" fill="url(#ptgRim)"/><circle cx="117" cy="21" r="10.4" fill="url(#ptgGlass)"/>' +
+      '<text x="117" y="24.6" text-anchor="middle" font-size="10" font-weight="800" fill="#127A4A">-ed</text>' +
+      '<path d="M109.6 16.4a8.6 8.6 0 0 1 6-4.2" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/>' +
+      '<circle cx="117" cy="21" r="10.4" fill="none" stroke="#fff" stroke-opacity=".7" stroke-width=".8"/>' +
+    '</g>' +
+  '</g></svg>';
+}
 function mistakesBannerHTML(){
   const n = mistakeCount();
   return '<div class="flash-banner mist-banner" onclick="openReview()">' +
-    '<div class="flash-banner-icon mist-icon">'+iconHTML('target')+'</div>' +
+    '<div class="flash-banner-icon mist-icon">'+iconHTML('target')+'</div>' + practiceArtSVG('mist', n) +
     '<div class="flash-banner-txt"><div class="flash-banner-title">Review my mistakes</div><div class="flash-banner-sub">'+(n ? 'Fix them one by one' : 'Wrong answers wait here')+'</div></div>' +
     '<div class="mk-art'+(n?'':' clear')+'" aria-hidden="true">' +
       '<span class="mk-sheet back"></span>' +
@@ -13216,7 +13470,7 @@ function renderHomeGrid(){
     '</div>' +
     announcementHTML() +
     liveJoinCardHTML() + homeworkHTML() + exitTicketHTML() +
-    progressPanelHTML() + streakHTML() + badgesStripHTML() +
+    badgesStripHTML() +
     '<div class="section-label">Practice</div>' +
     '<div class="practice-grid">' +
     '<div class="flash-banner fb-word" onclick="startFlashcards()">' +
@@ -13226,7 +13480,7 @@ function renderHomeGrid(){
     '</div>' +
     mistakesBannerHTML() + soundsBannerHTML() + examsBannerHTML() + grammarBannerHTML() + xcolBannerHTML() + '</div>' +
     (generals.length ? ('<div class="section-label">Course<span class="sl-count">'+generals.length+'</span></div><div class="card-list">' + generals.map(function(p,i){ return pageCard(p,i,true); }).join('') + '</div>') : '') +
-    (units.length ? ('<div class="section-label">Units<span class="sl-count">'+units.filter(function(p){ return isUnitDone(p.id); }).length+'/'+units.length+'</span></div><div class="unit-grid">' + units.map(function(p,i){ return unitCard(p,i); }).join('') + '</div>') : '') +
+    (units.length ? ('<div class="section-label">Units<span class="sl-count">'+units.length+'</span></div><div class="unit-grid">' + units.map(function(p,i){ return unitCard(p,i); }).join('') + '</div>') : '') +
     (editMode ? '<button class="btn primary full" onclick="openNewPageModal(null)">+ New page</button>' : '');
 }
 /* a numbered page inside a unit ("1. Vocabulary") reads as a part of that unit */
