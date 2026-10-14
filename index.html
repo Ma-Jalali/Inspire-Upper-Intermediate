@@ -166,6 +166,7 @@
   .mc-glyph{display:none;}
   .pt-art{display:none;}
   .ri{display:none;}
+  .hub-art,.gm-art{display:none;}
   .rd-hl-lab{display:none;}
   html #app .pod-icon, html[data-theme="dark"] #app .flash-banner-icon.pod-icon{background:linear-gradient(140deg,#D58BFF,#A24DF0 55%,#7A2AD0) !important;color:#fff;}
   html:not([data-theme="dark"]) #app .flash-banner-icon.pod-icon.has-ri{background:none !important;}
@@ -7113,7 +7114,7 @@
   /* ================= v113: unit colours from Gold B1, with its gentle light (light) ================= */
   /* the same twelve colour names, in Gold B1's softer tones. They apply only where a colour stands
      for a unit: its home card, its own page, its next and previous cards, its dots and segments. */
-  html:not([data-theme="dark"]) #app :is(.unit-card,.up-card,.fp-unit,.prog-seg,.page-banner.u-hue,.bc-dot.u-hue){
+  html:not([data-theme="dark"]) #app :is(.unit-card,.up-card,.fp-unit,.prog-seg,.page-banner.u-hue,.bc-dot.u-hue,.gh-ico.u-hue){
     --g-crimson:linear-gradient(140deg,#FF6E86 0%,#E4224B 38%,#C11337 68%,#8E0C26 100%);
     --g-gold:linear-gradient(140deg,#F0DCA8 0%,#C9A85C 40%,#A2823F 72%,#7C6E48 100%);
     --g-sage:linear-gradient(140deg,#8FE7BE 0%,#3FB483 45%,#2B8A64 75%,#1F6A4E 100%);
@@ -7145,6 +7146,63 @@
   /* the light on the home unit cards: only what the gradient itself gives, no extra bloom in the corner */
   html:not([data-theme="dark"]) #app .unit-card::before{background:none;}
   html:not([data-theme="dark"]) #app .unit-mesh{background:none !important;}
+  /* ================= v115: detailed tiles and scenes on the inner screens (light) ================= */
+  /* hub headers: a glass tile with a small scene, and a fine line drawing of the subject fading in from the right */
+  html:not([data-theme="dark"]) #app .rv-hero{--hub-c:var(--crimson);}
+  html:not([data-theme="dark"]) #app .rv-hero.hk-grammar,html:not([data-theme="dark"]) #app .rv-hero.hk-colloc{--hub-c:#1FA463;}
+  html:not([data-theme="dark"]) #app .rv-hero.hk-games{--hub-c:#5A50F0;} html:not([data-theme="dark"]) #app .rv-hero.hk-exam{--hub-c:#E07A1F;} html:not([data-theme="dark"]) #app .rv-hero.hk-mistakes{--hub-c:#E0335A;}
+  html:not([data-theme="dark"]) #app .rv-hero.hk-sound,html:not([data-theme="dark"]) #app .rv-hero.hk-dashboard{--hub-c:#2F7BE0;} html:not([data-theme="dark"]) #app .rv-hero.hk-bank{--hub-c:#0E9C99;} html:not([data-theme="dark"]) #app .rv-hero.hk-xcol{--hub-c:#F06A2A;}
+  html:not([data-theme="dark"]) #app .rv-hero .hub-art{display:block;position:absolute;right:-12px;top:50%;width:182px;height:128px;transform:translateY(-50%);z-index:-1;pointer-events:none;color:var(--hub-c);opacity:.20;
+    -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 42%);mask-image:linear-gradient(90deg,transparent 0,#000 42%);}
+  html:not([data-theme="dark"]) #app .rv-hero-txt{position:relative;z-index:1;}
+  html:not([data-theme="dark"]) #app .rv-hero-ico.has-ri{width:66px;height:66px;flex:none;}
+  html:not([data-theme="dark"]) #app .rv-hero::before,html:not([data-theme="dark"]) #app .rv-hero::after{left:33px;}
+  html:not([data-theme="dark"]) #app .rv-hero-ico.has-ri > .ri svg.ricon{filter:drop-shadow(0 10px 14px rgba(20,28,58,0.18)) drop-shadow(0 1px 1.5px rgba(20,28,58,0.12));}
+  html:not([data-theme="dark"]) #app .rv-hero-ico.has-ri .ricon text{font-family:var(--font-display, system-ui), system-ui, sans-serif;}
+  /* game tiles: a picture of the game instead of a glyph */
+  html:not([data-theme="dark"]) #app .gm-card{padding-right:132px;min-height:106px;}
+  html:not([data-theme="dark"]) #app .gm-card .gm-card-art{display:none;}
+  html:not([data-theme="dark"]) #app .gm-card .gm-art{display:block;position:absolute;right:12px;top:50%;width:110px;height:82px;transform:translateY(-50%);pointer-events:none;overflow:visible;transition:transform .5s var(--v-ease, ease);}
+  html:not([data-theme="dark"]) #app .gm-card:active .gm-art{transform:translateY(-50%) scale(1.04);}
+  html:not([data-theme="dark"]) #app .gm-art text{font-family:var(--font-display, system-ui), system-ui, sans-serif;}
+  /* the Word games entry on the Cards tab */
+  html:not([data-theme="dark"]) #app .gm-entry{position:relative;overflow:hidden;isolation:isolate;}
+  html:not([data-theme="dark"]) #app .gm-entry .hub-art{display:block;position:absolute;right:-16px;top:50%;width:152px;height:108px;transform:translateY(-50%) rotate(-6deg);color:#fff;opacity:.24;pointer-events:none;z-index:0;
+    -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 45%);mask-image:linear-gradient(90deg,transparent 0,#000 45%);}
+  html:not([data-theme="dark"]) #app .gm-entry > *{position:relative;z-index:1;}
+  html:not([data-theme="dark"]) #app .gm-entry-ico.has-ri{width:46px;height:46px;}
+  /* stat tiles, settings rows and search results: the same glass tile, smaller */
+  html:not([data-theme="dark"]) #app .mc-stat-ico.has-ri{width:34px;height:34px;margin-bottom:9px;}
+  html:not([data-theme="dark"]) #app .mc-stat-ico.has-ri .mc-glyph{display:none;}
+  html:not([data-theme="dark"]) #app .settings-icon.has-ri{width:32px;height:32px;}
+  html:not([data-theme="dark"]) #app .search-row .icon-chip.small.has-ri{width:32px;height:32px;}
+  html:not([data-theme="dark"]) #app .settings-icon.has-ri > .ri svg.ricon,html:not([data-theme="dark"]) #app .icon-chip.has-ri > .ri svg.ricon,html:not([data-theme="dark"]) #app .mc-stat-ico.has-ri > .ri svg.ricon{filter:drop-shadow(0 2px 3px rgba(20,28,58,0.16)) drop-shadow(0 .5px .5px rgba(20,28,58,0.10));}
+  /* grammar hub rows: the unit number sits on the unit's own colour */
+  html:not([data-theme="dark"]) #app .gh-ico.u-hue{color:#fff;}
+  html:not([data-theme="dark"]) #app .gh-ico.u-hue.g-crimson{background:var(--g-crimson);}
+  html:not([data-theme="dark"]) #app .gh-ico.u-hue.g-gold{background:var(--g-gold);}
+  html:not([data-theme="dark"]) #app .gh-ico.u-hue.g-sage{background:var(--g-sage);}
+  html:not([data-theme="dark"]) #app .gh-ico.u-hue.g-sky{background:var(--g-sky);}
+  html:not([data-theme="dark"]) #app .gh-ico.u-hue.g-plum{background:var(--g-plum);}
+  html:not([data-theme="dark"]) #app .gh-ico.u-hue.g-coral{background:var(--g-coral);}
+  html:not([data-theme="dark"]) #app .gh-ico.u-hue.g-teal{background:var(--g-teal);}
+  html:not([data-theme="dark"]) #app .gh-ico.u-hue.g-rose{background:var(--g-rose);}
+  html:not([data-theme="dark"]) #app .gh-ico.u-hue.g-indigo{background:var(--g-indigo);}
+  html:not([data-theme="dark"]) #app .gh-ico.u-hue.g-olive{background:var(--g-olive);}
+  html:not([data-theme="dark"]) #app .gh-ico.u-hue.g-terracotta{background:var(--g-terracotta);}
+  html:not([data-theme="dark"]) #app .gh-ico.u-hue.g-slate{background:var(--g-slate);}
+  /* the glyph inside a small tile keeps its size whatever the row's icon rule says */
+  html:not([data-theme="dark"]) #app .has-ri > .ri .ricon svg{width:36px;height:36px;}
+  /* badges: a drawn glyph instead of an emoji; grey while locked, gold once earned */
+  html:not([data-theme="dark"]) #app .bd-card .bd-emo{display:none;}
+  html:not([data-theme="dark"]) #app .bd-card .bd-vec{display:flex;align-items:center;justify-content:center;width:100%;height:100%;color:#8C94A8;}
+  html:not([data-theme="dark"]) #app .bd-card .bd-vec svg{width:26px;height:26px;stroke-width:1.7;}
+  html:not([data-theme="dark"]) #app .bd-card:not(.got) .bd-vec{opacity:.55;}
+  html:not([data-theme="dark"]) #app .bd-card.got .bd-vec{color:#9A5A00;filter:drop-shadow(0 1px 0 rgba(255,255,255,0.7));}
+  /* unit page: the "On this page" row and the part rows carry the same tiles */
+  html:not([data-theme="dark"]) #app .toc-ico.has-ri{width:32px;height:32px;}
+  html:not([data-theme="dark"]) #app .part-row .pr-icon.has-ri{width:54px;height:54px;}
+  html:not([data-theme="dark"]) #app .part-row .pr-icon.has-ri > .ri svg.ricon{filter:drop-shadow(0 6px 9px rgba(20,28,58,0.22)) drop-shadow(0 1px 1.5px rgba(20,28,58,0.12));}
 </style>
 </head>
 <body>
@@ -7874,7 +7932,7 @@ function restorePointsHTML(){
   let h = '<div class="settings-card">' +
     '<div class="settings-row stacked">' +
       '<div style="display:flex;align-items:center;justify-content:space-between;gap:10px;">' +
-        '<div class="settings-row-left"><div class="settings-icon g-teal">'+iconHTML('calendar')+'</div><div>Restore points</div></div>' +
+        '<div class="settings-row-left"><div class="settings-icon has-ri g-teal"><span class="ri">'+richTileSVG('g-teal','calendar')+'</span>'+iconHTML('calendar')+'</div><div>Restore points</div></div>' +
         '<button class="btn mini" onclick="makeRestorePoint()">Save one now</button>' +
       '</div>' +
       '<div class="hint">Copies of this hub kept in this browser, so you can go back if an edit goes wrong. One is taken automatically at most every few minutes while you edit. They live on this device only.</div>' +
@@ -7968,8 +8026,8 @@ function renderReview(){
     reviewGroups[gid].block.questions.push(it.q);
   });
   let h = '<button class="search-back" onclick="switchTab(\'home\')">\u2190 Back</button>' +
-    '<div class="rv-hero">' +
-      '<span class="rv-hero-ico">'+iconHTML('target')+'</span>' +
+    '<div class="rv-hero hk-mistakes">'+hubArtSVG('mistakes')+
+      '<span class="rv-hero-ico has-ri"><span class="ri">'+hubIconSVG('mistakes')+'</span>'+iconHTML('target')+'</span>' +
       '<div class="rv-hero-txt"><div class="eyebrow">Practice</div><div class="big-title serif">My mistakes</div>' +
       '<div class="rv-hero-sub">'+(list.length ? list.length+' question'+(list.length===1?'':'s')+' to try again. Get one right and it leaves the list.' : 'Questions you get wrong in any quiz will appear here.')+'</div></div>' +
     '</div>';
@@ -8117,7 +8175,7 @@ function buildPageToc(){
   host.classList.toggle('collapsed', tocCollapsed);
   host.innerHTML =
     '<button class="toc-head" onclick="toggleTocCard()" aria-expanded="'+(!tocCollapsed)+'">' +
-      '<span class="toc-ico">'+TOC_ICON+'</span>' +
+      '<span class="toc-ico has-ri"><span class="ri">'+richTileSVG(String(pageHueClass||'g-crimson').split(' ')[0], 'checklist')+'</span>'+TOC_ICON+'</span>' +
       '<span class="toc-label">On this page</span>' +
       '<span class="toc-count">'+found.length+'</span>' +
       '<span class="toc-chev" aria-hidden="true">'+ARROW_SVG+'</span>' +
@@ -8857,9 +8915,9 @@ function renderCards(){
     '<div class="big-title serif" style="margin-bottom:14px;">Flash Cards</div>';
   const boxes = [0,0,0,0,0]; myCards.forEach(function(c){ boxes[Math.max(0, Math.min(4, c.box||0))]++; });
   html += '<div class="mc-stats v73">' +
-    '<div class="mc-stat"><span class="mc-stat-ico" style="background:var(--g-indigo)"><span class="mc-emo">\uD83D\uDDC2\uFE0F</span><i class="mc-glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="8.5" width="16" height="11.5" rx="3"/><path d="M6.5 5.5h11M9 2.75h6"/></svg></i></span><div class="mc-stat-num">'+total+'</div><div class="mc-stat-lab">card'+(total===1?'':'s')+'</div></div>' +
-    '<div class="mc-stat'+(due?' hot':'')+'"><span class="mc-stat-ico" style="background:var(--g-crimson)"><span class="mc-emo">\u23F0</span><i class="mc-glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="7.5"/><path d="M12 9.5V13l2.5 1.8M4.5 5.5l2.5-2M19.5 5.5l-2.5-2"/></svg></i></span><div class="mc-stat-num">'+due+'</div><div class="mc-stat-lab">due now</div></div>' +
-    '<div class="mc-stat"><span class="mc-stat-ico" style="background:var(--g-sage)"><span class="mc-emo">\u2B50</span><i class="mc-glyph"><svg viewBox="0 0 24 24"><path d="M12 3.6l2.5 5.2 5.7.8-4.1 4 1 5.6L12 16.5l-5.1 2.7 1-5.6-4.1-4 5.7-.8z" fill="currentColor"/></svg></i></span><div class="mc-stat-num">'+boxes[4]+'</div><div class="mc-stat-lab">mastered</div></div>' +
+    '<div class="mc-stat"><span class="mc-stat-ico has-ri" style="background:var(--g-indigo)"><span class="ri">'+hubIconSVG('box')+'</span><span class="mc-emo">\uD83D\uDDC2\uFE0F</span><i class="mc-glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="8.5" width="16" height="11.5" rx="3"/><path d="M6.5 5.5h11M9 2.75h6"/></svg></i></span><div class="mc-stat-num">'+total+'</div><div class="mc-stat-lab">card'+(total===1?'':'s')+'</div></div>' +
+    '<div class="mc-stat'+(due?' hot':'')+'"><span class="mc-stat-ico has-ri" style="background:var(--g-crimson)"><span class="ri">'+hubIconSVG('clock')+'</span><span class="mc-emo">\u23F0</span><i class="mc-glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="7.5"/><path d="M12 9.5V13l2.5 1.8M4.5 5.5l2.5-2M19.5 5.5l-2.5-2"/></svg></i></span><div class="mc-stat-num">'+due+'</div><div class="mc-stat-lab">due now</div></div>' +
+    '<div class="mc-stat"><span class="mc-stat-ico has-ri" style="background:var(--g-sage)"><span class="ri">'+hubIconSVG('star')+'</span><span class="mc-emo">\u2B50</span><i class="mc-glyph"><svg viewBox="0 0 24 24"><path d="M12 3.6l2.5 5.2 5.7.8-4.1 4 1 5.6L12 16.5l-5.1 2.7 1-5.6-4.1-4 5.7-.8z" fill="currentColor"/></svg></i></span><div class="mc-stat-num">'+boxes[4]+'</div><div class="mc-stat-lab">mastered</div></div>' +
   '</div>';
   if(total){
     const cols = ['#A8B1C5','#8FD3FF','#3D90F0','#8A5BFF','#1FA463'];
@@ -10684,7 +10742,7 @@ function renderSounds(){
         '<button class="snd-cta full" onclick="sndNext()">'+(snd.i >= snd.q.length-1 ? 'See my score' : 'Next')+'</button>' : '');
   }
   let h = '<button class="search-back" onclick="switchTab(\'home\')">\u2190 Back</button>' +
-    '<div class="rv-hero"><span class="rv-hero-ico snd-hero-ico">'+spk+'</span><div class="rv-hero-txt"><div class="eyebrow">Pronunciation</div><div class="big-title serif">Sound practice</div>' +
+    '<div class="rv-hero hk-sound">'+hubArtSVG('sound')+'<span class="rv-hero-ico snd-hero-ico has-ri"><span class="ri">'+hubIconSVG('sound')+'</span>'+spk+'</span><div class="rv-hero-txt"><div class="eyebrow">Pronunciation</div><div class="big-title serif">Sound practice</div>' +
     '<div class="rv-hero-sub">Train your ears and your mouth: sounds that are easy to mix up, and word stress.</div></div></div>' +
     '<button class="st-card" onclick="stressStart()"><span class="st-card-art" aria-hidden="true"><i>pho</i><i class="on">TO</i><i>gra</i><i>phy</i></span><span class="st-card-t"><b>Word stress</b><span>Hear a word, tap the strong part'+(soundBest['stress']!==undefined ? ' \u00B7 best '+soundBest['stress']+'%' : '')+'</span></span><span class="gm-entry-go">\u203A</span></button>' +
     '<div class="eyebrow" style="margin:14px 4px 8px">Sound pairs</div>' +
@@ -11369,7 +11427,7 @@ function renderExams(){
     return h;
   }
   let h = '<button class="search-back" onclick="switchTab(\'home\')">\u2190 Back</button>' +
-    '<div class="rv-hero"><span class="rv-hero-ico exam-hero-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3.5 12h17M12 3.5c2.4 2.4 3.4 5.4 3.4 8.5s-1 6.1-3.4 8.5c-2.4-2.4-3.4-5.4-3.4-8.5s1-6.1 3.4-8.5z" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></span>' +
+    '<div class="rv-hero hk-exam">'+hubArtSVG('exam')+'<span class="rv-hero-ico exam-hero-ico has-ri"><span class="ri">'+hubIconSVG('exam')+'</span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3.5 12h17M12 3.5c2.4 2.4 3.4 5.4 3.4 8.5s-1 6.1-3.4 8.5c-2.4-2.4-3.4-5.4-3.4-8.5s1-6.1 3.4-8.5z" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></span>' +
     '<div class="rv-hero-txt"><div class="eyebrow">International Exams</div><div class="big-title serif">'+escapeHtml(EXAMS.filter(function(e){ return e.id===examId; })[0].title)+'</div><div class="rv-hero-sub">Practise with real exam timing. Record yourself, then listen back.</div></div></div>' +
     (EXAMS.length > 1 ? '<div class="ex-exams">' + EXAMS.map(function(e){ return '<button class="'+(e.id===examId?'on':'')+'" onclick="examId=\''+e.id+'\';exPart=EXAMS.filter(function(x){return x.id===\''+e.id+'\';})[0].parts[0].n;render()">'+escapeHtml(e.name)+'</button>'; }).join('') + '</div>' : '') +
     (examId==='pte'
@@ -11559,7 +11617,7 @@ function renderGames(){
   const back = '<button class="search-back" onclick="'+(gm && gm.mode ? 'gmMenu()' : 'switchTab(\'cards\')')+'">\u2190 '+(gm && gm.mode ? 'All games' : 'Cards')+'</button>';
   if(!gm) gm = {mode:null, src:'mine'};
   if(gm.mode === 'search' && gm.searchLoading){
-    return back + '<div class="rv-hero"><span class="rv-hero-ico gm-hero-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 16l4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>' +
+    return back + '<div class="rv-hero hk-colloc">'+hubArtSVG('colloc')+'<span class="rv-hero-ico gm-hero-ico has-ri"><span class="ri">'+hubIconSVG('colloc')+'</span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 16l4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>' +
       '<div class="rv-hero-txt"><div class="eyebrow">Word search</div><div class="big-title serif">Collocation search</div><div class="rv-hero-sub">Loading collocations…</div></div></div>';
   }
   if(gm.mode && gm.finished){
@@ -11623,21 +11681,21 @@ function renderGames(){
   }
   /* menu */
   const units = []; for(let u=1;u<=10;u++) units.push(u);
-  let h = back + '<div class="rv-hero"><span class="rv-hero-ico gm-hero-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="11" rx="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 10.5v4M6 12.5h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="15.5" cy="11.5" r="1.2" fill="currentColor"/><circle cx="17.5" cy="13.8" r="1.2" fill="currentColor"/></svg></span>' +
+  let h = back + '<div class="rv-hero hk-games">'+hubArtSVG('games')+'<span class="rv-hero-ico gm-hero-ico has-ri"><span class="ri">'+hubIconSVG('games')+'</span><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="11" rx="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 10.5v4M6 12.5h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="15.5" cy="11.5" r="1.2" fill="currentColor"/><circle cx="17.5" cy="13.8" r="1.2" fill="currentColor"/></svg></span>' +
     '<div class="rv-hero-txt"><div class="eyebrow">Practice</div><div class="big-title serif">Word games</div><div class="rv-hero-sub">Three quick games to make new words stick.</div></div></div>' +
     '<div class="gm-src-label">Words from</div><div class="gm-src">' +
       '<button class="'+(gm.src==='mine'?'on':'')+(myCards.length<4?' off':'')+'" onclick="'+(myCards.length>=4 ? 'gmSetSrc(\'mine\')' : 'showMiniToast(\'Save at least 4 cards first\')')+'">My cards'+(myCards.length ? ' ('+myCards.length+')' : '')+'</button>' +
       units.map(function(u){ return '<button class="'+(gm.src===String(u)?'on':'')+'" onclick="gmSetSrc(\''+u+'\')">Unit '+u+'</button>'; }).join('') +
     '</div><div class="gm-menu">' +
-      '<button class="gm-card g-plum" onclick="gmStart(\'match\')"><span class="gm-card-art ma"><i></i><i></i><i></i><i></i></span><b>Match</b><span>Pair each word with its meaning. Beat the clock.</span></button>' +
-      '<button class="gm-card g-teal" onclick="gmStart(\'spell\')"><span class="gm-card-art sp">Aa</span><b>Spelling</b><span>Hear a word and type it correctly.</span></button>' +
-      '<button class="gm-card g-indigo" onclick="gmStart(\'test\')"><span class="gm-card-art qt">A B<br>C D</span><b>Quick test</b><span>10 questions. Choose the right meaning.</span></button>' +
-      '<button class="gm-card g-sage" onclick="gmStartSearch()"><span class="gm-card-art cs"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6" fill="none" stroke="currentColor" stroke-width="2"/><path d="M19 19l-4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span><b>Collocation search</b><span>Find hidden collocations in a letter grid.</span></button>' +
+      '<button class="gm-card g-plum" onclick="gmStart(\'match\')"><span class="gm-card-art ma"><i></i><i></i><i></i><i></i></span>'+gmArtSVG('match')+'<b>Match</b><span>Pair each word with its meaning. Beat the clock.</span></button>' +
+      '<button class="gm-card g-teal" onclick="gmStart(\'spell\')"><span class="gm-card-art sp">Aa</span>'+gmArtSVG('spell')+'<b>Spelling</b><span>Hear a word and type it correctly.</span></button>' +
+      '<button class="gm-card g-indigo" onclick="gmStart(\'test\')"><span class="gm-card-art qt">A B<br>C D</span>'+gmArtSVG('test')+'<b>Quick test</b><span>10 questions. Choose the right meaning.</span></button>' +
+      '<button class="gm-card g-sage" onclick="gmStartSearch()"><span class="gm-card-art cs"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6" fill="none" stroke="currentColor" stroke-width="2"/><path d="M19 19l-4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>'+gmArtSVG('search')+'<b>Collocation search</b><span>Find hidden collocations in a letter grid.</span></button>' +
     '</div>';
   return h;
 }
 function gamesEntryHTML(){
-  return '<button class="gm-entry" onclick="openGames()"><span class="gm-entry-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="11" rx="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 10.5v4M6 12.5h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="15.5" cy="11.5" r="1.2" fill="currentColor"/><circle cx="17.5" cy="13.8" r="1.2" fill="currentColor"/></svg></span>' +
+  return '<button class="gm-entry" onclick="openGames()">'+hubArtSVG('games')+'<span class="gm-entry-ico has-ri"><span class="ri">'+hubIconSVG('games')+'</span><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="11" rx="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 10.5v4M6 12.5h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="15.5" cy="11.5" r="1.2" fill="currentColor"/><circle cx="17.5" cy="13.8" r="1.2" fill="currentColor"/></svg></span>' +
     '<span class="gm-entry-txt"><b>Word games</b><span>Match \u00B7 Spelling \u00B7 Quick test</span></span><span class="gm-entry-go">\u203A</span></button>';
 }
 
@@ -11676,7 +11734,7 @@ function grammarListHTML(){
     let snip = '';
     if(q){ const k = t.text.toLowerCase().indexOf(q); if(k !== -1){ const a = Math.max(0, k-40); snip = (a?'\u2026':'')+escapeHtml(t.text.slice(a, k))+'<mark>'+escapeHtml(t.text.slice(k, k+q.length))+'</mark>'+escapeHtml(t.text.slice(k+q.length, k+q.length+60))+'\u2026'; } }
     h += '<button class="gh-item" style="--d:'+(Math.min(i,12)*0.03).toFixed(2)+'s" onclick="'+(t.id ? 'openFromSearchBlock(\''+t.page.id+'\',\''+t.id+'\')' : 'openFromSearch(\''+t.page.id+'\')')+'">' +
-      '<span class="gh-ico">'+escapeHtml(t.unit)+'</span><span class="gh-body"><b>'+escapeHtml(t.title)+'</b>' +
+      '<span class="gh-ico u-hue '+(unitPages()[t.unit-1] ? pageColorClass(unitPages()[t.unit-1], t.unit-1) : 'g-sage')+'">'+escapeHtml(t.unit)+'</span><span class="gh-body"><b>'+escapeHtml(t.title)+'</b>' +
       (snip ? '<span class="gh-snip">'+snip+'</span>' : '<span class="gh-meta">'+(t.quizzes ? t.quizzes+' practice quiz'+(t.quizzes===1?'':'zes') : 'Lesson')+'</span>') + '</span><span class="gh-go">\u203A</span></button>';
   });
   return h;
@@ -11685,7 +11743,7 @@ function renderGrammarHub(){
   if(gDiag) return renderGrammarDiag();
   const n = grammarTopics().length;
   return '<button class="search-back" onclick="switchTab(\'home\')">\u2190 Back</button>' +
-    '<div class="rv-hero"><span class="rv-hero-ico gh-hero-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4.5h10.5a3 3 0 0 1 3 3v12H8a3 3 0 0 1-3-3z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M5 16.5a3 3 0 0 1 3-3h10.5M9 8.5h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>' +
+    '<div class="rv-hero hk-grammar">'+hubArtSVG('grammar')+'<span class="rv-hero-ico gh-hero-ico has-ri"><span class="ri">'+hubIconSVG('grammar')+'</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4.5h10.5a3 3 0 0 1 3 3v12H8a3 3 0 0 1-3-3z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M5 16.5a3 3 0 0 1 3-3h10.5M9 8.5h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>' +
     '<div class="rv-hero-txt"><div class="eyebrow">Reference</div><div class="big-title serif">Grammar hub</div><div class="rv-hero-sub">'+n+' grammar lesson'+(n===1?'':'s')+' from every unit, in one place.</div></div></div>' +
     '<button class="gh-diag-cta" onclick="openGrammarDiag()"><span class="gh-diag-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/></svg></span><span class="gh-diag-txt"><b>Grammar diagnostic test</b><span>Find out which topics to review</span></span><span class="gh-go">\u203a</span></button>' +
     '<div class="gh-search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 16l4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>' +
@@ -11798,21 +11856,21 @@ function setStudentName(v){ deviceSet('exit-name', String(v||'').trim().slice(0,
 function bumpCount(kind){ const c = deviceGet('counts', {}); c[kind] = (c[kind]||0) + 1; deviceSet('counts', c); }
 function bestStreak(){ const n = streakDays(); const b = deviceGet('best-streak', 0); if(n > b){ deviceSet('best-streak', n); return n; } return b; }
 const BADGES = [
-  {id:'first-quiz', icon:'\uD83C\uDF31', name:'First steps', how:'Finish your first quiz', ok:function(s){ return s.c.quiz >= 1; }},
-  {id:'quiz-10', icon:'\uD83E\uDDE0', name:'Quiz fan', how:'Finish 10 quizzes', ok:function(s){ return s.c.quiz >= 10; }},
-  {id:'perfect', icon:'\uD83D\uDCAF', name:'Perfect score', how:'Get every answer right in a quiz', ok:function(s){ return s.perfect; }},
-  {id:'streak-3', icon:'\uD83D\uDD25', name:'On fire', how:'Keep a 3-day streak', ok:function(s){ return s.best >= 3; }},
-  {id:'streak-7', icon:'\u2B50', name:'One full week', how:'Keep a 7-day streak', ok:function(s){ return s.best >= 7; }},
-  {id:'streak-30', icon:'\uD83C\uDFC6', name:'Unstoppable', how:'Keep a 30-day streak', ok:function(s){ return s.best >= 30; }},
-  {id:'cards-10', icon:'\uD83D\uDDC2\uFE0F', name:'Word collector', how:'Save 10 words to your Cards', ok:function(s){ return s.cards >= 10; }},
-  {id:'review-5', icon:'\uD83D\uDD01', name:'Memory builder', how:'Review your Cards 5 times', ok:function(s){ return s.c.cards >= 5; }},
-  {id:'fixed-10', icon:'\uD83D\uDCAA', name:'Comeback', how:'Fix 10 of your mistakes', ok:function(s){ return s.c.fixed >= 10; }},
-  {id:'ears', icon:'\uD83D\uDC42', name:'Sharp ears', how:'Score 80% or more in Sound practice', ok:function(s){ return s.sound >= 80; }},
-  {id:'ielts-5', icon:'\uD83C\uDFA4', name:'Exam ready', how:'Do 5 IELTS Speaking practices', ok:function(s){ return s.c.ielts >= 5; }},
-  {id:'games-5', icon:'\uD83C\uDFAE', name:'Game on', how:'Finish 5 word games', ok:function(s){ return s.c.game >= 5; }},
-  {id:'unit', icon:'\uD83C\uDF93', name:'Unit complete', how:'Mark a unit as done', ok:function(s){ return s.units >= 1; }},
-  {id:'live', icon:'\uD83D\uDE80', name:'Team player', how:'Play a live class quiz', ok:function(s){ return s.c.live >= 1; }},
-  {id:'reader', icon:'\uD83D\uDCD6', name:'Bookworm', how:'Open 3 extra readings', ok:function(s){ return s.c.read >= 3; }}
+  {id:'first-quiz', vec:'leaf', icon:'\uD83C\uDF31', name:'First steps', how:'Finish your first quiz', ok:function(s){ return s.c.quiz >= 1; }},
+  {id:'quiz-10', vec:'bulb', icon:'\uD83E\uDDE0', name:'Quiz fan', how:'Finish 10 quizzes', ok:function(s){ return s.c.quiz >= 10; }},
+  {id:'perfect', vec:'star', icon:'\uD83D\uDCAF', name:'Perfect score', how:'Get every answer right in a quiz', ok:function(s){ return s.perfect; }},
+  {id:'streak-3', vec:'fire', icon:'\uD83D\uDD25', name:'On fire', how:'Keep a 3-day streak', ok:function(s){ return s.best >= 3; }},
+  {id:'streak-7', vec:'sun', icon:'\u2B50', name:'One full week', how:'Keep a 7-day streak', ok:function(s){ return s.best >= 7; }},
+  {id:'streak-30', vec:'trophy', icon:'\uD83C\uDFC6', name:'Unstoppable', how:'Keep a 30-day streak', ok:function(s){ return s.best >= 30; }},
+  {id:'cards-10', vec:'cards', icon:'\uD83D\uDDC2\uFE0F', name:'Word collector', how:'Save 10 words to your Cards', ok:function(s){ return s.cards >= 10; }},
+  {id:'review-5', vec:'grid', icon:'\uD83D\uDD01', name:'Memory builder', how:'Review your Cards 5 times', ok:function(s){ return s.c.cards >= 5; }},
+  {id:'fixed-10', vec:'thumbsup', icon:'\uD83D\uDCAA', name:'Comeback', how:'Fix 10 of your mistakes', ok:function(s){ return s.c.fixed >= 10; }},
+  {id:'ears', vec:'ear', icon:'\uD83D\uDC42', name:'Sharp ears', how:'Score 80% or more in Sound practice', ok:function(s){ return s.sound >= 80; }},
+  {id:'ielts-5', vec:'mic', icon:'\uD83C\uDFA4', name:'Exam ready', how:'Do 5 IELTS Speaking practices', ok:function(s){ return s.c.ielts >= 5; }},
+  {id:'games-5', vec:'puzzle', icon:'\uD83C\uDFAE', name:'Game on', how:'Finish 5 word games', ok:function(s){ return s.c.game >= 5; }},
+  {id:'unit', vec:'cap', icon:'\uD83C\uDF93', name:'Unit complete', how:'Mark a unit as done', ok:function(s){ return s.units >= 1; }},
+  {id:'live', vec:'rocket', icon:'\uD83D\uDE80', name:'Team player', how:'Play a live class quiz', ok:function(s){ return s.c.live >= 1; }},
+  {id:'reader', vec:'book', icon:'\uD83D\uDCD6', name:'Bookworm', how:'Open 3 extra readings', ok:function(s){ return s.c.read >= 3; }}
 ];
 function badgeStats(){
   const c = deviceGet('counts', {});
@@ -11859,7 +11917,7 @@ function renderBadges(){
     '<div class="bd-hero"><div class="bd-hero-num">'+n+'<small>/'+BADGES.length+'</small></div><div class="bd-hero-t">badges earned</div>' +
     '<div class="bd-bar"><i style="width:'+Math.round(n/BADGES.length*100)+'%"></i></div></div><div class="bd-grid">';
   BADGES.forEach(function(b, i){
-    h += '<div class="bd-card'+(got[b.id]?' got':'')+'" style="--d:'+(i*0.03).toFixed(2)+'s"><span class="bd-medal big"><span class="bd-emo">'+b.icon+'</span>'+(got[b.id] ? '' : '<i class="bd-pin" aria-label="Locked"><svg viewBox="0 0 24 24"><rect x="5.5" y="10.5" width="13" height="10" rx="2.6" fill="currentColor"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></i>')+'</span><b>'+escapeHtml(b.name)+'</b><span>'+escapeHtml(b.how)+'</span></div>';
+    h += '<div class="bd-card'+(got[b.id]?' got':'')+'" style="--d:'+(i*0.03).toFixed(2)+'s"><span class="bd-medal big"><span class="bd-emo">'+b.icon+'</span><i class="bd-vec">'+iconHTML(b.vec||'star')+'</i>'+(got[b.id] ? '' : '<i class="bd-pin" aria-label="Locked"><svg viewBox="0 0 24 24"><rect x="5.5" y="10.5" width="13" height="10" rx="2.6" fill="currentColor"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></i>')+'</span><b>'+escapeHtml(b.name)+'</b><span>'+escapeHtml(b.how)+'</span></div>';
   });
   return h + '</div>';
 }
@@ -11916,7 +11974,7 @@ function assignmentsHTML(rows){
 }
 function renderDashboard(){
   let h = '<button class="search-back" onclick="switchTab(\'home\')">\u2190 Back</button>' +
-    '<div class="rv-hero"><span class="rv-hero-ico db-hero-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5h16M7 16v-5M12 16V6M17 16v-8" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></span>' +
+    '<div class="rv-hero hk-dashboard">'+hubArtSVG('dashboard')+'<span class="rv-hero-ico db-hero-ico has-ri"><span class="ri">'+hubIconSVG('dashboard')+'</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5h16M7 16v-5M12 16V6M17 16v-8" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></span>' +
     '<div class="rv-hero-txt"><div class="eyebrow">Teacher</div><div class="big-title serif">Class progress</div><div class="rv-hero-sub">Students appear here after they add their name and practise.</div></div></div>';
   if(!dash || dash.loading) return h + '<div class="ws-loading"><i></i><i></i><i></i></div>';
   if(dash.error) return h + '<div class="hw-empty">Could not load. Check your internet and try again.</div><button class="snd-cta full" onclick="loadDashboard()">Try again</button>';
@@ -13299,6 +13357,189 @@ function richIconSVG(kind){
   }
   return '<svg class="ricon" viewBox="0 0 64 64" aria-hidden="true" focusable="false">' + defs + base + g + '</svg>';
 }
+/* v115: detailed glass tiles and line-art scenes for the inner screens (light appearance only; hidden in dark).
+   richTileSVG draws any app icon on a 64 x 64 continuous-corner glass tile in a colour family;
+   hubArtSVG is the fine line-art scene behind a hub header; gmArtSVG is the picture on a game tile. */
+const RTILE_PAL = {   /* the app's own colour families */
+  'g-crimson':['#FF9A8F','#F0574C','#9E2620'], 'g-gold':['#7FE6EE','#00C9D6','#04737E'],  'g-sage':['#A8F5C8','#31C87E','#137A48'],
+  'g-sky':['#A6D8FF','#3D90F0','#17509C'],     'g-plum':['#EEB9FA','#B44FD8','#6D2390'],  'g-coral':['#FFB4C6','#F4527C','#A32148'],
+  'g-teal':['#93F6EC','#1CBFB0','#0A736A'],    'g-rose':['#FFC2E4','#F0589F','#9F2A61'],  'g-indigo':['#B9C4FF','#5063EE','#2833A0'],
+  'g-olive':['#DCF7A0','#A6D93C','#547F1D'],   'g-terracotta':['#FFD09B','#F09030','#9C540E'], 'g-slate':['#C3CEE4','#6A7BA0','#3A4763']
+};
+const RTILE_PAL_UNIT = {   /* the units' Gold B1 tones, as on the home cards */
+  'g-crimson':['#FF6E86','#E4224B','#8E0C26'], 'g-gold':['#F0DCA8','#C9A85C','#7C6E48'],  'g-sage':['#8FE7BE','#3FB483','#1F6A4E'],
+  'g-sky':['#9DD3FC','#4488D6','#234F92'],     'g-plum':['#DFBCF6','#9A6CD2','#613A92'],  'g-coral':['#FFBE98','#EE7B46','#A8481D'],
+  'g-teal':['#9AF1EB','#33ABA2','#1B6F69'],    'g-rose':['#FFC5DA','#EE6691','#A83A5D'],  'g-indigo':['#C3CDF9','#6379DE','#3A489E'],
+  'g-olive':['#E0E8AC','#96A655','#5D682E'],   'g-terracotta':['#F5C6A4','#CB6C44','#8A4122'], 'g-slate':['#CBD5DE','#6E8098','#455468']
+};
+function riTile(id, pal, g, extraDefs){
+  const tile = 'M0 19.5C0 4.4 4.4 0 19.5 0h25C59.6 0 64 4.4 64 19.5v25C64 59.6 59.6 64 44.5 64h-25C4.4 64 0 59.6 0 44.5z';
+  const defs = '<defs>' +
+    '<linearGradient id="'+id+'Bg" x1="0" y1="0" x2=".55" y2="1"><stop offset="0" stop-color="'+pal[0]+'"/><stop offset=".55" stop-color="'+pal[1]+'"/><stop offset="1" stop-color="'+pal[2]+'"/></linearGradient>' +
+    '<radialGradient id="'+id+'Sh" cx=".3" cy="0" r="1"><stop offset="0" stop-color="#fff" stop-opacity=".42"/><stop offset=".55" stop-color="#fff" stop-opacity="0"/></radialGradient>' +
+    '<linearGradient id="'+id+'Gl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#EEF1F8"/></linearGradient>' +
+    '<filter id="'+id+'Ds" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy="1.6" stdDeviation="1.6" flood-color="#0B1230" flood-opacity=".26"/></filter>' +
+    (extraDefs||'') + '</defs>';
+  const base = '<path d="'+tile+'" fill="url(#'+id+'Bg)"/><path d="'+tile+'" fill="url(#'+id+'Sh)"/>' +
+    '<path d="'+tile+'" fill="none" stroke="#fff" stroke-opacity=".32" stroke-width="1.2" transform="translate(.6 .6) scale(.98125)"/>';
+  return '<svg class="ricon" viewBox="0 0 64 64" aria-hidden="true" focusable="false">' + defs + base + g + '</svg>';
+}
+/* any app icon, white with a soft shadow, on a tile of the given colour family */
+function richTileSVG(fam, icon, unit){
+  const pal = (unit ? RTILE_PAL_UNIT : RTILE_PAL)[fam] || RTILE_PAL['g-slate'];
+  const id = 'rt' + (unit?'u':'') + fam.replace(/[^a-z]/g,'') + icon.replace(/[^a-z]/g,'');
+  let inner = (ICONS[icon] || ICONS.page).replace(/^<svg[^>]*>/, '').replace(/<\/svg>$/, '');
+  const g = '<g filter="url(#'+id+'Ds)" color="#fff"><svg x="14" y="14" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" overflow="visible">' + inner + '</svg></g>';
+  return riTile(id, pal, g);
+}
+/* the hub tiles: a small scene each, in the home-page icon style */
+function hubIconSVG(kind){
+  const P = {
+    grammar:['#8CE8B0','#31C87E','#1B8A55'], games:['#B9A8FF','#6A5BFF','#3B2FC0'], exam:['#FFD09B','#F09030','#B8561A'],
+    mistakes:['#FFA0A8','#F0506A','#C02A4A'], sound:['#8FD3FF','#3D90F0','#2459C8'], bank:['#5EE6D6','#16B8B0','#0B8A93'],
+    colloc:['#8CE8B0','#31C87E','#1B8A55'], dashboard:['#8FD3FF','#3D90F0','#2459C8'], box:['#A9B6FF','#5A6CF0','#3444C4'],
+    clock:['#FF8A7A','#F0453C','#C9252B'], star:['#8CE8B0','#31C87E','#1B8A55']
+  };
+  const pal = P[kind]; if(!pal) return '';
+  const id = 'rh' + kind;
+  const F = ' filter="url(#'+id+'Ds)"', GL = 'url(#'+id+'Gl)';
+  let g = '';
+  if(kind === 'grammar'){
+    g = '<g'+F+'><path d="M12 18c6-2.6 12-2.6 18 0v27c-6-2.6-12-2.6-18 0z" fill="'+GL+'"/><path d="M52 18c-6-2.6-12-2.6-18 0v27c6-2.6 12-2.6 18 0z" fill="'+GL+'"/></g>' +
+      '<path d="M32 19v26" stroke="#CFE3D8" stroke-width="1.2"/>' +
+      '<g stroke="#2FA56C" stroke-width="2" stroke-linecap="round"><path d="M16 25h9M16 30h9M16 35h6"/><path d="M39 25h9M39 30h9"/></g>' +
+      '<g'+F+' transform="rotate(32 46 40)"><rect x="43" y="26" width="6" height="22" rx="2" fill="#FFC53D"/><path d="M43 48l3 6 3-6z" fill="#F4D9B6"/><rect x="43" y="26" width="6" height="4" rx="1.5" fill="#E8655A"/></g>' +
+      '<g'+F+'><circle cx="21" cy="46" r="6.5" fill="#fff"/><path d="M17.8 46l2.3 2.3 4.1-4.6" fill="none" stroke="#1FA463" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></g>';
+  }else if(kind === 'games'){
+    g = '<g'+F+'><path d="M18 22h28a10 10 0 0 1 10 10l1.5 9.5a5.5 5.5 0 0 1-10 3.2L44 40H20l-3.5 4.7a5.5 5.5 0 0 1-10-3.2L8 32a10 10 0 0 1 10-10z" fill="'+GL+'"/></g>' +
+      '<path d="M20 27.5v9M15.5 32h9" stroke="#6A5BFF" stroke-width="3" stroke-linecap="round"/>' +
+      '<circle cx="42" cy="29" r="2.6" fill="#F0453C"/><circle cx="48" cy="33" r="2.6" fill="#2FA56C"/><circle cx="42" cy="37" r="2.6" fill="#3B8BF5"/><circle cx="36" cy="33" r="2.6" fill="#FFC53D"/>' +
+      '<rect x="28" y="31" width="4" height="2" rx="1" fill="#C9CFF0"/><rect x="32.5" y="31" width="4" height="2" rx="1" fill="#C9CFF0"/>' +
+      '<path d="M50.5 13l1 2.6 2.6 1-2.6 1-1 2.6-1-2.6-2.6-1 2.6-1z" fill="#fff" fill-opacity=".9"/><path d="M13 50l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7z" fill="#fff" fill-opacity=".8"/>';
+  }else if(kind === 'exam'){
+    g = '<path d="M32 44v8M24 52h16" stroke="#fff" stroke-opacity=".7" stroke-width="2.6" stroke-linecap="round"/>' +
+      '<g'+F+'><rect x="25" y="10" width="14" height="25" rx="7" fill="'+GL+'"/></g>' +
+      '<g stroke="#F09030" stroke-width="1.4" stroke-linecap="round" stroke-opacity=".55"><path d="M28.5 17h7M28.5 21h7M28.5 25h7"/></g>' +
+      '<path d="M20 28a12 12 0 0 0 24 0" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/>' +
+      '<g fill="none" stroke="#fff" stroke-linecap="round" stroke-width="2"><path d="M47 20a9 9 0 0 1 0 12" stroke-opacity=".9"/><path d="M51.5 16a15 15 0 0 1 0 20" stroke-opacity=".5"/><path d="M17 20a9 9 0 0 0 0 12" stroke-opacity=".9"/><path d="M12.5 16a15 15 0 0 0 0 20" stroke-opacity=".5"/></g>';
+  }else if(kind === 'mistakes'){
+    g = '<g'+F+'><circle cx="30" cy="34" r="19" fill="'+GL+'"/></g>' +
+      '<circle cx="30" cy="34" r="13" fill="none" stroke="#F0506A" stroke-width="3.4"/><circle cx="30" cy="34" r="6.5" fill="none" stroke="#F0506A" stroke-width="3.4"/><circle cx="30" cy="34" r="1.8" fill="#C02A4A"/>' +
+      '<g'+F+'><path d="M30 34L50 14" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/><path d="M50 14l-9 .8M50 14l-.8 9" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>' +
+      '<path d="M44.5 11.5l4 1 1 4-7 2z" fill="#FFC53D"/></g>';
+  }else if(kind === 'sound'){
+    g = '<g'+F+'><path d="M11 25h8l10-8v30l-10-8h-8a2 2 0 0 1-2-2V27a2 2 0 0 1 2-2z" fill="'+GL+'"/></g>' +
+      '<g fill="none" stroke="#fff" stroke-linecap="round" stroke-width="2.6"><path d="M36 26a8.5 8.5 0 0 1 0 12"/><path d="M41 21a15 15 0 0 1 0 22" stroke-opacity=".75"/><path d="M46 16a21.5 21.5 0 0 1 0 32" stroke-opacity=".45"/></g>' +
+      '<g stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-opacity=".9"><path d="M14 50v4M19 48v6M24 51v3"/></g>';
+  }else if(kind === 'bank'){
+    g = '<g'+F+'><rect x="15" y="22" width="30" height="30" rx="5" transform="rotate(-8 30 37)" fill="#fff" fill-opacity=".42"/><rect x="19" y="18" width="30" height="30" rx="5" transform="rotate(-3 34 33)" fill="#fff" fill-opacity=".7"/>' +
+      '<rect x="23" y="14" width="30" height="30" rx="5" fill="'+GL+'"/></g>' +
+      '<text x="38" y="36" text-anchor="middle" font-size="19" font-weight="800" fill="#16B8B0" font-family="var(--font-display, system-ui), system-ui, sans-serif">?</text>' +
+      '<rect x="27" y="39" width="12" height="2" rx="1" fill="#BFEDE8"/><rect x="41" y="39" width="7" height="2" rx="1" fill="#BFEDE8"/>';
+  }else if(kind === 'colloc'){
+    const cells = []; const L = ['T','A','K','E','M','O','R','E','W','I','N','D','P','A','R','T'];
+    for(let i=0;i<16;i++){ const x = 12 + (i%4)*9, y = 14 + Math.floor(i/4)*9; const hot = (i===0||i===1||i===2||i===3);
+      cells.push('<rect x="'+x+'" y="'+y+'" width="8" height="8" rx="2" fill="#fff" fill-opacity="'+(hot?'.95':'.42')+'"/><text x="'+(x+4)+'" y="'+(y+6.2)+'" text-anchor="middle" font-size="5.6" font-weight="800" fill="'+(hot?'#1B8A55':'#fff')+'" font-family="var(--font-display, system-ui), system-ui, sans-serif">'+L[i]+'</text>'); }
+    g = cells.join('') + '<g'+F+'><circle cx="42" cy="42" r="9.5" fill="none" stroke="#fff" stroke-width="3.4"/><path d="M49 49l6.5 6.5" stroke="#fff" stroke-width="3.6" stroke-linecap="round"/></g>';
+  }else if(kind === 'dashboard'){
+    g = '<g'+F+'><rect x="14" y="34" width="8" height="18" rx="2.5" fill="#fff" fill-opacity=".55"/><rect x="25" y="24" width="8" height="28" rx="2.5" fill="#fff" fill-opacity=".8"/><rect x="36" y="16" width="8" height="36" rx="2.5" fill="'+GL+'"/><rect x="47" y="28" width="8" height="24" rx="2.5" fill="#fff" fill-opacity=".65"/></g>' +
+      '<path d="M18 30l11-8 11-8 11 10" fill="none" stroke="#FFC53D" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="40" cy="14" r="3" fill="#FFC53D"/>';
+  }else if(kind === 'box'){
+    g = '<g'+F+'><rect x="13" y="26" width="38" height="26" rx="4" fill="'+GL+'"/><rect x="10" y="17" width="44" height="12" rx="3.5" fill="#fff"/></g>' +
+      '<rect x="26" y="33" width="12" height="4" rx="2" fill="#5A6CF0"/><path d="M20 10h24M24 5h16" stroke="#fff" stroke-opacity=".8" stroke-width="2.2" stroke-linecap="round"/>';
+  }else if(kind === 'clock'){
+    g = '<g'+F+'><circle cx="32" cy="35" r="18" fill="'+GL+'"/></g><circle cx="32" cy="35" r="14" fill="none" stroke="#F8D9D5" stroke-width="1.4"/>' +
+      '<path d="M32 24.5v10.5l7 4.5" fill="none" stroke="#D4382F" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="32" cy="35" r="2" fill="#D4382F"/>' +
+      '<path d="M15 16l6-5M49 16l-6-5" stroke="#fff" stroke-width="3" stroke-linecap="round"/>';
+  }else if(kind === 'star'){
+    g = '<g'+F+'><path d="M32 11l6.4 13 14.3 2-10.4 10.1 2.5 14.2L32 43.6l-12.8 6.7 2.5-14.2L11.3 26l14.3-2z" fill="'+GL+'"/></g>' +
+      '<path d="M32 19l4 8.2 9 1.3-6.5 6.3 1.5 8.9L32 39.5l-8 4.2 1.5-8.9-6.5-6.3 9-1.3z" fill="#31C87E" fill-opacity=".9"/>';
+  }
+  return riTile(id, pal, g);
+}
+/* fine line-art scene behind a hub header; stroke colour comes from CSS */
+function hubArtSVG(kind){
+  const S = ' fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"';
+  const sp = function(x,y,s){ return '<path d="M'+x+' '+(y-s)+'l'+(s*.3)+' '+(s*.7)+' '+(s*.7)+' '+(s*.3)+'-'+(s*.7)+' '+(s*.3)+'-'+(s*.3)+' '+(s*.7)+'-'+(s*.3)+'-'+(s*.7)+'-'+(s*.7)+'-'+(s*.3)+' '+(s*.7)+'-'+(s*.3)+'z" fill="currentColor" stroke="none" opacity=".9"/>'; };
+  let g = '';
+  if(kind === 'grammar'){
+    g = '<path d="M38 36c18-7 36-7 54 0v58c-18-7-36-7-54 0z" stroke-width="1.6"/><path d="M146 36c-18-7-36-7-54 0v58c18-7 36-7 54 0z" stroke-width="1.6"/><path d="M92 36v58" stroke-width="1" opacity=".5"/>' +
+      '<g stroke-width="1.3" opacity=".7"><path d="M48 50h30M48 60h30M48 70h20M106 50h30M106 60h30M106 70h24"/></g>' +
+      '<g transform="rotate(35 128 80)" stroke-width="1.5"><rect x="124" y="56" width="9" height="36" rx="3"/><path d="M124 92l4.5 9 4.5-9"/><path d="M124 62h9"/></g>' + sp(32,24,5) + sp(154,100,4);
+  }else if(kind === 'games'){
+    g = '<path d="M52 44h54a19 19 0 0 1 19 19l3 20a10 10 0 0 1-18 6l-7-9H55l-7 9a10 10 0 0 1-18-6l3-20a19 19 0 0 1 19-19z" stroke-width="1.6"/>' +
+      '<path d="M60 56v16M52 64h16" stroke-width="2"/><circle cx="104" cy="58" r="4" stroke-width="1.5"/><circle cx="114" cy="66" r="4" stroke-width="1.5"/><circle cx="104" cy="74" r="4" stroke-width="1.5"/><circle cx="94" cy="66" r="4" stroke-width="1.5"/>' +
+      '<rect x="74" y="63" width="7" height="3" rx="1.5" stroke-width="1.2"/><rect x="84" y="63" width="7" height="3" rx="1.5" stroke-width="1.2"/>' + sp(136,30,6) + sp(26,96,4) + sp(150,98,3);
+  }else if(kind === 'exam'){
+    g = '<rect x="78" y="22" width="26" height="46" rx="13" stroke-width="1.6"/><path d="M68 54a23 23 0 0 0 46 0M91 78v14M78 92h26" stroke-width="1.6"/>' +
+      '<g stroke-width="1.4" opacity=".7"><path d="M84 36h14M84 44h14M84 52h14"/></g>' +
+      '<g stroke-width="1.5"><path d="M118 42a17 17 0 0 1 0 24"/><path d="M128 34a28 28 0 0 1 0 40" opacity=".6"/><path d="M64 42a17 17 0 0 0 0 24"/><path d="M54 34a28 28 0 0 0 0 40" opacity=".6"/></g>' +
+      '<circle cx="146" cy="82" r="9" stroke-width="1.4"/><path d="M146 76v6l4 2" stroke-width="1.4"/>' + sp(40,28,5);
+  }else if(kind === 'mistakes'){
+    g = '<circle cx="80" cy="64" r="36" stroke-width="1.6"/><circle cx="80" cy="64" r="25" stroke-width="1.4"/><circle cx="80" cy="64" r="14" stroke-width="1.4"/><circle cx="80" cy="64" r="3" fill="currentColor" stroke="none"/>' +
+      '<path d="M80 64l48-44M128 20l-14 1.5M128 20l-1.5 14" stroke-width="1.8"/><path d="M118 15l8 2 2 8-14 4z" fill="currentColor" stroke="none" opacity=".8"/>' + sp(34,24,5) + sp(144,92,4);
+  }else if(kind === 'sound'){
+    g = '<path d="M34 50h16l20-16v56L50 74H34a4 4 0 0 1-4-4V54a4 4 0 0 1 4-4z" stroke-width="1.6"/>' +
+      '<g stroke-width="1.6"><path d="M86 52a16 16 0 0 1 0 24"/><path d="M96 42a30 30 0 0 1 0 44" opacity=".75"/><path d="M106 32a44 44 0 0 1 0 64" opacity=".5"/></g>' +
+      '<g stroke-width="2" opacity=".8"><path d="M126 58v12M134 50v28M142 56v16M150 60v8"/></g>' + sp(30,30,5);
+  }else if(kind === 'bank'){
+    g = '<rect x="46" y="44" width="60" height="56" rx="8" transform="rotate(-8 76 72)" stroke-width="1.3" opacity=".5"/><rect x="56" y="36" width="60" height="56" rx="8" transform="rotate(-3 86 64)" stroke-width="1.4" opacity=".75"/><rect x="66" y="28" width="60" height="56" rx="8" stroke-width="1.6"/>' +
+      '<path d="M88 50c0-6 4-9 8-9s8 3 8 8c0 6-8 6-8 12M96 70v2" stroke-width="2"/><path d="M76 72h10M76 78h20" stroke-width="1.3" opacity=".6"/>' + sp(40,26,5) + sp(144,100,4);
+  }else if(kind === 'colloc'){
+    let cells = ''; for(let r=0;r<4;r++) for(let c=0;c<5;c++){ const hot = r===1 && c<4; cells += '<rect x="'+(46+c*16)+'" y="'+(28+r*16)+'" width="13" height="13" rx="3" stroke-width="'+(hot?'1.8':'1.1')+'" opacity="'+(hot?'1':'.55')+'"/>'; }
+    g = cells + '<path d="M46 50h61" stroke-width="2" opacity=".6"/><circle cx="126" cy="82" r="14" stroke-width="1.8"/><path d="M136 92l12 12" stroke-width="2.2"/>' + sp(32,22,5);
+  }else if(kind === 'xcol'){
+    g = '<rect x="36" y="34" width="54" height="20" rx="10" stroke-width="1.6"/><rect x="96" y="34" width="40" height="20" rx="10" stroke-width="1.6"/><path d="M90 44h6" stroke-width="2"/>' +
+      '<rect x="48" y="62" width="40" height="20" rx="10" stroke-width="1.4" opacity=".7"/><rect x="94" y="62" width="56" height="20" rx="10" stroke-width="1.4" opacity=".7"/><path d="M88 72h6" stroke-width="2" opacity=".7"/>' +
+      '<g stroke-width="1.5" opacity=".8"><path d="M46 44h30M106 44h20M58 72h20M104 72h36"/></g>' + sp(40,22,5) + sp(150,100,4);
+  }else if(kind === 'dashboard'){
+    g = '<path d="M34 100h118" stroke-width="1.6"/><rect x="44" y="64" width="16" height="36" rx="4" stroke-width="1.5"/><rect x="70" y="46" width="16" height="54" rx="4" stroke-width="1.5"/><rect x="96" y="30" width="16" height="70" rx="4" stroke-width="1.5"/><rect x="122" y="54" width="16" height="46" rx="4" stroke-width="1.5"/>' +
+      '<path d="M52 56l26-18 26-14 26 20" stroke-width="1.6" opacity=".8"/>' + sp(40,22,5);
+  }
+  return '<svg class="hub-art" viewBox="0 0 170 120" aria-hidden="true" focusable="false"><g'+S+'>' + g + '</g></svg>';
+}
+/* the picture on each game tile: white glass shapes with a little colour */
+function gmArtSVG(kind){
+  const id = 'ga' + kind;
+  const defs = '<defs><linearGradient id="'+id+'g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#EEF1F8"/></linearGradient>' +
+    '<filter id="'+id+'d" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#0B1230" flood-opacity=".28"/></filter></defs>';
+  const F = ' filter="url(#'+id+'d)"', GL = 'url(#'+id+'g)';
+  const FD = 'font-family="var(--font-display, system-ui), system-ui, sans-serif"';
+  let g = '';
+  if(kind === 'match'){
+    g = '<g'+F+'><rect x="10" y="14" width="34" height="24" rx="7" fill="#fff" fill-opacity=".45"/><rect x="56" y="36" width="34" height="24" rx="7" fill="#fff" fill-opacity=".45"/>' +
+      '<rect x="14" y="30" width="36" height="25" rx="7" fill="'+GL+'"/><rect x="52" y="12" width="36" height="25" rx="7" fill="'+GL+'"/></g>' +
+      '<rect x="21" y="39" width="18" height="3" rx="1.5" fill="#A24DF0"/><rect x="21" y="45" width="11" height="2.4" rx="1.2" fill="#D9C8FB"/>' +
+      '<rect x="59" y="21" width="20" height="3" rx="1.5" fill="#A24DF0"/><rect x="59" y="27" width="13" height="2.4" rx="1.2" fill="#D9C8FB"/>' +
+      '<path d="M50 42C58 42 62 25 70 25" fill="none" stroke="#fff" stroke-width="2.2" stroke-dasharray="3 3.5" stroke-linecap="round"/>' +
+      '<g'+F+'><circle cx="48" cy="62" r="8" fill="#2FD07A"/><path d="M44 62l3 3 5-6" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></g>';
+  }else if(kind === 'spell'){
+    const key = function(x,y,ch,on){ return '<g'+F+'><rect x="'+x+'" y="'+y+'" width="24" height="24" rx="6" fill="'+(on?'#1CBFB0':GL)+'"/></g><text x="'+(x+12)+'" y="'+(y+16.5)+'" text-anchor="middle" font-size="13" font-weight="800" fill="'+(on?'#fff':'#0E8F8A')+'" '+FD+'>'+ch+'</text>'; };
+    g = key(8,34,'a',false) + key(36,34,'p',true) + key(64,34,'p',false) + key(22,8,'A',false) + key(50,8,'Z',false) +
+      '<g'+F+' transform="translate(76 6)"><path d="M2 7h4l5-4v14l-5-4H2z" fill="#fff"/><path d="M14 6a5 5 0 0 1 0 8M17.5 3a9.5 9.5 0 0 1 0 14" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></g>' +
+      '<path d="M16 66h60" stroke="#fff" stroke-opacity=".6" stroke-width="2" stroke-linecap="round" stroke-dasharray="10 6"/>';
+  }else if(kind === 'test'){
+    const row = function(y,ch,on){ return '<g'+F+'><rect x="12" y="'+y+'" width="76" height="13" rx="6.5" fill="'+(on?'#fff':'#fff')+'" fill-opacity="'+(on?'1':'.55')+'"/></g>' +
+      '<circle cx="21" cy="'+(y+6.5)+'" r="4.3" fill="'+(on?'#2FD07A':'#5063EE')+'"/>' + (on ? '<path d="M19 '+(y+6.5)+'l1.6 1.6 2.6-3" fill="none" stroke="#fff" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>' : '<text x="21" y="'+(y+8.6)+'" text-anchor="middle" font-size="6" font-weight="800" fill="#fff" '+FD+'>'+ch+'</text>') +
+      '<rect x="30" y="'+(y+4.5)+'" width="'+(on?44:34)+'" height="4" rx="2" fill="'+(on?'#5063EE':'#B9C4FF')+'"/>'; };
+    g = row(6,'A',false) + row(23,'B',true) + row(40,'C',false) + row(57,'D',false);
+  }else if(kind === 'search'){
+    const L = ['M','A','K','E','U','P','R','O','F','I','T','S','T','I','M','E'];
+    let cells = ''; for(let i=0;i<16;i++){ const x = 10 + (i%4)*17, y = 6 + Math.floor(i/4)*17; const hot = i<4;
+      cells += '<rect x="'+x+'" y="'+y+'" width="15" height="15" rx="4" fill="#fff" fill-opacity="'+(hot?'1':'.42')+'"/><text x="'+(x+7.5)+'" y="'+(y+11)+'" text-anchor="middle" font-size="9" font-weight="800" fill="'+(hot?'#1FA463':'#fff')+'" '+FD+'>'+L[i]+'</text>'; }
+    g = '<g'+F+'>'+cells+'</g>' + '<rect x="8" y="4" width="70" height="19" rx="9.5" fill="none" stroke="#FFD66B" stroke-width="2.2"/>' +
+      '<g'+F+'><circle cx="80" cy="56" r="11" fill="none" stroke="#fff" stroke-width="3.4"/><path d="M88 64l7 7" stroke="#fff" stroke-width="3.8" stroke-linecap="round"/></g>';
+  }
+  return '<svg class="gm-art" viewBox="0 0 96 72" aria-hidden="true" focusable="false">' + defs + g + '</svg>';
+}
+/* the colour family of any page, the way the breadcrumb and banner compute it */
+function isUnitTop(id){ const p = findPage(state.pages, id); const loc = p && findPageParentLoc(state.pages, id); return !!(p && loc && loc.arr===state.pages && p.section==='units'); }
+function pageHue(id){
+  const p = findPage(state.pages, id); if(!p) return 'g-slate';
+  const loc = findPageParentLoc(state.pages, id);
+  const idx = (loc && loc.arr===state.pages) ? sectionIndexOf(p) : (loc ? loc.idx : undefined);
+  return pageColorClass(p, idx);
+}
 function pageCard(p, i, neutral){
   const cls = pageColorClass(p, i);
   const hasCover = p.cover && p.cover.trim();
@@ -13824,7 +14065,7 @@ function partRow(c, i){
     delOverlay(c) +
     '<span class="pr-light" aria-hidden="true"></span>' +
     '<span class="pr-mark" aria-hidden="true">'+iconHTML(c.icon)+'</span>' +
-    '<span class="pr-icon">'+iconHTML(c.icon)+'</span>' +
+    '<span class="pr-icon has-ri"><span class="ri">'+richTileSVG(cls, c.icon)+'</span>'+iconHTML(c.icon)+'</span>' +
     '<span class="pr-body"><span class="pr-title">'+escapeHtml(c.title)+'</span>' +
       ((locked||hid) ? '<span class="pr-meta"><span class="pr-pill">'+iconHTML('lock')+(locked ? 'Opens soon' : 'Hidden from students')+'</span></span>' : '') + '</span>' +
     '<span class="pr-go'+(!locked && partDone(c) ? ' done' : '')+'">'+(locked ? iconHTML('lock') : (partDone(c) ? '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>' : go))+'</span>' +
@@ -14351,7 +14592,7 @@ function renderSearch(){
     if(q) h += '<div class="section-label">Pages</div>';
     h += pageResults.map(function(r,i){
       return '<div class="search-row" style="--d:'+(i*0.035).toFixed(3)+'s" onclick="openFromSearch(\''+r.id+'\')">' +
-        '<span class="icon-chip small">'+iconHTML(r.icon)+'</span>' +
+        '<span class="icon-chip small has-ri"><span class="ri">'+richTileSVG(pageHue(r.id), r.icon, isUnitTop(r.id))+'</span>'+iconHTML(r.icon)+'</span>' +
         '<div><div class="search-title">'+hiTerm(r.title, q)+'</div>' +
         '<div class="search-path">'+(escapeHtml(r.trail.join(' \u203a '))||'Home')+'</div></div></div>';
     }).join('');
@@ -14361,7 +14602,7 @@ function renderSearch(){
     h += contentResults.map(function(c,i){
       const p = c.page, e = c.entry;
       return '<div class="search-row" style="--d:'+(i*0.035).toFixed(3)+'s" onclick="openFromSearchBlock(\''+p.id+'\',\''+e.blockId+'\')">' +
-        '<span class="icon-chip small">'+iconHTML(p.icon)+'</span>' +
+        '<span class="icon-chip small has-ri"><span class="ri">'+richTileSVG(pageHue(p.id), p.icon, isUnitTop(p.id))+'</span>'+iconHTML(p.icon)+'</span>' +
         '<div style="min-width:0;"><div class="search-title">'+hiTerm(p.title, q)+'<span class="search-badge">'+blockTypeLabel(e.btype)+'</span></div>' +
         '<div class="search-snip">'+searchSnippet(e.text, q)+'</div></div></div>';
     }).join('');
@@ -14415,35 +14656,35 @@ function renderSettings(){
     '<div class="eyebrow" style="margin-bottom:4px;">Configure</div>' +
     '<div class="big-title serif" style="margin-bottom:16px;">Settings</div>' +
     '<div class="settings-card">' +
-      '<div class="settings-row"><div class="settings-row-left"><div class="settings-icon g-sky">'+iconHTML('person')+'</div><div>Your name<div class="settings-hint">So your teacher can see your progress</div></div></div><input class="set-name" maxlength="40" placeholder="Name" value="'+escapeAttr(studentName())+'" onchange="setStudentName(this.value);showMiniToast(\'Saved\')"/></div>' +
-      '<div class="settings-row"><div class="settings-row-left"><div class="settings-icon g-crimson">'+iconHTML('pencil')+'</div><div>Editing mode</div></div><div class="switch '+(editMode?'on':'')+'" onclick="setEditMode('+(!editMode)+')"><div class="knob"></div></div></div>' +
-      (teacherView && !editMode ? '<div class="settings-row"><div class="settings-row-left"><div class="settings-icon g-slate">'+iconHTML('lock')+'</div><div>Teacher view<div class="settings-hint">You can see hidden pages on this device</div></div></div><button class="chip-btn" onclick="exitTeacherView()">Close</button></div>' : '') +
-      '<div class="settings-row"><div class="settings-row-left"><div class="settings-icon g-slate">'+iconHTML('moon')+'</div><div>Dark mode</div></div><div class="switch '+(darkMode?'on':'')+'" onclick="toggleDark()"><div class="knob"></div></div></div>' +
-      '<div class="settings-row"><div class="settings-row-left"><div class="settings-icon g-coral">'+iconHTML('bell')+'</div><div>Haptic feedback<div class="settings-hint">A tiny tap you can feel on supported phones</div></div></div><div class="switch '+(hapticsOn?'on':'')+'" onclick="setHaptics('+(!hapticsOn)+')"><div class="knob"></div></div></div>' +
-      '<div class="settings-row"><div class="settings-row-left"><div class="settings-icon g-teal">'+iconHTML('headphones')+'</div><div>Sounds<div class="settings-hint">Soft sounds for ticks, quiz results and finishing a unit. Follows your silent switch</div></div></div><div class="switch '+(soundsOn?'on':'')+'" onclick="setSounds('+(!soundsOn)+')"><div class="knob"></div></div></div>' +
-      '<div class="settings-row stacked"><div class="settings-row-left"><div class="settings-icon g-plum">'+iconHTML('star')+'</div><div>Accent colour</div></div>' +
+      '<div class="settings-row"><div class="settings-row-left"><div class="settings-icon has-ri g-sky"><span class="ri">'+richTileSVG('g-sky','person')+'</span>'+iconHTML('person')+'</div><div>Your name<div class="settings-hint">So your teacher can see your progress</div></div></div><input class="set-name" maxlength="40" placeholder="Name" value="'+escapeAttr(studentName())+'" onchange="setStudentName(this.value);showMiniToast(\'Saved\')"/></div>' +
+      '<div class="settings-row"><div class="settings-row-left"><div class="settings-icon has-ri g-crimson"><span class="ri">'+richTileSVG('g-crimson','pencil')+'</span>'+iconHTML('pencil')+'</div><div>Editing mode</div></div><div class="switch '+(editMode?'on':'')+'" onclick="setEditMode('+(!editMode)+')"><div class="knob"></div></div></div>' +
+      (teacherView && !editMode ? '<div class="settings-row"><div class="settings-row-left"><div class="settings-icon has-ri g-slate"><span class="ri">'+richTileSVG('g-slate','lock')+'</span>'+iconHTML('lock')+'</div><div>Teacher view<div class="settings-hint">You can see hidden pages on this device</div></div></div><button class="chip-btn" onclick="exitTeacherView()">Close</button></div>' : '') +
+      '<div class="settings-row"><div class="settings-row-left"><div class="settings-icon has-ri g-slate"><span class="ri">'+richTileSVG('g-slate','moon')+'</span>'+iconHTML('moon')+'</div><div>Dark mode</div></div><div class="switch '+(darkMode?'on':'')+'" onclick="toggleDark()"><div class="knob"></div></div></div>' +
+      '<div class="settings-row"><div class="settings-row-left"><div class="settings-icon has-ri g-coral"><span class="ri">'+richTileSVG('g-coral','bell')+'</span>'+iconHTML('bell')+'</div><div>Haptic feedback<div class="settings-hint">A tiny tap you can feel on supported phones</div></div></div><div class="switch '+(hapticsOn?'on':'')+'" onclick="setHaptics('+(!hapticsOn)+')"><div class="knob"></div></div></div>' +
+      '<div class="settings-row"><div class="settings-row-left"><div class="settings-icon has-ri g-teal"><span class="ri">'+richTileSVG('g-teal','headphones')+'</span>'+iconHTML('headphones')+'</div><div>Sounds<div class="settings-hint">Soft sounds for ticks, quiz results and finishing a unit. Follows your silent switch</div></div></div><div class="switch '+(soundsOn?'on':'')+'" onclick="setSounds('+(!soundsOn)+')"><div class="knob"></div></div></div>' +
+      '<div class="settings-row stacked"><div class="settings-row-left"><div class="settings-icon has-ri g-plum"><span class="ri">'+richTileSVG('g-plum','star')+'</span>'+iconHTML('star')+'</div><div>Accent colour</div></div>' +
         '<div class="accent-row">' + ACCENTS.map(function(a){
           return '<button class="accent-opt'+(accent===a[0]?' on':'')+'" onclick="setAccent(\''+a[0]+'\')">' +
             '<span class="accent-dot a-'+a[0]+'"></span><span class="accent-name">'+a[1]+'</span></button>';
         }).join('') + '</div>' +
       '</div>' +
-      '<div class="settings-row stacked"><div class="settings-row-left"><div class="settings-icon g-teal">'+iconHTML('document')+'</div><div>Heading font</div></div>' +
+      '<div class="settings-row stacked"><div class="settings-row-left"><div class="settings-icon has-ri g-teal"><span class="ri">'+richTileSVG('g-teal','document')+'</span>'+iconHTML('document')+'</div><div>Heading font</div></div>' +
         '<div class="hfont-row">' + HEAD_FONTS.map(function(f){
           return '<button class="hfont-opt'+(headFont===f[0]?' on':'')+'" onclick="setHeadFont(\''+f[0]+'\')" style="--hf:'+f[2]+'">' +
             '<span class="hfont-sample">Aa</span><span class="hfont-name">'+f[1]+'</span></button>';
         }).join('') + '</div>' +
         '<div class="settings-note">Only titles and headings change. The reading text stays the same.</div>' +
       '</div>' +
-      '<div class="settings-row"><div class="settings-row-left"><div class="settings-icon g-sky">'+iconHTML('smile')+'</div><div>Text size</div></div>' +
+      '<div class="settings-row"><div class="settings-row-left"><div class="settings-icon has-ri g-sky"><span class="ri">'+richTileSVG('g-sky','smile')+'</span>'+iconHTML('smile')+'</div><div>Text size</div></div>' +
         '<div class="seg-row"><button class="seg-btn compact '+(textSize!=='large'?'picked':'')+'" onclick="setTextSize(\'normal\')">Normal</button><button class="seg-btn compact '+(textSize==='large'?'picked':'')+'" onclick="setTextSize(\'large\')">Large</button></div>' +
       '</div>' +
-      '<div class="settings-row stacked"><div class="settings-row-left"><div class="settings-icon g-sage">'+iconHTML('book')+'</div><div>Reading font<div class="settings-hint">Wider letter and line spacing, which many readers with dyslexia find easier</div></div></div>' +
+      '<div class="settings-row stacked"><div class="settings-row-left"><div class="settings-icon has-ri g-sage"><span class="ri">'+richTileSVG('g-sage','book')+'</span>'+iconHTML('book')+'</div><div>Reading font<div class="settings-hint">Wider letter and line spacing, which many readers with dyslexia find easier</div></div></div>' +
         '<div class="seg-row"><button class="seg-btn compact '+(readFont!=='easy'?'picked':'')+'" onclick="setReadFont(\'standard\')">Standard</button><button class="seg-btn compact '+(readFont==='easy'?'picked':'')+'" onclick="setReadFont(\'easy\')">Easy-read</button></div>' +
       '</div>' +
-      '<div class="settings-row stacked"><div style="display:flex;align-items:center;justify-content:space-between;gap:10px;"><div class="settings-row-left"><div class="settings-icon g-gold">'+iconHTML('book')+'</div><div>Daily word</div></div><div class="switch '+(wotdOn?'on':'')+'" onclick="toggleWotd()"><div class="knob"></div></div></div><div class="hint">A useful new word each day, with its meaning and examples.</div></div>' +
-      '<div class="settings-row stacked"><div style="display:flex;align-items:center;justify-content:space-between;gap:10px;"><div class="settings-row-left"><div class="settings-icon g-olive">'+iconHTML('check')+'</div><div>My progress on this device</div></div><button class="btn mini" onclick="clearTaskProgress()">Clear ticks</button></div><div class="hint">Tick boxes and quiz scores are kept in this browser, so each student keeps their own.</div></div>' +
-      '<div class="settings-row stacked"><div style="display:flex;align-items:center;justify-content:space-between;gap:10px;"><div class="settings-row-left"><div class="settings-icon g-crimson">'+iconHTML('chat')+'</div><div>Daily quote</div></div><div class="switch '+(qotdOn?'on':'')+'" onclick="toggleQotd()"><div class="knob"></div></div></div><div class="hint">A short, encouraging quote each day.</div></div>' +
-      '<div class="settings-row stacked"><div style="display:flex;align-items:center;justify-content:space-between;gap:10px;"><div class="settings-row-left"><div class="settings-icon g-plum">'+iconHTML('bell')+'</div><div>Study reminders</div></div><div class="switch '+(reminderPrefs.on?'on':'')+'" onclick="toggleStudyReminders()"><div class="knob"></div></div></div>' +
+      '<div class="settings-row stacked"><div style="display:flex;align-items:center;justify-content:space-between;gap:10px;"><div class="settings-row-left"><div class="settings-icon has-ri g-gold"><span class="ri">'+richTileSVG('g-gold','book')+'</span>'+iconHTML('book')+'</div><div>Daily word</div></div><div class="switch '+(wotdOn?'on':'')+'" onclick="toggleWotd()"><div class="knob"></div></div></div><div class="hint">A useful new word each day, with its meaning and examples.</div></div>' +
+      '<div class="settings-row stacked"><div style="display:flex;align-items:center;justify-content:space-between;gap:10px;"><div class="settings-row-left"><div class="settings-icon has-ri g-olive"><span class="ri">'+richTileSVG('g-olive','check')+'</span>'+iconHTML('check')+'</div><div>My progress on this device</div></div><button class="btn mini" onclick="clearTaskProgress()">Clear ticks</button></div><div class="hint">Tick boxes and quiz scores are kept in this browser, so each student keeps their own.</div></div>' +
+      '<div class="settings-row stacked"><div style="display:flex;align-items:center;justify-content:space-between;gap:10px;"><div class="settings-row-left"><div class="settings-icon has-ri g-crimson"><span class="ri">'+richTileSVG('g-crimson','chat')+'</span>'+iconHTML('chat')+'</div><div>Daily quote</div></div><div class="switch '+(qotdOn?'on':'')+'" onclick="toggleQotd()"><div class="knob"></div></div></div><div class="hint">A short, encouraging quote each day.</div></div>' +
+      '<div class="settings-row stacked"><div style="display:flex;align-items:center;justify-content:space-between;gap:10px;"><div class="settings-row-left"><div class="settings-icon has-ri g-plum"><span class="ri">'+richTileSVG('g-plum','bell')+'</span>'+iconHTML('bell')+'</div><div>Study reminders</div></div><div class="switch '+(reminderPrefs.on?'on':'')+'" onclick="toggleStudyReminders()"><div class="knob"></div></div></div>' +
         (reminderPrefs.on
           ? ('<div class="hint">We’ll nudge you at <input type="time" class="rem-time" value="'+escapeAttr(reminderPrefs.time)+'" onchange="setReminderTime(this.value)"/> on days you haven’t studied yet.'+(typeof Notification!=='undefined' && Notification.permission==='denied' ? ' Notifications are blocked in your browser, so you’ll see this as a reminder inside the app instead.' : '')+'</div>')
           : '<div class="hint">Get a gentle nudge on days you haven’t studied yet, at a time you choose.</div>') +
@@ -14453,15 +14694,15 @@ function renderSettings(){
     if(!state.pin){
       html += '<div class="settings-card" style="border:1.5px solid #C24545;">' +
         '<div class="settings-row" style="border-bottom:1px solid var(--line);"><div style="font-size:13px;line-height:1.55;color:#C24545;font-weight:600;">⚠️ No Teacher PIN is set. Anyone with this link can currently turn on Editing mode and change everything below, including your backups.</div></div>' +
-        '<div class="settings-row"><div class="settings-row-left"><div class="settings-icon g-crimson">'+iconHTML('lock')+'</div><div>Protect this hub</div></div><button class="btn primary mini" onclick="openPinSetModal()">Set a PIN now</button></div>' +
+        '<div class="settings-row"><div class="settings-row-left"><div class="settings-icon has-ri g-crimson"><span class="ri">'+richTileSVG('g-crimson','lock')+'</span>'+iconHTML('lock')+'</div><div>Protect this hub</div></div><button class="btn primary mini" onclick="openPinSetModal()">Set a PIN now</button></div>' +
       '</div>';
     }
     html += restorePointsHTML();
     html += '<div class="settings-card">' +
-      '<div class="settings-row"><div class="settings-row-left"><div class="settings-icon g-sage">'+iconHTML('flag')+'</div><div>Workspace name</div></div><input class="settings-input" type="text" value="'+escapeAttr(state.title)+'" onblur="onWorkspaceTitleInput(this.value)"/></div>' +
-      '<div class="settings-row"><div class="settings-row-left"><div class="settings-icon g-crimson">'+iconHTML('person')+'</div><div>Byline on Home</div></div><input class="settings-input" type="text" value="'+escapeAttr(state.byline)+'" onblur="onBylineInput(this.value)"/></div>' +
-      '<div class="settings-row stacked"><div class="settings-row-left"><div class="settings-icon g-gold">'+iconHTML('chat')+'</div><div>Tagline on Home</div></div><input class="settings-input wide" type="text" value="'+escapeAttr(state.tagline)+'" onblur="onTaglineInput(this.value)"/></div>' +
-      '<div class="settings-row"><div class="settings-row-left"><div class="settings-icon g-indigo">'+iconHTML('book')+'</div><div>Course book image</div></div>' +
+      '<div class="settings-row"><div class="settings-row-left"><div class="settings-icon has-ri g-sage"><span class="ri">'+richTileSVG('g-sage','flag')+'</span>'+iconHTML('flag')+'</div><div>Workspace name</div></div><input class="settings-input" type="text" value="'+escapeAttr(state.title)+'" onblur="onWorkspaceTitleInput(this.value)"/></div>' +
+      '<div class="settings-row"><div class="settings-row-left"><div class="settings-icon has-ri g-crimson"><span class="ri">'+richTileSVG('g-crimson','person')+'</span>'+iconHTML('person')+'</div><div>Byline on Home</div></div><input class="settings-input" type="text" value="'+escapeAttr(state.byline)+'" onblur="onBylineInput(this.value)"/></div>' +
+      '<div class="settings-row stacked"><div class="settings-row-left"><div class="settings-icon has-ri g-gold"><span class="ri">'+richTileSVG('g-gold','chat')+'</span>'+iconHTML('chat')+'</div><div>Tagline on Home</div></div><input class="settings-input wide" type="text" value="'+escapeAttr(state.tagline)+'" onblur="onTaglineInput(this.value)"/></div>' +
+      '<div class="settings-row"><div class="settings-row-left"><div class="settings-icon has-ri g-indigo"><span class="ri">'+richTileSVG('g-indigo','book')+'</span>'+iconHTML('book')+'</div><div>Course book image</div></div>' +
         '<div style="display:flex;align-items:center;gap:10px;">' +
           '<img class="book-preview" src="'+(state.bookImg||BOOK_IMG)+'" alt="Book"/>' +
           '<input type="file" accept="image/*" id="bookImgInput" style="display:none" onchange="handleBookImage(this)"/>' +
@@ -14469,18 +14710,18 @@ function renderSettings(){
           (state.bookImg ? '<button class="btn mini" onclick="resetBookImage()">Reset</button>' : '') +
         '</div>' +
       '</div>' +
-      '<div class="settings-row stacked"><div class="settings-row-left"><div class="settings-icon g-plum">'+iconHTML('sun')+'</div><div>Home banner colour</div></div>' +
+      '<div class="settings-row stacked"><div class="settings-row-left"><div class="settings-icon has-ri g-plum"><span class="ri">'+richTileSVG('g-plum','sun')+'</span>'+iconHTML('sun')+'</div><div>Home banner colour</div></div>' +
         '<div class="color-grid tight">' +
           GRADIENTS.map(function(g){ return '<button class="color-swatch '+g+' '+(state.heroColor===g?'picked':'')+'" onclick="setHeroColor(\''+g+'\')"></button>'; }).join('') +
           '<button class="color-swatch auto-swatch '+(!state.heroColor?'picked':'')+'" onclick="setHeroColor(\'auto\')">Default</button>' +
         '</div>' +
         '<div class="hint">Match the banner to your coursebook — pick any colour family for your unit banners.</div>' +
       '</div>' +
-      '<div class="settings-row"><div class="settings-row-left"><div class="settings-icon g-sky">'+iconHTML('lock')+'</div><div>Teacher PIN</div></div><button class="btn" onclick="openPinSetModal()">'+(state.pin?'Change PIN':'Set PIN')+'</button></div>' +
+      '<div class="settings-row"><div class="settings-row-left"><div class="settings-icon has-ri g-sky"><span class="ri">'+richTileSVG('g-sky','lock')+'</span>'+iconHTML('lock')+'</div><div>Teacher PIN</div></div><button class="btn" onclick="openPinSetModal()">'+(state.pin?'Change PIN':'Set PIN')+'</button></div>' +
     '</div>' +
     '<div class="settings-card">' +
-      '<div class="settings-row"><div class="settings-row-left"><div class="settings-icon g-sage">'+iconHTML('download')+'</div><div>Export backup</div></div><button class="btn mini" onclick="exportBackup()">Download</button></div>' +
-      '<div class="settings-row"><div class="settings-row-left"><div class="settings-icon g-terracotta">'+iconHTML('upload')+'</div><div>Restore backup</div></div>' +
+      '<div class="settings-row"><div class="settings-row-left"><div class="settings-icon has-ri g-sage"><span class="ri">'+richTileSVG('g-sage','download')+'</span>'+iconHTML('download')+'</div><div>Export backup</div></div><button class="btn mini" onclick="exportBackup()">Download</button></div>' +
+      '<div class="settings-row"><div class="settings-row-left"><div class="settings-icon has-ri g-terracotta"><span class="ri">'+richTileSVG('g-terracotta','upload')+'</span>'+iconHTML('upload')+'</div><div>Restore backup</div></div>' +
         '<span><input type="file" accept="application/json" id="importInput" style="display:none" onchange="handleImportFile(this)"/>' +
         '<button class="btn mini" onclick="document.getElementById(\'importInput\').click()">Choose file</button></span>' +
       '</div>' +
@@ -14488,7 +14729,7 @@ function renderSettings(){
         var bk = localBackupInfo();
         if(!bk) return '';
         var when = new Date(bk.at).toLocaleString();
-        return '<div class="settings-row"><div class="settings-row-left"><div class="settings-icon g-crimson">'+iconHTML('download')+'</div><div>Auto local backup<div class="hint" style="margin-top:2px;">This browser · '+bk.blocks+' blocks · '+when+'</div></div></div><button class="btn mini" onclick="restoreLocalBackup()">Restore</button></div>';
+        return '<div class="settings-row"><div class="settings-row-left"><div class="settings-icon has-ri g-crimson"><span class="ri">'+richTileSVG('g-crimson','download')+'</span>'+iconHTML('download')+'</div><div>Auto local backup<div class="hint" style="margin-top:2px;">This browser · '+bk.blocks+' blocks · '+when+'</div></div></div><button class="btn mini" onclick="restoreLocalBackup()">Restore</button></div>';
       })() +
       '<div class="settings-row"><div class="hint">Backups include every page, block and uploaded image. Download one before making big changes — restoring replaces everything. The app also keeps an automatic backup in this browser each time it loads.</div></div>' +
     '</div>';
@@ -15397,7 +15638,7 @@ function qbDraftFormHTML(){
 function renderQuestionBank(){
   const tags = qbTags();
   return '<button class="search-back" onclick="switchTab(\'home\')">\u2190 Back</button>' +
-    '<div class="rv-hero"><span class="rv-hero-ico qb-hero-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 8h8M8 12h8M8 16h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>' +
+    '<div class="rv-hero hk-bank">'+hubArtSVG('bank')+'<span class="rv-hero-ico qb-hero-ico has-ri"><span class="ri">'+hubIconSVG('bank')+'</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 8h8M8 12h8M8 16h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>' +
     '<div class="rv-hero-txt"><div class="eyebrow">Teacher</div><div class="big-title serif">Question bank</div><div class="rv-hero-sub">A reusable pool of questions for quizzes, live games and tests.</div></div></div>' +
     (qbDraft ? qbDraftFormHTML() : (
       '<div class="gh-search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 16l4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>' +
@@ -18118,7 +18359,7 @@ function renderXcolList(){
   const next = L.find(function(l){ return !(p[l.n] && p[l.n].done); });
   const R = 21, C = 2*Math.PI*R, off = C*(1 - done/L.length);
   let h = '<button class="search-back" onclick="xcolHome()">← Back</button>' +
-    '<div class="rv-hero xc-top"><span class="rv-hero-ico xc-hero-ico">'+XC_ICON+'</span>' +
+    '<div class="rv-hero xc-top hk-xcol">'+hubArtSVG('xcol')+'<span class="rv-hero-ico xc-hero-ico has-ri"><span class="ri">'+richIconSVG('xcol')+'</span>'+XC_ICON+'</span>' +
       '<div class="rv-hero-txt"><div class="eyebrow">Extra practice</div><div class="big-title serif">'+escapeHtml(xcolTitle())+'</div>' +
       '<div class="rv-hero-sub">'+L.length+' bonus lessons, '+totalCols+' collocations, each with audio and a quiz. Not part of your coursebook.</div>' +
       (editMode ? '<button class="chip-btn xc-rename" onclick="xcolRename()">✎ Rename on home page</button>' : '') + '</div></div>';
