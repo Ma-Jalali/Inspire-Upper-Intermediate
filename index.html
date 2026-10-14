@@ -166,6 +166,16 @@
   .mc-glyph{display:none;}
   .pt-art{display:none;}
   .ri{display:none;}
+  html #app .pod-icon, html[data-theme="dark"] #app .flash-banner-icon.pod-icon{background:linear-gradient(140deg,#D58BFF,#A24DF0 55%,#7A2AD0) !important;color:#fff;}
+  html:not([data-theme="dark"]) #app .flash-banner-icon.pod-icon.has-ri{background:none !important;}
+  html #app .pod-banner .flash-banner-txt{padding-right:112px;}
+  html #app .pod-art{position:absolute;right:10px;top:50%;width:116px;height:76px;transform:translateY(-50%);pointer-events:none;overflow:visible;
+    filter:drop-shadow(0 8px 12px rgba(90,40,160,0.18)) drop-shadow(0 1px 2px rgba(40,20,80,0.12));}
+  html #app .pod-art .pa-eq{transform-box:fill-box;transform-origin:50% 100%;animation:paEq 1.1s ease-in-out infinite alternate;}
+  @keyframes paEq{0%{transform:scaleY(.35);}100%{transform:scaleY(1);}}
+  html #app .pod-art .pa-play{transform-box:fill-box;transform-origin:center;animation:paPlay 2.8s ease-in-out infinite;}
+  @keyframes paPlay{0%,100%{transform:scale(1);}50%{transform:scale(1.07);}}
+  @media (prefers-reduced-motion: reduce){ html #app .pod-art *{animation:none !important;} }
   .app-scroll > .practice-grid{animation:none;}
   .app-scroll > .practice-grid > *{animation:blockIn .5s cubic-bezier(.22,.9,.3,1) .3s both;}
   html #app .app-scroll.vt-push > .practice-grid > *,html #app .app-scroll.vt-pop > .practice-grid > *,html #app .app-scroll.enter-from-back > .practice-grid > *{animation:none;}
@@ -6805,25 +6815,25 @@
   /* ---- practice: one clean widget grid instead of six busy banners ---- */
   html:not([data-theme="dark"]) #app .practice-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0 0 4px;}
   html:not([data-theme="dark"]) #app .practice-grid > .flash-banner{margin:0 !important;}
-  html:not([data-theme="dark"]) #app .practice-grid > .fb-word,html:not([data-theme="dark"]) #app .practice-grid > .xc-banner{grid-column:1 / -1;}
-  html:not([data-theme="dark"]) #app .practice-grid > .flash-banner:not(.fb-word):not(.xc-banner){
+  html:not([data-theme="dark"]) #app .practice-grid > .fb-word,html:not([data-theme="dark"]) #app .practice-grid > .xc-banner,html:not([data-theme="dark"]) #app .practice-grid > .pod-banner{grid-column:1 / -1;}
+  html:not([data-theme="dark"]) #app .practice-grid > .flash-banner:not(.fb-word):not(.xc-banner):not(.pod-banner){
     position:relative;overflow:hidden;flex-direction:column;align-items:flex-start;justify-content:flex-start;
     gap:12px;padding:15px 15px 16px;min-height:138px;border-radius:24px;isolation:isolate;}
-  html:not([data-theme="dark"]) #app .practice-grid > .flash-banner:not(.fb-word):not(.xc-banner) :is(.mk-art,.sb-art,.eb-art,.gb-art){display:none;}
-  html:not([data-theme="dark"]) #app .practice-grid > .flash-banner:not(.fb-word):not(.xc-banner) .flash-banner-icon{width:42px;height:42px;border-radius:14px;margin:0;}
-  html:not([data-theme="dark"]) #app .practice-grid > .flash-banner:not(.fb-word):not(.xc-banner) .flash-banner-icon svg{width:21px;height:21px;}
-  html:not([data-theme="dark"]) #app .practice-grid > .flash-banner:not(.fb-word):not(.xc-banner) .flash-banner-txt{position:relative;z-index:1;margin-top:auto;padding-right:6px;}
-  html:not([data-theme="dark"]) #app .practice-grid > .flash-banner:not(.fb-word):not(.xc-banner) .flash-banner-title{font-size:15.5px;line-height:1.2;letter-spacing:-0.02em;}
-  html:not([data-theme="dark"]) #app .practice-grid > .flash-banner:not(.fb-word):not(.xc-banner) .flash-banner-sub{font-size:12.5px;line-height:1.35;margin-top:3px;
+  html:not([data-theme="dark"]) #app .practice-grid > .flash-banner:not(.fb-word):not(.xc-banner):not(.pod-banner) :is(.mk-art,.sb-art,.eb-art,.gb-art){display:none;}
+  html:not([data-theme="dark"]) #app .practice-grid > .flash-banner:not(.fb-word):not(.xc-banner):not(.pod-banner) .flash-banner-icon{width:42px;height:42px;border-radius:14px;margin:0;}
+  html:not([data-theme="dark"]) #app .practice-grid > .flash-banner:not(.fb-word):not(.xc-banner):not(.pod-banner) .flash-banner-icon svg{width:21px;height:21px;}
+  html:not([data-theme="dark"]) #app .practice-grid > .flash-banner:not(.fb-word):not(.xc-banner):not(.pod-banner) .flash-banner-txt{position:relative;z-index:1;margin-top:auto;padding-right:6px;}
+  html:not([data-theme="dark"]) #app .practice-grid > .flash-banner:not(.fb-word):not(.xc-banner):not(.pod-banner) .flash-banner-title{font-size:15.5px;line-height:1.2;letter-spacing:-0.02em;}
+  html:not([data-theme="dark"]) #app .practice-grid > .flash-banner:not(.fb-word):not(.xc-banner):not(.pod-banner) .flash-banner-sub{font-size:12.5px;line-height:1.35;margin-top:3px;
     display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
   /* each tile carries a fine line-art watermark in its own colour, tucked into the corner */
-  html:not([data-theme="dark"]) #app .practice-grid > .flash-banner:not(.fb-word):not(.xc-banner)::after{content:'';position:absolute;right:-18px;top:-18px;width:112px;height:112px;
+  html:not([data-theme="dark"]) #app .practice-grid > .flash-banner:not(.fb-word):not(.xc-banner):not(.pod-banner)::after{content:'';position:absolute;right:-18px;top:-18px;width:112px;height:112px;
     z-index:0;pointer-events:none;background-repeat:no-repeat;background-position:center;background-size:contain;transition:transform .8s var(--v-ease);}
   html:not([data-theme="dark"]) #app .practice-grid > .mist-banner::after{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120' fill='none' stroke='%23E8476A' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='60' cy='60' r='44' stroke-opacity='.16'/%3E%3Ccircle cx='60' cy='60' r='31' stroke-opacity='.20'/%3E%3Ccircle cx='60' cy='60' r='18' stroke-opacity='.24'/%3E%3Ccircle cx='60' cy='60' r='6' fill='%23E8476A' fill-opacity='.22' stroke='none'/%3E%3Cpath d='M60 60L96 24' stroke-opacity='.30'/%3E%3Cpath d='M96 24l-11 1.5M96 24l-1.5 11M89 31l-9 1.2M89 31l-1.2 9' stroke-opacity='.30'/%3E%3C/svg%3E");}
   html:not([data-theme="dark"]) #app .practice-grid > .snd-banner::after{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120' fill='none' stroke='%232F7BE0' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14 60v0M24 50v20M34 38v44M44 46v28M54 26v68M64 40v40M74 32v56M84 48v24M94 42v36M104 56v8' stroke-width='5' stroke-opacity='.17'/%3E%3Cpath d='M8 60h104' stroke-opacity='.10'/%3E%3C/svg%3E");}
   html:not([data-theme="dark"]) #app .practice-grid > .exam-banner::after{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120' fill='none' stroke='%23E07F1F' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='60' cy='60' r='42' stroke-opacity='.20'/%3E%3Cellipse cx='60' cy='60' rx='17' ry='42' stroke-opacity='.18'/%3E%3Cellipse cx='60' cy='60' rx='32' ry='42' stroke-opacity='.12'/%3E%3Cpath d='M18 60h84M24 39h72M24 81h72' stroke-opacity='.15'/%3E%3Cpath d='M60 18v84' stroke-opacity='.15'/%3E%3C/svg%3E");}
   html:not([data-theme="dark"]) #app .practice-grid > .gh-banner::after{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120' fill='none' stroke='%231A9B5C' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='16' y='36' width='16' height='62' rx='4' stroke-opacity='.20'/%3E%3Crect x='36' y='26' width='16' height='72' rx='4' stroke-opacity='.20'/%3E%3Crect x='57' y='38' width='15' height='62' rx='4' transform='rotate(-12 64 69)' stroke-opacity='.18'/%3E%3Cpath d='M16 50h16M36 40h16M36 86h16M16 84h16' stroke-opacity='.14'/%3E%3Ccircle cx='90' cy='44' r='16' stroke-opacity='.24'/%3E%3Cpath d='M101.5 55.5L112 66' stroke-width='5' stroke-opacity='.22'/%3E%3Cpath d='M82 38a10 10 0 0 1 7-4' stroke-opacity='.30'/%3E%3C/svg%3E");}
-  html:not([data-theme="dark"]) #app .practice-grid > .flash-banner:not(.fb-word):not(.xc-banner):active::after{transform:scale(1.06) rotate(-4deg);}
+  html:not([data-theme="dark"]) #app .practice-grid > .flash-banner:not(.fb-word):not(.xc-banner):not(.pod-banner):active::after{transform:scale(1.06) rotate(-4deg);}
   /* a soft wash of the tile's colour behind the corner art */
   html:not([data-theme="dark"]) #app .practice-grid > .mist-banner{background:radial-gradient(90% 70% at 100% 0%, rgba(240,80,110,0.07), rgba(240,80,110,0) 70%), #fff;}
   html:not([data-theme="dark"]) #app .practice-grid > .snd-banner{background:radial-gradient(90% 70% at 100% 0%, rgba(61,144,240,0.08), rgba(61,144,240,0) 70%), #fff;}
@@ -6905,15 +6915,15 @@
   html:not([data-theme="dark"]) #app .mc-stat-ico{box-shadow:var(--ic-gloss);}
 
   /* ================= v103: illustrated practice tiles ================= */
-  html:not([data-theme="dark"]) #app .practice-grid > .flash-banner:not(.fb-word):not(.xc-banner)::after{display:none;}
-  html:not([data-theme="dark"]) #app .practice-grid > .flash-banner:not(.fb-word):not(.xc-banner) .flash-banner-icon{display:none;}
-  html:not([data-theme="dark"]) #app .practice-grid > .flash-banner:not(.fb-word):not(.xc-banner){gap:0;padding:12px 14px 15px;min-height:0;}
-  html:not([data-theme="dark"]) #app .practice-grid > .flash-banner:not(.fb-word):not(.xc-banner) .flash-banner-txt{margin-top:0;}
-  html:not([data-theme="dark"]) #app .practice-grid > .flash-banner:not(.fb-word):not(.xc-banner) .pt-art{display:block;order:-1;flex:none;align-self:stretch;
+  html:not([data-theme="dark"]) #app .practice-grid > .flash-banner:not(.fb-word):not(.xc-banner):not(.pod-banner)::after{display:none;}
+  html:not([data-theme="dark"]) #app .practice-grid > .flash-banner:not(.fb-word):not(.xc-banner):not(.pod-banner) .flash-banner-icon{display:none;}
+  html:not([data-theme="dark"]) #app .practice-grid > .flash-banner:not(.fb-word):not(.xc-banner):not(.pod-banner){gap:0;padding:12px 14px 15px;min-height:0;}
+  html:not([data-theme="dark"]) #app .practice-grid > .flash-banner:not(.fb-word):not(.xc-banner):not(.pod-banner) .flash-banner-txt{margin-top:0;}
+  html:not([data-theme="dark"]) #app .practice-grid > .flash-banner:not(.fb-word):not(.xc-banner):not(.pod-banner) .pt-art{display:block;order:-1;flex:none;align-self:stretch;
     width:auto;height:auto;aspect-ratio:150 / 72;margin:0 -4px 11px;overflow:visible;
     filter:drop-shadow(0 5px 7px rgba(24,32,64,0.10)) drop-shadow(0 1px 1.5px rgba(24,32,64,0.08));
     transition:transform .5s cubic-bezier(.3,1.4,.5,1);}
-  html:not([data-theme="dark"]) #app .practice-grid > .flash-banner:not(.fb-word):not(.xc-banner):active .pt-art{transform:scale(1.04) translateY(-1px);}
+  html:not([data-theme="dark"]) #app .practice-grid > .flash-banner:not(.fb-word):not(.xc-banner):not(.pod-banner):active .pt-art{transform:scale(1.04) translateY(-1px);}
   html:not([data-theme="dark"]) #app .pt-art text{font-family:var(--font-display, system-ui), system-ui, sans-serif;}
   /* a crisp tinted stage behind each illustration */
   html:not([data-theme="dark"]) #app .practice-grid > .mist-banner{background:linear-gradient(180deg,#FFF1F4 0%,#FFF7F9 38%,#fff 64%);}
@@ -6962,35 +6972,31 @@
   html:not([data-theme="dark"]) #app .has-ri{position:relative;}
   html:not([data-theme="dark"]) #app .has-ri > .ri svg.ricon{display:block;width:100%;height:100%;
     filter:drop-shadow(0 6px 9px rgba(20,28,58,0.16)) drop-shadow(0 1px 1.5px rgba(20,28,58,0.12));}
-  html:not([data-theme="dark"]) #app .fb-word .flash-banner-icon.has-ri,html:not([data-theme="dark"]) #app .xc-banner .flash-banner-icon.has-ri{width:52px;height:52px;flex:none;}
+  html:not([data-theme="dark"]) #app .fb-word .flash-banner-icon.has-ri,html:not([data-theme="dark"]) #app .xc-banner .flash-banner-icon.has-ri,html:not([data-theme="dark"]) #app .pod-banner .flash-banner-icon.has-ri{width:52px;height:52px;flex:none;}
   html:not([data-theme="dark"]) #app .xc-banner .xc-badge{z-index:3;}
 
-  /* course: one full-width row per page, built like the Word practice banner */
-  html:not([data-theme="dark"]) #app .card-list.course-list{display:flex;flex-direction:column;gap:12px;background:none;box-shadow:none;border-radius:0;overflow:visible;padding:0;}
+  /* course: three quiet tiles in one row, icon over a short name */
+  html:not([data-theme="dark"]) #app .card-list.course-list{display:grid;grid-template-columns:repeat(3, minmax(0,1fr));gap:12px;background:none;box-shadow:none;border-radius:0;overflow:visible;padding:0;}
   html:not([data-theme="dark"]) #app .card-list.course-list::before,html:not([data-theme="dark"]) #app .card-list.course-list::after{display:none;}
-  html:not([data-theme="dark"]) #app .card-list.course-list .page-card.neutral{position:relative;display:flex;flex-direction:row;align-items:center;gap:14px;
-    min-height:84px;padding:15px 16px;margin:0;border:none !important;border-radius:24px !important;overflow:hidden;isolation:isolate;
+  html:not([data-theme="dark"]) #app .card-list.course-list .page-card.neutral{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:0;
+    min-height:0;padding:16px 8px 14px;margin:0;border:none !important;border-radius:24px !important;overflow:hidden;isolation:isolate;text-align:center;
     background:var(--pl-bg,#fff) !important;box-shadow:var(--pl-shadow);transition:transform .35s cubic-bezier(.3,1.3,.5,1), box-shadow .35s;}
   html:not([data-theme="dark"]) #app .card-list.course-list .page-card.neutral + .page-card{border-top:none !important;}
   html:not([data-theme="dark"]) #app .card-list.course-list .page-card.neutral::after{display:none;}
-  html:not([data-theme="dark"]) #app .card-list.course-list .page-card.neutral:active{transform:scale(.98);box-shadow:var(--pl-shadow-press, var(--pl-shadow));background:var(--pl-bg,#fff) !important;}
-  html:not([data-theme="dark"]) #app .card-list.course-list .card-icon{width:52px;height:52px;border-radius:15px;margin:0;flex:none;}
-  html:not([data-theme="dark"]) #app .card-list.course-list .card-icon:not(.has-ri) svg{width:22px;height:22px;}
-  html:not([data-theme="dark"]) #app .card-list.course-list .card-thumb{width:52px;height:52px;border-radius:15px;margin:0;flex:none;}
-  html:not([data-theme="dark"]) #app .card-list.course-list .card-body{flex:1;min-width:0;margin:0;}
-  html:not([data-theme="dark"]) #app .card-list.course-list .card-title{font-size:16.5px;line-height:1.25;letter-spacing:-0.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-  html:not([data-theme="dark"]) #app .card-list.course-list .card-sub{font-size:13px;margin-top:3px;}
-  /* the chevron sits in a small frosted disc */
-  html:not([data-theme="dark"]) #app .card-list.course-list .card-chevron{position:static;flex:none;width:28px;height:28px;margin-left:auto;border-radius:50%;
-    display:grid;place-items:center;font-size:18px;line-height:1;opacity:1;color:rgba(60,60,67,0.45);background:rgba(118,118,128,0.10);padding-bottom:1px;}
-  html:not([data-theme="dark"]) #app .card-list.course-list .card-chevron svg{width:13px;height:13px;}
-  /* one soft wash per row, picked up from its icon */
+  html:not([data-theme="dark"]) #app .card-list.course-list .page-card.neutral:active{transform:scale(.96);box-shadow:var(--pl-shadow-press, var(--pl-shadow));background:var(--pl-bg,#fff) !important;}
+  html:not([data-theme="dark"]) #app .card-list.course-list .card-icon{width:56px;height:56px;border-radius:16px;margin:0 0 11px;flex:none;}
+  html:not([data-theme="dark"]) #app .card-list.course-list .card-icon:not(.has-ri) svg{width:24px;height:24px;}
+  html:not([data-theme="dark"]) #app .card-list.course-list .card-thumb{width:56px;height:56px;border-radius:16px;margin:0 0 11px;flex:none;}
+  html:not([data-theme="dark"]) #app .card-list.course-list .card-body{width:100%;min-width:0;margin:0;}
+  html:not([data-theme="dark"]) #app .card-list.course-list .card-title{font-size:13.5px;line-height:1.22;letter-spacing:-0.01em;font-weight:700;
+    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;white-space:normal;}
+  html:not([data-theme="dark"]) #app .card-list.course-list .card-sub,html:not([data-theme="dark"]) #app .card-list.course-list .card-chevron{display:none;}
   html:not([data-theme="dark"]) #app .card-list.course-list .page-card.neutral::before{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;
-    background:radial-gradient(70% 140% at 0% 50%, var(--rk, rgba(120,130,160,0.07)), transparent 70%);}
-  html:not([data-theme="dark"]) #app .card-list.course-list .rk-document{--rk:rgba(59,139,245,0.10);}
-  html:not([data-theme="dark"]) #app .card-list.course-list .rk-link{--rk:rgba(22,184,176,0.11);}
-  html:not([data-theme="dark"]) #app .card-list.course-list .rk-headphones{--rk:rgba(162,77,240,0.10);}
-  html:not([data-theme="dark"]) #app .card-list.course-list .rk-calendar{--rk:rgba(240,69,60,0.08);}
+    background:radial-gradient(90% 60% at 50% 0%, var(--rk, rgba(120,130,160,0.07)), transparent 72%);}
+  html:not([data-theme="dark"]) #app .card-list.course-list .rk-document{--rk:rgba(59,139,245,0.12);}
+  html:not([data-theme="dark"]) #app .card-list.course-list .rk-link{--rk:rgba(22,184,176,0.13);}
+  html:not([data-theme="dark"]) #app .card-list.course-list .rk-headphones{--rk:rgba(162,77,240,0.12);}
+  html:not([data-theme="dark"]) #app .card-list.course-list .rk-calendar{--rk:rgba(240,69,60,0.09);}
 </style>
 </head>
 <body>
@@ -13554,8 +13560,41 @@ function mistakesBannerHTML(){
     '</div>' +
   '</div>';
 }
+/* v106: Podcasts lives in Practice as its own banner, with a little now-playing card on the right */
+function podcastPage(){
+  return generalPages().filter(function(p){ return p.icon === 'headphones' || /podcast/i.test(String(p.title||'')); })[0] || null;
+}
+function podArtSVG(){
+  let eq = '';
+  [7,12,9,14].forEach(function(h, i){ eq += '<rect class="pa-eq" style="animation-delay:'+(-i*0.23).toFixed(2)+'s" x="'+(33.5+i*4.6)+'" y="'+(33-h)+'" width="2.6" height="'+h+'" rx="1.3" fill="#fff"/>'; });
+  return '<svg class="pod-art" viewBox="0 0 112 74" aria-hidden="true" focusable="false"><defs>' +
+      '<linearGradient id="paCov" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#D58BFF"/><stop offset="1" stop-color="#7A2AD0"/></linearGradient>' +
+      '<linearGradient id="paBar" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#C77DFF"/><stop offset="1" stop-color="#8B3CF0"/></linearGradient>' +
+    '</defs>' +
+    '<rect x="16" y="9" width="72" height="54" rx="11" transform="rotate(-8 52 36)" fill="#EBDDFF"/>' +
+    '<g transform="rotate(5 60 36)">' +
+      '<rect x="22" y="10" width="76" height="54" rx="11" fill="#fff"/><rect x="22" y="10" width="76" height="54" rx="11" fill="none" stroke="#E6DDF5" stroke-width=".8"/>' +
+      '<rect x="29" y="16" width="25" height="22" rx="6" fill="url(#paCov)"/><path d="M32 18.5h13" stroke="#fff" stroke-opacity=".45" stroke-width="1.2" stroke-linecap="round"/>' + eq +
+      '<rect x="59" y="19" width="31" height="4.2" rx="2.1" fill="#2B2F45" fill-opacity=".86"/><rect x="59" y="27" width="21" height="3.2" rx="1.6" fill="#CFC6E2"/><rect x="59" y="33" width="14" height="3.2" rx="1.6" fill="#E6E0F2"/>' +
+      '<rect x="29" y="47" width="61" height="3.2" rx="1.6" fill="#EEE8F8"/><rect class="pa-prog" x="29" y="47" width="27" height="3.2" rx="1.6" fill="url(#paBar)"/>' +
+      '<circle cx="56" cy="48.6" r="3.4" fill="#fff" stroke="#8B3CF0" stroke-width="1.4"/>' +
+      '<text x="29" y="59" font-size="5" font-weight="700" fill="#A69CBD">1:24</text><text x="90" y="59" text-anchor="end" font-size="5" font-weight="700" fill="#A69CBD">-3:10</text>' +
+    '</g>' +
+    '<g class="pa-play"><circle cx="99" cy="58" r="11" fill="url(#paCov)"/><circle cx="99" cy="58" r="11" fill="none" stroke="#fff" stroke-width="2"/><path d="M96.4 53.6v8.8l7.2-4.4z" fill="#fff"/></g>' +
+  '</svg>';
+}
+function podcastBannerHTML(p){
+  if(!p) return '';
+  const locked = isLockedForViewer(p.id);
+  return '<div class="flash-banner pod-banner" onclick="'+(locked ? 'lockedTap()' : 'openPage(\''+p.id+'\')')+'">' + delOverlay(p) +
+    '<div class="flash-banner-icon pod-icon has-ri">'+iconHTML('headphones')+'<span class="ri">'+richIconSVG('headphones')+'</span></div>' +
+    '<div class="flash-banner-txt"><div class="flash-banner-title">'+escapeHtml(p.title)+'</div><div class="flash-banner-sub">'+(locked ? 'Opens soon' : 'Listen and learn on the go')+'</div></div>' +
+    podArtSVG() +
+  '</div>';
+}
 function renderHomeGrid(){
-  const generals = generalPages();
+  const pod = podcastPage();
+  const generals = generalPages().filter(function(p){ return p !== pod; });
   const units = unitPages();
   const heroStyle = state.heroColor ? ' style="background:'+GRAD_VAR[state.heroColor]+';"' : '';
   const today = new Date().toLocaleDateString('en-GB', {weekday:'long', day:'numeric', month:'long'});
@@ -13590,7 +13629,7 @@ function renderHomeGrid(){
       '<div class="flash-banner-txt"><div class="flash-banner-title">Word practice</div><div class="flash-banner-sub">10 flashcards from Inspire, by unit</div></div>' +
       '<div class="fb-deck" aria-hidden="true"><span class="fb-c c1"></span><span class="fb-c c2"></span><span class="fb-c c3">Aa</span></div>' +
     '</div>' +
-    mistakesBannerHTML() + soundsBannerHTML() + examsBannerHTML() + grammarBannerHTML() + xcolBannerHTML() + '</div>' +
+    mistakesBannerHTML() + soundsBannerHTML() + examsBannerHTML() + grammarBannerHTML() + podcastBannerHTML(pod) + xcolBannerHTML() + '</div>' +
     (generals.length ? ('<div class="section-label">Course<span class="sl-count">'+generals.length+'</span></div><div class="card-list course-list">' + generals.map(function(p,i){ return pageCard(p,i,true); }).join('') + '</div>') : '') +
     (units.length ? ('<div class="section-label">Units<span class="sl-count">'+units.length+'</span></div><div class="unit-grid">' + units.map(function(p,i){ return unitCard(p,i); }).join('') + '</div>') : '') +
     (editMode ? '<button class="btn primary full" onclick="openNewPageModal(null)">+ New page</button>' : '');
