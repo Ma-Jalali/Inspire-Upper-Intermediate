@@ -588,7 +588,7 @@
   .quiz-opt.picked{border-color:var(--crimson);background:rgba(var(--accent-rgb),0.05);}
   .quiz-opt.picked .quiz-box{border-color:var(--crimson);background:var(--g-crimson);box-shadow:inset 0 1px 0 rgba(255,255,255,0.25);}
   .quiz-opt.picked .quiz-box::after{content:'';position:absolute;inset:0;margin:auto;width:7px;height:7px;border-radius:50%;background:#fff;}
-  .quiz-opt.picked .quiz-box.multi::after{width:5px;height:9px;border-radius:0;background:transparent;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg);top:-1px;left:1px;right:auto;bottom:auto;margin:0;position:absolute;}
+  .quiz-opt.picked .quiz-box.multi::after{width:5px;height:10px;border-radius:0;background:transparent;border:solid #fff;border-width:0 2.2px 2.2px 0;transform:translate(-50%,-62%) rotate(45deg);top:50%;left:50%;right:auto;bottom:auto;margin:0;position:absolute;}
   .quiz-opt-label{flex:1;font-family:var(--font-read);font-size:14.5px;line-height:1.5;color:var(--ink-read);}
   .quiz-opt.opt-correct{border-color:#3E9B54;background:rgba(62,155,84,0.08);animation:optPop .42s var(--spring);}
   @keyframes optPop{0%{transform:scale(1);}35%{transform:scale(1.025);}100%{transform:scale(1);}}
@@ -600,6 +600,12 @@
   @keyframes optShake{0%,100%{transform:translateX(0);}20%{transform:translateX(-5px);}40%{transform:translateX(5px);}60%{transform:translateX(-3px);}80%{transform:translateX(2px);}}
   .quiz-opt.opt-wrong .quiz-box{border-color:var(--crimson);background:var(--crimson);}
   .quiz-opt.opt-wrong .quiz-box::after{content:'\2715';color:#fff;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;position:absolute;inset:0;background:transparent;width:auto;height:auto;border:none;transform:none;}
+  /* a picked multi-select box keeps its tick shape after checking; reset it so only the \2713 / \2715 shows */
+  .quiz-opt.picked.opt-correct .quiz-box.multi::after,.quiz-opt.picked.opt-wrong .quiz-box.multi::after{
+    position:absolute;inset:0;top:0;right:0;bottom:0;left:0;margin:0;width:auto;height:auto;border:none;border-width:0;border-radius:0;
+    transform:none;background:transparent;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;}
+  .quiz-opt.picked.opt-correct .quiz-box.multi::after{content:'\2713';font-size:12px;}
+  .quiz-opt.picked.opt-wrong .quiz-box.multi::after{content:'\2715';font-size:11px;}
   .quiz-q.answered .quiz-opt{cursor:default;}
   .quiz-gap-line{font-family:var(--font-read);font-size:15.5px;line-height:2.1;color:var(--ink);}
   .quiz-gap-wrap{display:inline-flex;flex-direction:column;vertical-align:top;}
@@ -7070,6 +7076,15 @@
   /* the highlighter chip on a reading says what it opens */
   html:not([data-theme="dark"]) #app .rd-hl-chip .rd-hl-lab{display:inline;}
   html:not([data-theme="dark"]) #app .rd-hl-chip{background:#fff;box-shadow:inset 0 0 0 .5px rgba(60,60,67,0.16), 0 1px 2px rgba(17,22,38,0.05);}
+
+  /* ================= v111: answer choices show what you picked (light) ================= */
+  /* the light platter rule for .quiz-opt outranked the picked/checked states; restore them here */
+  html:not([data-theme="dark"]) #app .quiz-opt.picked{background:rgba(var(--accent-rgb),0.06);box-shadow:inset 0 0 0 1.5px rgba(var(--accent-rgb),0.55), 0 1px 2px rgba(17,22,38,0.04);}
+  html:not([data-theme="dark"]) #app .quiz-opt.picked .quiz-box{background:var(--g-crimson);border-color:transparent;}
+  html:not([data-theme="dark"]) #app .quiz-opt.opt-correct{background:rgba(46,160,90,0.07);box-shadow:inset 0 0 0 1.5px rgba(46,160,90,0.45), 0 1px 2px rgba(17,22,38,0.04);}
+  html:not([data-theme="dark"]) #app .quiz-opt.opt-wrong{background:rgba(224,69,60,0.06);box-shadow:inset 0 0 0 1.5px rgba(224,69,60,0.40), 0 1px 2px rgba(17,22,38,0.04);}
+  html:not([data-theme="dark"]) #app .quiz-opt.opt-correct .quiz-box{background:#2EA05A;border-color:transparent;}
+  html:not([data-theme="dark"]) #app .quiz-opt.opt-wrong .quiz-box{background:#D4382F;border-color:transparent;}
 </style>
 </head>
 <body>
