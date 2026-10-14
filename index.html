@@ -15804,7 +15804,15 @@ function clipPosterURI(label, portrait){
       const loc = findPageParentLoc(state.pages, pg.id);
       const idx = (loc && loc.arr===state.pages) ? sectionIndexOf(pg) : (loc ? loc.idx : undefined);
       const fam = pageColorClass(pg, idx);
-      const g = (cs.getPropertyValue('--'+fam) || '').match(/#[0-9a-fA-F]{6}/g);
+      /* a unit's own page may paint its banner from its own palette, so read the colour the same way */
+      let src = cs, probe = null;
+      const app = document.getElementById('app');
+      if(app && loc && loc.arr===state.pages && pg.section==='units'){
+        probe = document.createElement('i'); probe.className = 'page-banner u-hue'; probe.style.display = 'none';
+        app.appendChild(probe); src = getComputedStyle(probe);
+      }
+      const g = (src.getPropertyValue('--'+fam) || '').match(/#[0-9a-fA-F]{6}/g);
+      if(probe) probe.remove();
       if(g && g.length >= 4) stops = g.slice(0,4);
       const info = (typeof childPartInfo==='function') ? childPartInfo(pg) : null;
       const up = unitParts(pg.title);
