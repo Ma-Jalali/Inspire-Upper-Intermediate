@@ -7110,6 +7110,41 @@
   html:not([data-theme="dark"]) #app .hero-waves{opacity:.75;}
   html:not([data-theme="dark"]) #app .hero-eyebrow{color:rgba(255,255,255,0.78);opacity:1;}
   @media (prefers-reduced-motion: reduce){ html:not([data-theme="dark"]) #app .hero-layers .hero-shine{animation:none;background-position:125% 0;} }
+  /* ================= v113: unit colours from Gold B1, with its gentle light (light) ================= */
+  /* the same twelve colour names, in Gold B1's softer tones. They apply only where a colour stands
+     for a unit: its home card, its own page, its next and previous cards, its dots and segments. */
+  html:not([data-theme="dark"]) #app :is(.unit-card,.up-card,.fp-unit,.prog-seg,.page-banner.u-hue,.bc-dot.u-hue){
+    --g-crimson:linear-gradient(140deg,#FF6E86 0%,#E4224B 38%,#C11337 68%,#8E0C26 100%);
+    --g-gold:linear-gradient(140deg,#F0DCA8 0%,#C9A85C 40%,#A2823F 72%,#7C6E48 100%);
+    --g-sage:linear-gradient(140deg,#8FE7BE 0%,#3FB483 45%,#2B8A64 75%,#1F6A4E 100%);
+    --g-sky:linear-gradient(140deg,#9DD3FC 0%,#4488D6 45%,#2F66B4 75%,#234F92 100%);
+    --g-plum:linear-gradient(140deg,#DFBCF6 0%,#9A6CD2 45%,#7B4DB4 75%,#613A92 100%);
+    --g-coral:linear-gradient(140deg,#FFBE98 0%,#EE7B46 45%,#CF5C2B 75%,#A8481D 100%);
+    --g-teal:linear-gradient(140deg,#9AF1EB 0%,#33ABA2 45%,#25908A 75%,#1B6F69 100%);
+    --g-rose:linear-gradient(140deg,#FFC5DA 0%,#EE6691 45%,#CC4A74 75%,#A83A5D 100%);
+    --g-indigo:linear-gradient(140deg,#C3CDF9 0%,#6379DE 45%,#4A5CC2 75%,#3A489E 100%);
+    --g-olive:linear-gradient(140deg,#E0E8AC 0%,#96A655 45%,#78883E 75%,#5D682E 100%);
+    --g-terracotta:linear-gradient(140deg,#F5C6A4 0%,#CB6C44 45%,#AC5330 75%,#8A4122 100%);
+    --g-slate:linear-gradient(140deg,#CBD5DE 0%,#6E8098 45%,#576880 75%,#455468 100%);}
+  /* everything inside those surfaces (buttons, ticks, chips) keeps the app's own colours */
+  html:not([data-theme="dark"]){--a-crimson:var(--g-crimson);--a-gold:var(--g-gold);--a-sage:var(--g-sage);--a-sky:var(--g-sky);--a-plum:var(--g-plum);--a-coral:var(--g-coral);--a-teal:var(--g-teal);--a-rose:var(--g-rose);--a-indigo:var(--g-indigo);--a-olive:var(--g-olive);--a-terracotta:var(--g-terracotta);--a-slate:var(--g-slate);}
+  html:not([data-theme="dark"]) #app :is(.unit-card,.up-card,.fp-unit,.page-banner.u-hue) *{--g-crimson:var(--a-crimson);--g-gold:var(--a-gold);--g-sage:var(--a-sage);--g-sky:var(--a-sky);--g-plum:var(--a-plum);--g-coral:var(--a-coral);--g-teal:var(--a-teal);--g-rose:var(--a-rose);--g-indigo:var(--a-indigo);--g-olive:var(--a-olive);--g-terracotta:var(--a-terracotta);--g-slate:var(--a-slate);}
+  /* shadows and accents that borrow the colour follow it */
+  html:not([data-theme="dark"]) #app :is(.unit-card,.up-card,.fp-unit,.u-hue).g-crimson{--glow:193,19,55;}
+  html:not([data-theme="dark"]) #app :is(.unit-card,.up-card,.fp-unit,.u-hue).g-gold{--glow:162,130,63;}
+  html:not([data-theme="dark"]) #app :is(.unit-card,.up-card,.fp-unit,.u-hue).g-sage{--glow:43,138,100;}
+  html:not([data-theme="dark"]) #app :is(.unit-card,.up-card,.fp-unit,.u-hue).g-sky{--glow:47,102,180;}
+  html:not([data-theme="dark"]) #app :is(.unit-card,.up-card,.fp-unit,.u-hue).g-plum{--glow:123,77,180;}
+  html:not([data-theme="dark"]) #app :is(.unit-card,.up-card,.fp-unit,.u-hue).g-coral{--glow:207,92,43;}
+  html:not([data-theme="dark"]) #app :is(.unit-card,.up-card,.fp-unit,.u-hue).g-teal{--glow:37,144,138;}
+  html:not([data-theme="dark"]) #app :is(.unit-card,.up-card,.fp-unit,.u-hue).g-rose{--glow:204,74,116;}
+  html:not([data-theme="dark"]) #app :is(.unit-card,.up-card,.fp-unit,.u-hue).g-indigo{--glow:74,92,194;}
+  html:not([data-theme="dark"]) #app :is(.unit-card,.up-card,.fp-unit,.u-hue).g-olive{--glow:120,136,62;}
+  html:not([data-theme="dark"]) #app :is(.unit-card,.up-card,.fp-unit,.u-hue).g-terracotta{--glow:172,83,48;}
+  html:not([data-theme="dark"]) #app :is(.unit-card,.up-card,.fp-unit,.u-hue).g-slate{--glow:87,104,128;}
+  /* the light on the home unit cards: only what the gradient itself gives, no extra bloom in the corner */
+  html:not([data-theme="dark"]) #app .unit-card::before{background:none;}
+  html:not([data-theme="dark"]) #app .unit-mesh{background:none !important;}
 </style>
 </head>
 <body>
@@ -13814,13 +13849,14 @@ function renderBreadcrumb(extra){
     const loc = findPageParentLoc(state.pages, pid);
     const idx = (loc && loc.arr===state.pages) ? sectionIndexOf(p) : (loc ? loc.idx : undefined);
     const cls = pageColorClass(p, idx);
+    const dc = (loc && loc.arr===state.pages && p.section==='units') ? 'bc-dot u-hue' : 'bc-dot';
     const isLast = k===path.length-1 && !extra;
     if(k>0) html += chev;
     const lab = escapeHtml(crumbLabel(p));
-    if(extra && k===path.length-1){ html += '<button class="bc-item bc-mid" onclick="closeReading()" aria-label="'+lab+'"><i class="bc-dot" style="background:'+GRAD_VAR[cls]+'"></i><span class="bc-lab">'+lab+'</span></button>'; return; }
+    if(extra && k===path.length-1){ html += '<button class="bc-item bc-mid" onclick="closeReading()" aria-label="'+lab+'"><i class="'+dc+'" style="background:'+GRAD_VAR[cls]+'"></i><span class="bc-lab">'+lab+'</span></button>'; return; }
     html += isLast
-      ? '<span class="bc-item bc-cur" aria-current="page"><i class="bc-dot" style="background:'+GRAD_VAR[cls]+'"></i><span class="bc-lab">'+lab+'</span></span>'
-      : '<button class="bc-item bc-mid" onclick="goToCrumb('+k+')" aria-label="'+lab+'"><i class="bc-dot" style="background:'+GRAD_VAR[cls]+'"></i><span class="bc-lab">'+lab+'</span></button>';
+      ? '<span class="bc-item bc-cur" aria-current="page"><i class="'+dc+'" style="background:'+GRAD_VAR[cls]+'"></i><span class="bc-lab">'+lab+'</span></span>'
+      : '<button class="bc-item bc-mid" onclick="goToCrumb('+k+')" aria-label="'+lab+'"><i class="'+dc+'" style="background:'+GRAD_VAR[cls]+'"></i><span class="bc-lab">'+lab+'</span></button>';
   });
   if(extra) html += chev + '<span class="bc-item bc-cur" aria-current="page"><i class="bc-dot" style="background:'+GRAD_VAR[extra.cls]+'"></i><span class="bc-lab">'+escapeHtml(extra.label)+'</span></span>';
   setTimeout(bcFit, 0);
@@ -13865,7 +13901,7 @@ function renderPageDetail(){
   const isTopLevel = loc && loc.arr===state.pages;
   const idx = isTopLevel ? sectionIndexOf(page) : (loc ? loc.idx : undefined);
   const cls = pageColorClass(page, idx);
-  pageHueClass = cls;
+  pageHueClass = cls + ((isTopLevel && page.section==='units') ? ' u-hue' : '');
   const hasCover = page.cover && page.cover.trim();
   const coverUrl = hasCover ? convertDriveImageUrl(page.cover) : null;
   const bannerStyle = hasCover
@@ -13873,7 +13909,7 @@ function renderPageDetail(){
     : '';
   let html = '' +
     '<div class="detail-topline"><button class="search-back page-back" onclick="goBack()">← '+escapeHtml(backLabelFor(page))+'</button></div>' +
-    '<div class="page-banner '+(hasCover?'has-cover':cls)+'"'+bannerStyle+'>' +
+    '<div class="page-banner '+(hasCover?'has-cover':cls+((isTopLevel && page.section==='units') ? ' u-hue' : ''))+'"'+bannerStyle+'>' +
       (hasCover ? '' : '<span class="banner-aur"></span>' + bannerVectorsSVG()) +
       (hasCover ? '' : '<span class="banner-wm" aria-hidden="true">'+iconHTML(page.icon)+'</span>' +
         '<svg class="banner-arcs" viewBox="0 0 240 240" aria-hidden="true"><g fill="none" stroke="#fff" stroke-width="1"><circle cx="120" cy="120" r="118" stroke-opacity=".10"/><circle cx="120" cy="120" r="92" stroke-opacity=".14"/><circle cx="120" cy="120" r="66" stroke-opacity=".18"/><path d="M2 120h236M120 2v236" stroke-opacity=".06" stroke-dasharray="2 6"/></g></svg>') +
