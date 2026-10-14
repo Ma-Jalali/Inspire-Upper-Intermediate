@@ -6997,6 +6997,18 @@
   html:not([data-theme="dark"]) #app .card-list.course-list .rk-link{--rk:rgba(22,184,176,0.13);}
   html:not([data-theme="dark"]) #app .card-list.course-list .rk-headphones{--rk:rgba(162,77,240,0.12);}
   html:not([data-theme="dark"]) #app .card-list.course-list .rk-calendar{--rk:rgba(240,69,60,0.09);}
+
+  /* ================= v107: title-only practice blocks, sized to match ================= */
+  html:not([data-theme="dark"]) #app .practice-grid > .flash-banner:not(.fb-word):not(.xc-banner):not(.pod-banner){padding:12px 14px 14px;}
+  html:not([data-theme="dark"]) #app .practice-grid > .flash-banner:not(.fb-word):not(.xc-banner):not(.pod-banner) .pt-art{margin-bottom:8px;}
+  html:not([data-theme="dark"]) #app .practice-grid > .flash-banner:not(.fb-word):not(.xc-banner):not(.pod-banner) .flash-banner-title{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  /* the two single-line rows get slimmer, with their art scaled to fit */
+  html:not([data-theme="dark"]) #app .practice-grid > .pod-banner,html:not([data-theme="dark"]) #app .practice-grid > .xc-banner{min-height:0;padding-top:12px;padding-bottom:12px;}
+  html:not([data-theme="dark"]) #app .practice-grid > .pod-banner .flash-banner-icon.has-ri,html:not([data-theme="dark"]) #app .practice-grid > .xc-banner .flash-banner-icon.has-ri{width:46px;height:46px;}
+  html:not([data-theme="dark"]) #app .practice-grid > .xc-banner{padding-bottom:16px;}
+  html:not([data-theme="dark"]) #app .practice-grid > .pod-banner .flash-banner-title,html:not([data-theme="dark"]) #app .practice-grid > .xc-banner .flash-banner-title{font-size:16.5px;}
+  html:not([data-theme="dark"]) #app .practice-grid > .pod-banner .pod-art{width:94px;height:62px;right:14px;}
+  html:not([data-theme="dark"]) #app .practice-grid > .xc-banner .xc-art{transform:translateY(-50%) scale(.84);transform-origin:100% 50%;}
 </style>
 </head>
 <body>
@@ -10553,7 +10565,7 @@ function renderSounds(){
 function soundsBannerHTML(){
   return '<div class="flash-banner snd-banner" onclick="openSounds()">' +
     '<div class="flash-banner-icon snd-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>' + practiceArtSVG('snd') +
-    '<div class="flash-banner-txt"><div class="flash-banner-title">Sound practice</div><div class="flash-banner-sub">Ship or sheep? Train your ears</div></div>' +
+    '<div class="flash-banner-txt"><div class="flash-banner-title">Sound practice</div></div>' +
     '<div class="sb-art" aria-hidden="true"><span class="sb-chip a">ship</span><span class="sb-chip b">sheep</span><span class="sb-wave"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div>' +
   '</div>';
 }
@@ -11169,7 +11181,7 @@ function exDelete(id){
 function examsBannerHTML(){
   return '<div class="flash-banner exam-banner" onclick="openExams()">' +
     '<div class="flash-banner-icon exam-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3.5 12h17M12 3.5c2.4 2.4 3.4 5.4 3.4 8.5s-1 6.1-3.4 8.5c-2.4-2.4-3.4-5.4-3.4-8.5s1-6.1 3.4-8.5z" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></div>' + practiceArtSVG('exam') +
-    '<div class="flash-banner-txt"><div class="flash-banner-title">International Exams</div><div class="flash-banner-sub">IELTS and PTE Speaking, timed like the real test</div></div>' +
+    '<div class="flash-banner-txt"><div class="flash-banner-title">International Exams</div></div>' +
     '<div class="eb-art" aria-hidden="true"><span class="eb-card back"></span><span class="eb-card front"><span class="eb-mic"><svg viewBox="0 0 24 24"><rect x="9" y="3.5" width="6" height="11" rx="3" fill="currentColor"/><path d="M6 11.5a6 6 0 0 0 12 0M12 17.5V21" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></span><span class="eb-wave"><i></i><i></i><i></i><i></i><i></i></span><i class="ln"></i><i class="ln s"></i></span><span class="eb-timer"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="7.5" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M12 9.5V13l2.5 1.5M10 3h4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></span></div>' +
   '</div>';
 }
@@ -11635,10 +11647,9 @@ function renderGrammarDiag(){
   return h;
 }
 function grammarBannerHTML(){
-  const n = grammarTopics().length;
   return '<div class="flash-banner gh-banner" onclick="openGrammarHub()">' +
     '<div class="flash-banner-icon gh-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4.5h10.5a3 3 0 0 1 3 3v12H8a3 3 0 0 1-3-3z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M5 16.5a3 3 0 0 1 3-3h10.5M9 8.5h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>' + practiceArtSVG('gh') +
-    '<div class="flash-banner-txt"><div class="flash-banner-title">Grammar hub</div><div class="flash-banner-sub">'+(n ? n+' lessons, one search' : 'All grammar in one place')+'</div></div>' +
+    '<div class="flash-banner-txt"><div class="flash-banner-title">Grammar hub</div></div>' +
     '<div class="gb-art" aria-hidden="true"><span class="gb-book b3"></span><span class="gb-book b2"></span><span class="gb-book b1"><i></i><i></i></span><span class="gb-lens"></span></div>' +
   '</div>';
 }
@@ -13548,7 +13559,7 @@ function mistakesBannerHTML(){
   const n = mistakeCount();
   return '<div class="flash-banner mist-banner" onclick="openReview()">' +
     '<div class="flash-banner-icon mist-icon">'+iconHTML('target')+'</div>' + practiceArtSVG('mist', n) +
-    '<div class="flash-banner-txt"><div class="flash-banner-title">Review my mistakes</div><div class="flash-banner-sub">'+(n ? 'Fix them one by one' : 'Wrong answers wait here')+'</div></div>' +
+    '<div class="flash-banner-txt"><div class="flash-banner-title">Review my mistakes</div></div>' +
     '<div class="mk-art'+(n?'':' clear')+'" aria-hidden="true">' +
       '<span class="mk-sheet back"></span>' +
       '<span class="mk-sheet front">' +
@@ -13588,7 +13599,7 @@ function podcastBannerHTML(p){
   const locked = isLockedForViewer(p.id);
   return '<div class="flash-banner pod-banner" onclick="'+(locked ? 'lockedTap()' : 'openPage(\''+p.id+'\')')+'">' + delOverlay(p) +
     '<div class="flash-banner-icon pod-icon has-ri">'+iconHTML('headphones')+'<span class="ri">'+richIconSVG('headphones')+'</span></div>' +
-    '<div class="flash-banner-txt"><div class="flash-banner-title">'+escapeHtml(p.title)+'</div><div class="flash-banner-sub">'+(locked ? 'Opens soon' : 'Listen and learn on the go')+'</div></div>' +
+    '<div class="flash-banner-txt"><div class="flash-banner-title">'+escapeHtml(p.title)+'</div>'+(locked ? '<div class="flash-banner-sub">Opens soon</div>' : '')+'</div>' +
     podArtSVG() +
   '</div>';
 }
@@ -17938,11 +17949,9 @@ function xcolStopAudio(){ const a = document.getElementById('xcAudio'); if(a){ t
 
 /* ---------- home card ---------- */
 function xcolBannerHTML(){
-  const p = xcolProgress(), done = Object.keys(p).filter(function(k){ return p[k].done; }).length;
   return '<div class="flash-banner xc-banner" onclick="openXcol()">' +
     '<div class="flash-banner-icon xc-icon has-ri">'+XC_ICON+'<span class="ri">'+richIconSVG('xcol')+'</span><span class="xc-badge">Extra</span></div>' +
-    '<div class="flash-banner-txt"><div class="flash-banner-title">'+escapeHtml(xcolTitle())+'</div>' +
-      '<div class="flash-banner-sub">'+(done ? done+' of 25 lessons done' : '25 bonus lessons with audio')+'</div></div>' +
+    '<div class="flash-banner-txt"><div class="flash-banner-title">'+escapeHtml(xcolTitle())+'</div></div>' +
     '<div class="xc-art" aria-hidden="true"><span class="xc-chip a">make</span><span class="xc-join">+</span><span class="xc-chip b">a decision</span><span class="xc-chip c">heavy rain</span></div>' +
   '</div>';
 }
