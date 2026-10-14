@@ -165,6 +165,7 @@
   .banner-wm,.banner-arcs{display:none;}
   .mc-glyph{display:none;}
   .pt-art{display:none;}
+  .ri{display:none;}
   .app-scroll > .practice-grid{animation:none;}
   .app-scroll > .practice-grid > *{animation:blockIn .5s cubic-bezier(.22,.9,.3,1) .3s both;}
   html #app .app-scroll.vt-push > .practice-grid > *,html #app .app-scroll.vt-pop > .practice-grid > *,html #app .app-scroll.enter-from-back > .practice-grid > *{animation:none;}
@@ -6952,6 +6953,49 @@
     html:not([data-theme="dark"]) #app .pt-mist .pt-ink{stroke-dashoffset:0;}
     html:not([data-theme="dark"]) #app .pt-art .pl-b,html:not([data-theme="dark"]) #app .pt-art .pl-f{transform:none;}
   }
+
+  /* ================= v104: detailed app icons + course tiles ================= */
+  html:not([data-theme="dark"]) #app .has-ri{background:none !important;box-shadow:none !important;border:none !important;overflow:visible !important;}
+  html:not([data-theme="dark"]) #app .has-ri::before,html:not([data-theme="dark"]) #app .has-ri::after{display:none !important;}
+  html:not([data-theme="dark"]) #app .has-ri > svg{display:none !important;}
+  html:not([data-theme="dark"]) #app .has-ri > .ri{display:block;position:absolute;inset:0;}
+  html:not([data-theme="dark"]) #app .has-ri{position:relative;}
+  html:not([data-theme="dark"]) #app .has-ri > .ri svg.ricon{display:block;width:100%;height:100%;
+    filter:drop-shadow(0 6px 9px rgba(20,28,58,0.16)) drop-shadow(0 1px 1.5px rgba(20,28,58,0.12));}
+  html:not([data-theme="dark"]) #app .fb-word .flash-banner-icon.has-ri,html:not([data-theme="dark"]) #app .xc-banner .flash-banner-icon.has-ri{width:52px;height:52px;flex:none;}
+  html:not([data-theme="dark"]) #app .xc-banner .xc-badge{z-index:3;}
+
+  /* course: four calm tiles instead of a long grouped list */
+  html:not([data-theme="dark"]) #app .card-list.course-list{display:grid;grid-template-columns:1fr 1fr;gap:12px;background:none;box-shadow:none;border-radius:0;overflow:visible;padding:0;}
+  html:not([data-theme="dark"]) #app .card-list.course-list::before,html:not([data-theme="dark"]) #app .card-list.course-list::after{display:none;}
+  html:not([data-theme="dark"]) #app .card-list.course-list .page-card.neutral{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:0;
+    min-height:132px;padding:14px 14px 15px;margin:0;border:none !important;border-radius:24px !important;overflow:hidden;isolation:isolate;
+    background:var(--pl-bg,#fff) !important;box-shadow:var(--pl-shadow);transition:transform .35s cubic-bezier(.3,1.3,.5,1), box-shadow .35s;}
+  html:not([data-theme="dark"]) #app .card-list.course-list .page-card.neutral + .page-card{border-top:none !important;}
+  html:not([data-theme="dark"]) #app .card-list.course-list .page-card.neutral::after{display:none;}
+  html:not([data-theme="dark"]) #app .card-list.course-list .page-card.neutral:active{transform:scale(.97);box-shadow:var(--pl-shadow-press, var(--pl-shadow));background:var(--pl-bg,#fff) !important;}
+  html:not([data-theme="dark"]) #app .card-list.course-list .card-icon{width:50px;height:50px;border-radius:15px;margin:0 0 12px;flex:none;}
+  html:not([data-theme="dark"]) #app .card-list.course-list .card-icon:not(.has-ri) svg{width:22px;height:22px;}
+  html:not([data-theme="dark"]) #app .card-list.course-list .card-thumb{width:50px;height:50px;border-radius:15px;margin:0 0 12px;}
+  html:not([data-theme="dark"]) #app .card-list.course-list .card-body{min-width:0;width:100%;margin-top:auto;}
+  html:not([data-theme="dark"]) #app .card-list.course-list .card-title{font-size:15px;line-height:1.22;letter-spacing:-0.015em;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+  html:not([data-theme="dark"]) #app .card-list.course-list .card-sub{font-size:12.5px;margin-top:3px;}
+  /* the chevron becomes a small frosted disc in the corner */
+  html:not([data-theme="dark"]) #app .card-list.course-list .card-chevron{position:absolute;top:14px;right:14px;width:26px;height:26px;border-radius:50%;
+    display:grid;place-items:center;font-size:17px;line-height:1;opacity:1;color:rgba(60,60,67,0.45);background:rgba(118,118,128,0.10);padding-bottom:1px;}
+  html:not([data-theme="dark"]) #app .card-list.course-list .card-chevron svg{width:13px;height:13px;}
+  /* one soft wash per tile, picked up from its icon */
+  html:not([data-theme="dark"]) #app .card-list.course-list .page-card.neutral::before{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;
+    background:radial-gradient(120% 80% at 0% 0%, var(--rk, rgba(120,130,160,0.08)), transparent 62%);}
+  html:not([data-theme="dark"]) #app .card-list.course-list .rk-document{--rk:rgba(59,139,245,0.10);}
+  html:not([data-theme="dark"]) #app .card-list.course-list .rk-link{--rk:rgba(22,184,176,0.11);}
+  html:not([data-theme="dark"]) #app .card-list.course-list .rk-headphones{--rk:rgba(162,77,240,0.10);}
+  html:not([data-theme="dark"]) #app .card-list.course-list .rk-calendar{--rk:rgba(240,69,60,0.08);}
+  /* an odd last tile spans the row and lies flat */
+  html:not([data-theme="dark"]) #app .card-list.course-list > .page-card:last-child:nth-child(odd){grid-column:1 / -1;flex-direction:row;align-items:center;min-height:0;}
+  html:not([data-theme="dark"]) #app .card-list.course-list > .page-card:last-child:nth-child(odd) .card-icon{margin:0 14px 0 0;}
+  html:not([data-theme="dark"]) #app .card-list.course-list > .page-card:last-child:nth-child(odd) .card-body{margin-top:0;}
+  html:not([data-theme="dark"]) #app .card-list.course-list > .page-card:last-child:nth-child(odd) .card-chevron{position:static;margin-left:auto;}
 </style>
 </head>
 <body>
@@ -13035,6 +13079,78 @@ function pageSubtitle(p){
 function delOverlay(p){
   return editMode ? '<button class="card-del" onclick="event.stopPropagation();deletePage(\''+p.id+'\')" title="Delete">✕</button>' : '';
 }
+/* v104: detailed app-style icons for the home page (light appearance only; hidden in dark).
+   64 x 64 continuous-corner tile, lit from the top, with layered glass glyphs. */
+const RICON_PAL = {
+  cards:      ['#FF8A7A', '#F0453C', '#C9252B'],
+  xcol:       ['#FFB86B', '#FF7A3D', '#E5482A'],
+  document:   ['#7CC4FF', '#3B8BF5', '#2459D8'],
+  link:       ['#5EE6D6', '#16B8B0', '#0B8A93'],
+  headphones: ['#D58BFF', '#A24DF0', '#7A2AD0'],
+  calendar:   ['#FFFFFF', '#F7F8FB', '#E9ECF3']
+};
+function richIconSVG(kind){
+  const pal = RICON_PAL[kind];
+  if(!pal) return '';
+  const id = 'ri' + kind.charAt(0).toUpperCase() + kind.slice(1);
+  const tile = 'M0 19.5C0 4.4 4.4 0 19.5 0h25C59.6 0 64 4.4 64 19.5v25C64 59.6 59.6 64 44.5 64h-25C4.4 64 0 59.6 0 44.5z';
+  const defs = '<defs>' +
+    '<linearGradient id="'+id+'Bg" x1="0" y1="0" x2=".55" y2="1"><stop offset="0" stop-color="'+pal[0]+'"/><stop offset=".55" stop-color="'+pal[1]+'"/><stop offset="1" stop-color="'+pal[2]+'"/></linearGradient>' +
+    '<radialGradient id="'+id+'Sh" cx=".3" cy="0" r="1"><stop offset="0" stop-color="#fff" stop-opacity="'+(kind==='calendar'?0:.42)+'"/><stop offset=".55" stop-color="#fff" stop-opacity="0"/></radialGradient>' +
+    '<linearGradient id="'+id+'Gl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#EEF1F8"/></linearGradient>' +
+    '<filter id="'+id+'Ds" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy="1.6" stdDeviation="1.6" flood-color="#0B1230" flood-opacity=".26"/></filter>' +
+  '</defs>';
+  const base = '<path d="'+tile+'" fill="url(#'+id+'Bg)"/><path d="'+tile+'" fill="url(#'+id+'Sh)"/>' +
+    '<path d="'+tile+'" fill="none" stroke="'+(kind==='calendar' ? '#D9DEE8' : '#fff')+'" stroke-opacity="'+(kind==='calendar' ? 1 : .32)+'" stroke-width="1.2" transform="translate(.6 .6) scale(.98125)"/>';
+  let g = '';
+  if(kind === 'cards'){
+    g = '<rect x="15" y="16" width="25" height="33" rx="4.5" transform="rotate(-14 27.5 32.5)" fill="#fff" fill-opacity=".32" stroke="#fff" stroke-opacity=".55" stroke-width=".8"/>' +
+      '<rect x="19" y="15" width="25" height="33" rx="4.5" transform="rotate(-3 31.5 31.5)" fill="#fff" fill-opacity=".55" stroke="#fff" stroke-opacity=".7" stroke-width=".8"/>' +
+      '<g filter="url(#'+id+'Ds)" transform="rotate(9 36 33)"><rect x="23" y="15.5" width="26" height="34" rx="4.6" fill="url(#'+id+'Gl)"/>' +
+        '<text x="36" y="35.5" text-anchor="middle" font-size="13" font-weight="800" fill="#E8352E" font-family="var(--font-display, system-ui), system-ui, sans-serif">Aa</text>' +
+        '<rect x="29" y="40" width="14" height="2.2" rx="1.1" fill="#F6B9B3"/><rect x="32" y="44" width="8" height="1.8" rx=".9" fill="#FBD9D5"/>' +
+        '<circle cx="44.5" cy="20" r="1.6" fill="#E8352E" fill-opacity=".85"/></g>';
+  }else if(kind === 'xcol'){
+    g = '<rect x="10" y="17" width="30" height="13" rx="6.5" fill="#fff" fill-opacity=".38" stroke="#fff" stroke-opacity=".6" stroke-width=".8"/>' +
+      '<rect x="15" y="21.8" width="12" height="2.4" rx="1.2" fill="#fff" fill-opacity=".9"/><rect x="29" y="21.8" width="6" height="2.4" rx="1.2" fill="#fff" fill-opacity=".6"/>' +
+      '<g filter="url(#'+id+'Ds)"><rect x="22" y="33" width="32" height="14" rx="7" fill="url(#'+id+'Gl)"/>' +
+        '<rect x="27.5" y="38.8" width="14" height="2.6" rx="1.3" fill="#FF7A3D"/><rect x="43.5" y="38.8" width="5.5" height="2.6" rx="1.3" fill="#FFC9A8"/>' +
+        '<circle cx="23" cy="31.5" r="6.2" fill="#fff"/><path d="M23 28.4v6.2M19.9 31.5h6.2" stroke="#F0602F" stroke-width="2" stroke-linecap="round"/></g>' +
+      '<path d="M48.5 14.5l1 2.6 2.6 1-2.6 1-1 2.6-1-2.6-2.6-1 2.6-1z" fill="#fff" fill-opacity=".9"/>';
+  }else if(kind === 'document'){
+    g = '<rect x="16" y="13" width="27" height="35" rx="4.5" transform="rotate(-8 29.5 30.5)" fill="#fff" fill-opacity=".34" stroke="#fff" stroke-opacity=".6" stroke-width=".8"/>' +
+      '<g filter="url(#'+id+'Ds)"><path d="M24.5 14h14.2l8.3 8.3V47a4 4 0 0 1-4 4H24.5a4 4 0 0 1-4-4V18a4 4 0 0 1 4-4z" fill="url(#'+id+'Gl)"/>' +
+        '<path d="M38.7 14v5.3a3 3 0 0 0 3 3H47z" fill="#CFE0FA"/>' +
+        '<rect x="25" y="25.5" width="13" height="3" rx="1.5" fill="#2F7BEB"/>' +
+        '<rect x="25" y="32" width="17" height="2" rx="1" fill="#C9D6EA"/><rect x="25" y="36.5" width="17" height="2" rx="1" fill="#C9D6EA"/><rect x="25" y="41" width="11" height="2" rx="1" fill="#C9D6EA"/>' +
+        '<path d="M31 14h5v7.5l-2.5-1.8-2.5 1.8z" fill="#FF6B5E"/></g>';
+  }else if(kind === 'link'){
+    /* two interlocking chain links: the back one passes over the front one at the lower crossing */
+    const back = '<rect x="9.5" y="24.5" width="26" height="15" rx="7.5" fill="none" stroke-width="5.2"';
+    g = '<defs><clipPath id="riLinkX"><rect x="28.6" y="33" width="9" height="10"/></clipPath></defs>' +
+      '<g transform="rotate(-45 32 32)">' +
+        back + ' stroke="#D3F7F2"/>' +
+        '<g filter="url(#'+id+'Ds)"><rect x="28.5" y="24.5" width="26" height="15" rx="7.5" fill="none" stroke="url(#'+id+'Gl)" stroke-width="5.2"/></g>' +
+        '<g clip-path="url(#riLinkX)">' + back + ' stroke="#D3F7F2"/></g>' +
+        '<path d="M36 22.6h10.5" stroke="#fff" stroke-width="1" stroke-linecap="round" opacity=".95"/>' +
+        '<path d="M17 22.6h9" stroke="#fff" stroke-width="1" stroke-linecap="round" opacity=".8"/>' +
+      '</g>' +
+      '<g transform="translate(47.5 47.5)" filter="url(#'+id+'Ds)"><circle r="7" fill="#fff"/><path d="M-2.3 2.3l4.4-4.4M-.6-2.3h2.7v2.7" fill="none" stroke="#0E9C99" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></g>';
+  }else if(kind === 'headphones'){
+    g = '<g fill="none" stroke="#fff" stroke-linecap="round"><path d="M17.5 41.5a17 17 0 1 1 29 0" stroke-opacity=".38" stroke-width="2.6"/><path d="M22.4 38a11.4 11.4 0 1 1 19.2 0" stroke-opacity=".7" stroke-width="2.6"/></g>' +
+      '<g filter="url(#'+id+'Ds)"><circle cx="32" cy="29.5" r="6.4" fill="url(#'+id+'Gl)"/>' +
+        '<path d="M28.6 38.5h6.8l-1.2 12.2a2.2 2.2 0 0 1-4.4 0z" fill="url(#'+id+'Gl)"/></g>' +
+      '<g stroke="#A55BEF" stroke-opacity=".4" stroke-width="1" stroke-linecap="round"><path d="M27.6 27.4h8.8M26.6 29.8h10.8M27.6 32.2h8.8"/></g>' +
+      '<path d="M28 25.6a4.6 4.6 0 0 1 3-2.3" fill="none" stroke="#fff" stroke-width="1.2" stroke-linecap="round"/>';
+  }else if(kind === 'calendar'){
+    const d = new Date();
+    const wd = ['SUN','MON','TUE','WED','THU','FRI','SAT'][d.getDay()];
+    g = '<text x="32" y="20.5" text-anchor="middle" font-size="9" font-weight="700" letter-spacing=".6" fill="#F0453C" font-family="var(--font-body, system-ui), system-ui, sans-serif">'+wd+'</text>' +
+      '<text x="32" y="45.5" text-anchor="middle" font-size="27" font-weight="500" fill="#1C2233" letter-spacing="-1" font-family="var(--font-body, system-ui), system-ui, sans-serif">'+d.getDate()+'</text>' +
+      '<g><circle cx="25" cy="52" r="1.7" fill="#F0453C"/><circle cx="32" cy="52" r="1.7" fill="#3B8BF5"/><circle cx="39" cy="52" r="1.7" fill="#22B573"/></g>';
+  }
+  return '<svg class="ricon" viewBox="0 0 64 64" aria-hidden="true" focusable="false">' + defs + base + g + '</svg>';
+}
 function pageCard(p, i, neutral){
   const cls = pageColorClass(p, i);
   const hasCover = p.cover && p.cover.trim();
@@ -13042,12 +13158,13 @@ function pageCard(p, i, neutral){
   if(hasCover){
     media = '<div class="card-thumb" style="background-image:url(\''+escapeAttr(convertDriveImageUrl(p.cover))+'\')"></div>';
   }else if(neutral){
-    media = '<div class="card-icon '+cls+'" style="background:'+GRAD_VAR[cls]+';">'+iconHTML(p.icon)+'</div>';
+    const ri = richIconSVG(p.icon);
+    media = '<div class="card-icon '+cls+(ri ? ' has-ri' : '')+'" style="background:'+GRAD_VAR[cls]+';">'+iconHTML(p.icon)+(ri ? '<span class="ri">'+ri+'</span>' : '')+'</div>';
   }else{
     media = '<div class="card-icon">'+iconHTML(p.icon)+'</div>';
   }
   const locked = isLockedForViewer(p.id), hid = !locked && hiddenInPath(p.id);
-  return '<div class="page-card '+(neutral?'neutral':cls)+(locked?' is-locked':'')+'" style="--d:'+(i*0.04).toFixed(3)+'s" onclick="'+(locked ? 'lockedTap()' : 'openPage(\''+p.id+'\')')+'">' +
+  return '<div class="page-card '+(neutral?'neutral':cls)+(neutral && !hasCover && RICON_PAL[p.icon] ? ' rk-'+p.icon : '')+(locked?' is-locked':'')+'" style="--d:'+(i*0.04).toFixed(3)+'s" onclick="'+(locked ? 'lockedTap()' : 'openPage(\''+p.id+'\')')+'">' +
     delOverlay(p) + media +
     '<div class="card-body"><div class="card-title">'+escapeHtml(p.title)+(hid ? '<span class="hid-pill inline">'+iconHTML('lock')+'Hidden</span>' : '')+'</div>' +
     '<div class="card-sub">'+(locked ? 'Opens soon' : pageSubtitle(p))+'</div></div>' +
@@ -13474,12 +13591,12 @@ function renderHomeGrid(){
     '<div class="section-label">Practice</div>' +
     '<div class="practice-grid">' +
     '<div class="flash-banner fb-word" onclick="startFlashcards()">' +
-      '<div class="flash-banner-icon">'+iconHTML('cards')+'</div>' +
+      '<div class="flash-banner-icon has-ri">'+iconHTML('cards')+'<span class="ri">'+richIconSVG('cards')+'</span></div>' +
       '<div class="flash-banner-txt"><div class="flash-banner-title">Word practice</div><div class="flash-banner-sub">10 flashcards from Inspire, by unit</div></div>' +
       '<div class="fb-deck" aria-hidden="true"><span class="fb-c c1"></span><span class="fb-c c2"></span><span class="fb-c c3">Aa</span></div>' +
     '</div>' +
     mistakesBannerHTML() + soundsBannerHTML() + examsBannerHTML() + grammarBannerHTML() + xcolBannerHTML() + '</div>' +
-    (generals.length ? ('<div class="section-label">Course<span class="sl-count">'+generals.length+'</span></div><div class="card-list">' + generals.map(function(p,i){ return pageCard(p,i,true); }).join('') + '</div>') : '') +
+    (generals.length ? ('<div class="section-label">Course<span class="sl-count">'+generals.length+'</span></div><div class="card-list course-list">' + generals.map(function(p,i){ return pageCard(p,i,true); }).join('') + '</div>') : '') +
     (units.length ? ('<div class="section-label">Units<span class="sl-count">'+units.length+'</span></div><div class="unit-grid">' + units.map(function(p,i){ return unitCard(p,i); }).join('') + '</div>') : '') +
     (editMode ? '<button class="btn primary full" onclick="openNewPageModal(null)">+ New page</button>' : '');
 }
@@ -17789,7 +17906,7 @@ function xcolStopAudio(){ const a = document.getElementById('xcAudio'); if(a){ t
 function xcolBannerHTML(){
   const p = xcolProgress(), done = Object.keys(p).filter(function(k){ return p[k].done; }).length;
   return '<div class="flash-banner xc-banner" onclick="openXcol()">' +
-    '<div class="flash-banner-icon xc-icon">'+XC_ICON+'<span class="xc-badge">Extra</span></div>' +
+    '<div class="flash-banner-icon xc-icon has-ri">'+XC_ICON+'<span class="ri">'+richIconSVG('xcol')+'</span><span class="xc-badge">Extra</span></div>' +
     '<div class="flash-banner-txt"><div class="flash-banner-title">'+escapeHtml(xcolTitle())+'</div>' +
       '<div class="flash-banner-sub">'+(done ? done+' of 25 lessons done' : '25 bonus lessons with audio')+'</div></div>' +
     '<div class="xc-art" aria-hidden="true"><span class="xc-chip a">make</span><span class="xc-join">+</span><span class="xc-chip b">a decision</span><span class="xc-chip c">heavy rain</span></div>' +
