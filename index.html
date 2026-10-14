@@ -6965,37 +6965,32 @@
   html:not([data-theme="dark"]) #app .fb-word .flash-banner-icon.has-ri,html:not([data-theme="dark"]) #app .xc-banner .flash-banner-icon.has-ri{width:52px;height:52px;flex:none;}
   html:not([data-theme="dark"]) #app .xc-banner .xc-badge{z-index:3;}
 
-  /* course: four calm tiles instead of a long grouped list */
-  html:not([data-theme="dark"]) #app .card-list.course-list{display:grid;grid-template-columns:1fr 1fr;gap:12px;background:none;box-shadow:none;border-radius:0;overflow:visible;padding:0;}
+  /* course: one full-width row per page, built like the Word practice banner */
+  html:not([data-theme="dark"]) #app .card-list.course-list{display:flex;flex-direction:column;gap:12px;background:none;box-shadow:none;border-radius:0;overflow:visible;padding:0;}
   html:not([data-theme="dark"]) #app .card-list.course-list::before,html:not([data-theme="dark"]) #app .card-list.course-list::after{display:none;}
-  html:not([data-theme="dark"]) #app .card-list.course-list .page-card.neutral{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:0;
-    min-height:132px;padding:14px 14px 15px;margin:0;border:none !important;border-radius:24px !important;overflow:hidden;isolation:isolate;
+  html:not([data-theme="dark"]) #app .card-list.course-list .page-card.neutral{position:relative;display:flex;flex-direction:row;align-items:center;gap:14px;
+    min-height:84px;padding:15px 16px;margin:0;border:none !important;border-radius:24px !important;overflow:hidden;isolation:isolate;
     background:var(--pl-bg,#fff) !important;box-shadow:var(--pl-shadow);transition:transform .35s cubic-bezier(.3,1.3,.5,1), box-shadow .35s;}
   html:not([data-theme="dark"]) #app .card-list.course-list .page-card.neutral + .page-card{border-top:none !important;}
   html:not([data-theme="dark"]) #app .card-list.course-list .page-card.neutral::after{display:none;}
-  html:not([data-theme="dark"]) #app .card-list.course-list .page-card.neutral:active{transform:scale(.97);box-shadow:var(--pl-shadow-press, var(--pl-shadow));background:var(--pl-bg,#fff) !important;}
-  html:not([data-theme="dark"]) #app .card-list.course-list .card-icon{width:50px;height:50px;border-radius:15px;margin:0 0 12px;flex:none;}
+  html:not([data-theme="dark"]) #app .card-list.course-list .page-card.neutral:active{transform:scale(.98);box-shadow:var(--pl-shadow-press, var(--pl-shadow));background:var(--pl-bg,#fff) !important;}
+  html:not([data-theme="dark"]) #app .card-list.course-list .card-icon{width:52px;height:52px;border-radius:15px;margin:0;flex:none;}
   html:not([data-theme="dark"]) #app .card-list.course-list .card-icon:not(.has-ri) svg{width:22px;height:22px;}
-  html:not([data-theme="dark"]) #app .card-list.course-list .card-thumb{width:50px;height:50px;border-radius:15px;margin:0 0 12px;}
-  html:not([data-theme="dark"]) #app .card-list.course-list .card-body{min-width:0;width:100%;margin-top:auto;}
-  html:not([data-theme="dark"]) #app .card-list.course-list .card-title{font-size:15px;line-height:1.22;letter-spacing:-0.015em;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
-  html:not([data-theme="dark"]) #app .card-list.course-list .card-sub{font-size:12.5px;margin-top:3px;}
-  /* the chevron becomes a small frosted disc in the corner */
-  html:not([data-theme="dark"]) #app .card-list.course-list .card-chevron{position:absolute;top:14px;right:14px;width:26px;height:26px;border-radius:50%;
-    display:grid;place-items:center;font-size:17px;line-height:1;opacity:1;color:rgba(60,60,67,0.45);background:rgba(118,118,128,0.10);padding-bottom:1px;}
+  html:not([data-theme="dark"]) #app .card-list.course-list .card-thumb{width:52px;height:52px;border-radius:15px;margin:0;flex:none;}
+  html:not([data-theme="dark"]) #app .card-list.course-list .card-body{flex:1;min-width:0;margin:0;}
+  html:not([data-theme="dark"]) #app .card-list.course-list .card-title{font-size:16.5px;line-height:1.25;letter-spacing:-0.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  html:not([data-theme="dark"]) #app .card-list.course-list .card-sub{font-size:13px;margin-top:3px;}
+  /* the chevron sits in a small frosted disc */
+  html:not([data-theme="dark"]) #app .card-list.course-list .card-chevron{position:static;flex:none;width:28px;height:28px;margin-left:auto;border-radius:50%;
+    display:grid;place-items:center;font-size:18px;line-height:1;opacity:1;color:rgba(60,60,67,0.45);background:rgba(118,118,128,0.10);padding-bottom:1px;}
   html:not([data-theme="dark"]) #app .card-list.course-list .card-chevron svg{width:13px;height:13px;}
-  /* one soft wash per tile, picked up from its icon */
+  /* one soft wash per row, picked up from its icon */
   html:not([data-theme="dark"]) #app .card-list.course-list .page-card.neutral::before{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;
-    background:radial-gradient(120% 80% at 0% 0%, var(--rk, rgba(120,130,160,0.08)), transparent 62%);}
+    background:radial-gradient(70% 140% at 0% 50%, var(--rk, rgba(120,130,160,0.07)), transparent 70%);}
   html:not([data-theme="dark"]) #app .card-list.course-list .rk-document{--rk:rgba(59,139,245,0.10);}
   html:not([data-theme="dark"]) #app .card-list.course-list .rk-link{--rk:rgba(22,184,176,0.11);}
   html:not([data-theme="dark"]) #app .card-list.course-list .rk-headphones{--rk:rgba(162,77,240,0.10);}
   html:not([data-theme="dark"]) #app .card-list.course-list .rk-calendar{--rk:rgba(240,69,60,0.08);}
-  /* an odd last tile spans the row and lies flat */
-  html:not([data-theme="dark"]) #app .card-list.course-list > .page-card:last-child:nth-child(odd){grid-column:1 / -1;flex-direction:row;align-items:center;min-height:0;}
-  html:not([data-theme="dark"]) #app .card-list.course-list > .page-card:last-child:nth-child(odd) .card-icon{margin:0 14px 0 0;}
-  html:not([data-theme="dark"]) #app .card-list.course-list > .page-card:last-child:nth-child(odd) .card-body{margin-top:0;}
-  html:not([data-theme="dark"]) #app .card-list.course-list > .page-card:last-child:nth-child(odd) .card-chevron{position:static;margin-left:auto;}
 </style>
 </head>
 <body>
