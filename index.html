@@ -7085,6 +7085,31 @@
   html:not([data-theme="dark"]) #app .quiz-opt.opt-wrong{background:rgba(224,69,60,0.06);box-shadow:inset 0 0 0 1.5px rgba(224,69,60,0.40), 0 1px 2px rgba(17,22,38,0.04);}
   html:not([data-theme="dark"]) #app .quiz-opt.opt-correct .quiz-box{background:#2EA05A;border-color:transparent;}
   html:not([data-theme="dark"]) #app .quiz-opt.opt-wrong .quiz-box{background:#D4382F;border-color:transparent;}
+
+  /* ================= v112: hero as a calm glass slab (light) ================= */
+  /* light that suits any banner colour: white blooms instead of fixed orange/red glows */
+  html:not([data-theme="dark"]) #app .hero-layers .aur{mix-blend-mode:normal;filter:blur(40px);}
+  html:not([data-theme="dark"]) #app .hero-layers .aur.a1{width:260px;height:260px;top:-120px;right:-70px;opacity:.30;
+    background:radial-gradient(circle, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0) 68%);}
+  html:not([data-theme="dark"]) #app .hero-layers .aur.a2{width:260px;height:200px;bottom:-130px;left:-60px;opacity:.16;
+    background:radial-gradient(circle, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0) 70%);}
+  html:not([data-theme="dark"]) #app .hero-layers .aur.a3{display:none;}
+  /* a soft top-lit face and a gentle floor, like light falling on glass */
+  html:not([data-theme="dark"]) #app .hero-card.custom .hero-layers,html:not([data-theme="dark"]) #app .hero-layers{background:
+    radial-gradient(120% 90% at 12% -10%, rgba(255,255,255,0.20) 0%, rgba(255,255,255,0) 55%),
+    linear-gradient(180deg, rgba(6,10,31,0) 45%, rgba(6,10,31,0.16) 100%);}
+  /* the sheen: one feathered glint that crosses the whole card, then rests */
+  html:not([data-theme="dark"]) #app .hero-layers .hero-shine{top:0;right:0;bottom:0;left:0;width:auto;height:auto;transform:none;border-radius:inherit;
+    mix-blend-mode:normal;opacity:1;z-index:2;
+    background:linear-gradient(105deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 40%, rgba(255,255,255,0.10) 45%, rgba(255,255,255,0.30) 49.5%, rgba(255,255,255,0.34) 50%, rgba(255,255,255,0.30) 50.5%, rgba(255,255,255,0.10) 55%, rgba(255,255,255,0) 60%, rgba(255,255,255,0) 100%) no-repeat;
+    background-size:320% 100%;background-position:125% 0;animation:heroGlint 11s cubic-bezier(.45,.05,.25,1) 1.4s infinite;}
+  @keyframes heroGlint{0%{background-position:125% 0;}26%,100%{background-position:-25% 0;}}
+  /* one fine rim on top and a neutral shadow, so no warm haze sits under a cool banner */
+  html:not([data-theme="dark"]) #app .hero-card.hero-card{box-shadow:0 0 0 .5px rgba(17,22,38,0.06), 0 22px 40px -26px rgba(20,32,70,0.50), 0 10px 22px -16px rgba(17,22,38,0.22), inset 0 1px 0 rgba(255,255,255,0.34);}
+  html:not([data-theme="dark"]) #app .hero-card::before{display:none;}
+  html:not([data-theme="dark"]) #app .hero-waves{opacity:.75;}
+  html:not([data-theme="dark"]) #app .hero-eyebrow{color:rgba(255,255,255,0.78);opacity:1;}
+  @media (prefers-reduced-motion: reduce){ html:not([data-theme="dark"]) #app .hero-layers .hero-shine{animation:none;background-position:125% 0;} }
 </style>
 </head>
 <body>
