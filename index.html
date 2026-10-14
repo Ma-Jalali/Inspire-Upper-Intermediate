@@ -166,7 +166,7 @@
   .mc-glyph{display:none;}
   .pt-art{display:none;}
   .ri{display:none;}
-  .hub-art,.gm-art{display:none;}
+  .hub-art,.gm-art,.snd-wm{display:none;}
   .rd-hl-lab{display:none;}
   html #app .pod-icon, html[data-theme="dark"] #app .flash-banner-icon.pod-icon{background:linear-gradient(140deg,#D58BFF,#A24DF0 55%,#7A2AD0) !important;color:#fff;}
   html:not([data-theme="dark"]) #app .flash-banner-icon.pod-icon.has-ri{background:none !important;}
@@ -7203,6 +7203,22 @@
   html:not([data-theme="dark"]) #app .toc-ico.has-ri{width:32px;height:32px;}
   html:not([data-theme="dark"]) #app .part-row .pr-icon.has-ri{width:54px;height:54px;}
   html:not([data-theme="dark"]) #app .part-row .pr-icon.has-ri > .ri svg.ricon{filter:drop-shadow(0 6px 9px rgba(20,28,58,0.22)) drop-shadow(0 1px 1.5px rgba(20,28,58,0.12));}
+
+  /* ================= v116: the dictionary, Extra Collocations and Sound practice (light) ================= */
+  /* collocation and reading rows: the same glass tile as everywhere else */
+  html:not([data-theme="dark"]) #app .xc-row-ico.has-ri{width:46px;height:46px;}
+  html:not([data-theme="dark"]) #app .xc-row-ico.has-ri > .ri svg.ricon{filter:drop-shadow(0 4px 6px rgba(20,28,58,0.18)) drop-shadow(0 1px 1px rgba(20,28,58,0.10));}
+  html:not([data-theme="dark"]) #app .xc-row-ico.has-ri > .ri .ricon svg{width:34px;height:34px;}
+  /* dictionary: a faint open book in the corner of the entry card */
+  html:not([data-theme="dark"]) #app .dict-card{position:relative;overflow:hidden;}
+  html:not([data-theme="dark"]) #app .dict-card::after{content:'';position:absolute;right:-14px;top:-10px;width:128px;height:104px;pointer-events:none;opacity:.07;
+    background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 104' fill='none' stroke='%23B8781A' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14 22c16-6 32-6 48 0v62c-16-6-32-6-48 0zM110 22c-16-6-32-6-48 0v62c16-6 32-6 48 0z'/%3E%3Cpath d='M62 22v62' opacity='.6'/%3E%3Cpath d='M24 36h28M24 46h28M24 56h18M72 36h28M72 46h28M72 56h22' opacity='.8'/%3E%3Ccircle cx='96' cy='74' r='9'/%3E%3Cpath d='M103 81l9 9'/%3E%3C/svg%3E") no-repeat center/contain;}
+  html:not([data-theme="dark"]) #app .dict-card > *{position:relative;z-index:1;}
+  /* sound pairs: a quiet waveform in the corner of each tile */
+  html:not([data-theme="dark"]) #app .snd-card{isolation:isolate;}
+  html:not([data-theme="dark"]) #app .snd-card .snd-wm{display:block;position:absolute;right:-6px;bottom:-4px;width:118px;height:60px;color:#fff;opacity:.22;pointer-events:none;z-index:0;
+    -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 40%);mask-image:linear-gradient(90deg,transparent 0,#000 40%);}
+  html:not([data-theme="dark"]) #app .snd-card > *:not(.snd-wm){position:relative;z-index:1;}
 </style>
 </head>
 <body>
@@ -10750,6 +10766,7 @@ function renderSounds(){
   SOUND_SETS.forEach(function(s, i){
     const best = soundBest[s.id];
     h += '<button class="snd-card '+s.hue+'" style="--d:'+(i*0.04).toFixed(2)+'s" onclick="sndOpenSet(\''+s.id+'\')">' +
+      '<svg class="snd-wm" viewBox="0 0 120 60" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 30v0M16 22v16M26 14v32M36 24v12M46 8v44M56 18v24M66 26v8M76 12v36M86 20v20M96 28v4M106 16v28M116 24v12"/></g></svg>' +
       '<span class="snd-card-ipa">'+escapeHtml(s.a)+'<i>\u00B7</i>'+escapeHtml(s.b)+'</span>' +
       '<span class="snd-card-t">'+escapeHtml(s.title)+'</span>' +
       '<span class="snd-card-best">'+(best!==undefined ? 'Best '+best+'%' : 'Start')+'</span></button>';
@@ -13385,10 +13402,10 @@ function riTile(id, pal, g, extraDefs){
   return '<svg class="ricon" viewBox="0 0 64 64" aria-hidden="true" focusable="false">' + defs + base + g + '</svg>';
 }
 /* any app icon, white with a soft shadow, on a tile of the given colour family */
-function richTileSVG(fam, icon, unit){
+function richTileSVG(fam, icon, unit, glyph){
   const pal = (unit ? RTILE_PAL_UNIT : RTILE_PAL)[fam] || RTILE_PAL['g-slate'];
-  const id = 'rt' + (unit?'u':'') + fam.replace(/[^a-z]/g,'') + icon.replace(/[^a-z]/g,'');
-  let inner = (ICONS[icon] || ICONS.page).replace(/^<svg[^>]*>/, '').replace(/<\/svg>$/, '');
+  const id = 'rt' + (unit?'u':'') + fam.replace(/[^a-z]/g,'') + String(icon).replace(/[^a-z0-9]/g,'');
+  let inner = (glyph || ICONS[icon] || ICONS.page).replace(/^<svg[^>]*>/, '').replace(/<\/svg>$/, '');
   const g = '<g filter="url(#'+id+'Ds)" color="#fff"><svg x="14" y="14" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" overflow="visible">' + inner + '</svg></g>';
   return riTile(id, pal, g);
 }
@@ -18385,7 +18402,7 @@ function renderXcolList(){
       const s = p[l.n] || {};
       const score = s.best != null ? '<span class="xc-score'+(s.best===s.total?' perfect':'')+'">'+s.best+'/'+s.total+'</span>' : '';
       h += '<button class="xc-row" style="--d:'+(Math.min(idx++,14)*0.025).toFixed(3)+'s" onclick="xcolOpenLesson('+l.n+')">' +
-        '<span class="xc-row-ico" style="background:'+GRAD_VAR[l.c]+'">'+xcGlyph(l.n)+'</span>' +
+        '<span class="xc-row-ico has-ri" style="background:'+GRAD_VAR[l.c]+'"><span class="ri">'+richTileSVG(l.c, 'x'+l.n, false, xcGlyph(l.n))+'</span>'+xcGlyph(l.n)+'</span>' +
         '<span class="xc-row-body"><b>'+escapeHtml(l.t)+'</b><span class="xc-row-meta">'+l.k.length+' collocations · '+l.q.qs.length+' questions</span></span>' +
         score +
         (s.done ? '<span class="xc-row-done" aria-label="Done"><svg viewBox="0 0 24 24"><path d="M6 12.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>'
@@ -18666,7 +18683,7 @@ function readingMeta(b){
 function readingRowHTML(b){
   const seen = readingSeen()[b.id];
   return '<button class="xc-row rd-row" data-rd="'+b.id+'" onclick="openReading(\''+b.id+'\')">' +
-    '<span class="xc-row-ico" style="background:'+GRAD_VAR[readingHue(b)]+'">'+readingGlyph()+'</span>' +
+    '<span class="xc-row-ico has-ri" style="background:'+GRAD_VAR[readingHue(b)]+'"><span class="ri">'+richTileSVG(readingHue(b), 'read', false, readingGlyph())+'</span>'+readingGlyph()+'</span>' +
     '<span class="xc-row-body"><b>'+escapeHtml(b.title||'Reading')+'</b>'+readingPillsHTML(b)+'</span>' +
     (seen ? '<span class="xc-row-done" aria-label="Opened"><svg viewBox="0 0 24 24"><path d="M6 12.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>'
           : '<span class="xc-row-go">›</span>') +
