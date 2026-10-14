@@ -166,6 +166,16 @@
   .mc-glyph{display:none;}
   .pt-art{display:none;}
   .ri{display:none;}
+  html #app .resume-card{gap:14px;}
+  html #app .resume-card .rs-icon{color:#fff;flex:none;}
+  html #app .resume-card .flash-banner-txt{min-width:0;flex:1;padding-right:0 !important;}
+  html #app .resume-card .flash-banner-title{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  html #app .resume-card .flash-banner-sub{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  html #app .rs-eyebrow{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--crimson);margin-bottom:2px;}
+  html #app .rs-go{flex:none;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;margin-left:auto;color:#fff;
+    background:linear-gradient(150deg,var(--gold-bright,#FF9A5A),var(--crimson,#E5484D));box-shadow:0 8px 16px -8px rgba(var(--accent-rgb),0.8), inset 0 1px 0 rgba(255,255,255,0.4);}
+  html #app .rs-go svg{width:18px;height:18px;margin-left:2px;}
+  html #app .resume-card + .bd-strip{margin-top:12px;}
   html #app .pod-icon, html[data-theme="dark"] #app .flash-banner-icon.pod-icon{background:linear-gradient(140deg,#D58BFF,#A24DF0 55%,#7A2AD0) !important;color:#fff;}
   html:not([data-theme="dark"]) #app .flash-banner-icon.pod-icon.has-ri{background:none !important;}
   html #app .pod-banner .flash-banner-txt{padding-right:112px;}
@@ -7009,6 +7019,22 @@
   html:not([data-theme="dark"]) #app .practice-grid > .pod-banner .flash-banner-title,html:not([data-theme="dark"]) #app .practice-grid > .xc-banner .flash-banner-title{font-size:16.5px;}
   html:not([data-theme="dark"]) #app .practice-grid > .pod-banner .pod-art{width:94px;height:62px;right:14px;}
   html:not([data-theme="dark"]) #app .practice-grid > .xc-banner .xc-art{transform:translateY(-50%) scale(.84);transform-origin:100% 50%;}
+
+  /* ================= v108: home consistency ================= */
+  /* the three full-width practice rows share one height and one icon size */
+  html:not([data-theme="dark"]) #app .practice-grid > .fb-word,html:not([data-theme="dark"]) #app .practice-grid > .pod-banner,html:not([data-theme="dark"]) #app .practice-grid > .xc-banner{min-height:74px;padding-top:12px;padding-bottom:12px;}
+  html:not([data-theme="dark"]) #app .practice-grid > .fb-word .flash-banner-icon.has-ri{width:46px;height:46px;}
+  html:not([data-theme="dark"]) #app .practice-grid > .fb-word .flash-banner-title{font-size:16.5px;}
+  html:not([data-theme="dark"]) #app .practice-grid > .fb-word .fb-deck{transform:translateY(-50%) scale(.9);transform-origin:100% 50%;}
+  /* the EXTRA tag tucks onto the icon instead of hanging below it */
+  html:not([data-theme="dark"]) #app .practice-grid > .xc-banner .xc-badge{bottom:-4px;font-size:8.5px;padding:1.5px 5px;letter-spacing:.06em;}
+  /* continue card: a calm platter with a glossy page icon */
+  html:not([data-theme="dark"]) #app .resume-card{margin:12px 0 0;padding:13px 14px 13px 13px;min-height:74px;border-radius:24px;}
+  html:not([data-theme="dark"]) #app .resume-card .rs-icon{width:46px;height:46px;border-radius:14px;box-shadow:0 8px 14px -8px rgba(20,28,58,0.45), inset 0 1px 0 rgba(255,255,255,0.45), inset 0 -2px 4px rgba(0,0,0,0.12);}
+  html:not([data-theme="dark"]) #app .resume-card .rs-icon svg{width:22px;height:22px;}
+  html:not([data-theme="dark"]) #app .resume-card .flash-banner-title{font-size:16.5px;line-height:1.2;}
+  html:not([data-theme="dark"]) #app .resume-card .flash-banner-sub{font-size:12.5px;margin-top:2px;}
+  html:not([data-theme="dark"]) #app .resume-card + .bd-strip{margin-top:12px;}
 </style>
 </head>
 <body>
@@ -7459,7 +7485,7 @@ function buildSeed(){
       {id:uid(), title:"Course Overview", icon:"document", section:'general', colorFamily:null, cover:'', blocks:[
         {id:uid(), type:'text', text:'Add your course overview here — aims, exam structure, marking scheme, and what students can expect this term.'}
       ], children:[]},
-      {id:uid(), title:"Useful Links & Tools", icon:"link", section:'general', colorFamily:null, cover:'', blocks:[
+      {id:uid(), title:"Links & Tools", icon:"link", section:'general', colorFamily:null, cover:'', blocks:[
         {id:uid(), type:'bulleted', items:['Padlet class board — paste your link here','Oxford Word Skills Intermediate (vocabulary companion)','Cambridge English exam information']}
       ], children:[]},
       {id:uid(), title:"Podcasts", icon:"headphones", section:'general', colorFamily:null, cover:'', blocks:[
@@ -13603,6 +13629,37 @@ function podcastBannerHTML(p){
     podArtSVG() +
   '</div>';
 }
+/* v108: one tap back into the lesson you were on (or, on a first visit, a clear place to start) */
+function resumeCardHTML(){
+  const pod = podcastPage();
+  let page = null;
+  (recentPages||[]).some(function(id){
+    const p = findPage(state.pages, id);
+    if(p && !isLockedForViewer(p.id) && p !== pod){ page = p; return true; }
+    return false;
+  });
+  const fresh = !page;
+  if(fresh){
+    page = generalPages().filter(function(p){ return p !== pod && !isLockedForViewer(p.id); })[0] || unitPages()[0];
+    if(!page) return '';
+  }
+  const path = pathToRoot(page.id);
+  const top = path.length > 1 ? findPage(state.pages, path[0]) : null;
+  const up = top ? unitParts(top.title) : null;
+  const sub = fresh ? 'See how the course works' :
+    (top ? (up ? 'Unit ' + up.num + (up.name ? ' · ' + up.name : '') : top.title) : 'Pick up where you stopped');
+  const ui = unitPages().indexOf(top || page);
+  const cls = pageColorClass(top || page, ui < 0 ? 0 : ui);
+  const ri = top ? '' : richIconSVG(page.icon);   /* course pages keep their app icon; lessons wear their unit's colour */
+  const go = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 6.5l6 5.5-6 5.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  return '<div class="flash-banner resume-card" role="button" tabindex="0" onclick="openFromSearch(\''+page.id+'\')" onkeydown="if(event.key===\'Enter\')this.click()">' +
+    '<div class="flash-banner-icon rs-icon'+(ri ? ' has-ri' : '')+'" style="background:'+GRAD_VAR[cls]+'">'+iconHTML(page.icon)+(ri ? '<span class="ri">'+ri+'</span>' : '')+'</div>' +
+    '<div class="flash-banner-txt"><div class="rs-eyebrow">'+(fresh ? 'Start here' : 'Continue')+'</div>' +
+      '<div class="flash-banner-title">'+escapeHtml(String(page.title).replace(/^\s*\d+\s*[.)]\s*/, ''))+'</div>' +
+      '<div class="flash-banner-sub">'+escapeHtml(sub)+'</div></div>' +
+    '<span class="rs-go">'+go+'</span>' +
+  '</div>';
+}
 function renderHomeGrid(){
   const pod = podcastPage();
   const generals = generalPages().filter(function(p){ return p !== pod; });
@@ -13632,16 +13689,16 @@ function renderHomeGrid(){
     '</div>' +
     announcementHTML() +
     liveJoinCardHTML() + homeworkHTML() + exitTicketHTML() +
-    badgesStripHTML() +
+    resumeCardHTML() + badgesStripHTML() +
     '<div class="section-label">Practice</div>' +
     '<div class="practice-grid">' +
     '<div class="flash-banner fb-word" onclick="startFlashcards()">' +
       '<div class="flash-banner-icon has-ri">'+iconHTML('cards')+'<span class="ri">'+richIconSVG('cards')+'</span></div>' +
-      '<div class="flash-banner-txt"><div class="flash-banner-title">Word practice</div><div class="flash-banner-sub">10 flashcards from Inspire, by unit</div></div>' +
+      '<div class="flash-banner-txt"><div class="flash-banner-title">Word practice</div></div>' +
       '<div class="fb-deck" aria-hidden="true"><span class="fb-c c1"></span><span class="fb-c c2"></span><span class="fb-c c3">Aa</span></div>' +
     '</div>' +
     mistakesBannerHTML() + soundsBannerHTML() + examsBannerHTML() + grammarBannerHTML() + podcastBannerHTML(pod) + xcolBannerHTML() + '</div>' +
-    (generals.length ? ('<div class="section-label">Course<span class="sl-count">'+generals.length+'</span></div><div class="card-list course-list">' + generals.map(function(p,i){ return pageCard(p,i,true); }).join('') + '</div>') : '') +
+    (generals.length ? ('<div class="section-label">Course</div><div class="card-list course-list">' + generals.map(function(p,i){ return pageCard(p,i,true); }).join('') + '</div>') : '') +
     (units.length ? ('<div class="section-label">Units<span class="sl-count">'+units.length+'</span></div><div class="unit-grid">' + units.map(function(p,i){ return unitCard(p,i); }).join('') + '</div>') : '') +
     (editMode ? '<button class="btn primary full" onclick="openNewPageModal(null)">+ New page</button>' : '');
 }
