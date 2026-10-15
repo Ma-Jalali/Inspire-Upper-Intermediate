@@ -280,6 +280,25 @@ M.u10g2 = ['green', 'u10-gram-commas', (P) => {
     `<rect x='-42' y='-94' width='176' height='20' rx='10' fill='${P.l}'/><rect x='-42' y='-62' width='120' height='16' rx='8' fill='${P.l}' opacity='.7'/><rect x='-136' y='-6' width='272' height='20' rx='10' fill='${P.l}'/><rect x='-136' y='34' width='200' height='20' rx='10' fill='${P.l}'/>` +
     sp(0, -230, 20) + sp(-330, -170, 14) + sp(340, 180, 16) + sp(-40, 180, 14);
 }];
+// ---------- General pages ----------
+M.course = ['indigo', 'course-overview', (P) =>
+  `<g transform='rotate(-6 -150 20)'><rect x='-300' y='-150' width='300' height='340' rx='16' fill='${P.l}' ${S(P)}/><rect x='-280' y='-170' width='300' height='340' rx='16' fill='${W}' ${S(P)}/>` +
+  `<rect x='-250' y='-130' width='150' height='18' rx='9' fill='${P.m}'/><rect x='-250' y='-92' width='230' height='12' rx='6' fill='${P.l}'/><rect x='-250' y='-66' width='200' height='12' rx='6' fill='${P.l}'/><rect x='-250' y='-40' width='220' height='12' rx='6' fill='${P.l}'/>` +
+  [0,1,2].map(i => `<rect x='-250' y='${0 + i*34}' width='22' height='22' rx='6' fill='${P.m}' opacity='.9'/><path d='M${-244},${11 + i*34} l5,5 l10,-11' fill='none' stroke='${W}' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/><rect x='-216' y='${5 + i*34}' width='${160 - i*30}' height='12' rx='6' fill='${P.l}'/>`).join('') + `</g>` +
+  `<g transform='rotate(38 190 -80)'><rect x='176' y='-190' width='28' height='170' rx='8' fill='${CO}' ${S(P)}/><rect x='176' y='-190' width='28' height='26' rx='8' fill='${P.l}' ${S(P)}/><path d='M176,-20 L190,16 L204,-20 Z' fill='${W}' ${S(P)}/><path d='M185,0 L190,14 L195,0 Z' fill='${P.d}'/></g>` +
+  `<circle cx='250' cy='110' r='70' fill='${W}' ${S(P)}/><circle cx='250' cy='110' r='52' fill='none' stroke='${P.m}' stroke-width='3' opacity='.5'/><path d='M250,110 L250,70 M250,110 L278,126' stroke='${P.d}' stroke-width='6' stroke-linecap='round'/><circle cx='250' cy='110' r='7' fill='${CO}'/>` +
+  sp(120, 60, 20) + sp(330, -40, 16) + sp(-340, 220, 14)];
+M.schedule = ['teal', 'weekly-schedule', (P) =>
+  `<rect x='-290' y='-170' width='400' height='380' rx='26' fill='${W}' ${S(P)}/><path d='M-290,-110 L-290,-144 A26,26 0 0 1 -264,-170 L84,-170 A26,26 0 0 1 110,-144 L110,-110 Z' fill='${P.m}' ${S(P)}/>` +
+  `<rect x='-220' y='-200' width='22' height='60' rx='11' fill='${W}' ${S(P,4)}/><rect x='18' y='-200' width='22' height='60' rx='11' fill='${W}' ${S(P,4)}/>` +
+  [0,1,2,3,4].map(c => [0,1,2,3].map(r => { const x = -262 + c*70, y = -84 + r*68; const done = r < 2 || (r===2 && c<3); const today = r===2 && c===3;
+    return `<rect x='${x}' y='${y}' width='54' height='54' rx='14' fill='${today ? CO : (done ? P.l : W)}' ${today ? S(P,4) : `stroke='${P.l}' stroke-width='3'`}/>` + (done && !today ? `<path d='M${x+16},${y+28} l9,9 l15,-17' fill='none' stroke='${P.d}' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/>` : '') + (today ? `<circle cx='${x+27}' cy='${y+27}' r='7' fill='${W}'/>` : ''); }).join('')).join('') +
+  `<circle cx='250' cy='-30' r='92' fill='${W}' ${S(P)}/><circle cx='250' cy='-30' r='72' fill='none' stroke='${P.l}' stroke-width='4'/>` +
+  [0,90,180,270].map(a => { const ra=58, rb=70, rad=a*Math.PI/180; return `<line x1='${r1(250+ra*Math.cos(rad))}' y1='${r1(-30+ra*Math.sin(rad))}' x2='${r1(250+rb*Math.cos(rad))}' y2='${r1(-30+rb*Math.sin(rad))}' stroke='${P.d}' stroke-width='5' stroke-linecap='round'/>`; }).join('') +
+  `<path d='M250,-30 L250,-78 M250,-30 L284,-10' stroke='${P.d}' stroke-width='7' stroke-linecap='round'/><circle cx='250' cy='-30' r='8' fill='${CO}'/>` +
+  `<rect x='190' y='110' width='120' height='40' rx='20' fill='${P.m}' ${S(P)}/><rect x='206' y='126' width='60' height='8' rx='4' fill='${W}'/><circle cx='290' cy='130' r='6' fill='${W}'/>` +
+  sp(340, -140, 20) + sp(-340, -200, 16) + sp(150, 200, 14)];
+
 function svgFor(key) {
   const e = M[key]; if (!e) return null;
   const [pal, name, fn, defs] = e; const P = PAL[pal];
