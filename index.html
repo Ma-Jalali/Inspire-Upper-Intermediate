@@ -16247,6 +16247,7 @@ function parseLinkUrl(raw){
 function driveFileKind(b){
   const map = {presentation:'slides', document:'doc', spreadsheets:'sheet', forms:'form'};
   if(map[b.driveType]) return map[b.driveType];
+  if(b.fileKind) return b.fileKind; /* set on the block when the title was edited and no longer carries the extension */
   const t = String(b.title||'').toLowerCase();
   if(/\.pdf\b/.test(t)) return 'pdf';
   if(/\.(pptx?|key|odp)\b/.test(t)) return 'slides';
@@ -16307,7 +16308,7 @@ function setLinkUrl(id, raw){
   const p = parseLinkUrl(raw);
   if(!p){ if(String(raw||'').trim()) flashToast('That does not look like a link'); return; }
   if(p.url === node.url && node.kind) { fetchLinkMeta(id, true); return; }
-  ['ytId','shorts','start','driveId','driveType','published','title','desc','image','site','icon','author','titleEdited','descEdited'].forEach(function(k){ delete node[k]; });
+  ['ytId','shorts','start','driveId','driveType','fileKind','published','title','desc','image','site','icon','author','titleEdited','descEdited'].forEach(function(k){ delete node[k]; });
   Object.assign(node, p);
   persist(); render();
   fetchLinkMeta(id, false);
