@@ -7219,6 +7219,18 @@
   html:not([data-theme="dark"]) #app .snd-card .snd-wm{display:block;position:absolute;right:-6px;bottom:-4px;width:118px;height:60px;color:#fff;opacity:.22;pointer-events:none;z-index:0;
     -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 40%);mask-image:linear-gradient(90deg,transparent 0,#000 40%);}
   html:not([data-theme="dark"]) #app .snd-card > *:not(.snd-wm){position:relative;z-index:1;}
+
+  /* ================= v117: the progress row and the sticky page header (light) ================= */
+  /* home: a medal tile in place of the emoji medals */
+  html:not([data-theme="dark"]) #app .bd-strip .bd-row{display:none;}
+  html:not([data-theme="dark"]) #app .bd-strip .bd-ri{display:block;width:44px;height:44px;flex:none;}
+  html:not([data-theme="dark"]) #app .bd-strip .bd-ri svg.ricon{display:block;width:100%;height:100%;filter:drop-shadow(0 5px 8px rgba(20,28,58,0.18)) drop-shadow(0 1px 1px rgba(20,28,58,0.10));}
+  /* the sticky header lives outside the app frame, so its tile is styled here */
+  html:not([data-theme="dark"]) .mini-head .mh-chip.has-ri{position:relative;width:32px;height:32px;background:none !important;box-shadow:none !important;overflow:visible;}
+  html:not([data-theme="dark"]) .mini-head .mh-chip.has-ri > svg{display:none;}
+  html:not([data-theme="dark"]) .mini-head .mh-chip.has-ri > .ri{display:block;position:absolute;inset:0;}
+  html:not([data-theme="dark"]) .mini-head .mh-chip.has-ri > .ri svg.ricon{display:block;width:100%;height:100%;filter:drop-shadow(0 2px 3px rgba(20,28,58,0.16)) drop-shadow(0 .5px .5px rgba(20,28,58,0.10));}
+  html:not([data-theme="dark"]) .mini-head .mh-chip.has-ri > .ri .ricon svg{width:36px;height:36px;}
 </style>
 </head>
 <body>
@@ -11918,7 +11930,7 @@ function showBadgePop(b){
 function badgesStripHTML(){
   const got = earnedBadges();
   const show = got.slice(-5);
-  return '<button class="bd-strip" onclick="openBadges()"><span class="bd-row">' +
+  return '<button class="bd-strip" onclick="openBadges()"><span class="ri bd-ri">'+hubIconSVG('progress')+'</span><span class="bd-row">' +
     (show.length ? show.map(function(b){ return '<span class="bd-medal">'+b.icon+'</span>'; }).join('') : '<span class="bd-medal lock">\uD83C\uDFC5</span>') +
     '</span><span class="bd-strip-t"><b>My progress</b><span>Units, daily streak and '+got.length+' of '+BADGES.length+' badges</span></span><span class="gm-entry-go">\u203A</span></button>';
 }
@@ -13415,7 +13427,7 @@ function hubIconSVG(kind){
     grammar:['#8CE8B0','#31C87E','#1B8A55'], games:['#B9A8FF','#6A5BFF','#3B2FC0'], exam:['#FFD09B','#F09030','#B8561A'],
     mistakes:['#FFA0A8','#F0506A','#C02A4A'], sound:['#8FD3FF','#3D90F0','#2459C8'], bank:['#5EE6D6','#16B8B0','#0B8A93'],
     colloc:['#8CE8B0','#31C87E','#1B8A55'], dashboard:['#8FD3FF','#3D90F0','#2459C8'], box:['#A9B6FF','#5A6CF0','#3444C4'],
-    clock:['#FF8A7A','#F0453C','#C9252B'], star:['#8CE8B0','#31C87E','#1B8A55']
+    clock:['#FF8A7A','#F0453C','#C9252B'], star:['#8CE8B0','#31C87E','#1B8A55'], progress:['#FFD98A','#F0A830','#B8781A']
   };
   const pal = P[kind]; if(!pal) return '';
   const id = 'rh' + kind;
@@ -13468,6 +13480,11 @@ function hubIconSVG(kind){
     g = '<g'+F+'><circle cx="32" cy="35" r="18" fill="'+GL+'"/></g><circle cx="32" cy="35" r="14" fill="none" stroke="#F8D9D5" stroke-width="1.4"/>' +
       '<path d="M32 24.5v10.5l7 4.5" fill="none" stroke="#D4382F" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="32" cy="35" r="2" fill="#D4382F"/>' +
       '<path d="M15 16l6-5M49 16l-6-5" stroke="#fff" stroke-width="3" stroke-linecap="round"/>';
+  }else if(kind === 'progress'){
+    g = '<g'+F+'><path d="M23 8h8l6 20-10 2z" fill="#E8463C"/><path d="M41 8h-8l-6 20 10 2z" fill="#F07A46"/></g>' +
+      '<g'+F+'><circle cx="32" cy="38" r="15" fill="'+GL+'"/></g><circle cx="32" cy="38" r="11.5" fill="none" stroke="#F0A830" stroke-width="2.2"/>' +
+      '<path d="M32 30.5l2.3 4.7 5.2.7-3.8 3.6.9 5.1-4.6-2.4-4.6 2.4.9-5.1-3.8-3.6 5.2-.7z" fill="#F0A830"/>' +
+      '<path d="M50 14l1 2.6 2.6 1-2.6 1-1 2.6-1-2.6-2.6-1 2.6-1z" fill="#fff" fill-opacity=".9"/>';
   }else if(kind === 'star'){
     g = '<g'+F+'><path d="M32 11l6.4 13 14.3 2-10.4 10.1 2.5 14.2L32 43.6l-12.8 6.7 2.5-14.2L11.3 26l14.3-2z" fill="'+GL+'"/></g>' +
       '<path d="M32 19l4 8.2 9 1.3-6.5 6.3 1.5 8.9L32 39.5l-8 4.2 1.5-8.9-6.5-6.3 9-1.3z" fill="#31C87E" fill-opacity=".9"/>';
@@ -14286,7 +14303,7 @@ function buildMiniHead(){
   const cls = Array.prototype.find.call(banner.classList, function(c){ return /^g-/.test(c); }) || 'g-crimson';
   el.innerHTML =
     '<button class="mh-back" onclick="goBack()" aria-label="Back">'+ARROW_SVG+'</button>' +
-    '<span class="mh-chip '+cls+'">'+iconHTML(page.icon)+'</span>' +
+    '<span class="mh-chip '+cls+' has-ri"><span class="ri">'+richTileSVG(cls, page.icon, !childPartInfo(page) && page.section==='units')+'</span>'+iconHTML(page.icon)+'</span>' +
     '<span class="mh-text">' + ((childPartInfo(page) && childPartInfo(page).unitNum) ? '<small>Unit '+escapeHtml(childPartInfo(page).unitNum)+'</small><b>'+escapeHtml(childPartInfo(page).name)+'</b>' : parts && parts.name ? '<small>Unit '+escapeHtml(parts.num)+'</small><b>'+escapeHtml(parts.name)+'</b>' : '<b>'+escapeHtml(page.title)+'</b>') + '</span>' +
     '<button class="mh-top" onclick="window.scrollTo({top:0,behavior:\'smooth\'})" aria-label="Back to top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>';
   updateMiniHeadVisibility();
