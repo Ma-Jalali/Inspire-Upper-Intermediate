@@ -7252,12 +7252,12 @@
   /* v96: on normal pages the compact title bar (.mini-head, 52px + safe area) appears on scroll, so the reader-style tabs stick just below it */
   html #app .rtab-seg{top:calc(env(safe-area-inset-top, 0px) + 60px);}
 
-  /* ================= v121: tighter spacing inside tabs =================
+  /* ================= v121/v122: comfortable, even spacing inside tabs =================
      Content inside a tab (e.g. Unit 8 Vocabulary / Quiz 1 / Quiz 2) sits in a card that already
      has its own padding, so the full-page gaps between blocks read as empty holes there.
      One even, compact rhythm for everything a tab holds. Reading mode only; editing is untouched. */
   html #app:not(.editing) .tabs-body .tabpage-body > .block,
-  html #app:not(.editing) .rtab .rd-body > .block{padding-top:6px;padding-bottom:6px;margin:0;}
+  html #app:not(.editing) .rtab .rd-body > .block{padding-top:10px;padding-bottom:10px;margin:0;}
   html #app:not(.editing) .tabs-body .tabpage-body > .block:first-child,
   html #app:not(.editing) .rtab .rd-body > .block:first-child{padding-top:0;}
   html #app:not(.editing) .tabs-body .tabpage-body > .block:last-child,
@@ -7268,45 +7268,45 @@
   html #app:not(.editing) .tabs-body .tabpage-body > .block:has(> .b-heading-3):not(:first-child),
   html #app:not(.editing) .rtab .rd-body > .block:has(> .b-heading-1):not(:first-child),
   html #app:not(.editing) .rtab .rd-body > .block:has(> .b-heading-2):not(:first-child),
-  html #app:not(.editing) .rtab .rd-body > .block:has(> .b-heading-3):not(:first-child){padding-top:14px;}
+  html #app:not(.editing) .rtab .rd-body > .block:has(> .b-heading-3):not(:first-child){padding-top:20px;}
   html #app:not(.editing) .tabs-body .tabpage-body > .block:has(> .b-heading-1),
   html #app:not(.editing) .tabs-body .tabpage-body > .block:has(> .b-heading-2),
   html #app:not(.editing) .tabs-body .tabpage-body > .block:has(> .b-heading-3),
   html #app:not(.editing) .rtab .rd-body > .block:has(> .b-heading-1),
   html #app:not(.editing) .rtab .rd-body > .block:has(> .b-heading-2),
-  html #app:not(.editing) .rtab .rd-body > .block:has(> .b-heading-3){padding-bottom:2px;}
+  html #app:not(.editing) .rtab .rd-body > .block:has(> .b-heading-3){padding-bottom:4px;}
   html #app:not(.editing) .tabs-body .tabpage-body > .block:has(> [class*="b-heading-"]) + .block,
-  html #app:not(.editing) .rtab .rd-body > .block:has(> [class*="b-heading-"]) + .block{padding-top:2px;}
+  html #app:not(.editing) .rtab .rd-body > .block:has(> [class*="b-heading-"]) + .block{padding-top:4px;}
   /* dividers: a short pause, not a gap */
   html #app:not(.editing) .tabs-body .tabpage-body > .block.block-plain,
-  html #app:not(.editing) .rtab .rd-body > .block.block-plain{padding-top:8px;padding-bottom:8px;}
+  html #app:not(.editing) .rtab .rd-body > .block.block-plain{padding-top:12px;padding-bottom:12px;}
   /* word-list groups: closer together, and a gap before whatever follows the last group */
   html #app:not(.editing) .tabs-body .tabpage-body > .block.block-vksec + .block.block-vksec,
-  html #app:not(.editing) .rtab .rd-body > .block.block-vksec + .block.block-vksec{margin-top:4px;}
+  html #app:not(.editing) .rtab .rd-body > .block.block-vksec + .block.block-vksec{margin-top:8px;}
   html #app:not(.editing) .tabs-body .tabpage-body > .block.block-vksec + .block:not(.block-vksec),
-  html #app:not(.editing) .rtab .rd-body > .block.block-vksec + .block:not(.block-vksec){padding-top:12px;}
+  html #app:not(.editing) .rtab .rd-body > .block.block-vksec + .block:not(.block-vksec){padding-top:18px;}
   html #app:not(.editing) .tabs-body .vk-sec > .toggle-body,
-  html #app:not(.editing) .rtab .vk-sec > .toggle-body{padding-top:4px;padding-bottom:2px;}
+  html #app:not(.editing) .rtab .vk-sec > .toggle-body{padding-top:6px;padding-bottom:4px;}
   html #app:not(.editing) .tabs-body .vk-sec > .toggle-body > .block-vk,
-  html #app:not(.editing) .rtab .vk-sec > .toggle-body > .block-vk{padding-top:9px;padding-bottom:9px;}
+  html #app:not(.editing) .rtab .vk-sec > .toggle-body > .block-vk{padding-top:12px;padding-bottom:12px;}
   html #app .vk-sec .vk-sec-n{white-space:nowrap;}
 
   /* word cards (text blocks holding .vw-word): one compact rhythm inside the card,
      and the card itself carries the gap, so cards do not float far apart */
-  html #app:not(.editing) .blocks .block:has(> .b-text-view .vw-word){padding-top:5px;padding-bottom:5px;}
-  html #app .b-text-view:has(.vw-word){margin:0;padding:13px 15px 13px;border-radius:16px;line-height:1.45;}
+  html #app:not(.editing) .blocks .block:has(> .b-text-view .vw-word){padding-top:8px;padding-bottom:8px;}
+  html #app .b-text-view:has(.vw-word){margin:0;padding:15px 16px 15px;border-radius:17px;line-height:1.5;}
   html #app .vw-word{font-size:20px;line-height:1.25;}
   html #app .vw-pos{margin-left:7px;padding:1px 9px;font-size:11.5px;vertical-align:2px;}
-  html #app .vw-def{margin-top:5px;font-size:16.5px;line-height:1.45;}
-  html #app .vw-col{margin-top:6px;font-size:14.5px;line-height:1.45;}
+  html #app .vw-def{margin-top:6px;font-size:16.5px;line-height:1.5;}
+  html #app .vw-col{margin-top:8px;font-size:14.5px;line-height:1.5;}
   html #app .vw-col b{font-size:11px;}
-  html #app .vw-ex{margin-top:8px;padding:7px 11px;border-radius:10px;font-size:15.5px;line-height:1.45;}
+  html #app .vw-ex{margin-top:10px;padding:8px 12px;border-radius:11px;font-size:15.5px;line-height:1.5;}
   /* stray line breaks typed between the parts of a card would add empty lines */
   html #app .b-text-view:has(.vw-word) :is(.vw-def,.vw-col,.vw-ex) + br,
   html #app .b-text-view:has(.vw-word) > br:first-child,
   html #app .b-text-view:has(.vw-word) > br:last-child{display:none;}
   html #app .vw-intro{line-height:1.5;}
-  html #app:not(.editing) .blocks .block:has(> .b-text-view .vw-intro){padding-bottom:6px;}
+  html #app:not(.editing) .blocks .block:has(> .b-text-view .vw-intro){padding-bottom:10px;}
 </style>
 </head>
 <body>
