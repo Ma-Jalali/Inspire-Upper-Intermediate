@@ -7232,6 +7232,103 @@
   html:not([data-theme="dark"]) .mini-head .mh-chip.has-ri > .ri svg.ricon{display:block;width:100%;height:100%;filter:drop-shadow(0 2px 3px rgba(20,28,58,0.16)) drop-shadow(0 .5px .5px rgba(20,28,58,0.10));}
   html:not([data-theme="dark"]) .mini-head .mh-chip.has-ri > .ri .ricon svg{width:36px;height:36px;}
 
+  /* ================= v119: liquid glass, second pass (light) =================
+     Lens rims (a 1px gradient border, brightest where the light falls, masked so only the edge
+     shows), a soft specular on each lens, a floating capsule for the sticky header, glass chips
+     on the hero and the unit tiles, and one spring for every press. */
+  /* --- the tab bar: thicker glass, with a refracting lower edge --- */
+  html:not([data-theme="dark"]) #app .tab-bar::before{content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:0;
+    box-shadow:inset 0 -9px 14px -11px rgba(255,255,255,0.95), inset 0 9px 16px -12px rgba(255,255,255,0.85), inset -1px -1px 1px rgba(17,22,38,0.035);}
+  html:not([data-theme="dark"]) #app .tab-bar{box-shadow:var(--lg-insets), 0 0 0 .5px var(--lg-edge), 0 1px 2px rgba(17,22,38,0.05), 0 10px 22px -12px rgba(17,22,38,0.20), 0 30px 54px -30px rgba(17,22,38,0.30);}
+  /* the selected tab is a convex drop of glass: a rim of light round it and a highlight across its top */
+  html:not([data-theme="dark"]) #app .tab-bar .tab-ind{overflow:visible;
+    background:radial-gradient(120% 90% at 50% 0%, rgba(255,255,255,0.99), rgba(255,255,255,0.78) 58%, rgba(var(--accent-rgb),0.11) 125%);
+    box-shadow:inset 0 1px 0 #fff, inset 0 -1.5px 2px rgba(var(--accent-rgb),0.12), inset 0 0 0 .5px rgba(17,22,38,0.04), 0 1px 2px rgba(17,22,38,0.08), 0 8px 18px -10px rgba(var(--accent-rgb),0.38), 0 3px 8px -4px rgba(17,22,38,0.14);}
+  html:not([data-theme="dark"]) #app .tab-bar .tab-ind::before{content:'';position:absolute;left:16%;right:16%;top:2px;height:36%;border-radius:999px;pointer-events:none;
+    background:linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0));filter:blur(.6px);}
+  html:not([data-theme="dark"]) #app .tab-bar .tab-ind::after{content:'';position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;
+    background:linear-gradient(125deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.45) 30%, rgba(var(--accent-rgb),0.06) 55%, rgba(255,255,255,0.30) 80%, rgba(255,255,255,0.95) 100%);
+    -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);-webkit-mask-composite:xor;
+    mask:linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);}
+  /* --- the search orb and the back-to-top button: the same lens --- */
+  html:not([data-theme="dark"]) #app .search-fab,html:not([data-theme="dark"]) #toTopBtn{isolation:isolate;overflow:visible;}
+  html:not([data-theme="dark"]) #app .search-fab::before,html:not([data-theme="dark"]) #toTopBtn::before{content:'';position:absolute;left:18%;right:18%;top:7%;height:34%;border-radius:999px;pointer-events:none;z-index:0;
+    background:linear-gradient(180deg, rgba(255,255,255,0.92), rgba(255,255,255,0));filter:blur(.8px);}
+  html:not([data-theme="dark"]) #app .search-fab::after,html:not([data-theme="dark"]) #toTopBtn::after{content:'';position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;z-index:3;
+    background:linear-gradient(125deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.40) 28%, rgba(255,255,255,0) 52%, rgba(255,255,255,0.28) 78%, rgba(255,255,255,0.92) 100%);
+    -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);-webkit-mask-composite:xor;
+    mask:linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);}
+  html:not([data-theme="dark"]) #app .search-fab svg{position:relative;z-index:1;}
+  html:not([data-theme="dark"]) #app .search-fab{box-shadow:var(--lg-insets), 0 0 0 .5px var(--lg-edge), 0 1px 2px rgba(17,22,38,0.05), 0 10px 22px -12px rgba(17,22,38,0.22), 0 26px 44px -28px rgba(17,22,38,0.30);}
+  /* --- the sticky title bar floats as a capsule of glass, clear of the edges --- */
+  html:not([data-theme="dark"]) .mini-head{top:calc(env(safe-area-inset-top, 0px) + 8px);width:min(100% - 24px, 536px);padding:6px 10px 6px 6px;border-radius:999px;
+    background:linear-gradient(180deg, var(--lg-top), var(--lg-bot)) !important;
+    -webkit-backdrop-filter:var(--lg-filter);backdrop-filter:var(--lg-filter);
+    box-shadow:var(--lg-insets), 0 0 0 .5px var(--lg-edge), 0 1px 2px rgba(17,22,38,0.05), 0 10px 22px -12px rgba(17,22,38,0.22), 0 26px 44px -28px rgba(17,22,38,0.28);
+    transform:translate(-50%,calc(-100% - env(safe-area-inset-top, 0px) - 16px));
+    transition:transform .5s cubic-bezier(.3,1.25,.4,1), opacity .25s ease;}
+  html:not([data-theme="dark"]) .mini-head.show{transform:translate(-50%,0);}
+  html:not([data-theme="dark"]) .mini-head::after{display:none;}
+  html:not([data-theme="dark"]) .mini-head::before{content:'';position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;z-index:3;
+    background:linear-gradient(115deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.35) 24%, rgba(255,255,255,0) 50%, rgba(255,255,255,0.25) 78%, rgba(255,255,255,0.9) 100%);
+    -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);-webkit-mask-composite:xor;
+    mask:linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);}
+  html:not([data-theme="dark"]) .mini-head .mh-back,html:not([data-theme="dark"]) .mini-head .mh-top{width:36px;height:36px;background:linear-gradient(180deg, rgba(255,255,255,0.92), rgba(255,255,255,0.66));color:var(--crimson);
+    box-shadow:inset 0 1px 0 #fff, inset 0 0 0 .5px rgba(255,255,255,0.6), 0 0 0 .5px rgba(17,22,38,0.07), 0 2px 6px -3px rgba(17,22,38,0.25);}
+  html:not([data-theme="dark"]) .mini-head .mh-back:active,html:not([data-theme="dark"]) .mini-head .mh-top:active{transform:scale(.88);}
+  @media (prefers-reduced-motion: reduce){ html:not([data-theme="dark"]) .mini-head{transition:opacity .2s ease;} }
+  /* --- the greeting chip on the hero: a small lens on the colour --- */
+  html:not([data-theme="dark"]) #app .hero-greet{position:relative;overflow:visible;isolation:isolate;
+    background:linear-gradient(180deg, rgba(255,255,255,0.26), rgba(255,255,255,0.14));
+    -webkit-backdrop-filter:blur(10px) saturate(160%);backdrop-filter:blur(10px) saturate(160%);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,0.55), inset 0 -1px 1px rgba(0,0,0,0.05), 0 2px 6px -3px rgba(0,0,0,0.25);}
+  html:not([data-theme="dark"]) #app .hero-greet::before{content:'';display:block;position:absolute;left:18%;right:18%;top:1px;height:46%;border-radius:999px;pointer-events:none;z-index:-1;
+    width:auto;background:linear-gradient(180deg, rgba(255,255,255,0.22), rgba(255,255,255,0));box-shadow:none;filter:blur(2px);}
+  html:not([data-theme="dark"]) #app .hero-greet::after{content:'';position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;
+    background:linear-gradient(125deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.35) 32%, rgba(255,255,255,0.06) 55%, rgba(255,255,255,0.25) 80%, rgba(255,255,255,0.8) 100%);
+    -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);-webkit-mask-composite:xor;
+    mask:linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);}
+  html:not([data-theme="dark"]) #app .hero-appicon{box-shadow:0 0 0 .5px rgba(0,0,0,0.10), 0 5px 12px -5px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.85), inset 0 0 0 .5px rgba(255,255,255,0.35);}
+  /* --- the icon chip on each unit tile: a lens over the colour, with its rim lit from the top-left --- */
+  html:not([data-theme="dark"]) #app .unit-icon{overflow:visible;isolation:isolate;
+    background:linear-gradient(168deg, rgba(255,255,255,0.40) 0%, rgba(255,255,255,0.22) 48%, rgba(255,255,255,0.12) 100%);
+    -webkit-backdrop-filter:blur(10px) saturate(170%);backdrop-filter:blur(10px) saturate(170%);
+    box-shadow:0 8px 16px -6px rgba(0,0,0,0.34), 0 2px 4px -2px rgba(0,0,0,0.20),
+      inset 0 1px 0 rgba(255,255,255,0.80), inset 0 -6px 10px -8px rgba(0,0,0,0.36), inset 0 6px 12px -9px rgba(255,255,255,0.55);}
+  html:not([data-theme="dark"]) #app .unit-icon::before{left:14%;top:4%;width:62%;height:34%;z-index:-1;background:linear-gradient(180deg, rgba(255,255,255,0.46), rgba(255,255,255,0));}
+  html:not([data-theme="dark"]) #app .unit-icon::after{content:'';display:block;position:absolute;inset:0;top:0;left:0;width:auto;height:auto;border-radius:inherit;padding:1px;pointer-events:none;filter:none;z-index:2;
+    background:linear-gradient(125deg, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.40) 30%, rgba(255,255,255,0.04) 55%, rgba(255,255,255,0.22) 80%, rgba(255,255,255,0.78) 100%);
+    -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);-webkit-mask-composite:xor;
+    mask:linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);}
+  html:not([data-theme="dark"]) #app .unit-icon svg{position:relative;z-index:1;}
+  html:not([data-theme="dark"]) #app .unit-done-tick{background:linear-gradient(180deg, #fff, rgba(255,255,255,0.90));
+    box-shadow:inset 0 1px 0 #fff, 0 0 0 .5px rgba(17,22,38,0.08), 0 5px 12px -4px rgba(0,0,0,0.38);}
+  /* --- the count beside a section title: a bead of glass, not a grey pill --- */
+  html:not([data-theme="dark"]) #app .section-label .sl-count{color:#4A5068;background:linear-gradient(180deg, rgba(255,255,255,0.96), rgba(255,255,255,0.70));
+    box-shadow:inset 0 1px 0 #fff, inset 0 0 0 .5px rgba(255,255,255,0.7), 0 0 0 .5px rgba(17,22,38,0.08), 0 2px 6px -3px rgba(17,22,38,0.28);}
+  /* --- the back pills, Save chip and breadcrumb capsule carry the same rim as the bar --- */
+  html:not([data-theme="dark"]) #app .search-back,html:not([data-theme="dark"]) #app .page-actions .chip-btn,html:not([data-theme="dark"]) #app .head-row .breadcrumb.bc-below{position:relative;isolation:isolate;overflow:visible;}
+  html:not([data-theme="dark"]) #app .search-back::after,html:not([data-theme="dark"]) #app .page-actions .chip-btn::after,html:not([data-theme="dark"]) #app .head-row .breadcrumb.bc-below::after{content:'';position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;z-index:3;
+    background:linear-gradient(125deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.40) 28%, rgba(255,255,255,0) 52%, rgba(255,255,255,0.25) 78%, rgba(255,255,255,0.9) 100%);
+    -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);-webkit-mask-composite:xor;
+    mask:linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);}
+  /* --- the tip toast: dark glass with a hairline of light along its top --- */
+  html:not([data-theme="dark"]) body .mini-toast{background:linear-gradient(180deg, rgba(28,31,44,0.86), rgba(12,14,22,0.90)) !important;
+    -webkit-backdrop-filter:blur(18px) saturate(160%);backdrop-filter:blur(18px) saturate(160%);
+    box-shadow:0 18px 40px -14px rgba(0,0,0,0.55), inset 0 0 0 .5px rgba(255,255,255,0.16), inset 0 1px 0 rgba(255,255,255,0.22), inset 0 -1px 0 rgba(255,255,255,0.05) !important;}
+  /* --- one spring for every press: cards sink and settle, nothing snaps --- */
+  html:not([data-theme="dark"]) #app .unit-card,html:not([data-theme="dark"]) #app .page-card,html:not([data-theme="dark"]) #app .flash-banner,html:not([data-theme="dark"]) #app .bd-strip,html:not([data-theme="dark"]) #app .gm-entry,html:not([data-theme="dark"]) #app .part-row,html:not([data-theme="dark"]) #app .gh-item,html:not([data-theme="dark"]) #app .search-row{
+    transition:transform .42s var(--v-spring), box-shadow .3s ease, opacity .25s ease;}
+  html:not([data-theme="dark"]) #app .unit-card:active,html:not([data-theme="dark"]) #app .page-card:active,html:not([data-theme="dark"]) #app .flash-banner:active,html:not([data-theme="dark"]) #app .bd-strip:active,html:not([data-theme="dark"]) #app .gm-entry:active,html:not([data-theme="dark"]) #app .part-row:active{
+    transition:transform .12s ease, box-shadow .12s ease;}
+  html:not([data-theme="dark"]) #app .search-back,html:not([data-theme="dark"]) #app .page-actions .chip-btn,html:not([data-theme="dark"]) #app .tab-item,html:not([data-theme="dark"]) #app .section-label .sl-count{transition:transform .35s var(--v-spring), opacity .25s ease, color .25s ease, box-shadow .25s ease;}
+  html:not([data-theme="dark"]) #app .search-back:active,html:not([data-theme="dark"]) #app .page-actions .chip-btn:active{transform:scale(.94);transition:transform .1s ease;}
+  html:not([data-theme="dark"]) #app .tab-item:active{transform:scale(.94);transition:transform .1s ease;}
+  html:not([data-theme="dark"]) #app .tab-item .tab-icon{transition:transform .5s var(--v-spring);}
+  html:not([data-theme="dark"]) #app .search-fab:active{transform:scale(.86);transition:transform .1s ease;}
+  html:not([data-theme="dark"]) #toTopBtn:active{transform:scale(.86);}
+  /* ===== end of the light-appearance block ===== */
+
   /* v95: vocabulary word cards (text blocks containing .vw-word) */
   html #app .b-text-view:has(.vw-word){background:linear-gradient(180deg,rgba(255,255,255,0.9),rgba(248,248,252,0.9));border:1px solid rgba(60,60,90,0.08);border-radius:18px;padding:14px 16px 13px;margin:12px 0;box-shadow:0 10px 24px -20px rgba(30,30,60,0.45);line-height:1.5;}
   html[data-theme="dark"] #app .b-text-view:has(.vw-word){background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.09);box-shadow:none;}
