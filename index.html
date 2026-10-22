@@ -6852,6 +6852,20 @@
   html #app .cb-link svg{width:15px;height:15px;}
   html #app .cb-link.danger{color:#D23F3F;}
   html[data-theme="dark"] #app .cb-link.danger{color:#FF7A7A;}
+  /* a student's colour: an initials badge wherever their name appears */
+  html #app .cb-av{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;width:40px;height:40px;border-radius:50%;color:#fff;font-family:var(--font-head);font-weight:800;font-size:14.5px;letter-spacing:.02em;
+    background:linear-gradient(150deg, hsl(var(--h) var(--s) calc(var(--l) + 8%)), hsl(var(--h) var(--s) calc(var(--l) - 8%)));box-shadow:0 4px 10px -4px hsl(var(--h) var(--s) var(--l) / .7), inset 0 1px 0 rgba(255,255,255,0.35);}
+  html #app .cb-av.small{width:28px;height:28px;font-size:11px;} html #app .cb-av.big{width:48px;height:48px;font-size:16.5px;}
+  html #app .cb-av.on-colour{width:34px;height:34px;font-size:13px;box-shadow:inset 0 0 0 2px rgba(255,255,255,0.75), 0 4px 10px -4px rgba(0,0,0,0.4);}
+  /* find a classmate: a row of faces you can scroll */
+  html #app .cb-people{border-radius:22px;padding:12px 0 10px;background:var(--surface);box-shadow:0 1px 1px rgba(15,25,50,0.05), 0 12px 26px -18px rgba(15,25,50,0.4), inset 0 0 0 .5px rgba(var(--accent-rgb),0.10);}
+  html[data-theme="dark"] #app .cb-people{background:#161C2E;box-shadow:0 16px 32px -24px rgba(0,0,0,0.7), inset 0 0 0 1px rgba(255,255,255,0.08);}
+  html #app .cb-people-label{font-family:var(--font-head);font-size:12px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-soft);padding:0 16px 8px;}
+  /* every face fits on the screen at once: a wrapped grid, nothing to scroll sideways */
+  html #app .cb-people-row{display:grid;grid-template-columns:repeat(auto-fill, minmax(62px, 1fr));gap:6px 2px;padding:2px 10px 4px;}
+  html #app .cb-person{display:flex;flex-direction:column;align-items:center;gap:5px;min-width:0;border:none;background:none;cursor:pointer;font:inherit;padding:4px 2px;border-radius:14px;transition:transform .3s var(--v-spring, ease);}
+  html #app .cb-person:active{transform:scale(.92);}
+  html #app .cb-person span{font-size:12px;font-weight:600;color:var(--ink);max-width:66px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
   /* the feed */
   html #app .cb-feed{display:flex;flex-direction:column;gap:10px;margin-bottom:8px;}
   html #app .cb-empty{padding:22px 16px;border-radius:20px;text-align:center;font-size:14.5px;color:var(--ink-soft);background:var(--surface);box-shadow:inset 0 0 0 .5px rgba(var(--accent-rgb),0.10);display:flex;flex-direction:column;gap:3px;align-items:center;}
@@ -6863,6 +6877,17 @@
   html[data-theme="dark"] #app .cb-card{background:#161C2E;box-shadow:0 16px 32px -24px rgba(0,0,0,0.7), inset 0 0 0 1px rgba(255,255,255,0.08);}
   html #app .cb-card:active{transform:scale(.975);}
   html #app .cb-card.is-mine{box-shadow:0 1px 1px rgba(15,25,50,0.05), 0 12px 26px -18px rgba(15,25,50,0.4), inset 0 0 0 1.5px rgba(49,200,126,0.45);}
+  html #app .cb-card{border-left:4px solid hsl(var(--h) var(--s) var(--l));gap:5px;padding:12px 14px 12px 14px;}
+  html #app .cb-card-who{display:flex;align-items:center;gap:10px;}
+  html #app .cb-card-name{display:flex;flex-direction:column;min-width:0;flex:1;line-height:1.2;}
+  html #app .cb-card-name b{font-family:var(--font-head);font-size:15px;font-weight:800;color:hsl(var(--h) var(--s) calc(var(--l) - 14%));white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  html[data-theme="dark"] #app .cb-card-name b{color:hsl(var(--h) var(--s) calc(var(--l) + 16%));}
+  html #app .cb-card-name small{font-size:12px;color:var(--ink-soft);}
+  html #app .cb-card-who .cb-card-thumb{width:52px;height:52px;border-radius:12px;object-fit:cover;flex-shrink:0;opacity:0;transition:opacity .4s ease;background:rgba(118,118,128,0.10);}
+  html #app .cb-card-who .cb-card-thumb.ld{opacity:1;}
+  html #app .cb-more{margin-left:auto;display:inline-flex;align-items:center;gap:2px;padding:7px 10px 7px 13px;border-radius:999px;font-family:var(--font-head);font-size:13px;font-weight:700;color:#fff;
+    background:linear-gradient(150deg, hsl(var(--h) var(--s) calc(var(--l) + 6%)), hsl(var(--h) var(--s) calc(var(--l) - 6%)));box-shadow:0 6px 12px -7px hsl(var(--h) var(--s) var(--l) / .8), inset 0 1px 0 rgba(255,255,255,0.3);white-space:nowrap;}
+  html #app .cb-more svg{width:15px;height:15px;}
   html #app .cb-card-top{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
   html #app .cb-tag{display:inline-flex;align-items:center;padding:3px 9px;border-radius:999px;font-family:var(--font-head);font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:#fff;background:var(--g-sky);}
   html #app .cb-tag.sample{background:var(--g-gold);}
@@ -6871,8 +6896,8 @@
   html #app .cb-card-date{margin-left:auto;font-size:12px;color:var(--ink-soft);white-space:nowrap;}
   html #app .cb-card-title{font-family:var(--font-display);font-size:18px;font-weight:800;letter-spacing:-0.02em;line-height:1.2;margin-top:4px;text-wrap:balance;}
   html #app .cb-card-by{font-size:13px;color:var(--ink-soft);}
-  html #app .cb-card-ex{font-size:14.5px;line-height:1.45;color:var(--ink);opacity:.86;margin-top:4px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
-  html #app .cb-card-meta{display:flex;align-items:center;gap:12px;margin-top:8px;font-size:13px;color:var(--ink-soft);}
+  html #app .cb-card-ex{font-size:14.5px;line-height:1.45;color:var(--ink);opacity:.8;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+  html #app .cb-card-meta{display:flex;align-items:center;gap:10px;margin-top:6px;font-size:13px;color:var(--ink-soft);flex-wrap:wrap;}
   html #app .cb-card-meta svg{width:15px;height:15px;vertical-align:-3px;}
   html #app .cb-rx b{font-weight:700;color:var(--ink);} html #app .cb-rx.faint{opacity:.7;}
   html #app .cb-cm{display:inline-flex;align-items:center;gap:4px;}
@@ -6881,12 +6906,21 @@
   html #app .cb-post{border-radius:26px;overflow:hidden;background:var(--surface);margin:4px 0 14px;
     box-shadow:0 1px 1px rgba(15,25,50,0.05), 0 16px 32px -20px rgba(15,25,50,0.45), inset 0 0 0 .5px rgba(var(--accent-rgb),0.10);}
   html[data-theme="dark"] #app .cb-post{background:#161C2E;box-shadow:0 16px 32px -24px rgba(0,0,0,0.7), inset 0 0 0 1px rgba(255,255,255,0.08);}
-  html #app .cb-post-hero{position:relative;color:#fff;padding:20px 20px 18px;isolation:isolate;}
+  html #app .cb-post-hero{position:relative;color:#fff;padding:20px 20px 18px;isolation:isolate;
+    background:linear-gradient(135deg, hsl(var(--h) var(--s) calc(var(--l) + 8%)) 0%, hsl(var(--h) var(--s) var(--l)) 55%, hsl(var(--h) var(--s) calc(var(--l) - 10%)) 100%);}
   html #app .cb-post-hero::after{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(90% 70% at 100% 0%, rgba(255,255,255,0.22), rgba(255,255,255,0) 60%);}
   html #app .cb-post-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;min-height:0;}
   html #app .cb-post-date{font-family:var(--font-head);font-size:12.5px;font-weight:600;opacity:.9;}
   html #app .cb-post-title{font-family:var(--font-display);font-size:27px;font-weight:800;line-height:1.1;letter-spacing:-0.025em;margin:6px 0 8px;text-wrap:balance;}
-  html #app .cb-post-by{font-size:14px;opacity:.95;} html #app .cb-post-by b{font-weight:700;} html #app .cb-post-by span{opacity:.8;}
+  html #app .cb-post-by{display:flex;align-items:center;gap:9px;font-size:14.5px;} html #app .cb-post-by b{font-weight:800;}
+  html #app .cb-post .cb-post-body p:first-child::first-letter{color:hsl(var(--h) var(--s) calc(var(--l) - 8%));}
+  html #app .cb-cmt .cmt-head{gap:8px;} html #app .cb-cmt .cmt-text{padding-left:36px;}
+  html #app .cb-compose-box{display:flex;flex-direction:column;gap:8px;margin-top:12px;padding-top:12px;border-top:1px solid rgba(var(--accent-rgb),0.08);}
+  html #app .cb-cmt-in{min-height:64px;resize:none;font-size:16px;}
+  html #app .cb-cta.send{background:var(--g-indigo);box-shadow:0 10px 20px -12px rgba(60,70,220,0.9), inset 0 1px 0 rgba(255,255,255,0.35);}
+  html #app .cb-cta.back{background:var(--surface);color:var(--crimson);box-shadow:inset 0 0 0 1.5px rgba(var(--accent-rgb),0.25);margin:0 0 24px;}
+  html[data-theme="dark"] #app .cb-cta.back{background:#161C2E;}
+  html #app .cb-form-label i{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:7px;margin-right:7px;font-style:normal;font-size:11.5px;color:#fff;background:var(--g-crimson);vertical-align:-5px;}
   html #app .cb-post-topic{font-size:13px;line-height:1.4;opacity:.85;margin-top:8px;font-style:italic;}
   html #app .cb-post-chips{display:flex;gap:6px;margin-top:12px;}
   html #app .cb-post-chips span{padding:5px 10px;border-radius:999px;font-family:var(--font-head);font-size:12px;font-weight:700;background:rgba(255,255,255,0.18);box-shadow:inset 0 0 0 1px rgba(255,255,255,0.28);}
@@ -19055,6 +19089,23 @@ function blogTopicTag(b, topic){
   if(i >= 0) return 'Topic '+(i+1);
   return t.length > 26 ? t.slice(0,24).replace(/\s+\S*$/,'')+'\u2026' : t;
 }
+/* every student gets one colour from their name, the same on their card, their post and their comments,
+   so a classmate's work is easy to spot in a feed of eighteen */
+const BLOG_HUES = [[358,72,58],[22,78,54],[38,70,46],[75,45,42],[145,45,42],[172,55,40],[198,70,46],[222,65,56],[252,55,60],[282,45,56],[318,55,54],[338,62,56]];
+function blogHue(name){
+  const t = String(name||'').trim().toLowerCase(); let h = 7;
+  for(let i=0;i<t.length;i++) h = (h*31 + t.charCodeAt(i)) >>> 0;
+  return BLOG_HUES[h % BLOG_HUES.length];
+}
+function blogInitials(name){
+  const parts = String(name||'').trim().split(/\s+/).filter(Boolean);
+  if(!parts.length) return '?';
+  return (parts[0].charAt(0) + (parts.length > 1 ? parts[parts.length-1].charAt(0) : '')).toUpperCase();
+}
+function blogAvatarHTML(name, cls){
+  const c = blogHue(name);
+  return '<span class="cb-av '+(cls||'')+'" style="--h:'+c[0]+';--s:'+c[1]+'%;--l:'+c[2]+'%" aria-hidden="true">'+escapeHtml(blogInitials(name))+'</span>';
+}
 function blogStore(blockId){
   if(!blogData[blockId]) blogData[blockId] = {posts:[], comments:{}, reacts:{}, loading:false, at:0};
   return blogData[blockId];
@@ -19115,7 +19166,7 @@ function blogBlockHTML(b){
     ((r.lo||r.hi) ? '<div class="cb-range">'+iconHTML('target')+'<span>Aim for <b>'+(r.lo && r.hi ? r.lo+'\u2013'+r.hi : (r.lo||r.hi))+' words</b>.</span></div>' : '') +
     (mine
       ? '<div class="cb-mine"><span class="cb-mine-txt"><b>Your post is published.</b><small>'+escapeHtml(mine.title||'Untitled')+' \u00B7 '+blogWords(mine.text)+' words</small></span>' +
-          '<button class="cb-cta ghost" onclick="blogOpenPost(\''+b.id+'\',\''+mine.id+'\')">Open</button></div>'
+          '<button class="cb-cta ghost" onclick="blogOpenPost(\''+b.id+'\',\''+mine.id+'\')">Open my post</button></div>'
       : '<button class="cb-cta" onclick="blogCompose(\''+b.id+'\')">'+iconHTML('pencil')+'<span>Write my post</span></button>') +
   '</div>';
   /* the feed */
@@ -19123,7 +19174,13 @@ function blogBlockHTML(b){
   if(st.loading && !st.posts.length) h += '<div class="cb-empty">Loading the class blog\u2026</div>';
   else if(st.error && !st.posts.length) h += '<div class="cb-empty">Could not load the blog. <button class="cb-link" onclick="blogLoad(\''+b.id+'\',true)">Try again</button></div>';
   else if(!st.posts.length) h += '<div class="cb-empty"><b>No posts yet.</b><span>Be the first to publish!</span></div>';
-  else h += (mine ? [mine] : []).concat(others).map(function(p){ return blogCardHTML(b, p); }).join('');
+  else{
+    const all = (mine ? [mine] : []).concat(others);
+    if(all.length >= 4) h += '<div class="cb-people"><div class="cb-people-label">Find a classmate</div><div class="cb-people-row">' +
+      all.map(function(p){ return '<button class="cb-person" onclick="blogOpenPost(\''+b.id+'\',\''+escapeAttr(p.id)+'\')">'+blogAvatarHTML(p.name, 'big')+'<span>'+escapeHtml(String(p.name||'Student').split(/\s+/)[0])+'</span></button>'; }).join('') +
+      '</div></div>';
+    h += all.map(function(p){ return blogCardHTML(b, p); }).join('');
+  }
   h += '</div>';
   return h;
 }
@@ -19132,17 +19189,16 @@ function blogCardHTML(b, p){
   const rx = st.reacts[p.id] || {}, n = Object.keys(rx).length, cn = (st.comments[p.id] || []).length;
   const tally = blogTally(rx).slice(0,3).map(function(t){ return t[0]; }).join('');
   const ex = String(p.text||'').replace(/\s+/g,' ').trim();
-  return '<button class="cb-card'+(p.sample?' is-sample':'')+(blogMine(p)?' is-mine':'')+'" onclick="blogOpenPost(\''+b.id+'\',\''+escapeAttr(p.id)+'\')">' +
-    '<span class="cb-card-top">' + (p.topic ? '<span class="cb-tag" title="'+escapeAttr(p.topic)+'">'+escapeHtml(blogTopicTag(b, p.topic))+'</span>' : '') +
-      (p.sample ? '<span class="cb-tag sample">From the book</span>' : '') + (blogMine(p) ? '<span class="cb-tag mine">Yours</span>' : '') +
-      '<span class="cb-card-date">'+escapeHtml(blogDate(p.at).replace(/^[A-Za-z]+, /, ''))+'</span></span>' +
-    '<span class="cb-card-main">' + (p.img ? '<img class="cb-card-thumb" src="'+escapeAttr(p.img)+'" alt="" loading="lazy" decoding="async" onload="this.classList.add(\'ld\')"/>' : '') +
+  const c = blogHue(p.name);
+  return '<div class="cb-card'+(p.sample?' is-sample':'')+(blogMine(p)?' is-mine':'')+'" role="button" tabindex="0" style="--h:'+c[0]+';--s:'+c[1]+'%;--l:'+c[2]+'%" data-cbpost="'+escapeAttr(p.id)+'" onclick="blogOpenPost(\''+b.id+'\',\''+escapeAttr(p.id)+'\')" onkeydown="if(event.key===\'Enter\')this.click()">' +
+    '<span class="cb-card-who">'+blogAvatarHTML(p.name)+'<span class="cb-card-name"><b>'+escapeHtml(p.name||'Student')+'</b><small>'+escapeHtml(blogDate(p.at).replace(/^[A-Za-z]+,? /, ''))+(p.sample ? ' \u00B7 from the book' : '')+(blogMine(p) ? ' \u00B7 you' : '')+'</small></span>' +
+      (p.img ? '<img class="cb-card-thumb" src="'+escapeAttr(p.img)+'" alt="" loading="lazy" decoding="async" onload="this.classList.add(\'ld\')"/>' : '') + '</span>' +
     '<span class="cb-card-title">'+escapeHtml(p.title||'Untitled')+'</span>' +
-    '<span class="cb-card-by">by '+escapeHtml(p.name||'Student')+'</span></span>' +
-    '<span class="cb-card-ex">'+escapeHtml(ex.length > 150 ? ex.slice(0,150).replace(/\s+\S*$/,'')+'\u2026' : ex)+'</span>' +
-    '<span class="cb-card-meta">' + (n ? '<span class="cb-rx">'+tally+' <b>'+n+'</b></span>' : '<span class="cb-rx faint">No reactions yet</span>') +
-      '<span class="cb-cm">'+iconHTML('chat')+' '+cn+'</span><span class="cb-read">Read \u2192</span></span>' +
-  '</button>';
+    '<span class="cb-card-ex">'+escapeHtml(ex.length > 110 ? ex.slice(0,110).replace(/\s+\S*$/,'')+'\u2026' : ex)+'</span>' +
+    '<span class="cb-card-meta">' + (p.topic ? '<span class="cb-tag" title="'+escapeAttr(p.topic)+'">'+escapeHtml(blogTopicTag(b, p.topic))+'</span>' : '') +
+      (n ? '<span class="cb-rx">'+tally+' <b>'+n+'</b></span>' : '') + (cn ? '<span class="cb-cm">'+iconHTML('chat')+' '+cn+'</span>' : '') +
+      '<span class="cb-more">Continue reading<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span>' +
+  '</div>';
 }
 function blogTally(rx){
   const c = {};
@@ -19207,13 +19263,14 @@ function renderBlogScreen(page, b){
   const counts = {}; tally.forEach(function(t){ counts[t[0]] = t[1]; });
   const cms = st.comments[p.id] || [];
   const paras = String(p.text||'').split(/\n\s*\n|\n/).map(function(s){ return s.trim(); }).filter(Boolean);
-  let h = '<button class="search-back" onclick="blogBack()">\u2190 '+escapeHtml(back)+'</button>' +
-    '<article class="cb-post">' +
-      '<div class="cb-post-hero" style="background:'+GRAD_VAR[hue]+'">' +
+  const ac = blogHue(p.name);
+  let h = '<button class="search-back" onclick="blogBack()">\u2190 All posts</button>' +
+    '<article class="cb-post" style="--h:'+ac[0]+';--s:'+ac[1]+'%;--l:'+ac[2]+'%">' +
+      '<div class="cb-post-hero">' +
         '<div class="cb-post-tags">'+(p.topic ? '<span class="cb-tag light">'+escapeHtml(blogTopicTag(b, p.topic))+'</span>' : '')+(p.sample ? '<span class="cb-tag light">From the book</span>' : '')+'</div>' +
         '<div class="cb-post-date">'+escapeHtml(blogDate(p.at))+'</div>' +
         '<h1 class="cb-post-title">'+escapeHtml(p.title||'Untitled')+'</h1>' +
-        '<div class="cb-post-by">by: <b>'+escapeHtml(p.name||'Student')+'</b>'+(p.upd && p.upd > p.at + 60000 ? '<span> \u00B7 edited</span>' : '')+'</div>' +
+        '<div class="cb-post-by">'+blogAvatarHTML(p.name, 'on-colour')+'<span>by <b>'+escapeHtml(p.name||'Student')+'</b>'+(p.upd && p.upd > p.at + 60000 ? ' \u00B7 edited' : '')+'</span></div>' +
         (p.topic && blogTopics(b).indexOf(p.topic) >= 0 ? '<div class="cb-post-topic">'+escapeHtml(p.topic)+'</div>' : '') +
         '<div class="cb-post-chips"><span>'+blogWords(p.text)+' words</span><span>'+Math.max(1, Math.round(blogWords(p.text)/180))+' min read</span></div>' +
       '</div>' +
@@ -19223,17 +19280,17 @@ function renderBlogScreen(page, b){
         (blogMine(p) ? '<button class="cb-link" onclick="blogCompose(\''+b.id+'\',\''+escapeAttr(p.id)+'\')">'+iconHTML('pencil')+' Edit my post</button>' : '') +
         '<button class="cb-link danger" onclick="blogDeletePost(\''+b.id+'\',\''+escapeAttr(p.id)+'\')">Delete'+(blogTeacher() && !blogMine(p) ? ' (teacher)' : '')+'</button></div>' : '') +
     '</article>' +
-    '<div class="cb-react"><div class="cb-react-label">'+(tally.length ? '<b>'+Object.keys(rx).length+'</b> reaction'+(Object.keys(rx).length===1?'':'s') : 'What do you think?')+'</div>' +
+    '<div class="cb-react"><div class="cb-react-label">'+(tally.length ? '<b>'+Object.keys(rx).length+'</b> reaction'+(Object.keys(rx).length===1?'':'s')+' \u00B7 tap an emoji to add yours' : 'Tap an emoji to tell '+escapeHtml(String(p.name||'the writer').split(/\s+/)[0])+' what you think')+'</div>' +
       '<div class="cb-react-row">'+BLOG_EMOJI.map(function(e){
         return '<button class="cb-emo'+(mineRx===e?' on':'')+'" onclick="blogReact(\''+b.id+'\',\''+escapeAttr(p.id)+'\',this.dataset.e)" data-e="'+e+'" aria-pressed="'+(mineRx===e)+'"><span>'+e+'</span>'+(counts[e] ? '<b>'+counts[e]+'</b>' : '')+'</button>';
       }).join('')+'</div></div>' +
     '<div class="section-label">Comments'+(cms.length ? '<span class="sl-count">'+cms.length+'</span>' : '')+'</div>' +
     '<div class="cmt-box cb-cmts">' +
       (cms.length ? cms.map(function(c){ return blogCommentHTML(b, p, c); }).join('') : '<div class="hw-empty">No comments yet. Say something nice, ask a question, or give a tip.</div>') +
-      '<div class="cmt-compose cb-compose">' +
-        (studentName() ? '' : '<input class="cmt-input cb-name" id="cbName-'+p.id+'" maxlength="40" placeholder="Your name"/>') +
-        '<input class="cmt-input" id="cbCmt-'+p.id+'" maxlength="500" placeholder="Write a comment\u2026" onkeydown="if(event.key===\'Enter\')blogComment(\''+b.id+'\',\''+escapeAttr(p.id)+'\')"/>' +
-        '<button class="chip-btn cmt-send" onclick="blogComment(\''+b.id+'\',\''+escapeAttr(p.id)+'\')">Post</button>' +
+      '<div class="cb-compose-box">' +
+        (studentName() ? '' : '<input class="cb-in cb-name" id="cbName-'+p.id+'" maxlength="40" placeholder="Your name"/>') +
+        '<textarea class="cb-in cb-cmt-in" id="cbCmt-'+p.id+'" rows="2" maxlength="500" placeholder="Write a comment for '+escapeAttr(String(p.name||'the writer').split(/\s+/)[0])+'\u2026"></textarea>' +
+        '<button class="cb-cta send" onclick="blogComment(\''+b.id+'\',\''+escapeAttr(p.id)+'\')">'+iconHTML('chat')+'<span>Send my comment</span></button>' +
       '</div>' +
     '</div>';
   /* next / previous post */
@@ -19242,12 +19299,13 @@ function renderBlogScreen(page, b){
     (prev ? '<button class="cb-pg" onclick="blogOpenPost(\''+b.id+'\',\''+escapeAttr(prev.id)+'\')"><small>\u2190 Previous</small><b>'+escapeHtml(prev.title||'Untitled')+'</b></button>' : '<span class="cb-pg empty"></span>') +
     (next ? '<button class="cb-pg next" onclick="blogOpenPost(\''+b.id+'\',\''+escapeAttr(next.id)+'\')"><small>Next \u2192</small><b>'+escapeHtml(next.title||'Untitled')+'</b></button>' : '<span class="cb-pg empty"></span>') +
     '</nav>';
+  h += '<button class="cb-cta back" onclick="blogBack()">\u2190 Back to all posts</button>';
   return h;
 }
 function blogCommentHTML(b, p, c){
   const own = c.dev === deviceId();
-  return '<div class="cmt-row">' +
-    '<div class="cmt-head"><b>'+escapeHtml(c.name||'Student')+'</b>'+(c.teacher ? '<span class="cb-teacher">Teacher</span>' : '')+'<span>'+timeAgo(c.at||0)+'</span>' +
+  return '<div class="cmt-row cb-cmt">' +
+    '<div class="cmt-head">'+blogAvatarHTML(c.teacher ? 'Teacher' : c.name, 'small')+'<b>'+escapeHtml(c.name||'Student')+'</b>'+(c.teacher ? '<span class="cb-teacher">Teacher</span>' : '')+'<span>'+timeAgo(c.at||0)+'</span>' +
       ((own || blogTeacher()) ? '<button class="cmt-del" onclick="blogDeleteComment(\''+b.id+'\',\''+escapeAttr(p.id)+'\',\''+escapeAttr(c.id)+'\')" aria-label="Delete">\u2715</button>' : '') +
     '</div><div class="cmt-text">'+escapeHtml(c.text)+'</div></div>';
 }
@@ -19391,18 +19449,18 @@ function blogComposeHTML(page, b, hue, back){
       (b.prompt ? '<div class="cb-compose-p">'+escapeHtml(b.prompt)+'</div>' : '') +
     '</div>' +
     '<div class="cb-form">' +
-      (topics.length ? '<div class="cb-form-label">Topic</div><div class="cb-topic-row">'+topics.map(function(t, i){
+      (topics.length ? '<div class="cb-form-label"><i>1</i>Choose your topic</div><div class="cb-topic-row">'+topics.map(function(t, i){
           return '<button class="cb-topic'+(d.topic===t?' on':'')+'" data-t="'+escapeAttr(t)+'" onclick="blogPickTopic(this)"><b>'+(i+1)+'</b><span>'+escapeHtml(t)+'</span></button>';
         }).join('')+'</div>' : '') +
-      '<label class="cb-form-label" for="cbTitle">Title</label>' +
+      '<label class="cb-form-label" for="cbTitle"><i>'+(topics.length?2:1)+'</i>Give your post a title</label>' +
       '<input id="cbTitle" class="cb-in cb-in-title" maxlength="120" placeholder="e.g. Skydiving: an unforgettable experience!" value="'+escapeAttr(d.title)+'" oninput="blogDraftSave(\''+b.id+'\')"/>' +
-      '<label class="cb-form-label" for="cbAuthor">Your name</label>' +
+      '<label class="cb-form-label" for="cbAuthor"><i>'+(topics.length?3:2)+'</i>Your name</label>' +
       '<input id="cbAuthor" class="cb-in" maxlength="40" placeholder="Shown as \u201Cby: \u2026\u201D" value="'+escapeAttr(d.name)+'" oninput="blogDraftSave(\''+b.id+'\')"/>' +
-      '<div class="cb-form-label">Cover photo <small>(optional, one picture)</small></div>' +
+      '<div class="cb-form-label"><i>'+(topics.length?4:3)+'</i>Add a photo <small>(optional)</small></div>' +
       '<input type="hidden" id="cbImg" value="'+escapeAttr(d.img||'')+'"/>' +
       '<input type="file" accept="image/*" id="cbImgIn" style="display:none" onchange="blogPickImage(\''+b.id+'\',this)"/>' +
       '<div class="cb-cover" id="cbCover">'+blogCoverHTML(d.img||'')+'</div>' +
-      '<label class="cb-form-label" for="cbText">Your post</label>' +
+      '<label class="cb-form-label" for="cbText"><i>'+(topics.length?5:4)+'</i>Write your post</label>' +
       '<textarea id="cbText" class="cb-in cb-in-text" maxlength="'+BLOG_MAX_CHARS+'" placeholder="Start with a question or a hook. Leave an empty line between paragraphs." oninput="blogDraftSave(\''+b.id+'\');blogCountTick(\''+b.id+'\');this.style.height=\'auto\';this.style.height=(this.scrollHeight+4)+\'px\'">'+escapeHtml(d.text)+'</textarea>' +
       '<div class="cb-counter" id="cbCounter">'+blogCounterHTML(n, r)+'</div>' +
       '<button class="cb-cta publish" onclick="blogPublish(\''+b.id+'\')">'+(d.editing ? 'Save changes' : 'Publish to the class blog')+'</button>' +
