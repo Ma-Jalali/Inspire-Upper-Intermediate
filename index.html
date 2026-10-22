@@ -6890,6 +6890,23 @@
   html #app .cb-post-topic{font-size:13px;line-height:1.4;opacity:.85;margin-top:8px;font-style:italic;}
   html #app .cb-post-chips{display:flex;gap:6px;margin-top:12px;}
   html #app .cb-post-chips span{padding:5px 10px;border-radius:999px;font-family:var(--font-head);font-size:12px;font-weight:700;background:rgba(255,255,255,0.18);box-shadow:inset 0 0 0 1px rgba(255,255,255,0.28);}
+  html #app .cb-post-img{margin:0;padding:14px 14px 0;}
+  html #app .cb-post-img img{display:block;width:100%;height:auto;max-height:420px;object-fit:cover;border-radius:16px;opacity:0;transition:opacity .4s ease;background:rgba(118,118,128,0.10);}
+  html #app .cb-post-img img.ld{opacity:1;}
+  html #app .cb-card-main{display:grid;grid-template-columns:1fr;gap:2px;align-items:start;}
+  html #app .cb-card-main:has(.cb-card-thumb){grid-template-columns:1fr 64px;column-gap:12px;}
+  html #app .cb-card-thumb{grid-column:2;grid-row:1 / span 2;width:64px;height:64px;border-radius:14px;object-fit:cover;opacity:0;transition:opacity .4s ease;background:rgba(118,118,128,0.10);}
+  html #app .cb-card-thumb.ld{opacity:1;}
+  html #app .cb-form-label small{font-weight:600;letter-spacing:0;text-transform:none;opacity:.8;}
+  html #app .cb-cover-add{display:flex;flex-direction:column;align-items:center;gap:4px;width:100%;padding:18px 14px;border:1.5px dashed rgba(var(--accent-rgb),0.35);border-radius:16px;background:rgba(var(--accent-rgb),0.04);cursor:pointer;font:inherit;color:var(--ink);text-align:center;}
+  html #app .cb-cover-add svg{width:26px;height:26px;color:var(--crimson);margin-bottom:2px;}
+  html #app .cb-cover-add b{font-family:var(--font-head);font-size:14.5px;} html #app .cb-cover-add small{font-size:12.5px;color:var(--ink-soft);line-height:1.4;}
+  html #app .cb-cover-busy{display:flex;align-items:center;justify-content:center;gap:10px;padding:22px 14px;border-radius:16px;background:rgba(118,118,128,0.08);font-size:14px;color:var(--ink-soft);}
+  html #app .cb-spin{width:18px;height:18px;border-radius:50%;border:2.5px solid rgba(var(--accent-rgb),0.2);border-top-color:var(--crimson);animation:cbSpin .8s linear infinite;flex-shrink:0;}
+  @keyframes cbSpin{to{transform:rotate(360deg);}}
+  html #app .cb-cover-pic{border-radius:16px;overflow:hidden;background:rgba(118,118,128,0.08);}
+  html #app .cb-cover-pic img{display:block;width:100%;height:auto;max-height:260px;object-fit:cover;opacity:0;transition:opacity .4s ease;} html #app .cb-cover-pic img.ld{opacity:1;}
+  html #app .cb-cover-tools{display:flex;align-items:center;gap:14px;padding:6px 12px;} html #app .cb-cover-note{flex:1;font-size:12.5px;color:#1FA463;font-weight:700;}
   html #app .cb-post-body{padding:18px 20px 6px;font-size:17px;line-height:1.65;color:var(--ink);}
   html #app .cb-post-body p{margin:0 0 14px;}
   html #app .cb-post-body p:first-child::first-letter{font-family:var(--font-display);font-size:2.6em;font-weight:800;float:left;line-height:.85;margin:4px 8px 0 0;color:var(--crimson);}
@@ -19119,8 +19136,9 @@ function blogCardHTML(b, p){
     '<span class="cb-card-top">' + (p.topic ? '<span class="cb-tag" title="'+escapeAttr(p.topic)+'">'+escapeHtml(blogTopicTag(b, p.topic))+'</span>' : '') +
       (p.sample ? '<span class="cb-tag sample">From the book</span>' : '') + (blogMine(p) ? '<span class="cb-tag mine">Yours</span>' : '') +
       '<span class="cb-card-date">'+escapeHtml(blogDate(p.at).replace(/^[A-Za-z]+, /, ''))+'</span></span>' +
+    '<span class="cb-card-main">' + (p.img ? '<img class="cb-card-thumb" src="'+escapeAttr(p.img)+'" alt="" loading="lazy" decoding="async" onload="this.classList.add(\'ld\')"/>' : '') +
     '<span class="cb-card-title">'+escapeHtml(p.title||'Untitled')+'</span>' +
-    '<span class="cb-card-by">by '+escapeHtml(p.name||'Student')+'</span>' +
+    '<span class="cb-card-by">by '+escapeHtml(p.name||'Student')+'</span></span>' +
     '<span class="cb-card-ex">'+escapeHtml(ex.length > 150 ? ex.slice(0,150).replace(/\s+\S*$/,'')+'\u2026' : ex)+'</span>' +
     '<span class="cb-card-meta">' + (n ? '<span class="cb-rx">'+tally+' <b>'+n+'</b></span>' : '<span class="cb-rx faint">No reactions yet</span>') +
       '<span class="cb-cm">'+iconHTML('chat')+' '+cn+'</span><span class="cb-read">Read \u2192</span></span>' +
@@ -19199,6 +19217,7 @@ function renderBlogScreen(page, b){
         (p.topic && blogTopics(b).indexOf(p.topic) >= 0 ? '<div class="cb-post-topic">'+escapeHtml(p.topic)+'</div>' : '') +
         '<div class="cb-post-chips"><span>'+blogWords(p.text)+' words</span><span>'+Math.max(1, Math.round(blogWords(p.text)/180))+' min read</span></div>' +
       '</div>' +
+      (p.img ? '<figure class="cb-post-img"><img src="'+escapeAttr(p.img)+'" alt="" loading="lazy" decoding="async" onload="this.classList.add(\'ld\')"/></figure>' : '') +
       '<div class="cb-post-body">'+paras.map(function(s){ return '<p>'+escapeHtml(s)+'</p>'; }).join('')+'</div>' +
       ((blogMine(p) || blogTeacher()) ? '<div class="cb-post-tools">' +
         (blogMine(p) ? '<button class="cb-link" onclick="blogCompose(\''+b.id+'\',\''+escapeAttr(p.id)+'\')">'+iconHTML('pencil')+' Edit my post</button>' : '') +
@@ -19271,6 +19290,7 @@ async function blogDeletePost(blockId, postId){
   delete st.comments[postId]; delete st.reacts[postId];
   if(blogOpen && blogOpen.post === postId) blogOpen = {page:blogOpen.page, block:blogOpen.block, depth:blogOpen.depth, mode:'post', post:null};
   if(blogOpen && !blogOpen.post){ blogBack(); } else render();
+  if(p.img) try{ reallyDeleteImgKeys([p.img]); }catch(e){}
   try{
     await blogDeleteLike('blog:'+blockId+':p:'+postId);
     await blogDeleteLike('blog:'+blockId+':c:'+postId+':*');
@@ -19278,17 +19298,87 @@ async function blogDeletePost(blockId, postId){
   }catch(e){ showMiniToast('Could not delete. Check your internet.'); }
 }
 
+/* ---- one cover photo per post: shrunk on the phone, then one small JPEG in the media bucket ---- */
+var blogImgBusy = false;
+function blogCoverHTML(url, note){
+  if(blogImgBusy) return '<div class="cb-cover-busy"><span class="cb-spin"></span>'+escapeHtml(note||'Shrinking and uploading\u2026')+'</div>';
+  if(!url) return '<button class="cb-cover-add" onclick="document.getElementById(\'cbImgIn\').click()">'+iconHTML('camera')+'<b>Add a photo</b><small>It is made small automatically, so it loads fast and uses little space.</small></button>';
+  return '<div class="cb-cover-pic"><img src="'+escapeAttr(url)+'" alt="" onload="this.classList.add(\'ld\')"/>' +
+    '<div class="cb-cover-tools">'+(note ? '<span class="cb-cover-note">'+escapeHtml(note)+'</span>' : '')+
+      '<button class="cb-link" onclick="document.getElementById(\'cbImgIn\').click()">Replace</button>' +
+      '<button class="cb-link danger" onclick="blogRemoveImage()">Remove</button></div></div>';
+}
+function blogPaintCover(url, note){ const el = document.getElementById('cbCover'); if(el) el.innerHTML = blogCoverHTML(url, note); }
+/* longest side 1200px, JPEG, under about 300 KB: good on a phone screen, tiny in storage */
+function blogShrink(file, cb){
+  const reader = new FileReader();
+  reader.onload = function(e){
+    const img = new Image();
+    img.onload = function(){
+      const tryAt = function(maxSide, q, next){
+        const scale = Math.min(1, maxSide / Math.max(img.width, img.height));
+        const w = Math.max(1, Math.round(img.width * scale)), h = Math.max(1, Math.round(img.height * scale));
+        const c = document.createElement('canvas'); c.width = w; c.height = h;
+        const ctx = c.getContext('2d'); ctx.fillStyle = '#fff'; ctx.fillRect(0,0,w,h); ctx.imageSmoothingQuality = 'high'; ctx.drawImage(img, 0, 0, w, h);
+        c.toBlob(function(blob){ next(blob); }, 'image/jpeg', q);
+      };
+      tryAt(1200, 0.78, function(b1){
+        if(b1 && b1.size <= 300*1024) return cb(b1);
+        tryAt(1000, 0.68, function(b2){ cb(b2 && b1 ? (b2.size < b1.size ? b2 : b1) : (b2 || b1)); });
+      });
+    };
+    img.onerror = function(){ cb(null); };
+    img.src = e.target.result;
+  };
+  reader.onerror = function(){ cb(null); };
+  reader.readAsDataURL(file);
+}
+function blogImgPath(blockId){
+  const st = blogStore(blockId), editing = blogOpen && blogOpen.post ? st.posts.find(function(x){ return x.id === blogOpen.post; }) : null;
+  return 'images/blog/' + blockId + '/' + (editing ? editing.id : deviceId()) + '.jpg';
+}
+function blogPickImage(blockId, input){
+  const file = input.files && input.files[0]; input.value = '';
+  if(!file) return;
+  if(!/^image\//.test(file.type)){ showMiniToast('Please choose a picture'); return; }
+  const prev = (document.getElementById('cbImg')||{}).value || '';
+  blogImgBusy = true; blogPaintCover('', 'Shrinking the photo\u2026');
+  blogShrink(file, function(blob){
+    if(!blob){ blogImgBusy = false; blogPaintCover(prev); showMiniToast('That picture could not be read'); return; }
+    blogPaintCover('', 'Uploading ('+Math.round(blob.size/1024)+' KB)\u2026');
+    const path = blogImgPath(blockId);
+    fetch(SUPABASE_URL + '/storage/v1/object/' + MEDIA_BUCKET + '/' + path, {
+      method:'POST', headers:{ 'apikey':SUPABASE_KEY, 'Authorization':'Bearer '+SUPABASE_KEY, 'Content-Type':'image/jpeg', 'x-upsert':'true', 'cache-control':'3600' }, body: blob
+    }).then(function(r){
+      if(!r.ok) throw new Error('storage '+r.status);
+      /* same path every time, so a replaced photo never leaves an old file behind; the ?v= makes phones fetch the new one */
+      const url = SUPABASE_URL + '/storage/v1/object/public/' + MEDIA_BUCKET + '/' + path + '?v=' + Date.now().toString(36);
+      const h = document.getElementById('cbImg'); if(h) h.value = url;
+      blogImgBusy = false; blogPaintCover(url, 'Photo added \u00B7 '+Math.round(blob.size/1024)+' KB'); blogDraftSave(blockId);
+    }).catch(function(){ blogImgBusy = false; blogPaintCover(prev); showMiniToast('Could not upload the photo. Check your internet.'); });
+  });
+}
+function blogRemoveImage(){
+  const h = document.getElementById('cbImg'); const url = h ? h.value : '';
+  if(h) h.value = '';
+  blogPaintCover('');
+  if(blogOpen) blogDraftSave(blogOpen.block);
+  /* a photo on a post that is already published is only deleted when the post is saved without it */
+  const st = blogOpen ? blogStore(blogOpen.block) : null, editing = st && blogOpen.post ? st.posts.find(function(x){ return x.id === blogOpen.post; }) : null;
+  if(url && !(editing && editing.img === url)) try{ reallyDeleteImgKeys([url.split('?')[0]]); }catch(e){}
+}
+
 /* ---- the composer ---- */
 function blogDraftKey(blockId){ return 'blog-draft:'+blockId; }
 function blogDraft(b){
   const st = blogStore(b.id), editing = blogOpen && blogOpen.post ? st.posts.find(function(x){ return x.id === blogOpen.post; }) : null;
   const d = deviceGet(blogDraftKey(b.id), null);
-  if(editing) return {title:editing.title||'', name:editing.name||studentName(), topic:editing.topic||'', text:editing.text||'', editing:editing.id, _fromDraft:false};
-  return Object.assign({title:'', name:studentName(), topic:'', text:''}, d || {}, {editing:null});
+  if(editing) return {title:editing.title||'', name:editing.name||studentName(), topic:editing.topic||'', text:editing.text||'', img:editing.img||'', editing:editing.id, _fromDraft:false};
+  return Object.assign({title:'', name:studentName(), topic:'', text:'', img:''}, d || {}, {editing:null});
 }
 function blogDraftSave(blockId){
   const g = function(id){ const el = document.getElementById(id); return el ? el.value : ''; };
-  const d = {title:g('cbTitle').slice(0,120), name:g('cbAuthor').slice(0,40), topic:(document.querySelector('.cb-topic.on')||{}).dataset ? (document.querySelector('.cb-topic.on').dataset.t||'') : '', text:g('cbText').slice(0,BLOG_MAX_CHARS)};
+  const d = {title:g('cbTitle').slice(0,120), name:g('cbAuthor').slice(0,40), topic:(document.querySelector('.cb-topic.on')||{}).dataset ? (document.querySelector('.cb-topic.on').dataset.t||'') : '', text:g('cbText').slice(0,BLOG_MAX_CHARS), img:g('cbImg')};
   if(!(blogOpen && blogOpen.post)) deviceSet(blogDraftKey(blockId), d);
   return d;
 }
@@ -19308,6 +19398,10 @@ function blogComposeHTML(page, b, hue, back){
       '<input id="cbTitle" class="cb-in cb-in-title" maxlength="120" placeholder="e.g. Skydiving: an unforgettable experience!" value="'+escapeAttr(d.title)+'" oninput="blogDraftSave(\''+b.id+'\')"/>' +
       '<label class="cb-form-label" for="cbAuthor">Your name</label>' +
       '<input id="cbAuthor" class="cb-in" maxlength="40" placeholder="Shown as \u201Cby: \u2026\u201D" value="'+escapeAttr(d.name)+'" oninput="blogDraftSave(\''+b.id+'\')"/>' +
+      '<div class="cb-form-label">Cover photo <small>(optional, one picture)</small></div>' +
+      '<input type="hidden" id="cbImg" value="'+escapeAttr(d.img||'')+'"/>' +
+      '<input type="file" accept="image/*" id="cbImgIn" style="display:none" onchange="blogPickImage(\''+b.id+'\',this)"/>' +
+      '<div class="cb-cover" id="cbCover">'+blogCoverHTML(d.img||'')+'</div>' +
       '<label class="cb-form-label" for="cbText">Your post</label>' +
       '<textarea id="cbText" class="cb-in cb-in-text" maxlength="'+BLOG_MAX_CHARS+'" placeholder="Start with a question or a hook. Leave an empty line between paragraphs." oninput="blogDraftSave(\''+b.id+'\');blogCountTick(\''+b.id+'\');this.style.height=\'auto\';this.style.height=(this.scrollHeight+4)+\'px\'">'+escapeHtml(d.text)+'</textarea>' +
       '<div class="cb-counter" id="cbCounter">'+blogCounterHTML(n, r)+'</div>' +
@@ -19348,13 +19442,16 @@ async function blogPublish(blockId){
   const st = blogStore(blockId);
   const editing = blogOpen && blogOpen.post ? st.posts.find(function(x){ return x.id === blogOpen.post; }) : null;
   const p = editing ? editing : {id:uid(), at:Date.now(), dev:deviceId()};
-  p.title = d.title.trim(); p.name = d.name.trim(); p.topic = d.topic; p.text = d.text.trim(); p.upd = Date.now();
+  if(editing) p._oldImg = editing.img || '';
+  p.title = d.title.trim(); p.name = d.name.trim(); p.topic = d.topic; p.text = d.text.trim(); p.img = d.img || ''; p.upd = Date.now();
   if(!editing) st.posts.unshift(p);
   st.posts.sort(function(a,b){ return (b.sample?1:0) - (a.sample?1:0) || (b.at||0) - (a.at||0); });
   const btn = document.querySelector('.cb-cta.publish'); if(btn){ btn.disabled = true; btn.textContent = 'Publishing\u2026'; }
   try{
-    await blogPut(blogKey(blockId,'p',p.id), {id:p.id, title:p.title, name:p.name, topic:p.topic, text:p.text, at:p.at, upd:p.upd, dev:p.dev, sample:!!p.sample});
+    await blogPut(blogKey(blockId,'p',p.id), {id:p.id, title:p.title, name:p.name, topic:p.topic, text:p.text, img:p.img||'', at:p.at, upd:p.upd, dev:p.dev, sample:!!p.sample});
     deviceSet(blogDraftKey(blockId), null);
+    if(editing && editing._oldImg && editing._oldImg.split('?')[0] !== String(p.img||'').split('?')[0]) try{ reallyDeleteImgKeys([editing._oldImg.split('?')[0]]); }catch(e){}
+    delete p._oldImg;
     try{ bumpCount('blog'); logActivity('blog'); }catch(e){}
     showMiniToast(editing ? 'Saved' : '\uD83C\uDF89 Published! Your classmates can read it now.');
     navigate('pop', function(){ blogOpen = {page:page.id, block:blockId, depth:pageStack.length, mode:'post', post:p.id}; render(); });
