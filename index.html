@@ -6817,13 +6817,33 @@
   html:not([data-theme="dark"]) #app .app-scroll > .streak-card .sk-day i{box-shadow:inset 0 0 0 1.5px rgba(118,118,128,0.20);}
 
   /* ================= v120: class blog ================= */
+  /* the block, the feed and the composer carry the page's colour as --cb-grad / --cb-c (mid) / --cb-d (deep) / --cb-l (pale) */
+  html #app .cb-block, html #app .cb-feed, html #app .cb-compose-wrap, html #app .cb-cmts{--cb-grad:var(--g-indigo);--cb-c:#5063EE;--cb-d:#2833A0;--cb-l:#B9C4FF;}
+  html #app .cb-mesh{position:absolute;inset:0;pointer-events:none;z-index:0;opacity:.55;
+    background-image:radial-gradient(rgba(255,255,255,0.28) .9px, transparent 1.2px);background-size:14px 14px;
+    -webkit-mask-image:radial-gradient(120% 90% at 100% 0%, #000 20%, transparent 70%);mask-image:radial-gradient(120% 90% at 100% 0%, #000 20%, transparent 70%);}
+  html #app .cb-quote{position:absolute;right:14px;top:-18px;font-family:var(--font-display);font-size:150px;line-height:1;font-weight:900;color:#fff;opacity:.13;pointer-events:none;z-index:0;}
+  html #app .cb-post-hero > *:not(.cb-mesh):not(.cb-quote){position:relative;z-index:1;}
+  html #app .cb-head .hub-art, html #app .cb-compose-hero .hub-art, html #app .cb-empty .hub-art{display:block;}
+  html #app .cb-head{position:relative;overflow:visible;}
+  html #app .cb-head .hub-art{position:absolute;right:-10px;top:50%;width:150px;height:106px;transform:translateY(-52%);color:var(--cb-c);opacity:.14;pointer-events:none;z-index:0;
+    -webkit-mask-image:linear-gradient(90deg, transparent 0, #000 38%);mask-image:linear-gradient(90deg, transparent 0, #000 38%);}
+  html[data-theme="dark"] #app .cb-head .hub-art{opacity:.22;}
+  html #app .cb-head > *:not(.hub-art){position:relative;z-index:1;}
+  html #app .cb-compose-hero .hub-art{position:absolute;right:-12px;top:50%;width:170px;height:120px;transform:translateY(-50%) rotate(-4deg);color:#fff;opacity:.22;pointer-events:none;z-index:0;
+    -webkit-mask-image:linear-gradient(90deg, transparent 0, #000 40%);mask-image:linear-gradient(90deg, transparent 0, #000 40%);}
+  html #app .cb-compose-hero > *:not(.hub-art):not(.cb-mesh){position:relative;z-index:1;}
+  html #app .cb-compose-hero .cb-kicker, html #app .cb-compose-h, html #app .cb-compose-p{padding-right:64px;}
+  html #app .cb-empty .hub-art{width:120px;height:84px;color:var(--cb-c);opacity:.5;margin:-4px 0 2px;}
   html #app .cb-block{position:relative;border-radius:24px;padding:16px 16px 14px;margin:4px 0 14px;background:var(--surface);
     box-shadow:0 1px 1px rgba(15,25,50,0.05), 0 12px 26px -18px rgba(15,25,50,0.4), inset 0 0 0 .5px rgba(var(--accent-rgb),0.10);}
   html[data-theme="dark"] #app .cb-block{background:#161C2E;box-shadow:0 16px 32px -24px rgba(0,0,0,0.7), inset 0 0 0 1px rgba(255,255,255,0.08);}
   html #app .cb-head{display:flex;align-items:center;gap:11px;margin-bottom:10px;}
-  html #app .cb-head-ico{width:40px;height:40px;border-radius:13px;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#fff;background:var(--g-indigo);
-    box-shadow:0 8px 16px -8px rgba(60,70,220,0.7), inset 0 1px 0 rgba(255,255,255,0.35);}
-  html #app .cb-head-ico svg{width:20px;height:20px;}
+  html #app .cb-head-ico{width:44px;height:44px;border-radius:14px;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#fff;background:var(--cb-grad);
+    box-shadow:0 8px 16px -8px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.35);}
+  html #app .cb-head-ico svg{width:21px;height:21px;}
+  html:not([data-theme="dark"]) #app .cb-head-ico.has-ri > .ri .ricon svg{width:36px;height:36px;}
+  html:not([data-theme="dark"]) #app .cb-head-ico.has-ri > .ri svg.ricon{filter:drop-shadow(0 6px 10px rgba(20,28,58,0.22)) drop-shadow(0 1px 1px rgba(20,28,58,0.10));}
   html #app .cb-head-txt{display:flex;flex-direction:column;min-width:0;flex:1;}
   html #app .cb-kicker{font-family:var(--font-head);font-size:11px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-soft);}
   html #app .cb-kicker.light{color:rgba(255,255,255,0.85);}
@@ -6832,17 +6852,20 @@
   html #app .cb-prompt{font-size:15px;line-height:1.5;color:var(--ink);margin:2px 0 8px;}
   html #app .cb-topics{margin:0 0 10px;padding:0;list-style:none;counter-reset:cbt;display:flex;flex-direction:column;gap:6px;}
   html #app .cb-topics li{counter-increment:cbt;position:relative;padding:8px 12px 8px 40px;border-radius:14px;background:rgba(var(--accent-rgb),0.06);font-size:14.5px;line-height:1.4;color:var(--ink);}
+  html #app .cb-topics li{background:color-mix(in srgb, var(--cb-c) 7%, transparent);}
   html #app .cb-topics li::before{content:counter(cbt);position:absolute;left:10px;top:50%;transform:translateY(-50%);width:22px;height:22px;border-radius:8px;display:flex;align-items:center;justify-content:center;
-    font-family:var(--font-head);font-size:12px;font-weight:800;color:#fff;background:var(--g-indigo);}
+    font-family:var(--font-head);font-size:12px;font-weight:800;color:#fff;background:var(--cb-grad);box-shadow:0 3px 6px -3px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.35);}
   html #app .cb-range{display:flex;align-items:center;gap:7px;font-size:13.5px;color:var(--ink-soft);margin:0 0 12px;}
-  html #app .cb-range svg{width:16px;height:16px;color:var(--crimson);flex-shrink:0;}
+  html #app .cb-range{padding:7px 12px;border-radius:999px;background:color-mix(in srgb, var(--cb-c) 8%, transparent);width:max-content;max-width:100%;}
+  html #app .cb-range svg{width:16px;height:16px;color:var(--cb-c);flex-shrink:0;}
   html #app .cb-range b{color:var(--ink);}
-  html #app .cb-cta{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;border:none;cursor:pointer;font:inherit;font-family:var(--font-head);font-weight:800;font-size:15.5px;color:#fff;
-    padding:14px 18px;border-radius:18px;background:var(--g-indigo);box-shadow:0 12px 22px -12px rgba(60,70,220,0.9), inset 0 1px 0 rgba(255,255,255,0.35);transition:transform .35s var(--v-spring, ease), opacity .2s;}
+  html #app .cb-cta{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;gap:8px;width:100%;border:none;cursor:pointer;font:inherit;font-family:var(--font-head);font-weight:800;font-size:15.5px;color:#fff;
+    padding:14px 18px;border-radius:18px;background:var(--cb-grad);box-shadow:0 12px 22px -12px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.38), inset 0 0 0 .5px rgba(255,255,255,0.18);transition:transform .35s var(--v-spring, ease), opacity .2s;}
+  html #app .cb-cta:not(.ghost):not(.back)::before{content:'';position:absolute;left:0;right:0;top:0;height:50%;border-radius:inherit;pointer-events:none;background:linear-gradient(180deg, rgba(255,255,255,0.22), rgba(255,255,255,0));}
   html #app .cb-cta svg{width:18px;height:18px;}
   html #app .cb-cta:active{transform:scale(.97);}
   html #app .cb-cta:disabled{opacity:.7;}
-  html #app .cb-cta.ghost{width:auto;padding:9px 16px;font-size:13.5px;border-radius:999px;background:rgba(var(--accent-rgb),0.10);color:var(--crimson);box-shadow:none;flex-shrink:0;}
+  html #app .cb-cta.ghost{width:auto;padding:9px 16px;font-size:13.5px;border-radius:999px;background:rgba(var(--accent-rgb),0.10);color:var(--crimson);box-shadow:none;flex-shrink:0;overflow:visible;}
   html #app .cb-cta.publish{background:var(--g-crimson);box-shadow:0 12px 22px -12px rgba(var(--accent-rgb),0.9), inset 0 1px 0 rgba(255,255,255,0.35);margin-top:14px;}
   html #app .cb-mine{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:16px;background:rgba(49,200,126,0.10);box-shadow:inset 0 0 0 1px rgba(49,200,126,0.25);}
   html #app .cb-mine-txt{display:flex;flex-direction:column;gap:1px;flex:1;min-width:0;}
@@ -6860,7 +6883,9 @@
   /* find a classmate: a row of faces you can scroll */
   html #app .cb-people{border-radius:22px;padding:12px 0 10px;background:var(--surface);box-shadow:0 1px 1px rgba(15,25,50,0.05), 0 12px 26px -18px rgba(15,25,50,0.4), inset 0 0 0 .5px rgba(var(--accent-rgb),0.10);}
   html[data-theme="dark"] #app .cb-people{background:#161C2E;box-shadow:0 16px 32px -24px rgba(0,0,0,0.7), inset 0 0 0 1px rgba(255,255,255,0.08);}
-  html #app .cb-people-label{font-family:var(--font-head);font-size:12px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-soft);padding:0 16px 8px;}
+  html #app .cb-people-label{display:flex;align-items:center;gap:6px;font-family:var(--font-head);font-size:12px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-soft);padding:0 16px 8px;}
+  html #app .cb-people-label svg{width:15px;height:15px;color:var(--cb-c);}
+  html #app .cb-av{box-shadow:0 4px 10px -4px hsl(var(--h) var(--s) var(--l) / .7), inset 0 1px 0 rgba(255,255,255,0.4), inset 0 -1px 1px rgba(0,0,0,0.12), inset 0 0 0 .5px rgba(255,255,255,0.25);}
   /* every face fits on the screen at once: a wrapped grid, nothing to scroll sideways */
   html #app .cb-people-row{display:grid;grid-template-columns:repeat(auto-fill, minmax(62px, 1fr));gap:6px 2px;padding:2px 10px 4px;}
   html #app .cb-person{display:flex;flex-direction:column;align-items:center;gap:5px;min-width:0;border:none;background:none;cursor:pointer;font:inherit;padding:4px 2px;border-radius:14px;transition:transform .3s var(--v-spring, ease);}
@@ -6877,7 +6902,11 @@
   html[data-theme="dark"] #app .cb-card{background:#161C2E;box-shadow:0 16px 32px -24px rgba(0,0,0,0.7), inset 0 0 0 1px rgba(255,255,255,0.08);}
   html #app .cb-card:active{transform:scale(.975);}
   html #app .cb-card.is-mine{box-shadow:0 1px 1px rgba(15,25,50,0.05), 0 12px 26px -18px rgba(15,25,50,0.4), inset 0 0 0 1.5px rgba(49,200,126,0.45);}
-  html #app .cb-card{border-left:4px solid hsl(var(--h) var(--s) var(--l));gap:5px;padding:12px 14px 12px 14px;}
+  html #app .cb-card{position:relative;overflow:hidden;border-left:4px solid hsl(var(--h) var(--s) var(--l));gap:5px;padding:12px 14px 12px 14px;}
+  html #app .cb-card::before{content:'';position:absolute;left:0;top:0;width:60%;height:70%;pointer-events:none;background:radial-gradient(100% 100% at 0% 0%, hsl(var(--h) var(--s) var(--l) / .09), transparent 70%);}
+  html[data-theme="dark"] #app .cb-card::before{background:radial-gradient(100% 100% at 0% 0%, hsl(var(--h) var(--s) var(--l) / .16), transparent 70%);}
+  html #app .cb-card > *{position:relative;}
+  html #app .cb-card-meta{padding-top:8px;border-top:1px solid rgba(var(--accent-rgb),0.07);}
   html #app .cb-card-who{display:flex;align-items:center;gap:10px;}
   html #app .cb-card-name{display:flex;flex-direction:column;min-width:0;flex:1;line-height:1.2;}
   html #app .cb-card-name b{font-family:var(--font-head);font-size:15px;font-weight:800;color:hsl(var(--h) var(--s) calc(var(--l) - 14%));white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
@@ -6914,18 +6943,30 @@
   html #app .cb-post-title{font-family:var(--font-display);font-size:27px;font-weight:800;line-height:1.1;letter-spacing:-0.025em;margin:6px 0 8px;text-wrap:balance;}
   html #app .cb-post-by{display:flex;align-items:center;gap:9px;font-size:14.5px;} html #app .cb-post-by b{font-weight:800;}
   html #app .cb-post .cb-post-body p:first-child::first-letter{color:hsl(var(--h) var(--s) calc(var(--l) - 8%));}
-  html #app .cb-cmt .cmt-head{gap:8px;} html #app .cb-cmt .cmt-text{padding-left:36px;}
+  html #app .cb-cmt .cmt-head{gap:8px;} html #app .cb-cmt .cmt-text{margin-left:36px;padding:9px 12px;border-radius:4px 14px 14px 14px;background:var(--paper);font-size:15px;}
+  html[data-theme="dark"] #app .cb-cmt .cmt-text{background:rgba(255,255,255,0.05);}
+  html #app .cb-cmt{border-bottom:none;padding:8px 0;}
   html #app .cb-compose-box{display:flex;flex-direction:column;gap:8px;margin-top:12px;padding-top:12px;border-top:1px solid rgba(var(--accent-rgb),0.08);}
   html #app .cb-cmt-in{min-height:64px;resize:none;font-size:16px;}
   html #app .cb-cta.send{background:var(--g-indigo);box-shadow:0 10px 20px -12px rgba(60,70,220,0.9), inset 0 1px 0 rgba(255,255,255,0.35);}
   html #app .cb-cta.back{background:var(--surface);color:var(--crimson);box-shadow:inset 0 0 0 1.5px rgba(var(--accent-rgb),0.25);margin:0 0 24px;}
   html[data-theme="dark"] #app .cb-cta.back{background:#161C2E;}
-  html #app .cb-form-label i{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:7px;margin-right:7px;font-style:normal;font-size:11.5px;color:#fff;background:var(--g-crimson);vertical-align:-5px;}
+  html #app .cb-form-label i{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:7px;margin-right:7px;font-style:normal;font-size:11.5px;color:#fff;background:var(--cb-grad);vertical-align:-5px;box-shadow:0 3px 6px -3px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.35);}
+  html #app .cb-compose-wrap .cb-topic.on{background:color-mix(in srgb, var(--cb-c) 10%, transparent);box-shadow:inset 0 0 0 1.5px color-mix(in srgb, var(--cb-c) 60%, transparent);}
+  html #app .cb-compose-wrap .cb-topic.on b{background:var(--cb-grad);color:#fff;}
+  html #app .cb-compose-wrap .cb-in:focus, html #app .cb-cmts .cb-in:focus{border-color:color-mix(in srgb, var(--cb-c) 60%, transparent);box-shadow:0 0 0 4px color-mix(in srgb, var(--cb-c) 14%, transparent);}
+  html #app .cb-compose-wrap .cb-counter-bar i{background:var(--cb-grad);}
+  html #app .cb-compose-wrap .cb-counter-bar i.ok{background:var(--g-sage);} html #app .cb-compose-wrap .cb-counter-bar i.over{background:var(--g-gold);}
+  html #app .cb-counter-bar em b{position:absolute;top:12px;left:50%;transform:translateX(-50%);font-family:var(--font-head);font-size:10.5px;font-weight:700;color:var(--ink-soft);font-style:normal;}
+  html #app .cb-counter-bar em.hi{left:auto;right:0;} html #app .cb-counter-bar em.hi b{left:auto;right:0;transform:none;}
+  html #app .cb-counter{gap:16px;}
+  html #app .cb-cta.publish{background:var(--cb-grad);box-shadow:0 12px 22px -12px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.38);}
+  html #app .cb-cmts .cb-cta.send{background:var(--cb-grad);box-shadow:0 10px 20px -12px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.35);}
   html #app .cb-post-topic{font-size:13px;line-height:1.4;opacity:.85;margin-top:8px;font-style:italic;}
   html #app .cb-post-chips{display:flex;gap:6px;margin-top:12px;}
   html #app .cb-post-chips span{padding:5px 10px;border-radius:999px;font-family:var(--font-head);font-size:12px;font-weight:700;background:rgba(255,255,255,0.18);box-shadow:inset 0 0 0 1px rgba(255,255,255,0.28);}
   html #app .cb-post-img{margin:0;padding:14px 14px 0;}
-  html #app .cb-post-img img{display:block;width:100%;height:auto;max-height:420px;object-fit:cover;border-radius:16px;opacity:0;transition:opacity .4s ease;background:rgba(118,118,128,0.10);}
+  html #app .cb-post-img img{display:block;width:100%;height:auto;max-height:420px;object-fit:cover;border-radius:16px;opacity:0;transition:opacity .4s ease;background:rgba(118,118,128,0.10);box-shadow:inset 0 0 0 1px rgba(0,0,0,0.06), 0 8px 18px -12px rgba(15,25,50,0.5);}
   html #app .cb-post-img img.ld{opacity:1;}
   html #app .cb-card-main{display:grid;grid-template-columns:1fr;gap:2px;align-items:start;}
   html #app .cb-card-main:has(.cb-card-thumb){grid-template-columns:1fr 64px;column-gap:12px;}
@@ -6943,7 +6984,10 @@
   html #app .cb-cover-tools{display:flex;align-items:center;gap:14px;padding:6px 12px;} html #app .cb-cover-note{flex:1;font-size:12.5px;color:#1FA463;font-weight:700;}
   html #app .cb-post-body{padding:18px 20px 6px;font-size:17px;line-height:1.65;color:var(--ink);}
   html #app .cb-post-body p{margin:0 0 14px;}
-  html #app .cb-post-body p:first-child::first-letter{font-family:var(--font-display);font-size:2.6em;font-weight:800;float:left;line-height:.85;margin:4px 8px 0 0;color:var(--crimson);}
+  html #app .cb-post-body p.lede{font-size:18px;line-height:1.6;}
+  html #app .cb-post-body p:first-child::first-letter{font-family:var(--font-display);font-size:2.8em;font-weight:800;float:left;line-height:.82;margin:5px 9px 0 0;color:var(--crimson);}
+  html #app .cb-end{display:flex;justify-content:center;gap:7px;padding:2px 0 14px;}
+  html #app .cb-end i{width:5px;height:5px;border-radius:50%;background:hsl(var(--h) var(--s) var(--l));opacity:.55;} html #app .cb-end i:nth-child(2){opacity:.85;}
   html #app .cb-post-tools{display:flex;gap:16px;padding:2px 20px 14px;}
   /* reactions */
   html #app .cb-react{border-radius:22px;padding:12px 14px 12px;margin-bottom:6px;background:var(--surface);box-shadow:inset 0 0 0 .5px rgba(var(--accent-rgb),0.10), 0 8px 20px -16px rgba(10,16,40,0.5);}
@@ -6954,8 +6998,11 @@
     transition:transform .35s var(--v-spring, ease), background .2s, box-shadow .2s;}
   html #app .cb-emo span{font-size:22px;line-height:1;} html #app .cb-emo b{font-family:var(--font-head);font-size:11.5px;font-weight:800;color:var(--ink-soft);}
   html #app .cb-emo:active{transform:scale(.9);}
-  html #app .cb-emo.on{background:rgba(var(--accent-rgb),0.12);box-shadow:inset 0 0 0 1.5px rgba(var(--accent-rgb),0.55);}
-  html #app .cb-emo.on span{transform:scale(1.15);} html #app .cb-emo.on b{color:var(--crimson);}
+  html #app .cb-emo{box-shadow:inset 0 1px 0 rgba(255,255,255,0.6), inset 0 0 0 .5px rgba(17,22,38,0.04);}
+  html[data-theme="dark"] #app .cb-emo{box-shadow:inset 0 1px 0 rgba(255,255,255,0.06);}
+  html #app .cb-emo.on{background:hsl(var(--h) var(--s) var(--l) / .14);box-shadow:inset 0 0 0 1.5px hsl(var(--h) var(--s) var(--l) / .7), 0 4px 10px -6px hsl(var(--h) var(--s) var(--l) / .6);}
+  html #app .cb-emo.on span{transform:scale(1.15);} html #app .cb-emo.on b{color:hsl(var(--h) var(--s) calc(var(--l) - 12%));}
+  html[data-theme="dark"] #app .cb-emo.on b{color:hsl(var(--h) var(--s) calc(var(--l) + 18%));}
   html #app .cb-teacher{font-family:var(--font-head);font-size:10px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:#fff;background:var(--g-crimson);padding:2px 7px;border-radius:999px;}
   html #app .cb-compose{flex-wrap:wrap;} html #app .cb-compose .cb-name{flex-basis:100%;}
   html #app .cb-pager{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:4px 0 20px;}
@@ -13865,6 +13912,12 @@ function hubArtSVG(kind){
     g = '<path d="M38 36c18-7 36-7 54 0v58c-18-7-36-7-54 0z" stroke-width="1.6"/><path d="M146 36c-18-7-36-7-54 0v58c18-7 36-7 54 0z" stroke-width="1.6"/><path d="M92 36v58" stroke-width="1" opacity=".5"/>' +
       '<g stroke-width="1.3" opacity=".7"><path d="M48 50h30M48 60h30M48 70h20M106 50h30M106 60h30M106 70h24"/></g>' +
       '<g transform="rotate(35 128 80)" stroke-width="1.5"><rect x="124" y="56" width="9" height="36" rx="3"/><path d="M124 92l4.5 9 4.5-9"/><path d="M124 62h9"/></g>' + sp(32,24,5) + sp(154,100,4);
+  }else if(kind === 'blog'){
+    g = '<path d="M34 34h58a6 6 0 0 1 6 6v54H40a6 6 0 0 1-6-6z" stroke-width="1.6"/><path d="M44 34v60" stroke-width="1" opacity=".5"/>' +
+      '<g stroke-width="1.3" opacity=".7"><path d="M54 50h32M54 60h32M54 70h22M54 80h28"/></g>' +
+      '<circle cx="39" cy="46" r="1.6" fill="currentColor" stroke="none" opacity=".6"/><circle cx="39" cy="60" r="1.6" fill="currentColor" stroke="none" opacity=".6"/><circle cx="39" cy="74" r="1.6" fill="currentColor" stroke="none" opacity=".6"/>' +
+      '<g transform="rotate(38 118 72)" stroke-width="1.5"><rect x="113" y="42" width="10" height="44" rx="3"/><path d="M113 86l5 10 5-10"/><path d="M113 50h10" opacity=".7"/></g>' +
+      '<path d="M116 26h30a6 6 0 0 1 6 6v12a6 6 0 0 1-6 6h-16l-8 7v-7h-6a6 6 0 0 1-6-6V32a6 6 0 0 1 6-6z" stroke-width="1.5"/><path d="M122 36h18M122 42h12" stroke-width="1.3" opacity=".7"/>' + sp(26,26,5) + sp(150,98,4) + sp(100,20,3);
   }else if(kind === 'games'){
     g = '<path d="M52 44h54a19 19 0 0 1 19 19l3 20a10 10 0 0 1-18 6l-7-9H55l-7 9a10 10 0 0 1-18-6l3-20a19 19 0 0 1 19-19z" stroke-width="1.6"/>' +
       '<path d="M60 56v16M52 64h16" stroke-width="2"/><circle cx="104" cy="58" r="4" stroke-width="1.5"/><circle cx="114" cy="66" r="4" stroke-width="1.5"/><circle cx="104" cy="74" r="4" stroke-width="1.5"/><circle cx="94" cy="66" r="4" stroke-width="1.5"/>' +
@@ -19106,6 +19159,8 @@ function blogAvatarHTML(name, cls){
   const c = blogHue(name);
   return '<span class="cb-av '+(cls||'')+'" style="--h:'+c[0]+';--s:'+c[1]+'%;--l:'+c[2]+'%" aria-hidden="true">'+escapeHtml(blogInitials(name))+'</span>';
 }
+function blogAccent(){ const pg = currentPage(); const h = pg ? pageHue(pg.id) : 'g-indigo'; return GRAD_VAR[h] ? h : 'g-indigo'; }
+function blogAccentStyle(){ const h = blogAccent(), pal = RTILE_PAL[h] || RTILE_PAL['g-indigo']; return 'style="--cb-grad:'+GRAD_VAR[h]+';--cb-c:'+pal[1]+';--cb-d:'+pal[2]+';--cb-l:'+pal[0]+'"'; }
 function blogStore(blockId){
   if(!blogData[blockId]) blogData[blockId] = {posts:[], comments:{}, reacts:{}, loading:false, at:0};
   return blogData[blockId];
@@ -19155,9 +19210,10 @@ function blogBlockHTML(b){
   if(!st.at && !st.loading) blogLoad(b.id);
   const topics = blogTopics(b), r = blogRange(b), mine = blogMyPost(b.id);
   const others = st.posts.filter(function(p){ return p !== mine; });
-  let h = '<div class="cb-block" data-cb="'+b.id+'">' +
-    '<div class="cb-head">' +
-      '<span class="cb-head-ico">'+iconHTML('pencil')+'</span>' +
+  const hue = blogAccent();
+  let h = '<div class="cb-block" data-cb="'+b.id+'" '+blogAccentStyle()+'>' +
+    '<div class="cb-head">' + hubArtSVG('blog') +
+      '<span class="cb-head-ico has-ri"><span class="ri">'+richTileSVG(hue, 'pencil')+'</span>'+iconHTML('pencil')+'</span>' +
       '<div class="cb-head-txt"><span class="cb-kicker">Class blog</span><span class="cb-title">'+escapeHtml(b.title||'Class blog')+'</span></div>' +
       (st.posts.length ? '<span class="cb-count">'+st.posts.length+' post'+(st.posts.length===1?'':'s')+'</span>' : '') +
     '</div>' +
@@ -19170,13 +19226,13 @@ function blogBlockHTML(b){
       : '<button class="cb-cta" onclick="blogCompose(\''+b.id+'\')">'+iconHTML('pencil')+'<span>Write my post</span></button>') +
   '</div>';
   /* the feed */
-  h += '<div class="cb-feed">';
-  if(st.loading && !st.posts.length) h += '<div class="cb-empty">Loading the class blog\u2026</div>';
+  h += '<div class="cb-feed" '+blogAccentStyle()+'>';
+  if(st.loading && !st.posts.length) h += '<div class="cb-empty"><span class="cb-spin"></span>Loading the class blog\u2026</div>';
   else if(st.error && !st.posts.length) h += '<div class="cb-empty">Could not load the blog. <button class="cb-link" onclick="blogLoad(\''+b.id+'\',true)">Try again</button></div>';
-  else if(!st.posts.length) h += '<div class="cb-empty"><b>No posts yet.</b><span>Be the first to publish!</span></div>';
+  else if(!st.posts.length) h += '<div class="cb-empty">'+hubArtSVG('blog')+'<b>No posts yet.</b><span>Be the first to publish!</span></div>';
   else{
     const all = (mine ? [mine] : []).concat(others);
-    if(all.length >= 4) h += '<div class="cb-people"><div class="cb-people-label">Find a classmate</div><div class="cb-people-row">' +
+    if(all.length >= 4) h += '<div class="cb-people"><div class="cb-people-label">'+iconHTML('person')+'Find a classmate</div><div class="cb-people-row">' +
       all.map(function(p){ return '<button class="cb-person" onclick="blogOpenPost(\''+b.id+'\',\''+escapeAttr(p.id)+'\')">'+blogAvatarHTML(p.name, 'big')+'<span>'+escapeHtml(String(p.name||'Student').split(/\s+/)[0])+'</span></button>'; }).join('') +
       '</div></div>';
     h += all.map(function(p){ return blogCardHTML(b, p); }).join('');
@@ -19210,7 +19266,7 @@ function blogTally(rx){
 function blogEditHTML(b){
   const st = blogStore(b.id);
   if(!st.at && !st.loading) blogLoad(b.id);
-  return '<div class="cb-block cb-edit">' +
+  return '<div class="cb-block cb-edit" '+blogAccentStyle()+'>' +
     '<div class="cb-head"><span class="cb-head-ico">'+iconHTML('pencil')+'</span>' +
       '<div class="cb-head-txt"><span class="cb-kicker">Class blog \u00B7 students write and comment</span>' +
       '<span class="cb-title" contenteditable="true" onkeydown="if(event.key===\'Enter\'){event.preventDefault();this.blur();}" oninput="onBlockField(\''+b.id+'\',\'title\',this.innerText)" onblur="render()">'+escapeHtml(b.title||'Class blog')+'</span></div></div>' +
@@ -19266,7 +19322,7 @@ function renderBlogScreen(page, b){
   const ac = blogHue(p.name);
   let h = '<button class="search-back" onclick="blogBack()">\u2190 All posts</button>' +
     '<article class="cb-post" style="--h:'+ac[0]+';--s:'+ac[1]+'%;--l:'+ac[2]+'%">' +
-      '<div class="cb-post-hero">' +
+      '<div class="cb-post-hero"><span class="cb-mesh" aria-hidden="true"></span><span class="cb-quote" aria-hidden="true">\u201D</span>' +
         '<div class="cb-post-tags">'+(p.topic ? '<span class="cb-tag light">'+escapeHtml(blogTopicTag(b, p.topic))+'</span>' : '')+(p.sample ? '<span class="cb-tag light">From the book</span>' : '')+'</div>' +
         '<div class="cb-post-date">'+escapeHtml(blogDate(p.at))+'</div>' +
         '<h1 class="cb-post-title">'+escapeHtml(p.title||'Untitled')+'</h1>' +
@@ -19275,17 +19331,17 @@ function renderBlogScreen(page, b){
         '<div class="cb-post-chips"><span>'+blogWords(p.text)+' words</span><span>'+Math.max(1, Math.round(blogWords(p.text)/180))+' min read</span></div>' +
       '</div>' +
       (p.img ? '<figure class="cb-post-img"><img src="'+escapeAttr(p.img)+'" alt="" loading="lazy" decoding="async" onload="this.classList.add(\'ld\')"/></figure>' : '') +
-      '<div class="cb-post-body">'+paras.map(function(s){ return '<p>'+escapeHtml(s)+'</p>'; }).join('')+'</div>' +
+      '<div class="cb-post-body">'+paras.map(function(s, i){ return '<p'+(i===0 ? ' class="lede"' : '')+'>'+escapeHtml(s)+'</p>'; }).join('')+'<div class="cb-end" aria-hidden="true"><i></i><i></i><i></i></div></div>' +
       ((blogMine(p) || blogTeacher()) ? '<div class="cb-post-tools">' +
         (blogMine(p) ? '<button class="cb-link" onclick="blogCompose(\''+b.id+'\',\''+escapeAttr(p.id)+'\')">'+iconHTML('pencil')+' Edit my post</button>' : '') +
         '<button class="cb-link danger" onclick="blogDeletePost(\''+b.id+'\',\''+escapeAttr(p.id)+'\')">Delete'+(blogTeacher() && !blogMine(p) ? ' (teacher)' : '')+'</button></div>' : '') +
     '</article>' +
-    '<div class="cb-react"><div class="cb-react-label">'+(tally.length ? '<b>'+Object.keys(rx).length+'</b> reaction'+(Object.keys(rx).length===1?'':'s')+' \u00B7 tap an emoji to add yours' : 'Tap an emoji to tell '+escapeHtml(String(p.name||'the writer').split(/\s+/)[0])+' what you think')+'</div>' +
+    '<div class="cb-react" style="--h:'+ac[0]+';--s:'+ac[1]+'%;--l:'+ac[2]+'%"><div class="cb-react-label">'+(tally.length ? '<b>'+Object.keys(rx).length+'</b> reaction'+(Object.keys(rx).length===1?'':'s')+' \u00B7 tap an emoji to add yours' : 'Tap an emoji to tell '+escapeHtml(String(p.name||'the writer').split(/\s+/)[0])+' what you think')+'</div>' +
       '<div class="cb-react-row">'+BLOG_EMOJI.map(function(e){
         return '<button class="cb-emo'+(mineRx===e?' on':'')+'" onclick="blogReact(\''+b.id+'\',\''+escapeAttr(p.id)+'\',this.dataset.e)" data-e="'+e+'" aria-pressed="'+(mineRx===e)+'"><span>'+e+'</span>'+(counts[e] ? '<b>'+counts[e]+'</b>' : '')+'</button>';
       }).join('')+'</div></div>' +
     '<div class="section-label">Comments'+(cms.length ? '<span class="sl-count">'+cms.length+'</span>' : '')+'</div>' +
-    '<div class="cmt-box cb-cmts">' +
+    '<div class="cmt-box cb-cmts" '+blogAccentStyle()+'>' +
       (cms.length ? cms.map(function(c){ return blogCommentHTML(b, p, c); }).join('') : '<div class="hw-empty">No comments yet. Say something nice, ask a question, or give a tip.</div>') +
       '<div class="cb-compose-box">' +
         (studentName() ? '' : '<input class="cb-in cb-name" id="cbName-'+p.id+'" maxlength="40" placeholder="Your name"/>') +
@@ -19443,7 +19499,8 @@ function blogDraftSave(blockId){
 function blogComposeHTML(page, b, hue, back){
   const d = blogDraft(b), topics = blogTopics(b), r = blogRange(b), n = blogWords(d.text);
   return '<button class="search-back" onclick="blogBack()">\u2190 '+escapeHtml(d.editing ? 'My post' : back)+'</button>' +
-    '<div class="cb-compose-hero" style="background:'+GRAD_VAR[hue]+'">' +
+    '<div class="cb-compose-wrap" '+blogAccentStyle()+'>' +
+    '<div class="cb-compose-hero" style="background:'+GRAD_VAR[hue]+'"><span class="cb-mesh" aria-hidden="true"></span>'+hubArtSVG('blog')+
       '<div class="cb-kicker light">'+escapeHtml(b.title||'Class blog')+'</div>' +
       '<div class="cb-compose-h">'+(d.editing ? 'Edit my post' : 'Write my post')+'</div>' +
       (b.prompt ? '<div class="cb-compose-p">'+escapeHtml(b.prompt)+'</div>' : '') +
@@ -19465,7 +19522,7 @@ function blogComposeHTML(page, b, hue, back){
       '<div class="cb-counter" id="cbCounter">'+blogCounterHTML(n, r)+'</div>' +
       '<button class="cb-cta publish" onclick="blogPublish(\''+b.id+'\')">'+(d.editing ? 'Save changes' : 'Publish to the class blog')+'</button>' +
       (d.editing ? '' : '<div class="cb-form-hint">Your post is saved on this phone while you write, so you can come back to it. Nobody sees it until you publish.</div>') +
-    '</div>';
+    '</div></div>';
 }
 function blogCounterHTML(n, r){
   let cls = '', msg = n + (n===1 ? ' word' : ' words');
@@ -19473,7 +19530,7 @@ function blogCounterHTML(n, r){
   else if(r.hi && n > r.hi){ cls = 'over'; msg += ' \u00B7 ' + (n - r.hi) + ' over ' + r.hi; }
   else if(r.lo || r.hi){ cls = 'ok'; msg += ' \u00B7 in range \u2713'; }
   const pct = r.hi ? Math.min(100, Math.round(n / r.hi * 100)) : 0;
-  return '<span class="cb-counter-bar"><i class="'+cls+'" style="width:'+pct+'%"></i>'+(r.lo && r.hi ? '<em style="left:'+Math.round(r.lo/r.hi*100)+'%"></em>' : '')+'</span><span class="cb-counter-txt '+cls+'">'+msg+'</span>';
+  return '<span class="cb-counter-bar"><i class="'+cls+'" style="width:'+pct+'%"></i>'+(r.lo && r.hi ? '<em style="left:'+Math.round(r.lo/r.hi*100)+'%"><b>'+r.lo+'</b></em><em class="hi"><b>'+r.hi+'</b></em>' : '')+'</span><span class="cb-counter-txt '+cls+'">'+msg+'</span>';
 }
 function blogCountTick(blockId){
   const page = currentPage(), b = page && findBlockNode(page.blocks||[], blockId); if(!b) return;
