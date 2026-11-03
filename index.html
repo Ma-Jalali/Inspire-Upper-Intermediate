@@ -6876,6 +6876,10 @@
   html #app .qa-label{font-family:var(--font-head);font-size:12.5px;font-weight:700;line-height:1.2;text-align:center;letter-spacing:-0.005em;color:var(--ink);max-width:100%;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
   html #app .qa.is-locked{opacity:.6;}
   @media (prefers-reduced-motion: reduce){ html #app .qa{animation:none !important;} }
+  /* ================= v130: drawing details exist in the markup; dark mode switches them off ================= */
+  html[data-theme="dark"] #app .qw{fill:#fff;}
+  html[data-theme="dark"] #app .qsd{display:none;}
+  html[data-theme="dark"] #app .qds{filter:none;}
   /* ================= v129: new light-only markup, hidden until the light block shows it ================= */
   html #app .td-i{display:none;}
   .dict-art.da-v29{display:none;}
@@ -7781,6 +7785,61 @@
   html:not([data-theme="dark"]) .dict-art.da-v29{display:flex;margin:22px 0 -12px;}
   html:not([data-theme="dark"]) .dict-art.da-v29 svg{width:232px;height:155px;overflow:visible;}
   html:not([data-theme="dark"]) .dict-art.da-v29 text{font-family:var(--font-display, Outfit, system-ui), system-ui, sans-serif;}
+  /* ================= v130: depth and motion on the home page and the hubs (light) ================= */
+  /* practice tiles: a three-stop body, a light from above, a shade along the bottom and a coloured shadow on the page */
+  html:not([data-theme="dark"]) #app .qa-ico{--qc:17,22,38;
+    box-shadow:0 1px 2px rgba(17,22,38,0.10), 0 14px 24px -12px rgba(var(--qc),0.78), inset 0 1px 0 rgba(255,255,255,0.45), inset 0 -7px 10px -8px rgba(0,0,0,0.30), inset 0 0 0 .5px rgba(255,255,255,0.20);
+    transition:transform .35s var(--v-spring, ease), box-shadow .35s ease;}
+  html:not([data-theme="dark"]) #app .qa-gold .qa-ico{--qc:239,163,22;background:linear-gradient(155deg,#FFE48F 0%,#FFC83A 48%,#E8920F 100%);}
+  html:not([data-theme="dark"]) #app .qa-red .qa-ico{--qc:224,54,43;background:linear-gradient(155deg,#FF9F93 0%,#FF5B4D 48%,#D12A20 100%);}
+  html:not([data-theme="dark"]) #app .qa-amber .qa-ico{--qc:238,95,42;background:linear-gradient(155deg,#FFBE90 0%,#FF8A45 48%,#E04F1C 100%);}
+  html:not([data-theme="dark"]) #app .qa-blue .qa-ico{--qc:47,123,230;background:linear-gradient(155deg,#92C6FF 0%,#4B97FF 48%,#2263CF 100%);}
+  html:not([data-theme="dark"]) #app .qa-green .qa-ico{--qc:31,164,99;background:linear-gradient(155deg,#90EBBA 0%,#3DCB83 48%,#158D54 100%);}
+  html:not([data-theme="dark"]) #app .qa-purple .qa-ico{--qc:123,69,230;background:linear-gradient(155deg,#D4B4FF 0%,#A46EFF 48%,#6833D4 100%);}
+  html:not([data-theme="dark"]) #app .qa-pink .qa-ico{--qc:232,67,127;background:linear-gradient(155deg,#FFAACB 0%,#FF6AA1 48%,#D4306E 100%);}
+  html:not([data-theme="dark"]) #app .qa-teal .qa-ico{--qc:26,168,156;background:linear-gradient(155deg,#90F2E5 0%,#3DCFC0 48%,#118F87 100%);}
+  html:not([data-theme="dark"]) #app .qa-ico::before{content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:radial-gradient(70% 46% at 50% 108%, rgba(255,255,255,0.22), rgba(255,255,255,0) 72%);}
+  html:not([data-theme="dark"]) #app .qa-ico svg{filter:drop-shadow(0 3px 4px rgba(0,0,0,0.16));}
+  html:not([data-theme="dark"]) #app .qa:active .qa-ico{transform:translateY(1px);box-shadow:0 1px 2px rgba(17,22,38,0.10), 0 6px 12px -8px rgba(var(--qc),0.6), inset 0 1px 0 rgba(255,255,255,0.45), inset 0 -7px 10px -8px rgba(0,0,0,0.30);}
+  html:not([data-theme="dark"]) #app .qa-label{font-size:12.5px;font-weight:700;letter-spacing:-0.01em;color:#242A3D;}
+  /* the sparkles twinkle, each on its own beat */
+  html:not([data-theme="dark"]) #app .qs{transform-box:fill-box;transform-origin:center;animation:qsTw 3.6s ease-in-out infinite;}
+  @keyframes qsTw{0%,100%{opacity:.3;transform:scale(.55);}50%{opacity:1;transform:scale(1.15);}}
+  /* the Today card: the ring fills on arrival with a soft glow, the numbers sit larger, the button carries a slow sheen */
+  html:not([data-theme="dark"]) #app .td-ring-wrap::before{content:'';position:absolute;inset:4px;border-radius:50%;background:radial-gradient(circle, rgba(228,34,75,0.10), rgba(228,34,75,0) 70%);pointer-events:none;}
+  html:not([data-theme="dark"]) #app .td-ring-fg{filter:drop-shadow(0 2px 4px rgba(228,34,75,0.35));animation:tdFill 1.4s cubic-bezier(.22,1,.36,1) .3s backwards;}
+  @keyframes tdFill{from{stroke-dashoffset:163.4;}}
+  html:not([data-theme="dark"]) #app .td-ring-n{font-size:23px;}
+  html:not([data-theme="dark"]) #app .td-stat b{font-size:22px;}
+  html:not([data-theme="dark"]) #app .td-kicker{color:#8A8F9E;}
+  html:not([data-theme="dark"]) #app .td-cta{position:relative;overflow:hidden;background:linear-gradient(160deg,#FF7A5C,#E4224B 70%,#C8143F);
+    box-shadow:0 10px 20px -10px rgba(228,34,75,0.75), 0 1px 2px rgba(228,34,75,0.25), inset 0 1px 0 rgba(255,255,255,0.35), inset 0 -4px 8px -6px rgba(0,0,0,0.3);}
+  html:not([data-theme="dark"]) #app .td-cta::after{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(110deg, rgba(255,255,255,0) 32%, rgba(255,255,255,0.38) 50%, rgba(255,255,255,0) 68%);transform:translateX(-130%);animation:ctaSheen 6.5s ease-in-out 2.2s infinite;}
+  @keyframes ctaSheen{0%{transform:translateX(-130%);}16%,100%{transform:translateX(130%);}}
+  /* the course row: the art floats gently, each piece on its own delay, with a soft cast shadow */
+  html:not([data-theme="dark"]) #app .cr-art{box-shadow:inset 0 1px 0 #fff, inset 0 0 0 .5px rgba(17,22,38,0.04), 0 10px 16px -12px rgba(17,22,38,0.30);animation:crFloat 5.5s ease-in-out infinite;animation-delay:calc(var(--d,0s) * 9);}
+  @keyframes crFloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-3px);}}
+  html:not([data-theme="dark"]) #app .cr-title{font-size:14px;}
+  /* section titles: a touch larger */
+  html:not([data-theme="dark"]) #app .section-label{font-size:19px;}
+  /* hub heroes: the tile floats */
+  html:not([data-theme="dark"]) #app .rv-hero-ico.has-ri{animation:hbFloat 4.8s ease-in-out infinite;}
+  @keyframes hbFloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-3px);}}
+  @media (prefers-reduced-motion: reduce){
+    html:not([data-theme="dark"]) #app .qs,html:not([data-theme="dark"]) #app .td-ring-fg,html:not([data-theme="dark"]) #app .td-cta::after,html:not([data-theme="dark"]) #app .cr-art,html:not([data-theme="dark"]) #app .rv-hero-ico.has-ri{animation:none !important;}
+  }
+  /* the practice tiles arrive with a small spring, one after another */
+  html:not([data-theme="dark"]) #app .qa{animation-name:qaIn;animation-duration:.6s;}
+  @keyframes qaIn{from{opacity:0;transform:translateY(10px) scale(.86);}60%{transform:translateY(-2px) scale(1.03);}to{opacity:1;transform:none;}}
+  /* the book cover in the hero breathes; the unit watermarks drift; the big unit numerals cast a shadow */
+  html:not([data-theme="dark"]) #app .hero-book{animation:bookFloat 6s ease-in-out infinite;}
+  @keyframes bookFloat{0%,100%{transform:perspective(560px) rotateY(-16deg) rotateZ(2deg) translateY(0);}50%{transform:perspective(560px) rotateY(-13deg) rotateZ(1deg) translateY(-4px);}}
+  html:not([data-theme="dark"]) #app .unit-wm{animation:wmDrift 9s ease-in-out infinite;animation-delay:calc(var(--d,0s) * 12);}
+  @keyframes wmDrift{0%,100%{transform:translate(0,0) rotate(0deg);}50%{transform:translate(-4px,-5px) rotate(-3deg);}}
+  html:not([data-theme="dark"]) #app .un-fig{text-shadow:0 3px 8px rgba(0,0,0,0.18);}
+  @media (prefers-reduced-motion: reduce){
+    html:not([data-theme="dark"]) #app .qa,html:not([data-theme="dark"]) #app .hero-book,html:not([data-theme="dark"]) #app .unit-wm{animation:none !important;}
+  }
   /* ===== end of the light-appearance block ===== */
 
   /* v95: vocabulary word cards (text blocks containing .vw-word) */
@@ -12565,23 +12624,23 @@ function weekDotsHTML(){
 }
 /* flat two-tone drawings for the course row (64 x 64) */
 function courseArtSVG(kind){
-  const o = '<svg viewBox="0 0 64 64" aria-hidden="true" focusable="false">';
+  const o = '<svg viewBox="0 0 64 64" aria-hidden="true" focusable="false">' + QA_DEFS + '<g class="qds" filter="url(#qaDs)">';
   if(kind === 'document') return o +
     '<rect x="13" y="9" width="30" height="40" rx="6" fill="#BFD6FF"/>' +
     '<rect x="20" y="15" width="30" height="40" rx="6" fill="#3D7BF0"/>' +
     '<path d="M41 15h7v13l-3.5-2.8L41 28z" fill="#FF6B5B"/>' +
     '<rect x="26" y="28" width="17" height="3.2" rx="1.6" fill="#fff"/><rect x="26" y="35" width="12" height="3.2" rx="1.6" fill="#fff" opacity=".85"/><rect x="26" y="42" width="15" height="3.2" rx="1.6" fill="#fff" opacity=".85"/>' +
-    '<circle cx="16" cy="52" r="7" fill="#1FA463"/><path d="M12.6 52.2l2.4 2.4 4.4-4.8" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    '<circle cx="16" cy="52" r="7" fill="#1FA463"/><path d="M12.6 52.2l2.4 2.4 4.4-4.8" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></g></svg>';
   if(kind === 'link') return o +
     '<g transform="rotate(-35 32 32)"><rect x="8" y="25" width="28" height="14" rx="7" fill="none" stroke="#1AA89C" stroke-width="6"/><rect x="28" y="25" width="28" height="14" rx="7" fill="none" stroke="#5FD9CC" stroke-width="6"/></g>' +
-    '<path d="M50 11l1.6 4.4L56 17l-4.4 1.6L50 23l-1.6-4.4L44 17l4.4-1.6z" fill="#FFB547"/><circle cx="13" cy="50" r="3" fill="#5FD9CC"/></svg>';
+    '<path d="M50 11l1.6 4.4L56 17l-4.4 1.6L50 23l-1.6-4.4L44 17l4.4-1.6z" fill="#FFB547"/><circle cx="13" cy="50" r="3" fill="#5FD9CC"/></g></svg>';
   if(kind === 'calendar') return o +
     '<path d="M10 24h44v22a8 8 0 0 1-8 8H18a8 8 0 0 1-8-8z" fill="#FFE9E4"/><path d="M10 22a8 8 0 0 1 8-8h28a8 8 0 0 1 8 8v4H10z" fill="#FF6B5B"/>' +
     '<rect x="19" y="9" width="5" height="11" rx="2.5" fill="#B23A2E"/><rect x="40" y="9" width="5" height="11" rx="2.5" fill="#B23A2E"/>' +
     '<circle cx="18" cy="36" r="3" fill="#FFB7AB"/><circle cx="25" cy="36" r="3" fill="#FFB7AB"/><circle cx="32" cy="36" r="4.2" fill="#FF6B5B"/><circle cx="39" cy="36" r="3" fill="#FFB7AB"/><circle cx="46" cy="36" r="3" fill="#FFB7AB"/>' +
-    '<circle cx="18" cy="46" r="3" fill="#FFD3CC"/><circle cx="25" cy="46" r="3" fill="#FFD3CC"/><circle cx="32" cy="46" r="3" fill="#FFD3CC"/><circle cx="39" cy="46" r="3" fill="#FFD3CC"/></svg>';
+    '<circle cx="18" cy="46" r="3" fill="#FFD3CC"/><circle cx="25" cy="46" r="3" fill="#FFD3CC"/><circle cx="32" cy="46" r="3" fill="#FFD3CC"/><circle cx="39" cy="46" r="3" fill="#FFD3CC"/></g></svg>';
   if(kind === 'headphones') return o +
-    '<path d="M14 40v-8a18 18 0 0 1 36 0v8" fill="none" stroke="#B47CFF" stroke-width="6" stroke-linecap="round"/><rect x="10" y="36" width="12" height="18" rx="5" fill="#7B45E6"/><rect x="42" y="36" width="12" height="18" rx="5" fill="#7B45E6"/></svg>';
+    '<path d="M14 40v-8a18 18 0 0 1 36 0v8" fill="none" stroke="#B47CFF" stroke-width="6" stroke-linecap="round"/><rect x="10" y="36" width="12" height="18" rx="5" fill="#7B45E6"/><rect x="42" y="36" width="12" height="18" rx="5" fill="#7B45E6"/></g></svg>';
   return '';
 }
 function courseRowHTML(pages){
@@ -12620,59 +12679,84 @@ function todayCardHTML(){
     '</div>' +
   '</div>';
 }
-/* the practice icons: small flat drawings (64 x 64), white and tonal shapes with one accent each */
+/* the practice icons: small drawings (64 x 64). White shapes carry a soft tonal gradient and a cast shadow in light mode;
+   .qw = shaded white, .qsd = light-only shading/detail, .qds = the group that casts a shadow, .qs = a twinkling sparkle */
+const QA_DEFS = '<defs><linearGradient id="qaW" x1="0" y1="0" x2=".7" y2="1"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#E3E8F4"/></linearGradient>' +
+  '<filter id="qaDs" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="1.6" stdDeviation="1.3" flood-color="#000" flood-opacity=".24"/></filter></defs>';
+const QW = ' class="qw" fill="url(#qaW)"';
 function qaArtSVG(id){
-  const sp = function(x,y,s,o){ return '<path d="M'+x+' '+(y-s)+'l'+(s*.35)+' '+(s*.65)+' '+(s*.65)+' '+(s*.35)+'-'+(s*.65)+' '+(s*.35)+'-'+(s*.35)+' '+(s*.65)+'-'+(s*.35)+'-'+(s*.65)+'-'+(s*.65)+'-'+(s*.35)+' '+(s*.65)+'-'+(s*.35)+'z" fill="#fff" opacity="'+(o||.9)+'"/>'; };
-  const o = '<svg viewBox="0 0 64 64" aria-hidden="true" focusable="false">', c = '</svg>';
+  const sp = function(x,y,s,o){ return '<path class="qs" style="animation-delay:'+(((x*7+y*3)%29)/10).toFixed(1)+'s" d="M'+x+' '+(y-s)+'l'+(s*.35)+' '+(s*.65)+' '+(s*.65)+' '+(s*.35)+'-'+(s*.65)+' '+(s*.35)+'-'+(s*.35)+' '+(s*.65)+'-'+(s*.35)+'-'+(s*.65)+'-'+(s*.65)+'-'+(s*.35)+' '+(s*.65)+'-'+(s*.35)+'z" fill="#fff" opacity="'+(o||.9)+'"/>'; };
+  const o = '<svg viewBox="0 0 64 64" aria-hidden="true" focusable="false">' + QA_DEFS, c = '</svg>';
+  const G = '<g class="qds" filter="url(#qaDs)">', g = '</g>';
   switch(id){
-    case 'prog': return o +
-      '<path d="M19 13h26v13a13 13 0 0 1-26 0z" fill="#fff"/>' +
+    case 'prog': return o + G +
+      '<path'+QW+' d="M19 13h26v13a13 13 0 0 1-26 0z"/>' +
       '<path d="M19 17h-4.5a3.5 3.5 0 0 0-3.5 3.5c0 5.2 3.6 8.5 8.5 9" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/>' +
       '<path d="M45 17h4.5a3.5 3.5 0 0 1 3.5 3.5c0 5.2-3.6 8.5-8.5 9" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/>' +
+      '<rect x="28.5" y="38" width="7" height="6" fill="#fff" opacity=".8"/><rect'+QW+' x="21" y="44" width="22" height="6" rx="3"/>' + g +
+      '<path class="qsd" d="M32 13h13v13a13 13 0 0 1-13 13z" fill="#000" opacity=".06"/>' +
+      '<path class="qsd" d="M23.5 17.5c0 6 1.6 9.6 4 12" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" opacity=".75"/>' +
       '<path d="M32 18.5l1.9 3.9 4.3.6-3.1 3 .7 4.3-3.8-2-3.8 2 .7-4.3-3.1-3 4.3-.6z" fill="#E59413"/>' +
-      '<rect x="28.5" y="38" width="7" height="6" fill="#fff" opacity=".8"/><rect x="21" y="44" width="22" height="6" rx="3" fill="#fff"/>' +
       '<rect x="25" y="47" width="14" height="2" rx="1" fill="#E59413" opacity=".55"/>' + sp(11,9,3.5) + sp(54,10,2.8) + sp(55,44,2.4,.7) + c;
-    case 'cards': return o +
-      '<rect x="12" y="17" width="28" height="38" rx="6" transform="rotate(-14 26 36)" fill="#fff" opacity=".42"/>' +
-      '<rect x="18" y="14" width="28" height="38" rx="6" transform="rotate(-7 32 33)" fill="#fff" opacity=".68"/>' +
-      '<rect x="24" y="12" width="28" height="38" rx="6" fill="#fff"/>' +
+    case 'cards': return o + G +
+      '<rect'+QW+' x="12" y="17" width="28" height="38" rx="6" transform="rotate(-14 26 36)" opacity=".42"/>' +
+      '<rect'+QW+' x="18" y="14" width="28" height="38" rx="6" transform="rotate(-7 32 33)" opacity=".68"/>' +
+      '<rect'+QW+' x="24" y="12" width="28" height="38" rx="6"/>' + g +
+      '<path class="qsd" d="M30 12h-0a6 6 0 0 0-6 6v26a6 6 0 0 0 6 6h3V12z" fill="#000" opacity=".035"/>' +
       '<text x="38" y="37" text-anchor="middle" font-family="Outfit, Arial, Helvetica, sans-serif" font-weight="800" font-size="16" fill="#E0362B">Aa</text>' +
-      '<rect x="30" y="42" width="16" height="2.4" rx="1.2" fill="#E0362B" opacity=".35"/>' +
-      '<circle cx="50" cy="50" r="7.5" fill="#2ECC71"/><path d="M46.3 50.3l2.4 2.3 4.6-5" fill="none" stroke="#fff" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>' + sp(12,11,3) + c;
-    case 'mist': return o +
-      '<circle cx="30" cy="35" r="20" fill="#fff"/><circle cx="30" cy="35" r="14" fill="#EE5F2A"/><circle cx="30" cy="35" r="8" fill="#fff"/><circle cx="30" cy="35" r="3" fill="#EE5F2A"/>' +
+      '<rect x="30" y="42" width="16" height="2.4" rx="1.2" fill="#E0362B" opacity=".35"/><rect class="qsd" x="30" y="46.5" width="10" height="2.4" rx="1.2" fill="#E0362B" opacity=".18"/>' +
+      '<circle class="qsd" cx="50" cy="50" r="9" fill="#fff"/><circle cx="50" cy="50" r="7.5" fill="#2ECC71"/><path d="M46.3 50.3l2.4 2.3 4.6-5" fill="none" stroke="#fff" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>' + sp(12,11,3) + c;
+    case 'mist': return o + G +
+      '<circle'+QW+' cx="30" cy="35" r="20"/>' + g + '<circle cx="30" cy="35" r="14" fill="#EE5F2A"/><circle'+QW+' cx="30" cy="35" r="8"/><circle cx="30" cy="35" r="3" fill="#EE5F2A"/>' +
+      '<path class="qsd" d="M30 15a20 20 0 0 1 0 40z" fill="#000" opacity=".045"/>' +
+      '<path class="qsd" d="M14.5 29a16.5 16.5 0 0 1 6.5-9.5" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" opacity=".8"/>' +
       '<path d="M30 35L51 14" stroke="#7A2A0E" stroke-width="3.2" stroke-linecap="round"/><path d="M51 14l-9 .8M51 14l-.8 9" fill="none" stroke="#7A2A0E" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>' +
-      '<path d="M44 21l4-4" stroke="#fff" stroke-width="1.6" stroke-linecap="round" opacity=".7"/>' + sp(12,12,3) + c;
-    case 'snd': return o +
-      '<path d="M12 25h8l11-9v32l-11-9h-8z" fill="#fff"/>' +
+      '<path class="qsd" d="M44.6 10.4l4.6 1.2 1.2 4.6-6.6 1.4z" fill="#FFD15C"/>' +
+      '<path d="M44 21l4-4" stroke="#fff" stroke-width="1.6" stroke-linecap="round" opacity=".7"/>' +
+      '<path class="qsd" d="M7 44h7M8.5 49h4.5" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".5"/>' + sp(12,12,3) + c;
+    case 'snd': return o + G +
+      '<path'+QW+' d="M12 25h8l11-9v32l-11-9h-8z"/>' + g +
+      '<path class="qsd" d="M20 25l11-9v32l-11-9z" fill="#000" opacity=".045"/>' +
       '<path d="M38 25a10 10 0 0 1 0 14" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round"/>' +
       '<path d="M44 19a18 18 0 0 1 0 26" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" opacity=".72"/>' +
       '<path d="M50 13a26 26 0 0 1 0 38" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" opacity=".42"/>' +
-      '<rect x="14" y="27" width="4" height="10" rx="2" fill="#2F7BE6" opacity=".45"/>' + sp(10,11,3) + c;
-    case 'gram': return o +
-      '<path d="M9 17c7.5-3 15-3 21 0v31c-6-3-13.5-3-21 0z" fill="#fff"/>' +
-      '<path d="M55 17c-7.5-3-15-3-21 0v31c6-3 13.5-3 21 0z" fill="#fff" opacity=".86"/>' +
+      '<rect x="14" y="27" width="4" height="10" rx="2" fill="#2F7BE6" opacity=".45"/>' +
+      '<path class="qsd" d="M13.5 27.5c0 1.5.3 3 .8 4.2" fill="none" stroke="#fff" stroke-width="1.4" stroke-linecap="round" opacity=".7"/>' + sp(10,11,3) + c;
+    case 'gram': return o + G +
+      '<path'+QW+' d="M9 17c7.5-3 15-3 21 0v31c-6-3-13.5-3-21 0z"/>' +
+      '<path'+QW+' d="M55 17c-7.5-3-15-3-21 0v31c6-3 13.5-3 21 0z" opacity=".86"/>' + g +
+      '<path class="qsd" d="M30 17c-2-1-4-1.6-6-1.9v31c2 .3 4 .9 6 1.9z" fill="#000" opacity=".05"/><path class="qsd" d="M34 17c2-1 4-1.6 6-1.9v31c-2 .3-4 .9-6 1.9z" fill="#000" opacity=".05"/>' +
       '<path d="M15 26h9M15 32h9M15 38h6" stroke="#1FA463" stroke-width="2.3" stroke-linecap="round"/>' +
       '<rect x="38" y="30" width="13" height="4.6" rx="2.3" fill="#FFD15C"/>' +
       '<path d="M40 26h9M40 38h7" stroke="#1FA463" stroke-width="2.3" stroke-linecap="round" opacity=".75"/>' +
-      '<path d="M46 11v11l3-2.4 3 2.4V11z" fill="#FF6B5B"/>' + sp(11,10,2.8) + c;
-    case 'exam': return o +
-      '<rect x="22" y="13" width="16" height="26" rx="8" fill="#fff"/>' +
+      '<path d="M46 11v11l3-2.4 3 2.4V11z" fill="#FF6B5B"/>' +
+      '<g class="qsd" transform="rotate(38 52 44)"><rect x="49.5" y="32" width="5" height="16" rx="2" fill="#FFD15C"/><rect x="49.5" y="32" width="5" height="3.5" rx="1.5" fill="#E8655A"/><path d="M49.5 48l2.5 4.5 2.5-4.5z" fill="#F4D9B6"/></g>' + sp(11,10,2.8) + c;
+    case 'exam': return o + G +
+      '<rect'+QW+' x="22" y="13" width="16" height="26" rx="8"/>' + g +
+      '<path class="qsd" d="M30 13h0a8 8 0 0 1 8 8v10a8 8 0 0 1-8 8z" fill="#000" opacity=".05"/>' +
       '<path d="M16 31a14 14 0 0 0 28 0" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round"/>' +
       '<path d="M30 45v7M22 52h16" stroke="#fff" stroke-width="3.4" stroke-linecap="round"/>' +
       '<rect x="26" y="20" width="8" height="3" rx="1.5" fill="#7B45E6" opacity=".35"/>' +
+      '<rect class="qsd" x="26" y="25.5" width="8" height="2.4" rx="1.2" fill="#7B45E6" opacity=".2"/>' +
+      '<path class="qsd" d="M11 25a11 11 0 0 0 0 12" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" opacity=".5"/>' +
       '<path d="M43 8h12a5 5 0 0 1 5 5v7a5 5 0 0 1-5 5h-6l-5 4v-4a5 5 0 0 1-5-5v-7a5 5 0 0 1 4-5z" fill="#FFD15C"/>' +
       '<circle cx="46.5" cy="16.5" r="1.7" fill="#7B45E6"/><circle cx="51.5" cy="16.5" r="1.7" fill="#7B45E6"/><circle cx="56.5" cy="16.5" r="1.7" fill="#7B45E6"/>' + c;
-    case 'pod': return o +
+    case 'pod': return o + G +
       '<path d="M14 40v-8a18 18 0 0 1 36 0v8" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"/>' +
-      '<rect x="10" y="36" width="11" height="17" rx="5.5" fill="#fff"/><rect x="43" y="36" width="11" height="17" rx="5.5" fill="#fff"/>' +
-      '<circle cx="32" cy="43" r="9.5" fill="#fff"/><path d="M29.5 38.2v9.6l7.6-4.8z" fill="#E8437F"/>' +
-      '<path d="M22 18a14 14 0 0 1 20 0" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" opacity=".45"/>' + sp(54,12,3) + c;
-    case 'xcol': return o +
-      '<rect x="7" y="22" width="31" height="20" rx="10" fill="#fff"/>' +
-      '<rect x="26" y="22" width="31" height="20" rx="10" fill="#fff" opacity=".55"/>' +
+      '<rect'+QW+' x="10" y="36" width="11" height="17" rx="5.5"/><rect'+QW+' x="43" y="36" width="11" height="17" rx="5.5"/>' +
+      '<circle'+QW+' cx="32" cy="43" r="9.5"/>' + g +
+      '<path class="qsd" d="M16.5 40v-8a15.5 15.5 0 0 1 31 0v8" fill="none" stroke="#000" stroke-width="1.6" stroke-linecap="round" opacity=".06"/>' +
+      '<rect class="qsd" x="13" y="40" width="5" height="9" rx="2.5" fill="#000" opacity=".07"/><rect class="qsd" x="46" y="40" width="5" height="9" rx="2.5" fill="#000" opacity=".07"/>' +
+      '<path d="M29.5 38.2v9.6l7.6-4.8z" fill="#E8437F"/>' +
+      '<path d="M22 18a14 14 0 0 1 20 0" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" opacity=".45"/>' +
+      '<path class="qsd" d="M12 15.5v8.2a2.6 2.6 0 1 1-1.6-2.4V13l7-1.8v7.5" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" opacity=".7"/>' + sp(54,12,3) + c;
+    case 'xcol': return o + G +
+      '<rect'+QW+' x="7" y="22" width="31" height="20" rx="10"/>' +
+      '<rect'+QW+' x="26" y="22" width="31" height="20" rx="10" opacity=".55"/>' + g +
+      '<path class="qsd" d="M10 38.5h25a10 10 0 0 1-8 3.5H17a10 10 0 0 1-7-3.5z" fill="#000" opacity=".045"/>' +
       '<rect x="13" y="30" width="10" height="4" rx="2" fill="#1AA89C" opacity=".6"/><rect x="41" y="30" width="10" height="4" rx="2" fill="#0A736A" opacity=".5"/>' +
-      '<circle cx="32" cy="32" r="7.5" fill="#1AA89C"/><path d="M32 28v8M28 32h8" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/>' + sp(12,12,3) + sp(53,52,2.6,.8) + c;
+      '<circle class="qsd" cx="32" cy="32" r="9" fill="#fff"/><circle cx="32" cy="32" r="7.5" fill="#1AA89C"/><path d="M32 28v8M28 32h8" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/>' +
+      '<path class="qsd" d="M10 15.5c6-2 12 0 16 3" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" opacity=".4"/>' + sp(12,12,3) + sp(53,52,2.6,.8) + c;
   }
   return '';
 }
@@ -14216,13 +14300,16 @@ function richTileSVG(fam, icon, unit, glyph){
 function flatTileSVG(id, pal, g){
   const tile = 'M0 19.5C0 4.4 4.4 0 19.5 0h25C59.6 0 64 4.4 64 19.5v25C64 59.6 59.6 64 44.5 64h-25C4.4 64 0 59.6 0 44.5z';
   return '<svg class="ricon ri-flat" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><defs>' +
-    '<linearGradient id="'+id+'Bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="'+pal[0]+'"/><stop offset="1" stop-color="'+pal[1]+'"/></linearGradient></defs>' +
-    '<path d="'+tile+'" fill="url(#'+id+'Bg)"/><path d="'+tile+'" fill="url(#'+id+'Bg)" opacity="0"/>' +
-    '<path d="M0 19.5C0 4.4 4.4 0 19.5 0h25C59.6 0 64 4.4 64 19.5v6C64 10.4 59.6 6 44.5 6h-25C4.4 6 0 10.4 0 25.5z" fill="#fff" opacity=".14"/>' + g + '</svg>';
+    '<linearGradient id="'+id+'Bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="'+pal[0]+'"/><stop offset="1" stop-color="'+pal[1]+'"/></linearGradient>' +
+    '<radialGradient id="'+id+'Lt" cx=".22" cy=".1" r=".9"><stop offset="0" stop-color="#fff" stop-opacity=".26"/><stop offset=".6" stop-color="#fff" stop-opacity="0"/></radialGradient>' +
+    '<linearGradient id="'+id+'Lo" x1="0" y1="0" x2="0" y2="1"><stop offset=".55" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".16"/></linearGradient></defs>' +
+    '<path d="'+tile+'" fill="url(#'+id+'Bg)"/><path d="'+tile+'" fill="url(#'+id+'Lo)"/><path d="'+tile+'" fill="url(#'+id+'Lt)"/>' +
+    '<path d="'+tile+'" fill="none" stroke="#fff" stroke-opacity=".28" stroke-width="1.1" transform="translate(.55 .55) scale(.9828)"/>' +
+    '<path d="M0 19.5C0 4.4 4.4 0 19.5 0h25C59.6 0 64 4.4 64 19.5v4C64 8.4 59.6 4 44.5 4h-25C4.4 4 0 8.4 0 23.5z" fill="#fff" opacity=".12"/>' + g + '</svg>';
 }
 function hubArtGlyph(kind){
-  const o = '<svg viewBox="0 0 64 64" aria-hidden="true" focusable="false">', c = '</svg>';
-  const sp = function(x,y,s,o){ return '<path d="M'+x+' '+(y-s)+'l'+(s*.35)+' '+(s*.65)+' '+(s*.65)+' '+(s*.35)+'-'+(s*.65)+' '+(s*.35)+'-'+(s*.35)+' '+(s*.65)+'-'+(s*.35)+'-'+(s*.65)+'-'+(s*.65)+'-'+(s*.35)+' '+(s*.65)+'-'+(s*.35)+'z" fill="#fff" opacity="'+(o||.9)+'"/>'; };
+  const o = '<svg viewBox="0 0 64 64" aria-hidden="true" focusable="false">' + QA_DEFS, c = '</svg>', G = '<g class="qds" filter="url(#qaDs)">', g = '</g>';
+  const sp = function(x,y,s,o){ return '<path class="qs" style="animation-delay:'+(((x*7+y*3)%29)/10).toFixed(1)+'s" d="M'+x+' '+(y-s)+'l'+(s*.35)+' '+(s*.65)+' '+(s*.65)+' '+(s*.35)+'-'+(s*.65)+' '+(s*.35)+'-'+(s*.35)+' '+(s*.65)+'-'+(s*.35)+'-'+(s*.65)+'-'+(s*.65)+'-'+(s*.35)+' '+(s*.65)+'-'+(s*.35)+'z" fill="#fff" opacity="'+(o||.9)+'"/>'; };
   switch(kind){
     case 'grammar': return qaArtSVG('gram');
     case 'exam': return qaArtSVG('exam');
@@ -14230,8 +14317,9 @@ function hubArtGlyph(kind){
     case 'sound': return qaArtSVG('snd');
     case 'progress': return qaArtSVG('prog');
     case 'xcol': return qaArtSVG('xcol');
-    case 'games': return o +
-      '<path d="M19 20h26a11 11 0 0 1 11 11l1.4 10.2a5.6 5.6 0 0 1-10.2 3.4L43.5 39h-23l-3.7 5.6a5.6 5.6 0 0 1-10.2-3.4L8 31a11 11 0 0 1 11-11z" fill="#fff"/>' +
+    case 'games': return o + G +
+      '<path'+QW+' d="M19 20h26a11 11 0 0 1 11 11l1.4 10.2a5.6 5.6 0 0 1-10.2 3.4L43.5 39h-23l-3.7 5.6a5.6 5.6 0 0 1-10.2-3.4L8 31a11 11 0 0 1 11-11z"/>' + g +
+      '<path class="qsd" d="M32 20h13a11 11 0 0 1 11 11l1.4 10.2a5.6 5.6 0 0 1-10.2 3.4L43.5 39H32z" fill="#000" opacity=".04"/>' +
       '<path d="M20 25.5v9M15.5 30h9" stroke="#5A50F0" stroke-width="3" stroke-linecap="round"/>' +
       '<circle cx="41" cy="27" r="2.7" fill="#F0453C"/><circle cx="47" cy="31" r="2.7" fill="#2ECC71"/><circle cx="41" cy="35" r="2.7" fill="#2F7BE6"/><circle cx="35" cy="31" r="2.7" fill="#FFC53D"/>' +
       '<rect x="27" y="29.5" width="4" height="2.2" rx="1.1" fill="#C9CFF0"/><rect x="32" y="29.5" width="0" height="0"/>' +
@@ -14240,24 +14328,25 @@ function hubArtGlyph(kind){
       for(let i=0;i<12;i++){ const x = 11 + (i%4)*10.5, y = 12 + Math.floor(i/4)*10.5, hot = i<4;
         cells += '<rect x="'+x+'" y="'+y+'" width="9" height="9" rx="2.4" fill="#fff" opacity="'+(hot?'1':'.45')+'"/><text x="'+(x+4.5)+'" y="'+(y+6.8)+'" text-anchor="middle" font-family="Outfit, Arial, Helvetica, sans-serif" font-weight="800" font-size="6.4" fill="'+(hot?'#1FA463':'#fff')+'">'+L[i]+'</text>'; }
       return o + cells + '<circle cx="44" cy="45" r="9" fill="none" stroke="#fff" stroke-width="3.6"/><path d="M50.5 51.5l6 6" stroke="#fff" stroke-width="3.8" stroke-linecap="round"/><circle cx="44" cy="45" r="5" fill="#FFD15C" opacity=".9"/>' + c; }
-    case 'bank': return o +
-      '<rect x="12" y="20" width="28" height="34" rx="6" transform="rotate(-10 26 37)" fill="#fff" opacity=".42"/>' +
-      '<rect x="18" y="16" width="28" height="34" rx="6" transform="rotate(-5 32 33)" fill="#fff" opacity=".68"/>' +
-      '<rect x="24" y="12" width="28" height="34" rx="6" fill="#fff"/>' +
+    case 'bank': return o + G +
+      '<rect'+QW+' x="12" y="20" width="28" height="34" rx="6" transform="rotate(-10 26 37)" opacity=".42"/>' +
+      '<rect'+QW+' x="18" y="16" width="28" height="34" rx="6" transform="rotate(-5 32 33)" opacity=".68"/>' +
+      '<rect'+QW+' x="24" y="12" width="28" height="34" rx="6"/>' +
       '<text x="38" y="34" text-anchor="middle" font-family="Outfit, Arial, Helvetica, sans-serif" font-weight="800" font-size="19" fill="#0E9C99">?</text>' +
-      '<rect x="30" y="38" width="16" height="2.4" rx="1.2" fill="#0E9C99" opacity=".35"/>' + sp(12,11,3) + c;
-    case 'dashboard': return o +
-      '<rect x="12" y="34" width="8" height="18" rx="3" fill="#fff" opacity=".5"/><rect x="24" y="24" width="8" height="28" rx="3" fill="#fff" opacity=".75"/><rect x="36" y="14" width="8" height="38" rx="3" fill="#fff"/><rect x="48" y="28" width="8" height="24" rx="3" fill="#fff" opacity=".62"/>' +
+      '<rect x="30" y="38" width="16" height="2.4" rx="1.2" fill="#0E9C99" opacity=".35"/>' + g + sp(12,11,3) + c;
+    case 'dashboard': return o + G +
+      '<rect'+QW+' x="12" y="34" width="8" height="18" rx="3" opacity=".5"/><rect'+QW+' x="24" y="24" width="8" height="28" rx="3" opacity=".75"/><rect'+QW+' x="36" y="14" width="8" height="38" rx="3"/><rect'+QW+' x="48" y="28" width="8" height="24" rx="3" opacity=".62"/>' + g +
       '<path d="M16 29l12-9 12-7 12 9" fill="none" stroke="#FFD15C" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="40" cy="13" r="3.2" fill="#FFD15C"/>' + c;
-    case 'box': return o +
-      '<rect x="12" y="26" width="40" height="27" rx="5" fill="#fff"/><rect x="9" y="15" width="46" height="13" rx="4" fill="#fff" opacity=".7"/>' +
+    case 'box': return o + G +
+      '<rect'+QW+' x="12" y="26" width="40" height="27" rx="5"/><rect'+QW+' x="9" y="15" width="46" height="13" rx="4" opacity=".7"/>' + g +
+      '<path class="qsd" d="M12 31h40v3H12z" fill="#000" opacity=".05"/>' +
       '<rect x="26" y="33" width="12" height="4.4" rx="2.2" fill="#5A50F0"/>' + sp(53,10,3) + c;
-    case 'clock': return o +
-      '<circle cx="32" cy="35" r="19" fill="#fff"/><circle cx="32" cy="35" r="14.5" fill="none" stroke="#E0362B" stroke-width="1.4" opacity=".25"/>' +
+    case 'clock': return o + G +
+      '<circle'+QW+' cx="32" cy="35" r="19"/>' + g + '<path class="qsd" d="M32 16a19 19 0 0 1 0 38z" fill="#000" opacity=".04"/><circle cx="32" cy="35" r="14.5" fill="none" stroke="#E0362B" stroke-width="1.4" opacity=".25"/>' +
       '<path d="M32 24v11l7.5 4.5" fill="none" stroke="#E0362B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="32" cy="35" r="2.2" fill="#E0362B"/>' +
       '<path d="M14 15l6-5M50 15l-6-5" stroke="#fff" stroke-width="3.4" stroke-linecap="round"/>' + sp(53,50,2.6,.7) + c;
-    case 'star': return o +
-      '<path d="M32 10l6.6 13.4 14.8 2.1-10.7 10.4 2.5 14.7L32 43.7l-13.2 6.9 2.5-14.7L10.6 25.5l14.8-2.1z" fill="#fff"/>' +
+    case 'star': return o + G +
+      '<path'+QW+' d="M32 10l6.6 13.4 14.8 2.1-10.7 10.4 2.5 14.7L32 43.7l-13.2 6.9 2.5-14.7L10.6 25.5l14.8-2.1z"/>' + g +
       '<path d="M32 20l3.6 7.4 8.1 1.2-5.9 5.7 1.4 8.1L32 38.5l-7.2 3.9 1.4-8.1-5.9-5.7 8.1-1.2z" fill="#1FA463" opacity=".85"/>' + sp(53,52,2.6,.7) + c;
   }
   return '';
