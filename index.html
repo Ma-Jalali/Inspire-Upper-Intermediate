@@ -6876,6 +6876,9 @@
   html #app .qa-label{font-family:var(--font-head);font-size:12.5px;font-weight:700;line-height:1.2;text-align:center;letter-spacing:-0.005em;color:var(--ink);max-width:100%;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
   html #app .qa.is-locked{opacity:.6;}
   @media (prefers-reduced-motion: reduce){ html #app .qa{animation:none !important;} }
+  /* ================= v129: new light-only markup, hidden until the light block shows it ================= */
+  html #app .td-i{display:none;}
+  .dict-art.da-v29{display:none;}
   /* ================= v124: the home hub ================= */
   .bd-week, .unit-sub, .fb-cap, .set-group, .pr-count{display:none;}
   html #app .settings-row + .set-group + .settings-row{border-top:.5px solid var(--hair);}
@@ -7751,6 +7754,33 @@
   html:not([data-theme="dark"]) #app .part-row .pr-count{display:inline-block;margin-top:4px;font-family:var(--font-head);font-size:11.5px;font-weight:700;letter-spacing:.01em;color:rgba(255,255,255,0.85);}
   html:not([data-theme="dark"]) #app .part-row .pr-mark{opacity:.09;}
   html:not([data-theme="dark"]) #app .part-row{box-shadow:0 0 0 .5px rgba(17,22,38,0.06), 0 1px 2px rgba(17,22,38,0.06), 0 14px 26px -16px rgba(17,22,38,0.35), inset 0 1px 0 rgba(255,255,255,0.34);}
+  /* ================= v129: precision polish (light) ================= */
+  /* the Today card: a tinted glyph before each stat label */
+  html:not([data-theme="dark"]) #app .td-i{display:inline-flex;flex:none;width:12px;height:12px;vertical-align:-2px;margin-right:3px;}
+  html:not([data-theme="dark"]) #app .td-i svg{width:100%;height:100%;display:block;}
+  html:not([data-theme="dark"]) #app .td-i-fire{color:#F0742A;} html:not([data-theme="dark"]) #app .td-i-card{color:#E0362B;} html:not([data-theme="dark"]) #app .td-i-medal{color:#E9A21B;}
+  html:not([data-theme="dark"]) #app .td-stat small{display:flex;align-items:center;}
+  /* hub heroes, stat tiles and the Word games entry: flat tiles now, so the shadow is soft and the glyph has no gloss */
+  html:not([data-theme="dark"]) #app .has-ri > .ri svg.ricon.ri-flat{filter:drop-shadow(0 6px 10px rgba(20,28,58,0.14)) drop-shadow(0 1px 1px rgba(20,28,58,0.08));}
+  html:not([data-theme="dark"]) #app .rv-hero-ico.has-ri > .ri svg.ricon.ri-flat{filter:drop-shadow(0 10px 16px rgba(20,28,58,0.16)) drop-shadow(0 1px 1.5px rgba(20,28,58,0.08));}
+  html:not([data-theme="dark"]) #app .mc-stat-ico.has-ri > .ri svg.ricon.ri-flat,html:not([data-theme="dark"]) #app .gm-entry-ico.has-ri > .ri svg.ricon.ri-flat{filter:drop-shadow(0 2px 3px rgba(20,28,58,0.14));}
+  html:not([data-theme="dark"]) #app .has-ri > .ri .ricon.ri-flat svg{width:48px;height:48px;}
+  html:not([data-theme="dark"]) #app .has-ri > .ri .ricon.ri-flat text{font-family:var(--font-display, Outfit, system-ui), system-ui, sans-serif;}
+  /* the hero line-art takes the tile's own colour */
+  html:not([data-theme="dark"]) #app .rv-hero.hk-exam{--hub-c:#7B45E6;} html:not([data-theme="dark"]) #app .rv-hero.hk-mistakes{--hub-c:#EE5F2A;} html:not([data-theme="dark"]) #app .rv-hero.hk-xcol{--hub-c:#1AA89C;}
+  /* settings rows, "On this page" and search results: the same small tiles, flat */
+  html:not([data-theme="dark"]) #app :is(.settings-icon,.toc-ico,.search-row .icon-chip).has-ri > .ri svg.ricon{filter:drop-shadow(0 1.5px 2px rgba(20,28,58,0.12));}
+  html:not([data-theme="dark"]) #app :is(.settings-icon,.toc-ico,.search-row .icon-chip).has-ri .ricon .ri-sh,html:not([data-theme="dark"]) #app :is(.settings-icon,.toc-ico,.search-row .icon-chip).has-ri .ricon .ri-rim{display:none;}
+  html:not([data-theme="dark"]) #app :is(.settings-icon,.toc-ico,.search-row .icon-chip).has-ri .ricon g[filter]{filter:none;}
+  /* the practice grid: labels sit a touch closer to their icon now that every label is one line */
+  html:not([data-theme="dark"]) #app .qa{gap:7px;}
+  /* the course row: captions in a quieter grey, one line each */
+  html:not([data-theme="dark"]) #app .cr-cap{color:#8A8F9E;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;}
+  /* dictionary: the flat drawing replaces the glossy tiles */
+  html:not([data-theme="dark"]) .dict-art.da-v27{display:none;}
+  html:not([data-theme="dark"]) .dict-art.da-v29{display:flex;margin:22px 0 -12px;}
+  html:not([data-theme="dark"]) .dict-art.da-v29 svg{width:232px;height:155px;overflow:visible;}
+  html:not([data-theme="dark"]) .dict-art.da-v29 text{font-family:var(--font-display, Outfit, system-ui), system-ui, sans-serif;}
   /* ===== end of the light-appearance block ===== */
 
   /* v95: vocabulary word cards (text blocks containing .vw-word) */
@@ -12555,7 +12585,7 @@ function courseArtSVG(kind){
   return '';
 }
 function courseRowHTML(pages){
-  const caps = {document:'How the course works', link:'Dictionaries, books, sites', calendar:'This week\u2019s plan', headphones:'Listen on the go'};
+  const caps = {document:'How it works', link:'Books & sites', calendar:'This week', headphones:'On the go'};
   const tints = {document:'cr-blue', link:'cr-teal', calendar:'cr-coral', headphones:'cr-purple'};
   return '<div class="cr-card">' + pages.map(function(pg, i){
     const locked = isLockedForViewer(pg.id), hid = !locked && hiddenInPath(pg.id);
@@ -12582,9 +12612,9 @@ function todayCardHTML(){
       '<span class="td-ring-n">'+pct+'<i>%</i></span></button>' +
     '<div class="td-body"><div class="td-kicker">Today</div>' +
       '<div class="td-stats">' +
-        '<span class="td-stat"><b>'+streak+'</b><small>day'+(streak===1?'':'s')+' streak</small></span>' +
-        '<span class="td-stat"><b>'+due+'</b><small>'+(due===1?'card':'cards')+' due</small></span>' +
-        '<span class="td-stat"><b>'+got+'<em>/'+BADGES.length+'</em></b><small>badges</small></span>' +
+        '<span class="td-stat"><b>'+streak+'</b><small><i class="td-i td-i-fire"><svg viewBox="0 0 24 24"><path d="M12 2.5c.6 3.6 3.2 5.1 4.6 7.4 1.6 2.5 1.6 5.6-.2 7.9A6.6 6.6 0 0 1 5.5 15c0-2.6 1.4-4 2.4-5.4.4 1.5 1.1 2.4 2.1 2.9-.5-3.6.4-7 2-10z" fill="currentColor"/></svg></i>day'+(streak===1?'':'s')+' streak</small></span>' +
+        '<span class="td-stat"><b>'+due+'</b><small><i class="td-i td-i-card"><svg viewBox="0 0 24 24"><rect x="7" y="3.5" width="12" height="16" rx="2.5" fill="currentColor"/><rect x="4" y="6.5" width="12" height="16" rx="2.5" fill="currentColor" opacity=".55"/></svg></i>'+(due===1?'card':'cards')+' due</small></span>' +
+        '<span class="td-stat"><b>'+got+'<em>/'+BADGES.length+'</em></b><small><i class="td-i td-i-medal"><svg viewBox="0 0 24 24"><path d="M7 2.5h4l1 4-2.6 1.5zM17 2.5h-4l-1 4 2.6 1.5z" fill="currentColor" opacity=".6"/><circle cx="12" cy="14.5" r="6.5" fill="currentColor"/><path d="M12 10.6l1.2 2.4 2.6.4-1.9 1.8.5 2.6-2.4-1.3-2.4 1.3.5-2.6-1.9-1.8 2.6-.4z" fill="#fff"/></svg></i>badges</small></span>' +
       '</div>' +
       '<button class="td-cta" onclick="'+go+'">'+escapeHtml(cta)+'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>' +
     '</div>' +
@@ -12653,9 +12683,9 @@ function quickGridHTML(pod){
     {id:'prog', cls:'qa-gold', icon:'trophy', label:'My progress', go:'openBadges()'},
     {id:'cards', cls:'qa-red', icon:'cards', label:'Word practice', go:'startFlashcards()'},
     {id:'mist', cls:'qa-amber', icon:'target', label:'My mistakes', go:'openReview()', badge: wrong || 0},
-    {id:'snd', cls:'qa-blue', icon:'ear', label:'Sound practice', go:'openSounds()'},
+    {id:'snd', cls:'qa-blue', icon:'ear', label:'Sounds', go:'openSounds()'},
     {id:'gram', cls:'qa-green', icon:'book', label:'Grammar hub', go:'openGrammarHub()'},
-    {id:'exam', cls:'qa-purple', icon:'mic', label:'Exam speaking', go:'openExams()'},
+    {id:'exam', cls:'qa-purple', icon:'mic', label:'Speaking', go:'openExams()'},
     pod ? {id:'pod', cls:'qa-pink', icon:'headphones', label:escapeHtml(pod.title), go:(isLockedForViewer(pod.id) ? 'lockedTap()' : 'openPage(\''+pod.id+'\')'), locked:isLockedForViewer(pod.id)} : null,
     {id:'xcol', cls:'qa-teal', icon:null, glyph:XC_ICON, label:'Collocations', go:'openXcol()'}
   ].filter(Boolean);
@@ -14166,8 +14196,8 @@ function riTile(id, pal, g, extraDefs){
     '<linearGradient id="'+id+'Gl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#EEF1F8"/></linearGradient>' +
     '<filter id="'+id+'Ds" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy="1.6" stdDeviation="1.6" flood-color="#0B1230" flood-opacity=".26"/></filter>' +
     (extraDefs||'') + '</defs>';
-  const base = '<path d="'+tile+'" fill="url(#'+id+'Bg)"/><path d="'+tile+'" fill="url(#'+id+'Sh)"/>' +
-    '<path d="'+tile+'" fill="none" stroke="#fff" stroke-opacity=".32" stroke-width="1.2" transform="translate(.6 .6) scale(.98125)"/>';
+  const base = '<path d="'+tile+'" fill="url(#'+id+'Bg)"/><path class="ri-sh" d="'+tile+'" fill="url(#'+id+'Sh)"/>' +
+    '<path class="ri-rim" d="'+tile+'" fill="none" stroke="#fff" stroke-opacity=".32" stroke-width="1.2" transform="translate(.6 .6) scale(.98125)"/>';
   return '<svg class="ricon" viewBox="0 0 64 64" aria-hidden="true" focusable="false">' + defs + base + g + '</svg>';
 }
 /* any app icon, white with a soft shadow, on a tile of the given colour family */
@@ -14182,75 +14212,65 @@ function richTileSVG(fam, icon, unit, glyph){
   const g = '<g filter="url(#'+id+'Ds)" color="#fff"><svg x="14" y="14" width="36" height="36" viewBox="'+vb+'" fill="none" stroke="currentColor" stroke-width="'+sw+'" stroke-linecap="round" stroke-linejoin="round" overflow="visible">' + inner + '</svg></g>';
   return riTile(id, pal, g);
 }
-/* the hub tiles: a small scene each, in the home-page icon style */
+/* the hub tiles: the same flat drawings as the home practice icons, on a flat two-stop tile */
+function flatTileSVG(id, pal, g){
+  const tile = 'M0 19.5C0 4.4 4.4 0 19.5 0h25C59.6 0 64 4.4 64 19.5v25C64 59.6 59.6 64 44.5 64h-25C4.4 64 0 59.6 0 44.5z';
+  return '<svg class="ricon ri-flat" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><defs>' +
+    '<linearGradient id="'+id+'Bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="'+pal[0]+'"/><stop offset="1" stop-color="'+pal[1]+'"/></linearGradient></defs>' +
+    '<path d="'+tile+'" fill="url(#'+id+'Bg)"/><path d="'+tile+'" fill="url(#'+id+'Bg)" opacity="0"/>' +
+    '<path d="M0 19.5C0 4.4 4.4 0 19.5 0h25C59.6 0 64 4.4 64 19.5v6C64 10.4 59.6 6 44.5 6h-25C4.4 6 0 10.4 0 25.5z" fill="#fff" opacity=".14"/>' + g + '</svg>';
+}
+function hubArtGlyph(kind){
+  const o = '<svg viewBox="0 0 64 64" aria-hidden="true" focusable="false">', c = '</svg>';
+  const sp = function(x,y,s,o){ return '<path d="M'+x+' '+(y-s)+'l'+(s*.35)+' '+(s*.65)+' '+(s*.65)+' '+(s*.35)+'-'+(s*.65)+' '+(s*.35)+'-'+(s*.35)+' '+(s*.65)+'-'+(s*.35)+'-'+(s*.65)+'-'+(s*.65)+'-'+(s*.35)+' '+(s*.65)+'-'+(s*.35)+'z" fill="#fff" opacity="'+(o||.9)+'"/>'; };
+  switch(kind){
+    case 'grammar': return qaArtSVG('gram');
+    case 'exam': return qaArtSVG('exam');
+    case 'mistakes': return qaArtSVG('mist');
+    case 'sound': return qaArtSVG('snd');
+    case 'progress': return qaArtSVG('prog');
+    case 'xcol': return qaArtSVG('xcol');
+    case 'games': return o +
+      '<path d="M19 20h26a11 11 0 0 1 11 11l1.4 10.2a5.6 5.6 0 0 1-10.2 3.4L43.5 39h-23l-3.7 5.6a5.6 5.6 0 0 1-10.2-3.4L8 31a11 11 0 0 1 11-11z" fill="#fff"/>' +
+      '<path d="M20 25.5v9M15.5 30h9" stroke="#5A50F0" stroke-width="3" stroke-linecap="round"/>' +
+      '<circle cx="41" cy="27" r="2.7" fill="#F0453C"/><circle cx="47" cy="31" r="2.7" fill="#2ECC71"/><circle cx="41" cy="35" r="2.7" fill="#2F7BE6"/><circle cx="35" cy="31" r="2.7" fill="#FFC53D"/>' +
+      '<rect x="27" y="29.5" width="4" height="2.2" rx="1.1" fill="#C9CFF0"/><rect x="32" y="29.5" width="0" height="0"/>' +
+      '<path d="M22 50h20" stroke="#fff" stroke-width="2.6" stroke-linecap="round" opacity=".45"/>' + sp(52,12,3.2) + sp(11,51,2.4,.7) + c;
+    case 'colloc': { let cells = ''; const L = ['T','A','K','E','M','O','R','E','W','I','N','D'];
+      for(let i=0;i<12;i++){ const x = 11 + (i%4)*10.5, y = 12 + Math.floor(i/4)*10.5, hot = i<4;
+        cells += '<rect x="'+x+'" y="'+y+'" width="9" height="9" rx="2.4" fill="#fff" opacity="'+(hot?'1':'.45')+'"/><text x="'+(x+4.5)+'" y="'+(y+6.8)+'" text-anchor="middle" font-family="Outfit, Arial, Helvetica, sans-serif" font-weight="800" font-size="6.4" fill="'+(hot?'#1FA463':'#fff')+'">'+L[i]+'</text>'; }
+      return o + cells + '<circle cx="44" cy="45" r="9" fill="none" stroke="#fff" stroke-width="3.6"/><path d="M50.5 51.5l6 6" stroke="#fff" stroke-width="3.8" stroke-linecap="round"/><circle cx="44" cy="45" r="5" fill="#FFD15C" opacity=".9"/>' + c; }
+    case 'bank': return o +
+      '<rect x="12" y="20" width="28" height="34" rx="6" transform="rotate(-10 26 37)" fill="#fff" opacity=".42"/>' +
+      '<rect x="18" y="16" width="28" height="34" rx="6" transform="rotate(-5 32 33)" fill="#fff" opacity=".68"/>' +
+      '<rect x="24" y="12" width="28" height="34" rx="6" fill="#fff"/>' +
+      '<text x="38" y="34" text-anchor="middle" font-family="Outfit, Arial, Helvetica, sans-serif" font-weight="800" font-size="19" fill="#0E9C99">?</text>' +
+      '<rect x="30" y="38" width="16" height="2.4" rx="1.2" fill="#0E9C99" opacity=".35"/>' + sp(12,11,3) + c;
+    case 'dashboard': return o +
+      '<rect x="12" y="34" width="8" height="18" rx="3" fill="#fff" opacity=".5"/><rect x="24" y="24" width="8" height="28" rx="3" fill="#fff" opacity=".75"/><rect x="36" y="14" width="8" height="38" rx="3" fill="#fff"/><rect x="48" y="28" width="8" height="24" rx="3" fill="#fff" opacity=".62"/>' +
+      '<path d="M16 29l12-9 12-7 12 9" fill="none" stroke="#FFD15C" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="40" cy="13" r="3.2" fill="#FFD15C"/>' + c;
+    case 'box': return o +
+      '<rect x="12" y="26" width="40" height="27" rx="5" fill="#fff"/><rect x="9" y="15" width="46" height="13" rx="4" fill="#fff" opacity=".7"/>' +
+      '<rect x="26" y="33" width="12" height="4.4" rx="2.2" fill="#5A50F0"/>' + sp(53,10,3) + c;
+    case 'clock': return o +
+      '<circle cx="32" cy="35" r="19" fill="#fff"/><circle cx="32" cy="35" r="14.5" fill="none" stroke="#E0362B" stroke-width="1.4" opacity=".25"/>' +
+      '<path d="M32 24v11l7.5 4.5" fill="none" stroke="#E0362B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="32" cy="35" r="2.2" fill="#E0362B"/>' +
+      '<path d="M14 15l6-5M50 15l-6-5" stroke="#fff" stroke-width="3.4" stroke-linecap="round"/>' + sp(53,50,2.6,.7) + c;
+    case 'star': return o +
+      '<path d="M32 10l6.6 13.4 14.8 2.1-10.7 10.4 2.5 14.7L32 43.7l-13.2 6.9 2.5-14.7L10.6 25.5l14.8-2.1z" fill="#fff"/>' +
+      '<path d="M32 20l3.6 7.4 8.1 1.2-5.9 5.7 1.4 8.1L32 38.5l-7.2 3.9 1.4-8.1-5.9-5.7 8.1-1.2z" fill="#1FA463" opacity=".85"/>' + sp(53,52,2.6,.7) + c;
+  }
+  return '';
+}
 function hubIconSVG(kind){
   const P = {
-    grammar:['#8CE8B0','#31C87E','#1B8A55'], games:['#B9A8FF','#6A5BFF','#3B2FC0'], exam:['#FFD09B','#F09030','#B8561A'],
-    mistakes:['#FFA0A8','#F0506A','#C02A4A'], sound:['#8FD3FF','#3D90F0','#2459C8'], bank:['#5EE6D6','#16B8B0','#0B8A93'],
-    colloc:['#8CE8B0','#31C87E','#1B8A55'], dashboard:['#8FD3FF','#3D90F0','#2459C8'], box:['#A9B6FF','#5A6CF0','#3444C4'],
-    clock:['#FF8A7A','#F0453C','#C9252B'], star:['#8CE8B0','#31C87E','#1B8A55'], progress:['#FFD98A','#F0A830','#B8781A']
+    grammar:['#4FD48F','#1FA463'], games:['#8B7CFF','#5A50F0'], exam:['#B47CFF','#7B45E6'], mistakes:['#FF9A5B','#EE5F2A'],
+    sound:['#5DA9FF','#2F7BE6'], bank:['#4FD9CC','#1AA89C'], colloc:['#4FD48F','#1FA463'], dashboard:['#5DA9FF','#2F7BE6'],
+    box:['#8B7CFF','#5A50F0'], clock:['#FF6B61','#E0362B'], star:['#4FD48F','#1FA463'], progress:['#FFD15C','#EFA316'], xcol:['#4FD9CC','#1AA89C']
   };
   const pal = P[kind]; if(!pal) return '';
-  const id = 'rh' + kind;
-  const F = ' filter="url(#'+id+'Ds)"', GL = 'url(#'+id+'Gl)';
-  let g = '';
-  if(kind === 'grammar'){
-    g = '<g'+F+'><path d="M12 18c6-2.6 12-2.6 18 0v27c-6-2.6-12-2.6-18 0z" fill="'+GL+'"/><path d="M52 18c-6-2.6-12-2.6-18 0v27c6-2.6 12-2.6 18 0z" fill="'+GL+'"/></g>' +
-      '<path d="M32 19v26" stroke="#CFE3D8" stroke-width="1.2"/>' +
-      '<g stroke="#2FA56C" stroke-width="2" stroke-linecap="round"><path d="M16 25h9M16 30h9M16 35h6"/><path d="M39 25h9M39 30h9"/></g>' +
-      '<g'+F+' transform="rotate(32 46 40)"><rect x="43" y="26" width="6" height="22" rx="2" fill="#FFC53D"/><path d="M43 48l3 6 3-6z" fill="#F4D9B6"/><rect x="43" y="26" width="6" height="4" rx="1.5" fill="#E8655A"/></g>' +
-      '<g'+F+'><circle cx="21" cy="46" r="6.5" fill="#fff"/><path d="M17.8 46l2.3 2.3 4.1-4.6" fill="none" stroke="#1FA463" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></g>';
-  }else if(kind === 'games'){
-    g = '<g'+F+'><path d="M18 22h28a10 10 0 0 1 10 10l1.5 9.5a5.5 5.5 0 0 1-10 3.2L44 40H20l-3.5 4.7a5.5 5.5 0 0 1-10-3.2L8 32a10 10 0 0 1 10-10z" fill="'+GL+'"/></g>' +
-      '<path d="M20 27.5v9M15.5 32h9" stroke="#6A5BFF" stroke-width="3" stroke-linecap="round"/>' +
-      '<circle cx="42" cy="29" r="2.6" fill="#F0453C"/><circle cx="48" cy="33" r="2.6" fill="#2FA56C"/><circle cx="42" cy="37" r="2.6" fill="#3B8BF5"/><circle cx="36" cy="33" r="2.6" fill="#FFC53D"/>' +
-      '<rect x="28" y="31" width="4" height="2" rx="1" fill="#C9CFF0"/><rect x="32.5" y="31" width="4" height="2" rx="1" fill="#C9CFF0"/>' +
-      '<path d="M50.5 13l1 2.6 2.6 1-2.6 1-1 2.6-1-2.6-2.6-1 2.6-1z" fill="#fff" fill-opacity=".9"/><path d="M13 50l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7z" fill="#fff" fill-opacity=".8"/>';
-  }else if(kind === 'exam'){
-    g = '<path d="M32 44v8M24 52h16" stroke="#fff" stroke-opacity=".7" stroke-width="2.6" stroke-linecap="round"/>' +
-      '<g'+F+'><rect x="25" y="10" width="14" height="25" rx="7" fill="'+GL+'"/></g>' +
-      '<g stroke="#F09030" stroke-width="1.4" stroke-linecap="round" stroke-opacity=".55"><path d="M28.5 17h7M28.5 21h7M28.5 25h7"/></g>' +
-      '<path d="M20 28a12 12 0 0 0 24 0" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/>' +
-      '<g fill="none" stroke="#fff" stroke-linecap="round" stroke-width="2"><path d="M47 20a9 9 0 0 1 0 12" stroke-opacity=".9"/><path d="M51.5 16a15 15 0 0 1 0 20" stroke-opacity=".5"/><path d="M17 20a9 9 0 0 0 0 12" stroke-opacity=".9"/><path d="M12.5 16a15 15 0 0 0 0 20" stroke-opacity=".5"/></g>';
-  }else if(kind === 'mistakes'){
-    g = '<g'+F+'><circle cx="30" cy="34" r="19" fill="'+GL+'"/></g>' +
-      '<circle cx="30" cy="34" r="13" fill="none" stroke="#F0506A" stroke-width="3.4"/><circle cx="30" cy="34" r="6.5" fill="none" stroke="#F0506A" stroke-width="3.4"/><circle cx="30" cy="34" r="1.8" fill="#C02A4A"/>' +
-      '<g'+F+'><path d="M30 34L50 14" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/><path d="M50 14l-9 .8M50 14l-.8 9" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>' +
-      '<path d="M44.5 11.5l4 1 1 4-7 2z" fill="#FFC53D"/></g>';
-  }else if(kind === 'sound'){
-    g = '<g'+F+'><path d="M11 25h8l10-8v30l-10-8h-8a2 2 0 0 1-2-2V27a2 2 0 0 1 2-2z" fill="'+GL+'"/></g>' +
-      '<g fill="none" stroke="#fff" stroke-linecap="round" stroke-width="2.6"><path d="M36 26a8.5 8.5 0 0 1 0 12"/><path d="M41 21a15 15 0 0 1 0 22" stroke-opacity=".75"/><path d="M46 16a21.5 21.5 0 0 1 0 32" stroke-opacity=".45"/></g>' +
-      '<g stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-opacity=".9"><path d="M14 50v4M19 48v6M24 51v3"/></g>';
-  }else if(kind === 'bank'){
-    g = '<g'+F+'><rect x="15" y="22" width="30" height="30" rx="5" transform="rotate(-8 30 37)" fill="#fff" fill-opacity=".42"/><rect x="19" y="18" width="30" height="30" rx="5" transform="rotate(-3 34 33)" fill="#fff" fill-opacity=".7"/>' +
-      '<rect x="23" y="14" width="30" height="30" rx="5" fill="'+GL+'"/></g>' +
-      '<text x="38" y="36" text-anchor="middle" font-size="19" font-weight="800" fill="#16B8B0" font-family="var(--font-display, system-ui), system-ui, sans-serif">?</text>' +
-      '<rect x="27" y="39" width="12" height="2" rx="1" fill="#BFEDE8"/><rect x="41" y="39" width="7" height="2" rx="1" fill="#BFEDE8"/>';
-  }else if(kind === 'colloc'){
-    const cells = []; const L = ['T','A','K','E','M','O','R','E','W','I','N','D','P','A','R','T'];
-    for(let i=0;i<16;i++){ const x = 12 + (i%4)*9, y = 14 + Math.floor(i/4)*9; const hot = (i===0||i===1||i===2||i===3);
-      cells.push('<rect x="'+x+'" y="'+y+'" width="8" height="8" rx="2" fill="#fff" fill-opacity="'+(hot?'.95':'.42')+'"/><text x="'+(x+4)+'" y="'+(y+6.2)+'" text-anchor="middle" font-size="5.6" font-weight="800" fill="'+(hot?'#1B8A55':'#fff')+'" font-family="var(--font-display, system-ui), system-ui, sans-serif">'+L[i]+'</text>'); }
-    g = cells.join('') + '<g'+F+'><circle cx="42" cy="42" r="9.5" fill="none" stroke="#fff" stroke-width="3.4"/><path d="M49 49l6.5 6.5" stroke="#fff" stroke-width="3.6" stroke-linecap="round"/></g>';
-  }else if(kind === 'dashboard'){
-    g = '<g'+F+'><rect x="14" y="34" width="8" height="18" rx="2.5" fill="#fff" fill-opacity=".55"/><rect x="25" y="24" width="8" height="28" rx="2.5" fill="#fff" fill-opacity=".8"/><rect x="36" y="16" width="8" height="36" rx="2.5" fill="'+GL+'"/><rect x="47" y="28" width="8" height="24" rx="2.5" fill="#fff" fill-opacity=".65"/></g>' +
-      '<path d="M18 30l11-8 11-8 11 10" fill="none" stroke="#FFC53D" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="40" cy="14" r="3" fill="#FFC53D"/>';
-  }else if(kind === 'box'){
-    g = '<g'+F+'><rect x="13" y="26" width="38" height="26" rx="4" fill="'+GL+'"/><rect x="10" y="17" width="44" height="12" rx="3.5" fill="#fff"/></g>' +
-      '<rect x="26" y="33" width="12" height="4" rx="2" fill="#5A6CF0"/><path d="M20 10h24M24 5h16" stroke="#fff" stroke-opacity=".8" stroke-width="2.2" stroke-linecap="round"/>';
-  }else if(kind === 'clock'){
-    g = '<g'+F+'><circle cx="32" cy="35" r="18" fill="'+GL+'"/></g><circle cx="32" cy="35" r="14" fill="none" stroke="#F8D9D5" stroke-width="1.4"/>' +
-      '<path d="M32 24.5v10.5l7 4.5" fill="none" stroke="#D4382F" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="32" cy="35" r="2" fill="#D4382F"/>' +
-      '<path d="M15 16l6-5M49 16l-6-5" stroke="#fff" stroke-width="3" stroke-linecap="round"/>';
-  }else if(kind === 'progress'){
-    g = '<g'+F+'><path d="M23 8h8l6 20-10 2z" fill="#E8463C"/><path d="M41 8h-8l-6 20 10 2z" fill="#F07A46"/></g>' +
-      '<g'+F+'><circle cx="32" cy="38" r="15" fill="'+GL+'"/></g><circle cx="32" cy="38" r="11.5" fill="none" stroke="#F0A830" stroke-width="2.2"/>' +
-      '<path d="M32 30.5l2.3 4.7 5.2.7-3.8 3.6.9 5.1-4.6-2.4-4.6 2.4.9-5.1-3.8-3.6 5.2-.7z" fill="#F0A830"/>' +
-      '<path d="M50 14l1 2.6 2.6 1-2.6 1-1 2.6-1-2.6-2.6-1 2.6-1z" fill="#fff" fill-opacity=".9"/>';
-  }else if(kind === 'star'){
-    g = '<g'+F+'><path d="M32 11l6.4 13 14.3 2-10.4 10.1 2.5 14.2L32 43.6l-12.8 6.7 2.5-14.2L11.3 26l14.3-2z" fill="'+GL+'"/></g>' +
-      '<path d="M32 19l4 8.2 9 1.3-6.5 6.3 1.5 8.9L32 39.5l-8 4.2 1.5-8.9-6.5-6.3 9-1.3z" fill="#31C87E" fill-opacity=".9"/>';
-  }
-  return riTile(id, pal, g);
+  const art = hubArtGlyph(kind).replace(/^<svg[^>]*>/, '<svg x="8" y="8" width="48" height="48" viewBox="0 0 64 64" overflow="visible">');
+  return flatTileSVG('rh' + kind, pal, art);
 }
 /* fine line-art scene behind a hub header; stroke colour comes from CSS */
 function hubArtSVG(kind){
@@ -15168,8 +15188,23 @@ function dictArt27SVG(){
     '<circle class="d27-sp s3" cx="190" cy="52" r="2" fill="#7E8CF0"/>' +
   '</svg></div>';
 }
+function dictArt29SVG(){
+  return '<div class="dict-art da-v29" aria-hidden="true"><svg viewBox="0 0 240 160">' +
+    '<ellipse cx="120" cy="140" rx="70" ry="6" fill="#2F7BE6" opacity=".08"/>' +
+    '<path d="M120 52c-16-9-40-11-62-6v70c22-5 46-3 62 6z" fill="#BFD6FF"/><path d="M120 52c16-9 40-11 62-6v70c-22-5-46-3-62 6z" fill="#3D7BF0"/>' +
+    '<path d="M120 52v70" stroke="#1F4FB5" stroke-width="2" opacity=".35"/>' +
+    '<g stroke="#3D7BF0" stroke-width="3.2" stroke-linecap="round" opacity=".55"><path d="M70 66c12-3 26-2 38 3M70 78c12-3 26-2 38 3M70 90c12-3 26-2 38 3M70 102c8-2 16-2 22 0"/></g>' +
+    '<g stroke="#fff" stroke-width="3.2" stroke-linecap="round" opacity=".85"><path d="M132 69c12-5 26-6 38-3M132 81c12-5 26-6 38-3M132 93c12-5 26-6 38-3"/></g>' +
+    '<rect x="148" y="100" width="20" height="5" rx="2.5" fill="#FFD15C"/>' +
+    '<g transform="rotate(-12 86 32)"><rect x="70" y="16" width="32" height="32" rx="10" fill="#FF6B5B"/><text x="86" y="39" text-anchor="middle" font-family="Outfit, Arial, Helvetica, sans-serif" font-weight="800" font-size="20" fill="#fff">A</text></g>' +
+    '<g transform="rotate(6 120 22)"><rect x="106" y="8" width="28" height="28" rx="9" fill="#1FA463"/><text x="120" y="28" text-anchor="middle" font-family="Outfit, Arial, Helvetica, sans-serif" font-weight="800" font-size="17" fill="#fff">b</text></g>' +
+    '<g transform="rotate(14 154 36)"><rect x="140" y="22" width="28" height="28" rx="9" fill="#FFB547"/><text x="154" y="42" text-anchor="middle" font-family="Outfit, Arial, Helvetica, sans-serif" font-weight="800" font-size="17" fill="#fff">?</text></g>' +
+    '<circle cx="178" cy="114" r="14" fill="#fff"/><circle cx="178" cy="114" r="14" fill="none" stroke="#1AA89C" stroke-width="5"/><path d="M188.5 124.5l10 10" stroke="#1AA89C" stroke-width="6" stroke-linecap="round"/><circle cx="178" cy="114" r="6" fill="#5FD9CC" opacity=".6"/>' +
+    '<path d="M48 30l1.2 3.2 3.2 1.2-3.2 1.2-1.2 3.2-1.2-3.2-3.2-1.2 3.2-1.2z" fill="#FFB547"/><path d="M206 58l1 2.6 2.6 1-2.6 1-1 2.6-1-2.6-2.6-1 2.6-1z" fill="#FF6B5B"/><circle cx="40" cy="104" r="3" fill="#5FD9CC"/>' +
+  '</svg></div>';
+}
 function dictArtSVG(){
-  return dictArt27SVG() + '<div class="dict-art da-v1" aria-hidden="true"><svg viewBox="0 0 200 140">' +
+  return dictArt29SVG() + dictArt27SVG() + '<div class="dict-art da-v1" aria-hidden="true"><svg viewBox="0 0 200 140">' +
     '<defs><linearGradient id="daL" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color:var(--gold-bright)"/><stop offset="1" style="stop-color:var(--crimson)"/></linearGradient></defs>' +
     '<ellipse cx="100" cy="128" rx="62" ry="7" class="da-shadow"/>' +
     '<path d="M100 58c-18-12-44-14-64-8v66c20-6 46-4 64 8z" class="da-page"/>' +
@@ -19202,7 +19237,7 @@ function renderXcolList(){
   const next = L.find(function(l){ return !(p[l.n] && p[l.n].done); });
   const R = 21, C = 2*Math.PI*R, off = C*(1 - done/L.length);
   let h = '<button class="search-back" onclick="xcolHome()">← Back</button>' +
-    '<div class="rv-hero xc-top hk-xcol">'+hubArtSVG('xcol')+'<span class="rv-hero-ico xc-hero-ico has-ri"><span class="ri">'+richIconSVG('xcol')+'</span>'+XC_ICON+'</span>' +
+    '<div class="rv-hero xc-top hk-xcol">'+hubArtSVG('xcol')+'<span class="rv-hero-ico xc-hero-ico has-ri"><span class="ri">'+hubIconSVG('xcol')+'</span>'+XC_ICON+'</span>' +
       '<div class="rv-hero-txt"><div class="eyebrow">Extra practice</div><div class="big-title serif">'+escapeHtml(xcolTitle())+'</div>' +
       '<div class="rv-hero-sub">'+L.length+' bonus lessons, '+totalCols+' collocations, each with audio and a quiz. Not part of your coursebook.</div>' +
       (editMode ? '<button class="chip-btn xc-rename" onclick="xcolRename()">✎ Rename on home page</button>' : '') + '</div></div>';
