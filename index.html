@@ -6816,6 +6816,26 @@
   html:not([data-theme="dark"]) #app .app-scroll > .streak-card .sk-weekhead{border-top-color:var(--hair);}
   html:not([data-theme="dark"]) #app .app-scroll > .streak-card .sk-day i{box-shadow:inset 0 0 0 1.5px rgba(118,118,128,0.20);}
 
+  /* ================= v126: the course row ================= */
+  html #app .cr-card{display:grid;grid-template-columns:repeat(auto-fit, minmax(96px, 1fr));gap:0;padding:6px;margin:0 0 6px;border-radius:26px;background:var(--surface);
+    box-shadow:0 0 0 .5px rgba(17,22,38,0.07), 0 1px 2px rgba(17,22,38,0.05), 0 16px 30px -20px rgba(17,22,38,0.32);}
+  html[data-theme="dark"] #app .cr-card{background:#161C2E;box-shadow:0 16px 32px -24px rgba(0,0,0,0.7), inset 0 0 0 1px rgba(255,255,255,0.08);}
+  html #app .cr-item{position:relative;display:flex;flex-direction:column;align-items:center;gap:7px;padding:16px 8px 14px;border:none;background:none;cursor:pointer;font:inherit;color:var(--ink);border-radius:20px;min-width:0;
+    animation:prIn .5s var(--spring) both;animation-delay:var(--d,0s);transition:transform .35s var(--v-spring, ease), background .2s ease;}
+  html #app .cr-item:active{transform:scale(.95);background:rgba(var(--accent-rgb),0.05);}
+  html #app .cr-item + .cr-item::before{content:'';position:absolute;left:0;top:18px;bottom:18px;width:1px;background:rgba(17,22,38,0.08);}
+  html[data-theme="dark"] #app .cr-item + .cr-item::before{background:rgba(255,255,255,0.08);}
+  html #app .cr-art{width:64px;height:64px;border-radius:20px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  html #app .cr-art svg{width:48px;height:48px;}
+  html #app .cr-blue .cr-art{background:#EAF1FF;} html #app .cr-teal .cr-art{background:#E3F8F5;} html #app .cr-coral .cr-art{background:#FFEFEB;} html #app .cr-purple .cr-art{background:#F1EAFF;} html #app .cr-slate .cr-art{background:rgba(118,118,128,0.12);color:var(--ink-soft);}
+  html[data-theme="dark"] #app .cr-blue .cr-art{background:rgba(61,123,240,0.16);} html[data-theme="dark"] #app .cr-teal .cr-art{background:rgba(26,168,156,0.16);} html[data-theme="dark"] #app .cr-coral .cr-art{background:rgba(255,107,91,0.16);} html[data-theme="dark"] #app .cr-purple .cr-art{background:rgba(123,69,230,0.18);}
+  html #app .cr-title{font-family:var(--font-display);font-size:13.5px;font-weight:800;letter-spacing:-0.01em;line-height:1.2;text-align:center;text-wrap:balance;}
+  html #app .cr-cap{font-size:11px;line-height:1.3;color:var(--ink-soft);text-align:center;}
+  html #app .cr-item.is-locked{opacity:.6;}
+  html #app .td-stat + .td-stat{padding-left:14px;border-left:1px solid rgba(17,22,38,0.08);}
+  html[data-theme="dark"] #app .td-stat + .td-stat{border-left-color:rgba(255,255,255,0.08);}
+  html #app .td-stats{gap:0;} html #app .td-stat{padding-right:14px;}
+  @media (prefers-reduced-motion: reduce){ html #app .cr-item{animation:none !important;} }
   /* ================= v125: the Today card and the flat practice grid ================= */
   html #app .td-card{display:flex;align-items:center;gap:16px;margin:0 0 4px;padding:16px 18px 16px 16px;border-radius:26px;background:var(--surface);color:var(--ink);
     box-shadow:0 0 0 .5px rgba(17,22,38,0.07), 0 1px 2px rgba(17,22,38,0.05), 0 16px 30px -20px rgba(17,22,38,0.32);}
@@ -7717,6 +7737,12 @@
   html:not([data-theme="dark"]) #app .qa-ico{box-shadow:0 10px 18px -10px rgba(17,22,38,0.45), inset 0 1px 0 rgba(255,255,255,0.32), inset 0 0 0 .5px rgba(255,255,255,0.14);}
   html:not([data-theme="dark"]) #app .qa-label{color:#2A3045;}
   html:not([data-theme="dark"]) #app .section-label + .qa-grid{margin-top:-2px;}
+  /* ================= v126: course row and finishing details (light) ================= */
+  html:not([data-theme="dark"]) #app .cr-card{background:linear-gradient(180deg,#fff,#FBFBFD);box-shadow:0 0 0 .5px rgba(17,22,38,0.07), 0 1px 2px rgba(17,22,38,0.05), 0 18px 32px -22px rgba(17,22,38,0.30), inset 0 1px 0 #fff;}
+  html:not([data-theme="dark"]) #app .cr-art{box-shadow:inset 0 0 0 .5px rgba(17,22,38,0.04), inset 0 1px 0 rgba(255,255,255,0.8);}
+  html:not([data-theme="dark"]) #app .cr-title{color:#161B2E;}
+  html:not([data-theme="dark"]) #app .qa-ico::after{content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:linear-gradient(180deg, rgba(255,255,255,0.16), rgba(255,255,255,0) 55%);}
+  html:not([data-theme="dark"]) #app .td-ring-bg{stroke:rgba(228,34,75,0.10);}
   /* ===== end of the light-appearance block ===== */
 
   /* v95: vocabulary word cards (text blocks containing .vw-word) */
@@ -12499,6 +12525,39 @@ function weekDotsHTML(){
   for(let i=0;i<7;i++){ const x = new Date(d); x.setDate(d.getDate()-dow+i); h += '<i class="'+(act[dayKey(x)] ? 'on' : '')+(i===dow ? ' today' : '')+(i>dow ? ' later' : '')+'"></i>'; }
   return h + '</span>';
 }
+/* flat two-tone drawings for the course row (64 x 64) */
+function courseArtSVG(kind){
+  const o = '<svg viewBox="0 0 64 64" aria-hidden="true" focusable="false">';
+  if(kind === 'document') return o +
+    '<rect x="13" y="9" width="30" height="40" rx="6" fill="#BFD6FF"/>' +
+    '<rect x="20" y="15" width="30" height="40" rx="6" fill="#3D7BF0"/>' +
+    '<path d="M41 15h7v13l-3.5-2.8L41 28z" fill="#FF6B5B"/>' +
+    '<rect x="26" y="28" width="17" height="3.2" rx="1.6" fill="#fff"/><rect x="26" y="35" width="12" height="3.2" rx="1.6" fill="#fff" opacity=".85"/><rect x="26" y="42" width="15" height="3.2" rx="1.6" fill="#fff" opacity=".85"/>' +
+    '<circle cx="16" cy="52" r="7" fill="#1FA463"/><path d="M12.6 52.2l2.4 2.4 4.4-4.8" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  if(kind === 'link') return o +
+    '<g transform="rotate(-35 32 32)"><rect x="8" y="25" width="28" height="14" rx="7" fill="none" stroke="#1AA89C" stroke-width="6"/><rect x="28" y="25" width="28" height="14" rx="7" fill="none" stroke="#5FD9CC" stroke-width="6"/></g>' +
+    '<path d="M50 11l1.6 4.4L56 17l-4.4 1.6L50 23l-1.6-4.4L44 17l4.4-1.6z" fill="#FFB547"/><circle cx="13" cy="50" r="3" fill="#5FD9CC"/></svg>';
+  if(kind === 'calendar') return o +
+    '<path d="M10 24h44v22a8 8 0 0 1-8 8H18a8 8 0 0 1-8-8z" fill="#FFE9E4"/><path d="M10 22a8 8 0 0 1 8-8h28a8 8 0 0 1 8 8v4H10z" fill="#FF6B5B"/>' +
+    '<rect x="19" y="9" width="5" height="11" rx="2.5" fill="#B23A2E"/><rect x="40" y="9" width="5" height="11" rx="2.5" fill="#B23A2E"/>' +
+    '<circle cx="18" cy="36" r="3" fill="#FFB7AB"/><circle cx="25" cy="36" r="3" fill="#FFB7AB"/><circle cx="32" cy="36" r="4.2" fill="#FF6B5B"/><circle cx="39" cy="36" r="3" fill="#FFB7AB"/><circle cx="46" cy="36" r="3" fill="#FFB7AB"/>' +
+    '<circle cx="18" cy="46" r="3" fill="#FFD3CC"/><circle cx="25" cy="46" r="3" fill="#FFD3CC"/><circle cx="32" cy="46" r="3" fill="#FFD3CC"/><circle cx="39" cy="46" r="3" fill="#FFD3CC"/></svg>';
+  if(kind === 'headphones') return o +
+    '<path d="M14 40v-8a18 18 0 0 1 36 0v8" fill="none" stroke="#B47CFF" stroke-width="6" stroke-linecap="round"/><rect x="10" y="36" width="12" height="18" rx="5" fill="#7B45E6"/><rect x="42" y="36" width="12" height="18" rx="5" fill="#7B45E6"/></svg>';
+  return '';
+}
+function courseRowHTML(pages){
+  const caps = {document:'How the course works', link:'Dictionaries, books, sites', calendar:'This week\u2019s plan', headphones:'Listen on the go'};
+  const tints = {document:'cr-blue', link:'cr-teal', calendar:'cr-coral', headphones:'cr-purple'};
+  return '<div class="cr-card">' + pages.map(function(pg, i){
+    const locked = isLockedForViewer(pg.id), hid = !locked && hiddenInPath(pg.id);
+    const art = courseArtSVG(pg.icon);
+    return '<button class="cr-item '+(tints[pg.icon] || 'cr-slate')+(locked?' is-locked':'')+'" style="--d:'+(i*0.05).toFixed(2)+'s" onclick="'+(locked ? 'lockedTap()' : 'openPage(\''+pg.id+'\')')+'">' + delOverlay(pg) +
+      '<span class="cr-art">'+(art || iconHTML(pg.icon))+'</span>' +
+      '<span class="cr-title">'+escapeHtml(pg.title)+(hid ? ' <span class="hid-pill inline">'+iconHTML('lock')+'Hidden</span>' : '')+'</span>' +
+      '<span class="cr-cap">'+(locked ? 'Opens soon' : (caps[pg.icon] || pageSubtitle(pg)))+'</span></button>';
+  }).join('') + '</div>';
+}
 /* the Today card: one ring, three numbers and the single most useful next step */
 function todayCardHTML(){
   const units = unitPages().length, done = (unitsDone||[]).length, pct = units ? Math.round(done/units*100) : 0;
@@ -12511,7 +12570,7 @@ function todayCardHTML(){
   const r = 26, c = 2*Math.PI*r, off = c*(1-pct/100);
   return '<div class="td-card">' +
     '<button class="td-ring-wrap" onclick="openBadges()" aria-label="My progress">' +
-      '<svg class="td-ring" viewBox="0 0 64 64"><circle class="td-ring-bg" cx="32" cy="32" r="'+r+'"/><circle class="td-ring-fg" cx="32" cy="32" r="'+r+'" style="stroke-dasharray:'+c.toFixed(1)+';stroke-dashoffset:'+off.toFixed(1)+'"/></svg>' +
+      '<svg class="td-ring" viewBox="0 0 64 64"><defs><linearGradient id="tdRingG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FF7A5C"/><stop offset="1" stop-color="#E4224B"/></linearGradient></defs><circle class="td-ring-bg" cx="32" cy="32" r="'+r+'"/><circle class="td-ring-fg" cx="32" cy="32" r="'+r+'" stroke="url(#tdRingG)" style="stroke-dasharray:'+c.toFixed(1)+';stroke-dashoffset:'+off.toFixed(1)+'"/></svg>' +
       '<span class="td-ring-n">'+pct+'<i>%</i></span></button>' +
     '<div class="td-body"><div class="td-kicker">Today</div>' +
       '<div class="td-stats">' +
@@ -14690,7 +14749,7 @@ function renderHomeGrid(){
     todayCardHTML() +
     '<div class="section-label">Practice</div>' +
     quickGridHTML(pod) +
-    (generals.length ? ('<div class="section-label">Course</div><div class="card-list course-list">' + generals.map(function(p,i){ return pageCard(p,i,true); }).join('') + '</div>') : '') +
+    (generals.length ? ('<div class="section-label">Course</div>' + courseRowHTML(generals)) : '') +
     (units.length ? ('<div class="section-label">Units<span class="sl-count">'+units.length+'</span></div><div class="unit-grid">' + units.map(function(p,i){ return unitCard(p,i); }).join('') + '</div>') : '') +
     (editMode ? '<button class="btn primary full" onclick="openNewPageModal(null)">+ New page</button>' : '');
 }
