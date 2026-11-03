@@ -6816,8 +6816,24 @@
   html:not([data-theme="dark"]) #app .app-scroll > .streak-card .sk-weekhead{border-top-color:var(--hair);}
   html:not([data-theme="dark"]) #app .app-scroll > .streak-card .sk-day i{box-shadow:inset 0 0 0 1.5px rgba(118,118,128,0.20);}
 
-  /* ================= v123: continue card, week dots, unit subtitles ================= */
-  .bd-week, .unit-sub{display:none;}
+  /* ================= v124: the home hub ================= */
+  .bd-week, .unit-sub, .fb-cap{display:none;}
+  html #app .hq-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0 0 6px;}
+  html #app .hq-tile{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:3px;min-height:142px;padding:13px 14px 14px;border:none;border-radius:24px;cursor:pointer;font:inherit;text-align:left;color:var(--ink);
+    background:var(--surface);box-shadow:0 1px 1px rgba(15,25,50,0.05), 0 12px 26px -18px rgba(15,25,50,0.4), inset 0 0 0 .5px rgba(var(--accent-rgb),0.10);transition:transform .35s var(--v-spring, ease), box-shadow .3s ease;}
+  html[data-theme="dark"] #app .hq-tile{background:#161C2E;box-shadow:0 16px 32px -24px rgba(0,0,0,0.7), inset 0 0 0 1px rgba(255,255,255,0.08);}
+  html #app .hq-tile:active{transform:scale(.97);}
+  html #app .hq-top{display:flex;align-items:flex-start;justify-content:space-between;width:100%;margin-bottom:auto;}
+  html #app .hq-ico{position:relative;width:44px;height:44px;border-radius:14px;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:0 8px 16px -8px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.35);}
+  html #app .hq-ico > svg{width:21px;height:21px;}
+  html #app .hq-tile.g-gold .hq-ico{background:linear-gradient(145deg,#FFD36A,#F0A020);} html #app .hq-tile.g-crimson .hq-ico{background:var(--g-crimson);}
+  html #app .hq-tile.g-sky .hq-ico{background:var(--g-sky);} html #app .hq-tile.g-terracotta .hq-ico{background:var(--g-terracotta);}
+  html #app .hq-chip{font-family:var(--font-head);font-size:12px;font-weight:800;letter-spacing:.01em;padding:5px 10px;border-radius:999px;color:var(--ink-soft);background:rgba(118,118,128,0.12);white-space:nowrap;}
+  html #app .hq-title{font-family:var(--font-display);font-size:16.5px;font-weight:800;letter-spacing:-0.015em;line-height:1.15;margin-top:12px;}
+  html #app .hq-sub{font-size:12.5px;line-height:1.3;color:var(--ink-soft);}
+  html #app .hq-bar{display:block;width:100%;height:5px;border-radius:999px;margin-top:9px;background:rgba(118,118,128,0.15);overflow:hidden;}
+  html #app .hq-bar i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,#FFD36A,#F0A020);}
+  html #app .hq-tile.is-locked{opacity:.75;}
   html #app .cont-card{position:relative;display:flex;align-items:center;gap:12px;width:100%;margin:-2px 0 12px;padding:12px 14px 12px 12px;border:none;border-radius:22px;cursor:pointer;font:inherit;text-align:left;color:var(--ink);
     background:var(--surface);box-shadow:0 1px 1px rgba(15,25,50,0.05), 0 12px 26px -18px rgba(15,25,50,0.4), inset 0 0 0 .5px rgba(var(--accent-rgb),0.10);transition:transform .35s var(--v-spring, ease), box-shadow .3s ease;}
   html[data-theme="dark"] #app .cont-card{background:#161C2E;box-shadow:0 16px 32px -24px rgba(0,0,0,0.7), inset 0 0 0 1px rgba(255,255,255,0.08);}
@@ -7630,6 +7646,32 @@
   html:not([data-theme="dark"]) #app .b-toggle:not(.vk-sec):not(.b-explain) > .toggle-head .arrow{width:26px;height:26px;background:#fff;color:var(--crimson);box-shadow:0 0 0 .5px rgba(17,22,38,0.08), 0 2px 5px -2px rgba(17,22,38,0.30), inset 0 1px 0 #fff;}
   html:not([data-theme="dark"]) #app .b-toggle:not(.vk-sec):not(.b-explain).open > .toggle-head{background:rgba(var(--accent-rgb),0.07);}
   html:not([data-theme="dark"]) #app .b-toggle:not(.vk-sec):not(.b-explain) + .b-toggle{margin-top:6px;}
+  /* ================= v124: the home hub (light) =================
+     Four tiles that look like no other row: a diagonal wash of each tile's colour from the top-left,
+     a lit rim, a coloured hairline along the bottom, the glossy icon, and a live number in a chip. */
+  html:not([data-theme="dark"]) #app .hq-tile{overflow:hidden;isolation:isolate;padding:14px 15px 15px;
+    --hq:80,99,238;background:#fff;
+    box-shadow:0 0 0 .5px rgba(17,22,38,0.07), 0 1px 2px rgba(17,22,38,0.05), 0 16px 30px -20px rgba(17,22,38,0.32), inset 0 1px 0 #fff;}
+  html:not([data-theme="dark"]) #app .hq-tile.g-gold{--hq:240,160,32;} html:not([data-theme="dark"]) #app .hq-tile.g-crimson{--hq:228,34,75;} html:not([data-theme="dark"]) #app .hq-tile.g-sky{--hq:61,144,240;} html:not([data-theme="dark"]) #app .hq-tile.g-terracotta{--hq:240,144,48;}
+  html:not([data-theme="dark"]) #app .hq-tile::before{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;
+    background:linear-gradient(135deg, rgba(var(--hq),0.16) 0%, rgba(var(--hq),0.06) 42%, rgba(255,255,255,0) 72%);}
+  html:not([data-theme="dark"]) #app .hq-tile::after{content:'';position:absolute;left:14px;right:14px;bottom:0;height:3px;border-radius:3px 3px 0 0;pointer-events:none;
+    background:linear-gradient(90deg, rgba(var(--hq),0.85), rgba(var(--hq),0.25));}
+  html:not([data-theme="dark"]) #app .hq-ico.has-ri > .ri .ricon svg{width:36px;height:36px;}
+  html:not([data-theme="dark"]) #app .hq-ico.has-ri > .ri svg.ricon{filter:drop-shadow(0 7px 12px rgba(20,28,58,0.22)) drop-shadow(0 1px 1px rgba(20,28,58,0.10));}
+  html:not([data-theme="dark"]) #app .hq-chip{color:rgb(var(--hq));background:rgba(var(--hq),0.12);box-shadow:inset 0 0 0 .5px rgba(var(--hq),0.18), inset 0 1px 0 rgba(255,255,255,0.6);}
+  html:not([data-theme="dark"]) #app .hq-tile.g-gold .hq-chip{color:#9A6208;}
+  html:not([data-theme="dark"]) #app .hq-title{color:#161B2E;}
+  html:not([data-theme="dark"]) #app .hq-sub{color:#5C6275;}
+  html:not([data-theme="dark"]) #app .hq-bar{background:rgba(var(--hq),0.14);}
+  html:not([data-theme="dark"]) #app .hq-bar i{box-shadow:0 1px 3px -1px rgba(var(--hq),0.6);}
+  /* practice cards: a one-line caption under each title */
+  html:not([data-theme="dark"]) #app .practice-grid .fb-cap{display:block;font-size:12.5px;line-height:1.3;color:#5C6275;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  /* the "Unit done" chip was white on white glass; it is now a tinted lens with the tick in the accent */
+  html:not([data-theme="dark"]) #app .page-actions .done-btn.on{color:var(--crimson);
+    background:linear-gradient(180deg, rgba(var(--accent-rgb),0.18), rgba(var(--accent-rgb),0.09)), linear-gradient(180deg, var(--lg-top), var(--lg-bot));
+    box-shadow:var(--lg-insets), 0 0 0 .5px rgba(var(--accent-rgb),0.35), 0 1px 2px rgba(17,22,38,0.05), 0 8px 18px -12px rgba(var(--accent-rgb),0.45);}
+  html:not([data-theme="dark"]) #app .page-actions .done-btn.on svg{color:var(--crimson);}
   /* ===== end of the light-appearance block ===== */
 
   /* v95: vocabulary word cards (text blocks containing .vw-word) */
@@ -11266,7 +11308,7 @@ function renderSounds(){
 function soundsBannerHTML(){
   return '<div class="flash-banner snd-banner" onclick="openSounds()">' +
     '<div class="flash-banner-icon snd-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>' + practiceArtSVG('snd') +
-    '<div class="flash-banner-txt"><div class="flash-banner-title">Sound practice</div></div>' +
+    '<div class="flash-banner-txt"><div class="flash-banner-title">Sound practice</div><div class="fb-cap">Sounds that are easy to mix up</div></div>' +
     '<div class="sb-art" aria-hidden="true"><span class="sb-chip a">ship</span><span class="sb-chip b">sheep</span><span class="sb-wave"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div>' +
   '</div>';
 }
@@ -11882,7 +11924,7 @@ function exDelete(id){
 function examsBannerHTML(){
   return '<div class="flash-banner exam-banner" onclick="openExams()">' +
     '<div class="flash-banner-icon exam-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3.5 12h17M12 3.5c2.4 2.4 3.4 5.4 3.4 8.5s-1 6.1-3.4 8.5c-2.4-2.4-3.4-5.4-3.4-8.5s1-6.1 3.4-8.5z" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></div>' + practiceArtSVG('exam') +
-    '<div class="flash-banner-txt"><div class="flash-banner-title">International Exams</div></div>' +
+    '<div class="flash-banner-txt"><div class="flash-banner-title">International Exams</div><div class="fb-cap">IELTS and PTE speaking</div></div>' +
     '<div class="eb-art" aria-hidden="true"><span class="eb-card back"></span><span class="eb-card front"><span class="eb-mic"><svg viewBox="0 0 24 24"><rect x="9" y="3.5" width="6" height="11" rx="3" fill="currentColor"/><path d="M6 11.5a6 6 0 0 0 12 0M12 17.5V21" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></span><span class="eb-wave"><i></i><i></i><i></i><i></i><i></i></span><i class="ln"></i><i class="ln s"></i></span><span class="eb-timer"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="7.5" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M12 9.5V13l2.5 1.5M10 3h4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></span></div>' +
   '</div>';
 }
@@ -12350,7 +12392,7 @@ function renderGrammarDiag(){
 function grammarBannerHTML(){
   return '<div class="flash-banner gh-banner" onclick="openGrammarHub()">' +
     '<div class="flash-banner-icon gh-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4.5h10.5a3 3 0 0 1 3 3v12H8a3 3 0 0 1-3-3z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M5 16.5a3 3 0 0 1 3-3h10.5M9 8.5h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>' + practiceArtSVG('gh') +
-    '<div class="flash-banner-txt"><div class="flash-banner-title">Grammar hub</div></div>' +
+    '<div class="flash-banner-txt"><div class="flash-banner-title">Grammar hub</div><div class="fb-cap">Every lesson in one place</div></div>' +
     '<div class="gb-art" aria-hidden="true"><span class="gb-book b3"></span><span class="gb-book b2"></span><span class="gb-book b1"><i></i><i></i></span><span class="gb-lens"></span></div>' +
   '</div>';
 }
@@ -12405,29 +12447,31 @@ function showBadgePop(b){
   if(typeof fireConfetti === 'function') fireConfetti(true);
   setTimeout(function(){ const e = host.querySelector('.bd-pop'); if(e) e.classList.add('out'); setTimeout(function(){ host.innerHTML=''; }, 400); }, 3600);
 }
-/* the home page remembers where you were: one tap takes you back into the lesson */
-function continueCardHTML(){
-  if(editMode) return '';
-  let page = null;
-  for(let i=0;i<recentPages.length && !page;i++){ const pg = findPage(state.pages, recentPages[i]); if(pg && !isLockedForViewer(pg.id) && !hiddenInPath(pg.id)) page = pg; }
-  const fresh = !page;
-  if(!page){ const units = unitPages().filter(function(u){ return !isLockedForViewer(u.id); }); if(!units.length) return ''; page = units[0]; }
-  const info = childPartInfo(page), up = unitParts(page.title);
-  const cls = pageHue(page.id), top = !info && page.section === 'units';
-  const title = info ? info.name : (up && up.name ? up.name : page.title);
-  const sub = info ? ('Unit ' + (info.unitNum || '') + ' \u00B7 Part ' + info.num) : (up ? 'Unit ' + up.num : 'Course page');
-  const n = (page.children||[]).length || (page.blocks||[]).length;
-  return '<button class="cont-card '+cls+(fresh?' is-fresh':'')+'" onclick="openFromSearch(\''+page.id+'\')">' +
-    '<span class="cont-ico has-ri"><span class="ri">'+richTileSVG(cls, page.icon, top)+'</span>'+iconHTML(page.icon)+'</span>' +
-    '<span class="cont-txt"><small>'+(fresh ? 'Start here' : 'Continue where you left off')+'</small><b>'+escapeHtml(title)+'</b><span>'+escapeHtml(sub)+(n ? ' \u00B7 '+n+(info ? ' sections' : (page.children && page.children.length ? ' parts' : ' sections')) : '')+'</span></span>' +
-    '<span class="cont-go">'+iconHTML('play')+'</span></button>';
-}
 /* seven dots for this week, Monday first: filled when you studied that day, ringed for today */
 function weekDotsHTML(){
   const act = deviceGet('activity', {}); const d = new Date(); const dow = (d.getDay()+6)%7;
   let h = '<span class="bd-week" aria-hidden="true">';
   for(let i=0;i<7;i++){ const x = new Date(d); x.setDate(d.getDate()-dow+i); h += '<i class="'+(act[dayKey(x)] ? 'on' : '')+(i===dow ? ' today' : '')+(i>dow ? ' later' : '')+'"></i>'; }
   return h + '</span>';
+}
+/* the hub: your progress, your cards, the podcasts and the extra collocations, as four tiles with a live number each */
+function hubGridHTML(pod){
+  const got = earnedBadges().length, units = unitPages().length, done = (unitsDone||[]).length;
+  const pct = units ? Math.round(done/units*100) : 0, streak = streakDays(), due = cardsDue().length;
+  const eps = pod ? (pod.blocks||[]).filter(function(b){ return /^(embed|audio|clip|link)$/.test(b.type); }).length : 0;
+  const podLocked = pod && isLockedForViewer(pod.id);
+  const tile = function(cls, onclick, ico, icon, chip, title, sub, extra){
+    return '<button class="hq-tile '+cls+'" onclick="'+onclick+'">' +
+      '<span class="hq-top"><span class="hq-ico has-ri"><span class="ri">'+ico+'</span>'+iconHTML(icon)+'</span>'+(chip ? '<span class="hq-chip">'+chip+'</span>' : '')+'</span>' +
+      '<span class="hq-title">'+title+'</span><span class="hq-sub">'+sub+'</span>'+(extra||'')+'</button>';
+  };
+  return '<div class="hq-grid">' +
+    tile('hq-progress g-gold', 'openBadges()', hubIconSVG('progress'), 'trophy', pct+'%', 'My progress',
+      (streak ? streak+'-day streak' : 'No streak yet')+' \u00B7 '+got+' of '+BADGES.length+' badges', '<span class="hq-bar" aria-hidden="true"><i style="width:'+pct+'%"></i></span>') +
+    tile('hq-cards g-crimson', 'startFlashcards()', richIconSVG('cards'), 'cards', due ? due+' due' : 'Start', 'Word practice', due ? 'Cards waiting for you today' : 'Flashcards for every unit') +
+    (pod ? tile('hq-pod g-sky'+(podLocked?' is-locked':''), (podLocked ? 'lockedTap()' : 'openPage(\''+pod.id+'\')'), richIconSVG('headphones'), 'headphones', podLocked ? 'Soon' : (eps ? eps+(eps===1?' episode':' episodes') : 'Listen'), escapeHtml(pod.title), podLocked ? 'Opens soon' : 'Listen and learn on the go') : '') +
+    tile('hq-xcol g-terracotta', 'openXcol()', richIconSVG('xcol'), 'cards', 'Extra', escapeHtml(xcolTitle()), 'The word pairs that sound natural') +
+  '</div>';
 }
 function badgesStripHTML(){
   const got = earnedBadges();
@@ -14483,7 +14527,7 @@ function mistakesBannerHTML(){
   const n = mistakeCount();
   return '<div class="flash-banner mist-banner" onclick="openReview()">' +
     '<div class="flash-banner-icon mist-icon">'+iconHTML('target')+'</div>' + practiceArtSVG('mist', n) +
-    '<div class="flash-banner-txt"><div class="flash-banner-title">Review my mistakes</div></div>' +
+    '<div class="flash-banner-txt"><div class="flash-banner-title">Review my mistakes</div><div class="fb-cap">'+(n ? n+(n===1?' question':' questions')+' to try again' : 'Nothing waiting \u2014 nice')+'</div></div>' +
     '<div class="mk-art'+(n?'':' clear')+'" aria-hidden="true">' +
       '<span class="mk-sheet back"></span>' +
       '<span class="mk-sheet front">' +
@@ -14556,16 +14600,10 @@ function renderHomeGrid(){
     '</div>' +
     announcementHTML() +
     liveJoinCardHTML() + homeworkHTML() + exitTicketHTML() +
-    continueCardHTML() +
-    badgesStripHTML() +
+    hubGridHTML(pod) +
     '<div class="section-label">Practice</div>' +
     '<div class="practice-grid">' +
-    '<div class="flash-banner fb-word" onclick="startFlashcards()">' +
-      '<div class="flash-banner-icon has-ri">'+iconHTML('cards')+'<span class="ri">'+richIconSVG('cards')+'</span></div>' +
-      '<div class="flash-banner-txt"><div class="flash-banner-title">Word practice</div></div>' +
-      '<div class="fb-deck" aria-hidden="true"><span class="fb-c c1"></span><span class="fb-c c2"></span><span class="fb-c c3">Aa</span></div>' +
-    '</div>' +
-    mistakesBannerHTML() + soundsBannerHTML() + examsBannerHTML() + grammarBannerHTML() + podcastBannerHTML(pod) + xcolBannerHTML() + '</div>' +
+    mistakesBannerHTML() + soundsBannerHTML() + examsBannerHTML() + grammarBannerHTML() + '</div>' +
     (generals.length ? ('<div class="section-label">Course</div><div class="card-list course-list">' + generals.map(function(p,i){ return pageCard(p,i,true); }).join('') + '</div>') : '') +
     (units.length ? ('<div class="section-label">Units<span class="sl-count">'+units.length+'</span></div><div class="unit-grid">' + units.map(function(p,i){ return unitCard(p,i); }).join('') + '</div>') : '') +
     (editMode ? '<button class="btn primary full" onclick="openNewPageModal(null)">+ New page</button>' : '');
