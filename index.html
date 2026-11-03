@@ -6816,6 +6816,46 @@
   html:not([data-theme="dark"]) #app .app-scroll > .streak-card .sk-weekhead{border-top-color:var(--hair);}
   html:not([data-theme="dark"]) #app .app-scroll > .streak-card .sk-day i{box-shadow:inset 0 0 0 1.5px rgba(118,118,128,0.20);}
 
+  /* ================= v125: the Today card and the flat practice grid ================= */
+  html #app .td-card{display:flex;align-items:center;gap:16px;margin:0 0 4px;padding:16px 18px 16px 16px;border-radius:26px;background:var(--surface);color:var(--ink);
+    box-shadow:0 0 0 .5px rgba(17,22,38,0.07), 0 1px 2px rgba(17,22,38,0.05), 0 16px 30px -20px rgba(17,22,38,0.32);}
+  html[data-theme="dark"] #app .td-card{background:#161C2E;box-shadow:0 16px 32px -24px rgba(0,0,0,0.7), inset 0 0 0 1px rgba(255,255,255,0.08);}
+  html #app .td-ring-wrap{position:relative;width:88px;height:88px;flex-shrink:0;border:none;background:none;padding:0;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform .35s var(--v-spring, ease);}
+  html #app .td-ring-wrap:active{transform:scale(.94);}
+  html #app .td-ring{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg);}
+  html #app .td-ring circle{fill:none;stroke-width:7;}
+  html #app .td-ring-bg{stroke:rgba(var(--accent-rgb),0.12);}
+  html[data-theme="dark"] #app .td-ring-bg{stroke:rgba(255,255,255,0.10);}
+  html #app .td-ring-fg{stroke:var(--crimson);stroke-linecap:round;transition:stroke-dashoffset .8s cubic-bezier(.22,1,.36,1);}
+  html #app .td-ring-n{font-family:var(--font-display);font-size:21px;font-weight:800;letter-spacing:-0.03em;line-height:1;color:var(--ink);}
+  html #app .td-ring-n i{font-style:normal;font-size:12px;font-weight:700;margin-left:1px;color:var(--ink-soft);}
+  html #app .td-body{flex:1;min-width:0;display:flex;flex-direction:column;gap:9px;}
+  html #app .td-kicker{font-family:var(--font-head);font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);}
+  html #app .td-stats{display:flex;gap:14px;}
+  html #app .td-stat{display:flex;flex-direction:column;gap:1px;min-width:0;}
+  html #app .td-stat b{font-family:var(--font-display);font-size:20px;font-weight:800;letter-spacing:-0.025em;line-height:1.05;color:var(--ink);}
+  html #app .td-stat b em{font-style:normal;font-size:13px;font-weight:700;color:var(--ink-soft);}
+  html #app .td-stat small{font-size:11.5px;font-weight:600;color:var(--ink-soft);white-space:nowrap;}
+  html #app .td-cta{display:inline-flex;align-items:center;justify-content:center;gap:4px;align-self:flex-start;border:none;cursor:pointer;font:inherit;font-family:var(--font-head);font-size:13.5px;font-weight:800;color:#fff;
+    padding:9px 12px 9px 15px;border-radius:999px;background:var(--g-crimson);box-shadow:0 8px 16px -9px rgba(var(--accent-rgb),0.8), inset 0 1px 0 rgba(255,255,255,0.3);transition:transform .35s var(--v-spring, ease);}
+  html #app .td-cta svg{width:15px;height:15px;}
+  html #app .td-cta:active{transform:scale(.95);}
+  html #app .qa-grid{display:grid;grid-template-columns:repeat(4, 1fr);gap:10px 6px;margin:0 0 6px;}
+  html #app .qa{display:flex;flex-direction:column;align-items:center;gap:8px;border:none;background:none;padding:6px 2px 4px;cursor:pointer;font:inherit;color:var(--ink);min-width:0;border-radius:18px;
+    animation:prIn .5s var(--spring) both;animation-delay:var(--d,0s);transition:transform .35s var(--v-spring, ease);}
+  html #app .qa:active{transform:scale(.93);}
+  html #app .qa-ico{position:relative;width:60px;height:60px;border-radius:20px;display:flex;align-items:center;justify-content:center;color:#fff;
+    box-shadow:0 10px 18px -10px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.28), inset 0 0 0 .5px rgba(255,255,255,0.12);}
+  html #app .qa-ico svg{width:27px;height:27px;stroke-width:1.9;}
+  html #app .qa-red .qa-ico{background:linear-gradient(160deg,#FF6B61,#E0362B);} html #app .qa-amber .qa-ico{background:linear-gradient(160deg,#FFB547,#F08A14);}
+  html #app .qa-blue .qa-ico{background:linear-gradient(160deg,#5DA9FF,#2F7BE6);} html #app .qa-green .qa-ico{background:linear-gradient(160deg,#4FD48F,#1FA463);}
+  html #app .qa-purple .qa-ico{background:linear-gradient(160deg,#B47CFF,#7B45E6);} html #app .qa-pink .qa-ico{background:linear-gradient(160deg,#FF7BB0,#E8437F);}
+  html #app .qa-teal .qa-ico{background:linear-gradient(160deg,#4FD9CC,#1AA89C);}
+  html #app .qa-badge{position:absolute;top:-6px;right:-6px;min-width:22px;height:22px;padding:0 6px;border-radius:999px;display:flex;align-items:center;justify-content:center;font-family:var(--font-head);font-size:11.5px;font-weight:800;color:#fff;background:#161B2E;box-shadow:0 0 0 2.5px var(--paper), 0 3px 8px -2px rgba(0,0,0,0.4);}
+  html[data-theme="dark"] #app .qa-badge{background:#fff;color:#161B2E;}
+  html #app .qa-label{font-family:var(--font-head);font-size:12.5px;font-weight:700;line-height:1.2;text-align:center;letter-spacing:-0.005em;color:var(--ink);max-width:100%;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+  html #app .qa.is-locked{opacity:.6;}
+  @media (prefers-reduced-motion: reduce){ html #app .qa{animation:none !important;} }
   /* ================= v124: the home hub ================= */
   .bd-week, .unit-sub, .fb-cap{display:none;}
   html #app .hq-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0 0 6px;}
@@ -7672,6 +7712,11 @@
     background:linear-gradient(180deg, rgba(var(--accent-rgb),0.18), rgba(var(--accent-rgb),0.09)), linear-gradient(180deg, var(--lg-top), var(--lg-bot));
     box-shadow:var(--lg-insets), 0 0 0 .5px rgba(var(--accent-rgb),0.35), 0 1px 2px rgba(17,22,38,0.05), 0 8px 18px -12px rgba(var(--accent-rgb),0.45);}
   html:not([data-theme="dark"]) #app .page-actions .done-btn.on svg{color:var(--crimson);}
+  /* ================= v125: Today card and practice grid (light) ================= */
+  html:not([data-theme="dark"]) #app .td-card{background:linear-gradient(180deg,#fff,#FBFBFD);box-shadow:0 0 0 .5px rgba(17,22,38,0.07), 0 1px 2px rgba(17,22,38,0.05), 0 18px 32px -22px rgba(17,22,38,0.30), inset 0 1px 0 #fff;}
+  html:not([data-theme="dark"]) #app .qa-ico{box-shadow:0 10px 18px -10px rgba(17,22,38,0.45), inset 0 1px 0 rgba(255,255,255,0.32), inset 0 0 0 .5px rgba(255,255,255,0.14);}
+  html:not([data-theme="dark"]) #app .qa-label{color:#2A3045;}
+  html:not([data-theme="dark"]) #app .section-label + .qa-grid{margin-top:-2px;}
   /* ===== end of the light-appearance block ===== */
 
   /* v95: vocabulary word cards (text blocks containing .vw-word) */
@@ -12454,6 +12499,48 @@ function weekDotsHTML(){
   for(let i=0;i<7;i++){ const x = new Date(d); x.setDate(d.getDate()-dow+i); h += '<i class="'+(act[dayKey(x)] ? 'on' : '')+(i===dow ? ' today' : '')+(i>dow ? ' later' : '')+'"></i>'; }
   return h + '</span>';
 }
+/* the Today card: one ring, three numbers and the single most useful next step */
+function todayCardHTML(){
+  const units = unitPages().length, done = (unitsDone||[]).length, pct = units ? Math.round(done/units*100) : 0;
+  const streak = streakDays(), due = cardsDue().length, wrong = mistakeCount(), got = earnedBadges().length;
+  let cta, go;
+  if(due) { cta = 'Practise '+due+(due===1?' card':' cards'); go = 'startFlashcards()'; }
+  else if(wrong) { cta = 'Fix '+wrong+(wrong===1?' mistake':' mistakes'); go = 'openReview()'; }
+  else if(done < units) { const next = unitPages().filter(function(u){ return !isUnitDone(u.id) && !isLockedForViewer(u.id); })[0]; const up = next && unitParts(next.title); cta = next ? ('Continue Unit '+(up ? up.num : '')).trim() : 'See my progress'; go = next ? 'openPage(\''+next.id+'\')' : 'openBadges()'; }
+  else { cta = 'See my badges'; go = 'openBadges()'; }
+  const r = 26, c = 2*Math.PI*r, off = c*(1-pct/100);
+  return '<div class="td-card">' +
+    '<button class="td-ring-wrap" onclick="openBadges()" aria-label="My progress">' +
+      '<svg class="td-ring" viewBox="0 0 64 64"><circle class="td-ring-bg" cx="32" cy="32" r="'+r+'"/><circle class="td-ring-fg" cx="32" cy="32" r="'+r+'" style="stroke-dasharray:'+c.toFixed(1)+';stroke-dashoffset:'+off.toFixed(1)+'"/></svg>' +
+      '<span class="td-ring-n">'+pct+'<i>%</i></span></button>' +
+    '<div class="td-body"><div class="td-kicker">Today</div>' +
+      '<div class="td-stats">' +
+        '<span class="td-stat"><b>'+streak+'</b><small>day'+(streak===1?'':'s')+' streak</small></span>' +
+        '<span class="td-stat"><b>'+due+'</b><small>'+(due===1?'card':'cards')+' due</small></span>' +
+        '<span class="td-stat"><b>'+got+'<em>/'+BADGES.length+'</em></b><small>badges</small></span>' +
+      '</div>' +
+      '<button class="td-cta" onclick="'+go+'">'+escapeHtml(cta)+'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>' +
+    '</div>' +
+  '</div>';
+}
+/* the practice grid: flat tiles, one icon and one short label each, nothing to decode */
+function quickGridHTML(pod){
+  const wrong = mistakeCount();
+  const items = [
+    {id:'cards', cls:'qa-red', icon:'cards', label:'Word practice', go:'startFlashcards()'},
+    {id:'mist', cls:'qa-amber', icon:'target', label:'My mistakes', go:'openReview()', badge: wrong || 0},
+    {id:'snd', cls:'qa-blue', icon:'ear', label:'Sound practice', go:'openSounds()'},
+    {id:'gram', cls:'qa-green', icon:'book', label:'Grammar hub', go:'openGrammarHub()'},
+    {id:'exam', cls:'qa-purple', icon:'mic', label:'Exam speaking', go:'openExams()'},
+    pod ? {id:'pod', cls:'qa-pink', icon:'headphones', label:escapeHtml(pod.title), go:(isLockedForViewer(pod.id) ? 'lockedTap()' : 'openPage(\''+pod.id+'\')'), locked:isLockedForViewer(pod.id)} : null,
+    {id:'xcol', cls:'qa-teal', icon:null, glyph:XC_ICON, label:'Collocations', go:'openXcol()'}
+  ].filter(Boolean);
+  return '<div class="qa-grid">' + items.map(function(it, i){
+    return '<button class="qa '+it.cls+(it.locked?' is-locked':'')+'" style="--d:'+(i*0.04).toFixed(2)+'s" onclick="'+it.go+'">' +
+      '<span class="qa-ico">'+(it.glyph || iconHTML(it.icon))+(it.badge ? '<b class="qa-badge">'+(it.badge>99?'99+':it.badge)+'</b>' : '')+'</span>' +
+      '<span class="qa-label">'+it.label+'</span></button>';
+  }).join('') + '</div>';
+}
 /* the hub: your progress, your cards, the podcasts and the extra collocations, as four tiles with a live number each */
 function hubGridHTML(pod){
   const got = earnedBadges().length, units = unitPages().length, done = (unitsDone||[]).length;
@@ -14600,10 +14687,9 @@ function renderHomeGrid(){
     '</div>' +
     announcementHTML() +
     liveJoinCardHTML() + homeworkHTML() + exitTicketHTML() +
-    hubGridHTML(pod) +
+    todayCardHTML() +
     '<div class="section-label">Practice</div>' +
-    '<div class="practice-grid">' +
-    mistakesBannerHTML() + soundsBannerHTML() + examsBannerHTML() + grammarBannerHTML() + '</div>' +
+    quickGridHTML(pod) +
     (generals.length ? ('<div class="section-label">Course</div><div class="card-list course-list">' + generals.map(function(p,i){ return pageCard(p,i,true); }).join('') + '</div>') : '') +
     (units.length ? ('<div class="section-label">Units<span class="sl-count">'+units.length+'</span></div><div class="unit-grid">' + units.map(function(p,i){ return unitCard(p,i); }).join('') + '</div>') : '') +
     (editMode ? '<button class="btn primary full" onclick="openNewPageModal(null)">+ New page</button>' : '');
