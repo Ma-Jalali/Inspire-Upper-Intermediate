@@ -6867,7 +6867,7 @@
   html #app .qa-ico{position:relative;width:60px;height:60px;border-radius:20px;display:flex;align-items:center;justify-content:center;color:#fff;
     box-shadow:0 10px 18px -10px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.28), inset 0 0 0 .5px rgba(255,255,255,0.12);}
   html #app .qa-ico svg{width:27px;height:27px;stroke-width:1.9;}
-  html #app .qa-red .qa-ico{background:linear-gradient(160deg,#FF6B61,#E0362B);} html #app .qa-amber .qa-ico{background:linear-gradient(160deg,#FFB547,#F08A14);}
+  html #app .qa-gold .qa-ico{background:linear-gradient(160deg,#FFD15C,#EFA316);} html #app .qa-red .qa-ico{background:linear-gradient(160deg,#FF6B61,#E0362B);} html #app .qa-amber .qa-ico{background:linear-gradient(160deg,#FF9A5B,#EE5F2A);}
   html #app .qa-blue .qa-ico{background:linear-gradient(160deg,#5DA9FF,#2F7BE6);} html #app .qa-green .qa-ico{background:linear-gradient(160deg,#4FD48F,#1FA463);}
   html #app .qa-purple .qa-ico{background:linear-gradient(160deg,#B47CFF,#7B45E6);} html #app .qa-pink .qa-ico{background:linear-gradient(160deg,#FF7BB0,#E8437F);}
   html #app .qa-teal .qa-ico{background:linear-gradient(160deg,#4FD9CC,#1AA89C);}
@@ -6877,7 +6877,8 @@
   html #app .qa.is-locked{opacity:.6;}
   @media (prefers-reduced-motion: reduce){ html #app .qa{animation:none !important;} }
   /* ================= v124: the home hub ================= */
-  .bd-week, .unit-sub, .fb-cap{display:none;}
+  .bd-week, .unit-sub, .fb-cap, .set-group, .pr-count{display:none;}
+  html #app .settings-row + .set-group + .settings-row{border-top:.5px solid var(--hair);}
   html #app .hq-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0 0 6px;}
   html #app .hq-tile{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:3px;min-height:142px;padding:13px 14px 14px;border:none;border-radius:24px;cursor:pointer;font:inherit;text-align:left;color:var(--ink);
     background:var(--surface);box-shadow:0 1px 1px rgba(15,25,50,0.05), 0 12px 26px -18px rgba(15,25,50,0.4), inset 0 0 0 .5px rgba(var(--accent-rgb),0.10);transition:transform .35s var(--v-spring, ease), box-shadow .3s ease;}
@@ -7743,6 +7744,13 @@
   html:not([data-theme="dark"]) #app .cr-title{color:#161B2E;}
   html:not([data-theme="dark"]) #app .qa-ico::after{content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:linear-gradient(180deg, rgba(255,255,255,0.16), rgba(255,255,255,0) 55%);}
   html:not([data-theme="dark"]) #app .td-ring-bg{stroke:rgba(228,34,75,0.10);}
+  /* ================= v127: settings groups, part-row counts (light) ================= */
+  html:not([data-theme="dark"]) #app .settings-card .set-group{display:block;padding:14px 16px 4px;font-family:var(--font-head);font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#8A8F9E;}
+  html:not([data-theme="dark"]) #app .settings-card .set-group:not(:first-child){border-top:.5px solid rgba(60,60,67,0.14);margin-top:4px;padding-top:16px;}
+  html:not([data-theme="dark"]) #app .settings-card .set-group + .settings-row{border-top:none !important;}
+  html:not([data-theme="dark"]) #app .part-row .pr-count{display:inline-block;margin-top:4px;font-family:var(--font-head);font-size:11.5px;font-weight:700;letter-spacing:.01em;color:rgba(255,255,255,0.85);}
+  html:not([data-theme="dark"]) #app .part-row .pr-mark{opacity:.09;}
+  html:not([data-theme="dark"]) #app .part-row{box-shadow:0 0 0 .5px rgba(17,22,38,0.06), 0 1px 2px rgba(17,22,38,0.06), 0 14px 26px -16px rgba(17,22,38,0.35), inset 0 1px 0 rgba(255,255,255,0.34);}
   /* ===== end of the light-appearance block ===== */
 
   /* v95: vocabulary word cards (text blocks containing .vw-word) */
@@ -12586,6 +12594,7 @@ function todayCardHTML(){
 function quickGridHTML(pod){
   const wrong = mistakeCount();
   const items = [
+    {id:'prog', cls:'qa-gold', icon:'trophy', label:'My progress', go:'openBadges()'},
     {id:'cards', cls:'qa-red', icon:'cards', label:'Word practice', go:'startFlashcards()'},
     {id:'mist', cls:'qa-amber', icon:'target', label:'My mistakes', go:'openReview()', badge: wrong || 0},
     {id:'snd', cls:'qa-blue', icon:'ear', label:'Sound practice', go:'openSounds()'},
@@ -14797,7 +14806,7 @@ function partRow(c, i){
     '<span class="pr-light" aria-hidden="true"></span>' +
     '<span class="pr-mark" aria-hidden="true">'+iconHTML(c.icon)+'</span>' +
     '<span class="pr-icon has-ri"><span class="ri">'+richTileSVG(cls, c.icon)+'</span>'+iconHTML(c.icon)+'</span>' +
-    '<span class="pr-body"><span class="pr-title">'+escapeHtml(c.title)+'</span>' +
+    '<span class="pr-body"><span class="pr-title">'+escapeHtml(c.title)+'</span>'+(!locked && !hid && !c.subtitle && n ? '<span class="pr-count">'+sub+'</span>' : '') +
       ((locked||hid) ? '<span class="pr-meta"><span class="pr-pill">'+iconHTML('lock')+(locked ? 'Opens soon' : 'Hidden from students')+'</span></span>' : (c.subtitle ? '<span class="pr-meta"><span class="pr-pill pr-sub">'+escapeHtml(c.subtitle)+'</span></span>' : '')) + '</span>' +
     '<span class="pr-go'+(!locked && partDone(c) ? ' done' : '')+'">'+(locked ? iconHTML('lock') : (partDone(c) ? '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>' : go))+'</span>' +
   '</div>';
@@ -15392,12 +15401,14 @@ function renderSettings(){
     '<div class="eyebrow" style="margin-bottom:4px;">Configure</div>' +
     '<div class="big-title serif" style="margin-bottom:16px;">Settings</div>' +
     '<div class="settings-card">' +
+      '<div class="set-group">You</div>' +
       '<div class="settings-row"><div class="settings-row-left"><div class="settings-icon has-ri g-sky"><span class="ri">'+richTileSVG('g-sky','person')+'</span>'+iconHTML('person')+'</div><div>Your name<div class="settings-hint">So your teacher can see your progress</div></div></div><input class="set-name" maxlength="40" placeholder="Name" value="'+escapeAttr(studentName())+'" onchange="setStudentName(this.value);showMiniToast(\'Saved\')"/></div>' +
       '<div class="settings-row"><div class="settings-row-left"><div class="settings-icon has-ri g-crimson"><span class="ri">'+richTileSVG('g-crimson','pencil')+'</span>'+iconHTML('pencil')+'</div><div>Editing mode</div></div><div class="switch '+(editMode?'on':'')+'" onclick="setEditMode('+(!editMode)+')"><div class="knob"></div></div></div>' +
       (teacherView && !editMode ? '<div class="settings-row"><div class="settings-row-left"><div class="settings-icon has-ri g-slate"><span class="ri">'+richTileSVG('g-slate','lock')+'</span>'+iconHTML('lock')+'</div><div>Teacher view<div class="settings-hint">You can see hidden pages on this device</div></div></div><button class="chip-btn" onclick="exitTeacherView()">Close</button></div>' : '') +
       '<div class="settings-row"><div class="settings-row-left"><div class="settings-icon has-ri g-slate"><span class="ri">'+richTileSVG('g-slate','moon')+'</span>'+iconHTML('moon')+'</div><div>Dark mode</div></div><div class="switch '+(darkMode?'on':'')+'" onclick="toggleDark()"><div class="knob"></div></div></div>' +
       '<div class="settings-row"><div class="settings-row-left"><div class="settings-icon has-ri g-coral"><span class="ri">'+richTileSVG('g-coral','bell')+'</span>'+iconHTML('bell')+'</div><div>Haptic feedback<div class="settings-hint">A tiny tap you can feel on supported phones</div></div></div><div class="switch '+(hapticsOn?'on':'')+'" onclick="setHaptics('+(!hapticsOn)+')"><div class="knob"></div></div></div>' +
       '<div class="settings-row"><div class="settings-row-left"><div class="settings-icon has-ri g-teal"><span class="ri">'+richTileSVG('g-teal','headphones')+'</span>'+iconHTML('headphones')+'</div><div>Sounds<div class="settings-hint">Soft sounds for ticks, quiz results and finishing a unit. Follows your silent switch</div></div></div><div class="switch '+(soundsOn?'on':'')+'" onclick="setSounds('+(!soundsOn)+')"><div class="knob"></div></div></div>' +
+      '<div class="set-group">Look & feel</div>' +
       '<div class="settings-row stacked"><div class="settings-row-left"><div class="settings-icon has-ri g-plum"><span class="ri">'+richTileSVG('g-plum','star')+'</span>'+iconHTML('star')+'</div><div>Accent colour</div></div>' +
         '<div class="accent-row">' + ACCENTS.map(function(a){
           return '<button class="accent-opt'+(accent===a[0]?' on':'')+'" onclick="setAccent(\''+a[0]+'\')">' +
@@ -15417,6 +15428,7 @@ function renderSettings(){
       '<div class="settings-row stacked"><div class="settings-row-left"><div class="settings-icon has-ri g-sage"><span class="ri">'+richTileSVG('g-sage','book')+'</span>'+iconHTML('book')+'</div><div>Reading font<div class="settings-hint">Wider letter and line spacing, which many readers with dyslexia find easier</div></div></div>' +
         '<div class="seg-row"><button class="seg-btn compact '+(readFont!=='easy'?'picked':'')+'" onclick="setReadFont(\'standard\')">Standard</button><button class="seg-btn compact '+(readFont==='easy'?'picked':'')+'" onclick="setReadFont(\'easy\')">Easy-read</button></div>' +
       '</div>' +
+      '<div class="set-group">Every day</div>' +
       '<div class="settings-row stacked"><div style="display:flex;align-items:center;justify-content:space-between;gap:10px;"><div class="settings-row-left"><div class="settings-icon has-ri g-gold"><span class="ri">'+richTileSVG('g-gold','book')+'</span>'+iconHTML('book')+'</div><div>Daily word</div></div><div class="switch '+(wotdOn?'on':'')+'" onclick="toggleWotd()"><div class="knob"></div></div></div><div class="hint">A useful new word each day, with its meaning and examples.</div></div>' +
       '<div class="settings-row stacked"><div style="display:flex;align-items:center;justify-content:space-between;gap:10px;"><div class="settings-row-left"><div class="settings-icon has-ri g-olive"><span class="ri">'+richTileSVG('g-olive','check')+'</span>'+iconHTML('check')+'</div><div>My progress on this device</div></div><button class="btn mini" onclick="clearTaskProgress()">Clear ticks</button></div><div class="hint">Tick boxes and quiz scores are kept in this browser, so each student keeps their own.</div></div>' +
       '<div class="settings-row stacked"><div style="display:flex;align-items:center;justify-content:space-between;gap:10px;"><div class="settings-row-left"><div class="settings-icon has-ri g-crimson"><span class="ri">'+richTileSVG('g-crimson','chat')+'</span>'+iconHTML('chat')+'</div><div>Daily quote</div></div><div class="switch '+(qotdOn?'on':'')+'" onclick="toggleQotd()"><div class="knob"></div></div></div><div class="hint">A short, encouraging quote each day.</div></div>' +
