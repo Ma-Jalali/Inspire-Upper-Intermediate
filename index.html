@@ -6866,7 +6866,7 @@
   html #app .qa:active{transform:scale(.93);}
   html #app .qa-ico{position:relative;width:60px;height:60px;border-radius:20px;display:flex;align-items:center;justify-content:center;color:#fff;
     box-shadow:0 10px 18px -10px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.28), inset 0 0 0 .5px rgba(255,255,255,0.12);}
-  html #app .qa-ico svg{width:27px;height:27px;stroke-width:1.9;}
+  html #app .qa-ico svg{width:44px;height:44px;stroke-width:1.9;filter:drop-shadow(0 2px 2px rgba(0,0,0,0.14));}
   html #app .qa-gold .qa-ico{background:linear-gradient(160deg,#FFD15C,#EFA316);} html #app .qa-red .qa-ico{background:linear-gradient(160deg,#FF6B61,#E0362B);} html #app .qa-amber .qa-ico{background:linear-gradient(160deg,#FF9A5B,#EE5F2A);}
   html #app .qa-blue .qa-ico{background:linear-gradient(160deg,#5DA9FF,#2F7BE6);} html #app .qa-green .qa-ico{background:linear-gradient(160deg,#4FD48F,#1FA463);}
   html #app .qa-purple .qa-ico{background:linear-gradient(160deg,#B47CFF,#7B45E6);} html #app .qa-pink .qa-ico{background:linear-gradient(160deg,#FF7BB0,#E8437F);}
@@ -12590,6 +12590,62 @@ function todayCardHTML(){
     '</div>' +
   '</div>';
 }
+/* the practice icons: small flat drawings (64 x 64), white and tonal shapes with one accent each */
+function qaArtSVG(id){
+  const sp = function(x,y,s,o){ return '<path d="M'+x+' '+(y-s)+'l'+(s*.35)+' '+(s*.65)+' '+(s*.65)+' '+(s*.35)+'-'+(s*.65)+' '+(s*.35)+'-'+(s*.35)+' '+(s*.65)+'-'+(s*.35)+'-'+(s*.65)+'-'+(s*.65)+'-'+(s*.35)+' '+(s*.65)+'-'+(s*.35)+'z" fill="#fff" opacity="'+(o||.9)+'"/>'; };
+  const o = '<svg viewBox="0 0 64 64" aria-hidden="true" focusable="false">', c = '</svg>';
+  switch(id){
+    case 'prog': return o +
+      '<path d="M19 13h26v13a13 13 0 0 1-26 0z" fill="#fff"/>' +
+      '<path d="M19 17h-4.5a3.5 3.5 0 0 0-3.5 3.5c0 5.2 3.6 8.5 8.5 9" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/>' +
+      '<path d="M45 17h4.5a3.5 3.5 0 0 1 3.5 3.5c0 5.2-3.6 8.5-8.5 9" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/>' +
+      '<path d="M32 18.5l1.9 3.9 4.3.6-3.1 3 .7 4.3-3.8-2-3.8 2 .7-4.3-3.1-3 4.3-.6z" fill="#E59413"/>' +
+      '<rect x="28.5" y="38" width="7" height="6" fill="#fff" opacity=".8"/><rect x="21" y="44" width="22" height="6" rx="3" fill="#fff"/>' +
+      '<rect x="25" y="47" width="14" height="2" rx="1" fill="#E59413" opacity=".55"/>' + sp(11,9,3.5) + sp(54,10,2.8) + sp(55,44,2.4,.7) + c;
+    case 'cards': return o +
+      '<rect x="12" y="17" width="28" height="38" rx="6" transform="rotate(-14 26 36)" fill="#fff" opacity=".42"/>' +
+      '<rect x="18" y="14" width="28" height="38" rx="6" transform="rotate(-7 32 33)" fill="#fff" opacity=".68"/>' +
+      '<rect x="24" y="12" width="28" height="38" rx="6" fill="#fff"/>' +
+      '<text x="38" y="37" text-anchor="middle" font-family="Outfit, Arial, Helvetica, sans-serif" font-weight="800" font-size="16" fill="#E0362B">Aa</text>' +
+      '<rect x="30" y="42" width="16" height="2.4" rx="1.2" fill="#E0362B" opacity=".35"/>' +
+      '<circle cx="50" cy="50" r="7.5" fill="#2ECC71"/><path d="M46.3 50.3l2.4 2.3 4.6-5" fill="none" stroke="#fff" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>' + sp(12,11,3) + c;
+    case 'mist': return o +
+      '<circle cx="30" cy="35" r="20" fill="#fff"/><circle cx="30" cy="35" r="14" fill="#EE5F2A"/><circle cx="30" cy="35" r="8" fill="#fff"/><circle cx="30" cy="35" r="3" fill="#EE5F2A"/>' +
+      '<path d="M30 35L51 14" stroke="#7A2A0E" stroke-width="3.2" stroke-linecap="round"/><path d="M51 14l-9 .8M51 14l-.8 9" fill="none" stroke="#7A2A0E" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>' +
+      '<path d="M44 21l4-4" stroke="#fff" stroke-width="1.6" stroke-linecap="round" opacity=".7"/>' + sp(12,12,3) + c;
+    case 'snd': return o +
+      '<path d="M12 25h8l11-9v32l-11-9h-8z" fill="#fff"/>' +
+      '<path d="M38 25a10 10 0 0 1 0 14" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round"/>' +
+      '<path d="M44 19a18 18 0 0 1 0 26" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" opacity=".72"/>' +
+      '<path d="M50 13a26 26 0 0 1 0 38" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" opacity=".42"/>' +
+      '<rect x="14" y="27" width="4" height="10" rx="2" fill="#2F7BE6" opacity=".45"/>' + sp(10,11,3) + c;
+    case 'gram': return o +
+      '<path d="M9 17c7.5-3 15-3 21 0v31c-6-3-13.5-3-21 0z" fill="#fff"/>' +
+      '<path d="M55 17c-7.5-3-15-3-21 0v31c6-3 13.5-3 21 0z" fill="#fff" opacity=".86"/>' +
+      '<path d="M15 26h9M15 32h9M15 38h6" stroke="#1FA463" stroke-width="2.3" stroke-linecap="round"/>' +
+      '<rect x="38" y="30" width="13" height="4.6" rx="2.3" fill="#FFD15C"/>' +
+      '<path d="M40 26h9M40 38h7" stroke="#1FA463" stroke-width="2.3" stroke-linecap="round" opacity=".75"/>' +
+      '<path d="M46 11v11l3-2.4 3 2.4V11z" fill="#FF6B5B"/>' + sp(11,10,2.8) + c;
+    case 'exam': return o +
+      '<rect x="22" y="13" width="16" height="26" rx="8" fill="#fff"/>' +
+      '<path d="M16 31a14 14 0 0 0 28 0" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round"/>' +
+      '<path d="M30 45v7M22 52h16" stroke="#fff" stroke-width="3.4" stroke-linecap="round"/>' +
+      '<rect x="26" y="20" width="8" height="3" rx="1.5" fill="#7B45E6" opacity=".35"/>' +
+      '<path d="M43 8h12a5 5 0 0 1 5 5v7a5 5 0 0 1-5 5h-6l-5 4v-4a5 5 0 0 1-5-5v-7a5 5 0 0 1 4-5z" fill="#FFD15C"/>' +
+      '<circle cx="46.5" cy="16.5" r="1.7" fill="#7B45E6"/><circle cx="51.5" cy="16.5" r="1.7" fill="#7B45E6"/><circle cx="56.5" cy="16.5" r="1.7" fill="#7B45E6"/>' + c;
+    case 'pod': return o +
+      '<path d="M14 40v-8a18 18 0 0 1 36 0v8" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"/>' +
+      '<rect x="10" y="36" width="11" height="17" rx="5.5" fill="#fff"/><rect x="43" y="36" width="11" height="17" rx="5.5" fill="#fff"/>' +
+      '<circle cx="32" cy="43" r="9.5" fill="#fff"/><path d="M29.5 38.2v9.6l7.6-4.8z" fill="#E8437F"/>' +
+      '<path d="M22 18a14 14 0 0 1 20 0" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" opacity=".45"/>' + sp(54,12,3) + c;
+    case 'xcol': return o +
+      '<rect x="7" y="22" width="31" height="20" rx="10" fill="#fff"/>' +
+      '<rect x="26" y="22" width="31" height="20" rx="10" fill="#fff" opacity=".55"/>' +
+      '<rect x="13" y="30" width="10" height="4" rx="2" fill="#1AA89C" opacity=".6"/><rect x="41" y="30" width="10" height="4" rx="2" fill="#0A736A" opacity=".5"/>' +
+      '<circle cx="32" cy="32" r="7.5" fill="#1AA89C"/><path d="M32 28v8M28 32h8" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/>' + sp(12,12,3) + sp(53,52,2.6,.8) + c;
+  }
+  return '';
+}
 /* the practice grid: flat tiles, one icon and one short label each, nothing to decode */
 function quickGridHTML(pod){
   const wrong = mistakeCount();
@@ -12605,7 +12661,7 @@ function quickGridHTML(pod){
   ].filter(Boolean);
   return '<div class="qa-grid">' + items.map(function(it, i){
     return '<button class="qa '+it.cls+(it.locked?' is-locked':'')+'" style="--d:'+(i*0.04).toFixed(2)+'s" onclick="'+it.go+'">' +
-      '<span class="qa-ico">'+(it.glyph || iconHTML(it.icon))+(it.badge ? '<b class="qa-badge">'+(it.badge>99?'99+':it.badge)+'</b>' : '')+'</span>' +
+      '<span class="qa-ico">'+(qaArtSVG(it.id) || it.glyph || iconHTML(it.icon))+(it.badge ? '<b class="qa-badge">'+(it.badge>99?'99+':it.badge)+'</b>' : '')+'</span>' +
       '<span class="qa-label">'+it.label+'</span></button>';
   }).join('') + '</div>';
 }
