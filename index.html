@@ -6816,6 +6816,24 @@
   html:not([data-theme="dark"]) #app .app-scroll > .streak-card .sk-weekhead{border-top-color:var(--hair);}
   html:not([data-theme="dark"]) #app .app-scroll > .streak-card .sk-day i{box-shadow:inset 0 0 0 1.5px rgba(118,118,128,0.20);}
 
+  /* ================= v123: continue card, week dots, unit subtitles ================= */
+  .bd-week, .unit-sub{display:none;}
+  html #app .cont-card{position:relative;display:flex;align-items:center;gap:12px;width:100%;margin:-2px 0 12px;padding:12px 14px 12px 12px;border:none;border-radius:22px;cursor:pointer;font:inherit;text-align:left;color:var(--ink);
+    background:var(--surface);box-shadow:0 1px 1px rgba(15,25,50,0.05), 0 12px 26px -18px rgba(15,25,50,0.4), inset 0 0 0 .5px rgba(var(--accent-rgb),0.10);transition:transform .35s var(--v-spring, ease), box-shadow .3s ease;}
+  html[data-theme="dark"] #app .cont-card{background:#161C2E;box-shadow:0 16px 32px -24px rgba(0,0,0,0.7), inset 0 0 0 1px rgba(255,255,255,0.08);}
+  html #app .cont-card:active{transform:scale(.975);}
+  html #app .cont-ico{position:relative;width:54px;height:54px;border-radius:17px;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:0 8px 16px -8px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.35);}
+  html #app .cont-ico > svg{width:24px;height:24px;}
+  html #app .cont-card.g-crimson .cont-ico{background:var(--g-crimson);} html #app .cont-card.g-gold .cont-ico{background:var(--g-gold);} html #app .cont-card.g-sage .cont-ico{background:var(--g-sage);}
+  html #app .cont-card.g-sky .cont-ico{background:var(--g-sky);} html #app .cont-card.g-plum .cont-ico{background:var(--g-plum);} html #app .cont-card.g-coral .cont-ico{background:var(--g-coral);}
+  html #app .cont-card.g-teal .cont-ico{background:var(--g-teal);} html #app .cont-card.g-rose .cont-ico{background:var(--g-rose);} html #app .cont-card.g-indigo .cont-ico{background:var(--g-indigo);}
+  html #app .cont-card.g-olive .cont-ico{background:var(--g-olive);} html #app .cont-card.g-terracotta .cont-ico{background:var(--g-terracotta);} html #app .cont-card.g-slate .cont-ico{background:var(--g-slate);}
+  html #app .cont-txt{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px;line-height:1.2;}
+  html #app .cont-txt small{font-family:var(--font-head);font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--crimson);}
+  html #app .cont-txt b{font-family:var(--font-display);font-size:17px;font-weight:800;letter-spacing:-0.015em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  html #app .cont-txt > span{font-size:12.5px;color:var(--ink-soft);}
+  html #app .cont-go{width:38px;height:38px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#fff;background:var(--g-crimson);box-shadow:0 8px 14px -8px rgba(var(--accent-rgb),0.9), inset 0 1px 0 rgba(255,255,255,0.35);}
+  html #app .cont-go svg{width:16px;height:16px;margin-left:2px;}
   /* ================= v120: class blog ================= */
   /* the block, the feed and the composer carry the page's colour as --cb-grad / --cb-c (mid) / --cb-d (deep) / --cb-l (pale) */
   html #app .cb-block, html #app .cb-feed, html #app .cb-compose-wrap, html #app .cb-cmts{--cb-grad:var(--g-indigo);--cb-c:#5063EE;--cb-d:#2833A0;--cb-l:#B9C4FF;}
@@ -7560,6 +7578,58 @@
   html:not([data-theme="dark"]) #app .tab-item .tab-icon{transition:transform .5s var(--v-spring);}
   html:not([data-theme="dark"]) #app .search-fab:active{transform:scale(.86);transition:transform .1s ease;}
   html:not([data-theme="dark"]) #toTopBtn:active{transform:scale(.86);}
+  /* ================= v123: the market-app pass (light) =================
+     A "continue" card under the hero, a week of dots on the progress row, what each unit tile holds,
+     calm pastel sound tiles, drawings in the empty states, and a little more air and order everywhere. */
+  /* continue card: a soft wash of its colour, a lens rim and a sheen on the play button */
+  html:not([data-theme="dark"]) #app .cont-card{overflow:hidden;padding:13px 14px 13px 13px;border-radius:24px;
+    box-shadow:0 0 0 .5px rgba(17,22,38,0.06), 0 1px 2px rgba(17,22,38,0.05), 0 14px 28px -18px rgba(17,22,38,0.30), inset 0 1px 0 rgba(255,255,255,0.9);}
+  html:not([data-theme="dark"]) #app .cont-card::before{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(90% 120% at 0% 0%, rgba(var(--glow, var(--accent-rgb)),0.10), rgba(255,255,255,0) 60%);}
+  html:not([data-theme="dark"]) #app .cont-card.g-crimson{--glow:228,34,75;} html:not([data-theme="dark"]) #app .cont-card.g-gold{--glow:0,201,214;} html:not([data-theme="dark"]) #app .cont-card.g-sage{--glow:49,200,126;} html:not([data-theme="dark"]) #app .cont-card.g-sky{--glow:61,144,240;}
+  html:not([data-theme="dark"]) #app .cont-card.g-plum{--glow:180,79,216;} html:not([data-theme="dark"]) #app .cont-card.g-coral{--glow:244,82,124;} html:not([data-theme="dark"]) #app .cont-card.g-teal{--glow:28,191,176;} html:not([data-theme="dark"]) #app .cont-card.g-rose{--glow:240,88,159;}
+  html:not([data-theme="dark"]) #app .cont-card.g-indigo{--glow:80,99,238;} html:not([data-theme="dark"]) #app .cont-card.g-olive{--glow:166,217,60;} html:not([data-theme="dark"]) #app .cont-card.g-terracotta{--glow:240,144,48;} html:not([data-theme="dark"]) #app .cont-card.g-slate{--glow:106,123,160;}
+  html:not([data-theme="dark"]) #app .cont-card > *{position:relative;}
+  html:not([data-theme="dark"]) #app .cont-ico.has-ri > .ri .ricon svg{width:36px;height:36px;}
+  html:not([data-theme="dark"]) #app .cont-ico.has-ri > .ri svg.ricon{filter:drop-shadow(0 7px 12px rgba(20,28,58,0.24)) drop-shadow(0 1px 1px rgba(20,28,58,0.10));}
+  html:not([data-theme="dark"]) #app .cont-go{box-shadow:0 8px 16px -8px rgba(var(--accent-rgb),0.9), inset 0 1px 0 rgba(255,255,255,0.45), inset 0 0 0 .5px rgba(255,255,255,0.25);}
+  html:not([data-theme="dark"]) #app .cont-go::after{content:'';position:absolute;inset:0;border-radius:inherit;background:linear-gradient(180deg, rgba(255,255,255,0.22), rgba(255,255,255,0) 55%);pointer-events:none;}
+  html:not([data-theme="dark"]) #app .cont-go{position:relative;}
+  /* progress row: a week of dots */
+  html:not([data-theme="dark"]) #app .bd-week{display:flex;align-items:center;gap:5px;margin-top:7px;}
+  html:not([data-theme="dark"]) #app .bd-week i{width:9px;height:9px;border-radius:50%;background:rgba(118,118,128,0.18);box-shadow:inset 0 0 0 .5px rgba(17,22,38,0.06);}
+  html:not([data-theme="dark"]) #app .bd-week i.on{background:linear-gradient(180deg,#FFD36A,#F0A020);box-shadow:0 2px 5px -2px rgba(240,160,32,0.8), inset 0 1px 0 rgba(255,255,255,0.6);}
+  html:not([data-theme="dark"]) #app .bd-week i.today{box-shadow:0 0 0 2px rgba(var(--accent-rgb),0.35), inset 0 0 0 .5px rgba(17,22,38,0.06);}
+  html:not([data-theme="dark"]) #app .bd-week i.today.on{box-shadow:0 0 0 2px rgba(240,160,32,0.35), 0 2px 5px -2px rgba(240,160,32,0.8), inset 0 1px 0 rgba(255,255,255,0.6);}
+  html:not([data-theme="dark"]) #app .bd-week i.later{opacity:.55;}
+  /* unit tiles: a quiet line under the name */
+  html:not([data-theme="dark"]) #app .unit-sub{display:block;font-family:var(--font-head);font-size:12px;font-weight:600;color:rgba(255,255,255,0.78);margin-top:3px;letter-spacing:.01em;}
+  html:not([data-theme="dark"]) #app .unit-card.is-locked .unit-sub{display:none;}
+  /* sound practice: the tiles were twelve saturated blocks; now pale, with the sounds in their colour */
+  html:not([data-theme="dark"]) #app .snd-card.g-crimson{--sc:#F0574C;--sd:#9E2620;} html:not([data-theme="dark"]) #app .snd-card.g-gold{--sc:#00C9D6;--sd:#04737E;} html:not([data-theme="dark"]) #app .snd-card.g-sage{--sc:#31C87E;--sd:#137A48;} html:not([data-theme="dark"]) #app .snd-card.g-sky{--sc:#3D90F0;--sd:#17509C;}
+  html:not([data-theme="dark"]) #app .snd-card.g-plum{--sc:#B44FD8;--sd:#6D2390;} html:not([data-theme="dark"]) #app .snd-card.g-coral{--sc:#F4527C;--sd:#A32148;} html:not([data-theme="dark"]) #app .snd-card.g-teal{--sc:#1CBFB0;--sd:#0A736A;} html:not([data-theme="dark"]) #app .snd-card.g-rose{--sc:#F0589F;--sd:#9F2A61;}
+  html:not([data-theme="dark"]) #app .snd-card.g-indigo{--sc:#5063EE;--sd:#2833A0;} html:not([data-theme="dark"]) #app .snd-card.g-olive{--sc:#A6D93C;--sd:#547F1D;} html:not([data-theme="dark"]) #app .snd-card.g-terracotta{--sc:#F09030;--sd:#9C540E;} html:not([data-theme="dark"]) #app .snd-card.g-slate{--sc:#6A7BA0;--sd:#3A4763;}
+  html:not([data-theme="dark"]) #app .snd-card{--sc:#5063EE;--sd:#2833A0;color:var(--sd);
+    background:linear-gradient(180deg, color-mix(in srgb, var(--sc) 15%, #fff) 0%, color-mix(in srgb, var(--sc) 7%, #fff) 100%) !important;
+    box-shadow:0 0 0 .5px color-mix(in srgb, var(--sc) 28%, transparent), 0 1px 2px rgba(17,22,38,0.04), 0 12px 24px -18px color-mix(in srgb, var(--sc) 60%, transparent), inset 0 1px 0 rgba(255,255,255,0.9);}
+  html:not([data-theme="dark"]) #app .snd-card::after{background:radial-gradient(90% 90% at 0% 0%, rgba(255,255,255,0.7), rgba(255,255,255,0) 60%);}
+  html:not([data-theme="dark"]) #app .snd-card-ipa{color:var(--sd);} html:not([data-theme="dark"]) #app .snd-card-ipa i{color:var(--sc);opacity:.8;}
+  html:not([data-theme="dark"]) #app .snd-card-t{color:var(--ink);opacity:.8;}
+  html:not([data-theme="dark"]) #app .snd-card-best{color:#fff;background:var(--sc);box-shadow:0 6px 12px -7px color-mix(in srgb, var(--sc) 85%, transparent), inset 0 1px 0 rgba(255,255,255,0.35);}
+  html:not([data-theme="dark"]) #app .snd-card .snd-wm{color:var(--sc);opacity:.28;}
+  /* empty states carry a drawing and a kinder shape */
+  html:not([data-theme="dark"]) #app .page-empty{padding:26px 22px 26px;background:var(--surface);box-shadow:0 0 0 .5px rgba(17,22,38,0.06), 0 12px 26px -18px rgba(17,22,38,0.30);}
+  html:not([data-theme="dark"]) #app .rv-empty .hub-art{display:block;width:150px;height:106px;color:var(--crimson);opacity:.55;margin:-6px 0 2px;}
+  html:not([data-theme="dark"]) #app .rv-empty .rv-ok{margin-top:-30px;}
+  html:not([data-theme="dark"]) #app .page-empty b{font-family:var(--font-display);font-size:18px;letter-spacing:-0.015em;}
+  /* section titles sit a little higher off their content, with the count bead aligned */
+  html:not([data-theme="dark"]) #app .section-label{margin:28px 4px 11px;}
+  html:not([data-theme="dark"]) #app .home-date{opacity:.9;}
+  /* toggles read as tappable rows: a faint platter and the chevron in a small white disc */
+  html:not([data-theme="dark"]) #app .b-toggle:not(.vk-sec):not(.b-explain) > .toggle-head{background:rgba(var(--accent-rgb),0.045);border-radius:14px;padding:11px 12px 11px 10px;transition:background .2s ease, transform .3s var(--v-spring, ease);}
+  html:not([data-theme="dark"]) #app .b-toggle:not(.vk-sec):not(.b-explain) > .toggle-head:active{transform:scale(.985);}
+  html:not([data-theme="dark"]) #app .b-toggle:not(.vk-sec):not(.b-explain) > .toggle-head .arrow{width:26px;height:26px;background:#fff;color:var(--crimson);box-shadow:0 0 0 .5px rgba(17,22,38,0.08), 0 2px 5px -2px rgba(17,22,38,0.30), inset 0 1px 0 #fff;}
+  html:not([data-theme="dark"]) #app .b-toggle:not(.vk-sec):not(.b-explain).open > .toggle-head{background:rgba(var(--accent-rgb),0.07);}
+  html:not([data-theme="dark"]) #app .b-toggle:not(.vk-sec):not(.b-explain) + .b-toggle{margin-top:6px;}
   /* ===== end of the light-appearance block ===== */
 
   /* v95: vocabulary word cards (text blocks containing .vw-word) */
@@ -8466,7 +8536,7 @@ function renderReview(){
       '<div class="rv-hero-sub">'+(list.length ? list.length+' question'+(list.length===1?'':'s')+' to try again. Get one right and it leaves the list.' : 'Questions you get wrong in any quiz will appear here.')+'</div></div>' +
     '</div>';
   if(!list.length){
-    h += '<div class="page-empty rv-empty"><span class="lp-lock rv-ok" aria-hidden="true">'+iconHTML('check')+'</span>' +
+    h += '<div class="page-empty rv-empty">'+hubArtSVG('mistakes')+'<span class="lp-lock rv-ok" aria-hidden="true">'+iconHTML('check')+'</span>' +
       '<b>Nothing to review</b><span>Do a quiz in any unit. If you get something wrong, it will wait for you here.</span></div>';
     return h;
   }
@@ -12335,12 +12405,36 @@ function showBadgePop(b){
   if(typeof fireConfetti === 'function') fireConfetti(true);
   setTimeout(function(){ const e = host.querySelector('.bd-pop'); if(e) e.classList.add('out'); setTimeout(function(){ host.innerHTML=''; }, 400); }, 3600);
 }
+/* the home page remembers where you were: one tap takes you back into the lesson */
+function continueCardHTML(){
+  if(editMode) return '';
+  let page = null;
+  for(let i=0;i<recentPages.length && !page;i++){ const pg = findPage(state.pages, recentPages[i]); if(pg && !isLockedForViewer(pg.id) && !hiddenInPath(pg.id)) page = pg; }
+  const fresh = !page;
+  if(!page){ const units = unitPages().filter(function(u){ return !isLockedForViewer(u.id); }); if(!units.length) return ''; page = units[0]; }
+  const info = childPartInfo(page), up = unitParts(page.title);
+  const cls = pageHue(page.id), top = !info && page.section === 'units';
+  const title = info ? info.name : (up && up.name ? up.name : page.title);
+  const sub = info ? ('Unit ' + (info.unitNum || '') + ' \u00B7 Part ' + info.num) : (up ? 'Unit ' + up.num : 'Course page');
+  const n = (page.children||[]).length || (page.blocks||[]).length;
+  return '<button class="cont-card '+cls+(fresh?' is-fresh':'')+'" onclick="openFromSearch(\''+page.id+'\')">' +
+    '<span class="cont-ico has-ri"><span class="ri">'+richTileSVG(cls, page.icon, top)+'</span>'+iconHTML(page.icon)+'</span>' +
+    '<span class="cont-txt"><small>'+(fresh ? 'Start here' : 'Continue where you left off')+'</small><b>'+escapeHtml(title)+'</b><span>'+escapeHtml(sub)+(n ? ' \u00B7 '+n+(info ? ' sections' : (page.children && page.children.length ? ' parts' : ' sections')) : '')+'</span></span>' +
+    '<span class="cont-go">'+iconHTML('play')+'</span></button>';
+}
+/* seven dots for this week, Monday first: filled when you studied that day, ringed for today */
+function weekDotsHTML(){
+  const act = deviceGet('activity', {}); const d = new Date(); const dow = (d.getDay()+6)%7;
+  let h = '<span class="bd-week" aria-hidden="true">';
+  for(let i=0;i<7;i++){ const x = new Date(d); x.setDate(d.getDate()-dow+i); h += '<i class="'+(act[dayKey(x)] ? 'on' : '')+(i===dow ? ' today' : '')+(i>dow ? ' later' : '')+'"></i>'; }
+  return h + '</span>';
+}
 function badgesStripHTML(){
   const got = earnedBadges();
   const show = got.slice(-5);
   return '<button class="bd-strip" onclick="openBadges()"><span class="ri bd-ri">'+hubIconSVG('progress')+'</span><span class="bd-row">' +
     (show.length ? show.map(function(b){ return '<span class="bd-medal">'+b.icon+'</span>'; }).join('') : '<span class="bd-medal lock">\uD83C\uDFC5</span>') +
-    '</span><span class="bd-strip-t"><b>My progress</b><span>Units, daily streak and '+got.length+' of '+BADGES.length+' badges</span></span><span class="gm-entry-go">\u203A</span></button>';
+    '</span><span class="bd-strip-t"><b>My progress</b><span>Units, daily streak and '+got.length+' of '+BADGES.length+' badges</span>'+weekDotsHTML()+'</span><span class="gm-entry-go">\u203A</span></button>';
 }
 function openBadges(){ navigate('push', function(){ selectedTab='badges'; pageStack=[]; render(); }); }
 function renderBadges(){
@@ -14034,6 +14128,7 @@ function unitCard(p, i){
     '</div>' +
     '<div class="unit-rule"></div>' +
     '<div class="unit-name">'+escapeHtml(name)+'</div>' +
+    '<span class="unit-sub">'+((p.children||[]).length ? (p.children.length + (p.children.length===1 ? ' part' : ' parts')) : ((p.blocks||[]).length ? (p.blocks.length + (p.blocks.length===1 ? ' section' : ' sections')) : 'Coming soon'))+'</span>' +
     '<span class="unit-go" aria-hidden="true">\u203A</span>' +
     (done ? '<span class="unit-done-tick" title="Marked as done">'+iconHTML('check')+'</span>' : '') +
   '</div>';
@@ -14461,6 +14556,7 @@ function renderHomeGrid(){
     '</div>' +
     announcementHTML() +
     liveJoinCardHTML() + homeworkHTML() + exitTicketHTML() +
+    continueCardHTML() +
     badgesStripHTML() +
     '<div class="section-label">Practice</div>' +
     '<div class="practice-grid">' +
