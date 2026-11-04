@@ -6769,12 +6769,15 @@
   .d27-ch{font-family:var(--font-display);font-weight:800;fill:#fff;letter-spacing:-0.02em;}
   .d27f{animation:d27Bob 5s ease-in-out infinite;}
   .d27-sp{transform-box:fill-box;transform-origin:center;animation:d27Twinkle 3.2s ease-in-out infinite;}
-  .d27-sp.s2{animation-delay:1.1s;} .d27-sp.s3{animation-delay:2s;}
+  .d27-sp.s2{animation-delay:1.1s;} .d27-sp.s3{animation-delay:2s;} .d27-sp.s4{animation-delay:.5s;}
+  .d27-ipa{animation:d27Bob 5s ease-in-out .9s infinite;} .d27-rb{transform-box:fill-box;transform-origin:top center;animation:d27Sway 4.5s ease-in-out infinite;}
+  @keyframes d27Sway{0%,100%{transform:rotate(0deg);}50%{transform:rotate(-2.5deg);}}
+  .d27-ipa text{font-family:var(--font-head, system-ui), system-ui, sans-serif;}
   .d27-lens{animation:d27Lens 6s ease-in-out infinite;}
   @keyframes d27Bob{0%,100%{translate:0 0;}50%{translate:0 -5px;}}
   @keyframes d27Twinkle{0%,100%{scale:1;opacity:1;}50%{scale:.55;opacity:.45;}}
   @keyframes d27Lens{0%,100%{translate:0 0;}50%{translate:-3px -2px;}}
-  @media (prefers-reduced-motion: reduce){ .d27f,.d27-sp,.d27-lens{animation:none !important;} }
+  @media (prefers-reduced-motion: reduce){ .d27f,.d27-sp,.d27-lens,.d27-ipa,.d27-rb{animation:none !important;} }
 
   /* ================= badges: locked medals as frosted, engraved discs ================= */
   html:not([data-theme="dark"]) #app .bd-card:not(.got) .bd-medal{
@@ -6882,7 +6885,6 @@
   html[data-theme="dark"] #app .qds{filter:none;}
   /* ================= v129: new light-only markup, hidden until the light block shows it ================= */
   html #app .td-i{display:none;}
-  .dict-art.da-v29{display:none;}
   /* ================= v124: the home hub ================= */
   .bd-week, .unit-sub, .fb-cap, .set-group, .pr-count{display:none;}
   html #app .settings-row + .set-group + .settings-row{border-top:.5px solid var(--hair);}
@@ -7780,11 +7782,6 @@
   html:not([data-theme="dark"]) #app .qa{gap:7px;}
   /* the course row: captions in a quieter grey, one line each */
   html:not([data-theme="dark"]) #app .cr-cap{color:#8A8F9E;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;}
-  /* dictionary: the flat drawing replaces the glossy tiles */
-  html:not([data-theme="dark"]) .dict-art.da-v27{display:none;}
-  html:not([data-theme="dark"]) .dict-art.da-v29{display:flex;margin:22px 0 -12px;}
-  html:not([data-theme="dark"]) .dict-art.da-v29 svg{width:232px;height:155px;overflow:visible;}
-  html:not([data-theme="dark"]) .dict-art.da-v29 text{font-family:var(--font-display, Outfit, system-ui), system-ui, sans-serif;}
   /* ================= v130: depth and motion on the home page and the hubs (light) ================= */
   /* practice tiles: a three-stop body, a light from above, a shade along the bottom and a coloured shadow on the page */
   html:not([data-theme="dark"]) #app .qa-ico{--qc:17,22,38;
@@ -12696,13 +12693,20 @@ function qaArtSVG(id){
       '<rect x="28.5" y="38" width="7" height="6" fill="#fff" opacity=".8"/><rect'+QW+' x="21" y="44" width="22" height="6" rx="3"/>' + g +
       '<path class="qsd" d="M32 13h13v13a13 13 0 0 1-13 13z" fill="#000" opacity=".06"/>' +
       '<path class="qsd" d="M23.5 17.5c0 6 1.6 9.6 4 12" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" opacity=".75"/>' +
+      '<path class="qsd" d="M21 15h22" stroke="#fff" stroke-width="1" stroke-linecap="round" opacity=".9"/>' +
+      '<path class="qsd" d="M50.5 19.5c1 1.6 1 4-.3 6.3" fill="none" stroke="#fff" stroke-width="1" stroke-linecap="round" opacity=".6"/>' +
+      '<ellipse class="qsd" cx="32" cy="51" rx="13" ry="2.2" fill="#000" opacity=".08"/>' +
       '<path d="M32 18.5l1.9 3.9 4.3.6-3.1 3 .7 4.3-3.8-2-3.8 2 .7-4.3-3.1-3 4.3-.6z" fill="#E59413"/>' +
+      '<path class="qsd" d="M32 21.5l1 2 2.2.3-1.6 1.5.4 2.2-2-1-2 1 .4-2.2-1.6-1.5 2.2-.3z" fill="#FFD15C" opacity=".7"/>' +
       '<rect x="25" y="47" width="14" height="2" rx="1" fill="#E59413" opacity=".55"/>' + sp(11,9,3.5) + sp(54,10,2.8) + sp(55,44,2.4,.7) + c;
     case 'cards': return o + G +
       '<rect'+QW+' x="12" y="17" width="28" height="38" rx="6" transform="rotate(-14 26 36)" opacity=".42"/>' +
       '<rect'+QW+' x="18" y="14" width="28" height="38" rx="6" transform="rotate(-7 32 33)" opacity=".68"/>' +
       '<rect'+QW+' x="24" y="12" width="28" height="38" rx="6"/>' + g +
       '<path class="qsd" d="M30 12h-0a6 6 0 0 0-6 6v26a6 6 0 0 0 6 6h3V12z" fill="#000" opacity=".035"/>' +
+      '<path class="qsd" d="M44 12h2a6 6 0 0 1 6 6v2z" fill="#E0362B" opacity=".55"/>' +
+      '<path class="qsd" d="M24.5 18.5a5.5 5.5 0 0 1 5.5-5.5h16" fill="none" stroke="#fff" stroke-width="1" stroke-linecap="round" opacity=".9"/>' +
+      '<path class="qsd" d="M22 22h8M22 26h5" stroke="#E0362B" stroke-width="1.4" stroke-linecap="round" opacity=".18" transform="rotate(-7 32 33)"/>' +
       '<text x="38" y="37" text-anchor="middle" font-family="Outfit, Arial, Helvetica, sans-serif" font-weight="800" font-size="16" fill="#E0362B">Aa</text>' +
       '<rect x="30" y="42" width="16" height="2.4" rx="1.2" fill="#E0362B" opacity=".35"/><rect class="qsd" x="30" y="46.5" width="10" height="2.4" rx="1.2" fill="#E0362B" opacity=".18"/>' +
       '<circle class="qsd" cx="50" cy="50" r="9" fill="#fff"/><circle cx="50" cy="50" r="7.5" fill="#2ECC71"/><path d="M46.3 50.3l2.4 2.3 4.6-5" fill="none" stroke="#fff" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>' + sp(12,11,3) + c;
@@ -12710,6 +12714,8 @@ function qaArtSVG(id){
       '<circle'+QW+' cx="30" cy="35" r="20"/>' + g + '<circle cx="30" cy="35" r="14" fill="#EE5F2A"/><circle'+QW+' cx="30" cy="35" r="8"/><circle cx="30" cy="35" r="3" fill="#EE5F2A"/>' +
       '<path class="qsd" d="M30 15a20 20 0 0 1 0 40z" fill="#000" opacity=".045"/>' +
       '<path class="qsd" d="M14.5 29a16.5 16.5 0 0 1 6.5-9.5" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" opacity=".8"/>' +
+      '<circle class="qsd" cx="30" cy="35" r="17" fill="none" stroke="#000" stroke-width=".8" opacity=".06"/><circle class="qsd" cx="30" cy="35" r="11" fill="none" stroke="#fff" stroke-width=".8" opacity=".35"/>' +
+      '<path class="qsd" d="M33 32l15-15" stroke="#fff" stroke-width=".9" stroke-linecap="round" opacity=".4"/>' +
       '<path d="M30 35L51 14" stroke="#7A2A0E" stroke-width="3.2" stroke-linecap="round"/><path d="M51 14l-9 .8M51 14l-.8 9" fill="none" stroke="#7A2A0E" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>' +
       '<path class="qsd" d="M44.6 10.4l4.6 1.2 1.2 4.6-6.6 1.4z" fill="#FFD15C"/>' +
       '<path d="M44 21l4-4" stroke="#fff" stroke-width="1.6" stroke-linecap="round" opacity=".7"/>' +
@@ -12721,7 +12727,9 @@ function qaArtSVG(id){
       '<path d="M44 19a18 18 0 0 1 0 26" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" opacity=".72"/>' +
       '<path d="M50 13a26 26 0 0 1 0 38" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" opacity=".42"/>' +
       '<rect x="14" y="27" width="4" height="10" rx="2" fill="#2F7BE6" opacity=".45"/>' +
-      '<path class="qsd" d="M13.5 27.5c0 1.5.3 3 .8 4.2" fill="none" stroke="#fff" stroke-width="1.4" stroke-linecap="round" opacity=".7"/>' + sp(10,11,3) + c;
+      '<path class="qsd" d="M13.5 27.5c0 1.5.3 3 .8 4.2" fill="none" stroke="#fff" stroke-width="1.4" stroke-linecap="round" opacity=".7"/>' +
+      '<path class="qsd" d="M20.5 25.5l10-8" stroke="#fff" stroke-width="1" stroke-linecap="round" opacity=".8"/>' +
+      '<circle class="qsd" cx="38.3" cy="22.2" r="1.3" fill="#fff" opacity=".9"/><circle class="qsd" cx="44.3" cy="16.2" r="1.2" fill="#fff" opacity=".7"/><circle class="qsd" cx="50.3" cy="10.2" r="1.1" fill="#fff" opacity=".5"/>' + sp(10,11,3) + c;
     case 'gram': return o + G +
       '<path'+QW+' d="M9 17c7.5-3 15-3 21 0v31c-6-3-13.5-3-21 0z"/>' +
       '<path'+QW+' d="M55 17c-7.5-3-15-3-21 0v31c6-3 13.5-3 21 0z" opacity=".86"/>' + g +
@@ -12730,6 +12738,8 @@ function qaArtSVG(id){
       '<rect x="38" y="30" width="13" height="4.6" rx="2.3" fill="#FFD15C"/>' +
       '<path d="M40 26h9M40 38h7" stroke="#1FA463" stroke-width="2.3" stroke-linecap="round" opacity=".75"/>' +
       '<path d="M46 11v11l3-2.4 3 2.4V11z" fill="#FF6B5B"/>' +
+      '<path class="qsd" d="M9 17c7.5-3 15-3 21 0" fill="none" stroke="#fff" stroke-width="1" stroke-linecap="round" opacity=".9"/>' +
+      '<path class="qsd" d="M9 48c3-1.2 6-2 9-2.3-2.4 1.1-4.6 2.5-6.2 4.3z" fill="#000" opacity=".07"/>' +
       '<g class="qsd" transform="rotate(38 52 44)"><rect x="49.5" y="32" width="5" height="16" rx="2" fill="#FFD15C"/><rect x="49.5" y="32" width="5" height="3.5" rx="1.5" fill="#E8655A"/><path d="M49.5 48l2.5 4.5 2.5-4.5z" fill="#F4D9B6"/></g>' + sp(11,10,2.8) + c;
     case 'exam': return o + G +
       '<rect'+QW+' x="22" y="13" width="16" height="26" rx="8"/>' + g +
@@ -12738,6 +12748,8 @@ function qaArtSVG(id){
       '<path d="M30 45v7M22 52h16" stroke="#fff" stroke-width="3.4" stroke-linecap="round"/>' +
       '<rect x="26" y="20" width="8" height="3" rx="1.5" fill="#7B45E6" opacity=".35"/>' +
       '<rect class="qsd" x="26" y="25.5" width="8" height="2.4" rx="1.2" fill="#7B45E6" opacity=".2"/>' +
+      '<path class="qsd" d="M25 20v8" stroke="#fff" stroke-width="1.2" stroke-linecap="round" opacity=".9"/>' +
+      '<circle class="qsd" cx="30" cy="54.5" r="1.3" fill="#FFD15C"/>' +
       '<path class="qsd" d="M11 25a11 11 0 0 0 0 12" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" opacity=".5"/>' +
       '<path d="M43 8h12a5 5 0 0 1 5 5v7a5 5 0 0 1-5 5h-6l-5 4v-4a5 5 0 0 1-5-5v-7a5 5 0 0 1 4-5z" fill="#FFD15C"/>' +
       '<circle cx="46.5" cy="16.5" r="1.7" fill="#7B45E6"/><circle cx="51.5" cy="16.5" r="1.7" fill="#7B45E6"/><circle cx="56.5" cy="16.5" r="1.7" fill="#7B45E6"/>' + c;
@@ -12749,14 +12761,18 @@ function qaArtSVG(id){
       '<rect class="qsd" x="13" y="40" width="5" height="9" rx="2.5" fill="#000" opacity=".07"/><rect class="qsd" x="46" y="40" width="5" height="9" rx="2.5" fill="#000" opacity=".07"/>' +
       '<path d="M29.5 38.2v9.6l7.6-4.8z" fill="#E8437F"/>' +
       '<path d="M22 18a14 14 0 0 1 20 0" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" opacity=".45"/>' +
-      '<path class="qsd" d="M12 15.5v8.2a2.6 2.6 0 1 1-1.6-2.4V13l7-1.8v7.5" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" opacity=".7"/>' + sp(54,12,3) + c;
+      '<path class="qsd" d="M12 15.5v8.2a2.6 2.6 0 1 1-1.6-2.4V13l7-1.8v7.5" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" opacity=".7"/>' +
+      '<path class="qsd" d="M12.5 39v4M45.5 39v4" stroke="#fff" stroke-width="1" stroke-linecap="round" opacity=".9"/>' +
+      '<path class="qsd" d="M48.5 53c0 3-3 4.5-5 3s-1-5 2-5" fill="none" stroke="#fff" stroke-width="1.4" stroke-linecap="round" opacity=".6"/>' + sp(54,12,3) + c;
     case 'xcol': return o + G +
       '<rect'+QW+' x="7" y="22" width="31" height="20" rx="10"/>' +
       '<rect'+QW+' x="26" y="22" width="31" height="20" rx="10" opacity=".55"/>' + g +
       '<path class="qsd" d="M10 38.5h25a10 10 0 0 1-8 3.5H17a10 10 0 0 1-7-3.5z" fill="#000" opacity=".045"/>' +
       '<rect x="13" y="30" width="10" height="4" rx="2" fill="#1AA89C" opacity=".6"/><rect x="41" y="30" width="10" height="4" rx="2" fill="#0A736A" opacity=".5"/>' +
       '<circle class="qsd" cx="32" cy="32" r="9" fill="#fff"/><circle cx="32" cy="32" r="7.5" fill="#1AA89C"/><path d="M32 28v8M28 32h8" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/>' +
-      '<path class="qsd" d="M10 15.5c6-2 12 0 16 3" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" opacity=".4"/>' + sp(12,12,3) + sp(53,52,2.6,.8) + c;
+      '<path class="qsd" d="M10 15.5c6-2 12 0 16 3" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" opacity=".4"/>' +
+      '<path class="qsd" d="M11 25.5a9 9 0 0 1 6-3.5h12" fill="none" stroke="#fff" stroke-width="1" stroke-linecap="round" opacity=".9"/>' +
+      '<circle class="qsd" cx="18" cy="50" r="1.3" fill="#fff" opacity=".6"/><circle class="qsd" cx="24" cy="50" r="1.3" fill="#fff" opacity=".45"/><circle class="qsd" cx="30" cy="50" r="1.3" fill="#fff" opacity=".3"/>' + sp(12,12,3) + sp(53,52,2.6,.8) + c;
   }
   return '';
 }
@@ -15237,7 +15253,10 @@ function dictArt27SVG(){
       '<filter id="d27bl" x="-50%" y="-200%" width="200%" height="500%"><feGaussianBlur stdDeviation="5"/></filter>' +
       '<filter id="d27ds" x="-40%" y="-40%" width="180%" height="190%"><feDropShadow dx="0" dy="4" stdDeviation="3.5" flood-color="#11162A" flood-opacity=".22"/></filter>' +
       '<filter id="d27bk" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="10" stdDeviation="8" flood-color="#11162A" flood-opacity=".14"/></filter>' +
+      '<radialGradient id="d27glow" cx=".5" cy=".5" r=".5"><stop offset="0" style="stop-color:rgba(var(--accent-rgb),0.10)"/><stop offset="1" style="stop-color:rgba(var(--accent-rgb),0)"/></radialGradient>' +
+      '<linearGradient id="d27rb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--crimson)"/><stop offset="1" style="stop-color:var(--crimson-dark)"/></linearGradient>' +
     '</defs>' +
+    '<ellipse cx="120" cy="100" rx="96" ry="60" fill="url(#d27glow)" class="d27-glow"/>' +
     '<ellipse cx="120" cy="156" rx="80" ry="7" fill="#11162A" opacity=".13" filter="url(#d27bl)" class="d27-shadow"/>' +
     '<g filter="url(#d27bk)">' +
       /* page block thickness */
@@ -15255,6 +15274,10 @@ function dictArt27SVG(){
       '<path d="M54 76c13-3 30-2 50 4" stroke="#D3D9E6"/><path d="M54 88c13-3 30-2 50 4" stroke="#D3D9E6"/><path d="M54 100c13-3 30-2 50 4" stroke="#D3D9E6"/><path d="M54 112c13-3 26-2 36 2" stroke="#D3D9E6"/>' +
       '<path d="M136 80c13-5 30-6 50-4" style="stroke:rgba(var(--accent-rgb),0.45)"/><path d="M136 92c10-4 18-5 24-5" stroke="#D3D9E6"/><path d="M136 104c13-5 30-6 50-4" stroke="#D3D9E6"/><path d="M136 116c10-4 22-5 32-4" stroke="#D3D9E6"/>' +
     '</g>' +
+    /* a ribbon bookmark over the spine, a curled page corner, and a phonetic chip on the left page */
+    '<g class="d27-rb"><path d="M112 60l0 48 5-4 5 4V60z" fill="url(#d27rb)"/><path d="M112 60h10" stroke="#fff" stroke-opacity=".35" stroke-width="1"/></g>' +
+    '<path d="M200 130c-7 1-14 3-20 6 4-7 10-11 20-12z" fill="#D9DEEA"/><path d="M200 130c-7 1-14 3-20 6" fill="none" stroke="#fff" stroke-width="1" stroke-linecap="round" opacity=".8"/>' +
+    '<g class="d27-ipa"><rect x="52" y="120" width="40" height="13" rx="6.5" fill="#fff" stroke="#DDE3EF" stroke-width="1"/><text x="72" y="129.5" text-anchor="middle" font-size="7.5" font-weight="700" fill="#5C6275" font-family="var(--font-head, system-ui), system-ui, sans-serif">/\u02C8w\u025C\u02D0d/</text></g>' +
     /* glass magnifier: the lines under it are drawn larger, as if refracted */
     '<g class="d27-lens">' +
       '<path d="M183 109l15 16" stroke="url(#d27hd)" stroke-width="8" stroke-linecap="round"/>' +
@@ -15275,25 +15298,13 @@ function dictArt27SVG(){
     '<path class="d27-sp" d="M42 32l1.6 4.4L48 38l-4.4 1.6L42 44l-1.6-4.4L36 38l4.4-1.6z" style="fill:var(--gold-bright)"/>' +
     '<path class="d27-sp s2" d="M200 30l1.2 3.3L204.5 34.5l-3.3 1.2L200 39l-1.2-3.3-3.3-1.2 3.3-1.2z" style="fill:var(--crimson)"/>' +
     '<circle class="d27-sp s3" cx="190" cy="52" r="2" fill="#7E8CF0"/>' +
-  '</svg></div>';
-}
-function dictArt29SVG(){
-  return '<div class="dict-art da-v29" aria-hidden="true"><svg viewBox="0 0 240 160">' +
-    '<ellipse cx="120" cy="140" rx="70" ry="6" fill="#2F7BE6" opacity=".08"/>' +
-    '<path d="M120 52c-16-9-40-11-62-6v70c22-5 46-3 62 6z" fill="#BFD6FF"/><path d="M120 52c16-9 40-11 62-6v70c-22-5-46-3-62 6z" fill="#3D7BF0"/>' +
-    '<path d="M120 52v70" stroke="#1F4FB5" stroke-width="2" opacity=".35"/>' +
-    '<g stroke="#3D7BF0" stroke-width="3.2" stroke-linecap="round" opacity=".55"><path d="M70 66c12-3 26-2 38 3M70 78c12-3 26-2 38 3M70 90c12-3 26-2 38 3M70 102c8-2 16-2 22 0"/></g>' +
-    '<g stroke="#fff" stroke-width="3.2" stroke-linecap="round" opacity=".85"><path d="M132 69c12-5 26-6 38-3M132 81c12-5 26-6 38-3M132 93c12-5 26-6 38-3"/></g>' +
-    '<rect x="148" y="100" width="20" height="5" rx="2.5" fill="#FFD15C"/>' +
-    '<g transform="rotate(-12 86 32)"><rect x="70" y="16" width="32" height="32" rx="10" fill="#FF6B5B"/><text x="86" y="39" text-anchor="middle" font-family="Outfit, Arial, Helvetica, sans-serif" font-weight="800" font-size="20" fill="#fff">A</text></g>' +
-    '<g transform="rotate(6 120 22)"><rect x="106" y="8" width="28" height="28" rx="9" fill="#1FA463"/><text x="120" y="28" text-anchor="middle" font-family="Outfit, Arial, Helvetica, sans-serif" font-weight="800" font-size="17" fill="#fff">b</text></g>' +
-    '<g transform="rotate(14 154 36)"><rect x="140" y="22" width="28" height="28" rx="9" fill="#FFB547"/><text x="154" y="42" text-anchor="middle" font-family="Outfit, Arial, Helvetica, sans-serif" font-weight="800" font-size="17" fill="#fff">?</text></g>' +
-    '<circle cx="178" cy="114" r="14" fill="#fff"/><circle cx="178" cy="114" r="14" fill="none" stroke="#1AA89C" stroke-width="5"/><path d="M188.5 124.5l10 10" stroke="#1AA89C" stroke-width="6" stroke-linecap="round"/><circle cx="178" cy="114" r="6" fill="#5FD9CC" opacity=".6"/>' +
-    '<path d="M48 30l1.2 3.2 3.2 1.2-3.2 1.2-1.2 3.2-1.2-3.2-3.2-1.2 3.2-1.2z" fill="#FFB547"/><path d="M206 58l1 2.6 2.6 1-2.6 1-1 2.6-1-2.6-2.6-1 2.6-1z" fill="#FF6B5B"/><circle cx="40" cy="104" r="3" fill="#5FD9CC"/>' +
+    '<path class="d27-sp s4" d="M30 96l1 2.7 2.7 1-2.7 1-1 2.7-1-2.7-2.7-1 2.7-1z" fill="#2FB3A3"/>' +
+    '<circle class="d27-sp s2" cx="214" cy="112" r="1.6" style="fill:var(--gold-bright)"/>' +
+    '<circle class="d27-sp s3" cx="34" cy="60" r="1.4" fill="#7E8CF0"/>' +
   '</svg></div>';
 }
 function dictArtSVG(){
-  return dictArt29SVG() + dictArt27SVG() + '<div class="dict-art da-v1" aria-hidden="true"><svg viewBox="0 0 200 140">' +
+  return dictArt27SVG() + '<div class="dict-art da-v1" aria-hidden="true"><svg viewBox="0 0 200 140">' +
     '<defs><linearGradient id="daL" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color:var(--gold-bright)"/><stop offset="1" style="stop-color:var(--crimson)"/></linearGradient></defs>' +
     '<ellipse cx="100" cy="128" rx="62" ry="7" class="da-shadow"/>' +
     '<path d="M100 58c-18-12-44-14-64-8v66c20-6 46-4 64 8z" class="da-page"/>' +
@@ -16673,10 +16684,86 @@ function embedHTML(b, isAudio){
   const src = b.url ? convertDriveUrl(b.url) : null;
   return '<div class="b-embed">'+
     '<div class="embed-label"><span contenteditable="'+editMode+'" onkeydown="if(event.key===\'Enter\'){event.preventDefault();this.blur();}" oninput="onBlockField(\''+b.id+'\',\'label\',this.innerText)" onblur="render()">'+escapeHtml(b.label||(isAudio?'Untitled audio':'Untitled media'))+'</span><span class="embed-tag'+(isAudio?' audio-tag':' video-tag')+'">'+(isAudio?'Audio':'Video')+'</span></div>' +
-    (src ? ('<iframe class="'+(isAudio?'audio-frame':'video-frame')+'" src="'+src+'" allow="autoplay" allowfullscreen></iframe>' +
-      '<div class="embed-open-row"><a href="'+escapeAttr(b.url)+'" target="_blank" rel="noopener">Open in Google Drive ↗</a></div>') : '<div class="embed-empty">No link added yet.</div>') +
+    (src ? (isAudio && driveIdOf(b.url) ? auPlayerHTML(b) :
+      ('<iframe class="'+(isAudio?'audio-frame':'video-frame')+'" src="'+src+'" allow="autoplay" allowfullscreen></iframe>' +
+      '<div class="embed-open-row"><a href="'+escapeAttr(b.url)+'" target="_blank" rel="noopener">Open in Google Drive ↗</a></div>')) : '<div class="embed-empty">No link added yet.</div>') +
     (editMode ? ('<div class="embed-input"><input type="text" placeholder="'+(isAudio?'Paste a Google Drive link to an .mp3…':'Paste Google Drive share link…')+'" value="'+escapeAttr(b.url||'')+'" onblur="setEmbedUrl(\''+b.id+'\',this.value)" onkeydown="if(event.key===\'Enter\'){this.blur();}"/></div>') : '') +
   '</div>';
+}
+/* ---------- v131: audio blocks play inside the app ----------
+   A Google Drive audio link used to open Drive's own preview frame, which on a phone shows a link
+   instead of playing. Now the file streams straight into an <audio> element (Drive's download
+   address), with a second address tried on failure and Drive's frame only as the last resort. */
+function driveIdOf(url){
+  let m; url = String(url||'');
+  if(m = url.match(/\/file\/d\/([^/?#]+)/)) return m[1];
+  if(m = url.match(/[?&]id=([^&#]+)/)) return m[1];
+  return '';
+}
+function auPlayerHTML(b){
+  const id = driveIdOf(b.url);
+  return '<div class="xc-player au-player" data-au="'+escapeAttr(id)+'" data-label="'+escapeAttr(b.label||'Audio')+'">' +
+    '<audio preload="none" src="https://drive.google.com/uc?export=download&id='+encodeURIComponent(id)+'"></audio>' +
+    '<button class="xc-play" onclick="auPlay(this)" aria-label="Play">' +
+      '<svg class="i-play" viewBox="0 0 24 24"><path d="M8 5.5v13l10.5-6.5z" fill="currentColor"/></svg>' +
+      '<svg class="i-pause" viewBox="0 0 24 24"><rect x="6.5" y="5.5" width="4" height="13" rx="1.2" fill="currentColor"/><rect x="13.5" y="5.5" width="4" height="13" rx="1.2" fill="currentColor"/></svg>' +
+      '<span class="xc-spin"></span></button>' +
+    '<div class="xc-pl-mid"><div class="xc-pl-label">Tap play to listen</div>' +
+      '<input class="xc-seek" type="range" min="0" max="1000" value="0" oninput="auSeek(this)" aria-label="Position"/>' +
+      '<div class="xc-pl-times"><span class="au-cur">0:00</span><span class="au-dur">--:--</span></div></div>' +
+    '<div class="xc-pl-side"><button class="xc-skip" onclick="auSkip(this,-10)" aria-label="Back 10 seconds">−10</button>' +
+      '<button class="xc-rate" onclick="auRate(this)" aria-label="Playback speed">1×</button></div>' +
+  '</div>';
+}
+function auEl(el){ return el.closest ? el.closest('.au-player') : null; }
+function auWire(pl){
+  const a = pl.querySelector('audio'); if(!a || a._wired) return a;
+  a._wired = true;
+  const upd = function(){
+    const seek = pl.querySelector('.xc-seek'), cur = pl.querySelector('.au-cur'), dur = pl.querySelector('.au-dur');
+    if(cur) cur.textContent = xcolFmt(a.currentTime);
+    if(dur && isFinite(a.duration)) dur.textContent = xcolFmt(a.duration);
+    if(seek && isFinite(a.duration) && a.duration > 0){ seek.value = Math.round(a.currentTime / a.duration * 1000); seek.style.setProperty('--v', (a.currentTime/a.duration*100).toFixed(2)+'%'); }
+  };
+  a.addEventListener('timeupdate', upd); a.addEventListener('loadedmetadata', upd);
+  a.addEventListener('play', function(){ pl.classList.add('playing'); const lab = pl.querySelector('.xc-pl-label'); if(lab) lab.textContent = 'Now playing';
+    /* one voice at a time: pause every other player on the page */
+    document.querySelectorAll('.au-player audio, #xcAudio').forEach(function(o){ if(o !== a && !o.paused) o.pause(); }); });
+  a.addEventListener('pause', function(){ pl.classList.remove('playing'); const lab = pl.querySelector('.xc-pl-label'); if(lab) lab.textContent = 'Paused'; });
+  a.addEventListener('waiting', function(){ pl.classList.add('buffering'); });
+  a.addEventListener('playing', function(){ pl.classList.remove('buffering'); });
+  a.addEventListener('ended', function(){ pl.classList.remove('playing'); const lab = pl.querySelector('.xc-pl-label'); if(lab) lab.textContent = 'Tap play to listen again'; });
+  a.addEventListener('error', function(){ auFallback(pl); });
+  return a;
+}
+function auPlay(btn){
+  const pl = auEl(btn); if(!pl) return;
+  const a = auWire(pl); if(!a) return;
+  if(a.paused){ pl.classList.add('buffering'); const pr = a.play(); if(pr && pr.catch) pr.catch(function(err){ pl.classList.remove('buffering'); if(err && err.name !== 'AbortError' && err.name !== 'NotAllowedError') auFallback(pl); }); }
+  else a.pause();
+}
+function auSeek(input){ const pl = auEl(input), a = pl && pl.querySelector('audio'); input.style.setProperty('--v', (input.value/10)+'%'); if(a && isFinite(a.duration)) a.currentTime = a.duration * input.value / 1000; }
+function auSkip(btn, d){ const pl = auEl(btn), a = pl && pl.querySelector('audio'); if(a && isFinite(a.duration)) a.currentTime = Math.max(0, Math.min(a.duration, a.currentTime + d)); }
+function auRate(btn){
+  const pl = auEl(btn), a = pl && pl.querySelector('audio'); if(!a) return;
+  const r = a.playbackRate === 1 ? 0.75 : (a.playbackRate === 0.75 ? 1.25 : 1);
+  a.playbackRate = r; btn.textContent = (r === 1 ? '1' : String(r).replace(/^0/, ''))+'×';
+}
+function auFallback(pl){
+  if(!pl || pl.classList.contains('fallback')) return;
+  const id = pl.getAttribute('data-au'), a = pl.querySelector('audio'); if(!id) return;
+  if(a && !a._retried){
+    a._retried = true;
+    a.src = 'https://drive.usercontent.google.com/download?id='+encodeURIComponent(id)+'&export=download';
+    const pr = a.play(); if(pr && pr.catch) pr.catch(function(){});
+    return;
+  }
+  pl.classList.add('fallback'); pl.classList.remove('buffering','playing');
+  const label = pl.getAttribute('data-label') || 'Audio';
+  pl.innerHTML = '<div class="xc-drive-head"><span class="xc-drive-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 18V6l10-2v12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6.5" cy="18" r="2.5" fill="currentColor"/><circle cx="16.5" cy="16" r="2.5" fill="currentColor"/></svg></span>' +
+      '<span class="xc-drive-t">'+escapeHtml(label)+'</span>' +
+      '<a class="xc-drive-link" href="https://drive.google.com/file/d/'+encodeURIComponent(id)+'/view" target="_blank" rel="noopener">Open in Drive ↗</a></div>' +
+    '<div class="xc-drive-frame"><iframe class="xc-drive" src="https://drive.google.com/file/d/'+encodeURIComponent(id)+'/preview" allow="autoplay" aria-label="'+escapeAttr(label)+'"></iframe></div>';
 }
 function htmlToLines(html){
   const host = document.createElement('div');
