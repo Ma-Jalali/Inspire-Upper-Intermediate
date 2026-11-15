@@ -1,4 +1,4 @@
-// Inspire Hub: lesson illustrations for the Vocabulary and Grammar pages, in the Unit 5 vocabulary style.
+// Inspire Hub: lesson illustrations for the Vocabulary, Grammar and Reading pages, in the Unit 5 vocabulary style.
 // Served by the Supabase edge function "lesson-art" (imported at deploy time); each SVG is saved to class-media on first request.
 const W = '#FFFFFF', CO = '#FF6B5B';
 const PAL = {
@@ -280,6 +280,46 @@ M.u10g2 = ['green', 'u10-gram-commas', (P) => {
     `<rect x='-42' y='-94' width='176' height='20' rx='10' fill='${P.l}'/><rect x='-42' y='-62' width='120' height='16' rx='8' fill='${P.l}' opacity='.7'/><rect x='-136' y='-6' width='272' height='20' rx='10' fill='${P.l}'/><rect x='-136' y='34' width='200' height='20' rx='10' fill='${P.l}'/>` +
     sp(0, -230, 20) + sp(-330, -170, 14) + sp(340, 180, 16) + sp(-40, 180, 14);
 }];
+// ---------- Unit 2 word groups and readings ----------
+const cloud = (P, x, y, k, fill, op = 1) => `<path d='M${x - 70 * k},${y + 30 * k} a${30 * k},${30 * k} 0 0 1 ${10 * k},${-56 * k} a${46 * k},${46 * k} 0 0 1 ${84 * k},${-16 * k} a${36 * k},${36 * k} 0 0 1 ${50 * k},${42 * k} a${26 * k},${26 * k} 0 0 1 ${-6 * k},${30 * k} Z' fill='${fill}' ${S(P, 5)} opacity='${op}'/>`;
+M.u2vg1 = ['teal', 'u2-vocab-ourselves', (P) =>
+  `<path d='M-300,262 C-300,120 -200,96 -100,96 C0,96 100,120 100,262 Z' fill='${P.m}' ${S(P)}/>` +
+  `<circle cx='-100' cy='-40' r='128' fill='${W}' ${S(P)}/>` +
+  [0, 45, 90, 135, 180, 225, 270, 315].map(a => { const r = a * Math.PI / 180; return `<line x1='${r1(-100 + 62 * Math.cos(r))}' y1='${r1(-40 + 62 * Math.sin(r))}' x2='${r1(-100 + 86 * Math.cos(r))}' y2='${r1(-40 + 86 * Math.sin(r))}' stroke='${CO}' stroke-width='9' stroke-linecap='round'/>`; }).join('') +
+  `<circle cx='-100' cy='-40' r='44' fill='${CO}' ${S(P, 4)}/>` +
+  `<path d='M40,-60 C110,-90 150,-30 210,-60 M50,0 C130,-20 170,40 250,10 M40,60 C100,50 130,95 190,80' fill='none' stroke='${P.m}' stroke-width='7' stroke-linecap='round' stroke-dasharray='2 16' opacity='.8'/>` +
+  cloud(P, 280, -120, 1.1, P.l) + cloud(P, 330, 40, .75, P.l, .75) + cloud(P, 250, 150, .5, P.l, .5) +
+  sp(-300, -170, 22) + sp(150, -210, 16) + sp(-330, 40, 14, P.m) + heart(330, -230, 22, CO, P.d)];
+M.u2vg2 = ['orange', 'u2-vocab-world', (P) =>
+  `<path d='M-80,-70 C-80,-170 80,-170 80,-70' fill='none' stroke='${P.d}' stroke-width='14' stroke-linecap='round'/>` +
+  `<path d='M-150,-74 L150,-74 L176,236 L-176,236 Z' fill='${P.m}' ${S(P)}/>` +
+  `<rect x='-150' y='-74' width='300' height='34' fill='${P.d}' opacity='.25'/>` +
+  heart(0, 70, 64, W, P.d, 5) +
+  `<path d='M-6,56 C-30,20 -10,-6 30,-14 C34,26 18,48 -6,56Z' fill='${P.l}' ${S(P, 4)}/>` +
+  `<g transform='translate(-300 -60)'><path d='M0,-110 a22,22 0 1 1 22,22 L22,-70' fill='none' stroke='${P.d}' stroke-width='7' stroke-linecap='round'/><path d='M22,-70 L-100,10 L144,10 Z' fill='none' stroke='${P.d}' stroke-width='8' stroke-linejoin='round'/><path d='M-90,10 L-80,170 L124,170 L134,10' fill='${P.l}' ${S(P)}/></g>` +
+  `<g transform='rotate(18 290 -40)'><path d='M230,-110 L330,-110 L350,-70 L350,70 L210,70 L210,-70 Z' fill='${W}' ${S(P)}/><circle cx='280' cy='-74' r='12' fill='${P.l}' ${S(P, 4)}/>${txt(280, 40, 86, CO, '$')}</g>` +
+  `<path d='M282,-112 C300,-170 270,-210 230,-230' fill='none' stroke='${P.d}' stroke-width='4' stroke-dasharray='3 9' stroke-linecap='round'/>` +
+  sp(-330, -210, 20) + sp(330, 200, 18) + sp(200, -230, 14, P.m)];
+M.u2r1 = ['gold', 'u2-read-soup', (P) =>
+  [-90, 0, 90].map((x, i) => `<path d='M${x},-120 C${x - 30},-160 ${x + 30},-190 ${x},-230' fill='none' stroke='${P.l}' stroke-width='14' stroke-linecap='round' opacity='${[.9, 1, .9][i]}'/>`).join('') +
+  heart(0, -255, 26, CO, P.d) +
+  `<path d='M120,-90 L190,-250 L232,-232 L150,-80 Z' fill='${CO}' ${S(P, 4)}/><path d='M205,-245 C200,-290 230,-300 240,-290 M215,-240 C240,-280 270,-270 270,-255 M222,-236 C250,-250 270,-230 262,-215' fill='none' stroke='#16803D' stroke-width='9' stroke-linecap='round'/>` +
+  `<circle cx='-150' cy='-100' r='44' fill='#DC2626' ${S(P, 4)}/><path d='M-160,-142 C-150,-160 -130,-160 -122,-150' fill='none' stroke='#16803D' stroke-width='7' stroke-linecap='round'/>` +
+  `<ellipse cx='-330' cy='40' rx='40' ry='26' fill='${P.d}' ${S(P)}/><ellipse cx='330' cy='40' rx='40' ry='26' fill='${P.d}' ${S(P)}/>` +
+  `<path d='M-250,-20 L250,-20 L230,170 C226,220 190,240 150,240 L-150,240 C-190,240 -226,220 -230,170 Z' fill='${P.m}' ${S(P)}/>` +
+  `<rect x='-290' y='-70' width='580' height='56' rx='28' fill='${P.d}' ${S(P)}/>` +
+  `<path d='M-180,80 C-120,60 -60,100 0,80 C60,60 120,100 180,80' fill='none' stroke='${W}' stroke-width='8' stroke-linecap='round' opacity='.55'/>` +
+  sp(-320, -200, 20) + sp(320, -150, 16) + sp(-40, 180, 14, W)];
+M.u2r2 = ['indigo', 'u2-read-coat', (P) =>
+  `<path d='M0,-150 L0,-200 a24,24 0 1 1 24,-24' fill='none' stroke='${P.d}' stroke-width='8' stroke-linecap='round'/>` +
+  `<path d='M0,-150 L-215,-80 L215,-80 Z' fill='none' stroke='${P.d}' stroke-width='9' stroke-linejoin='round'/>` +
+  `<path d='M-200,-86 L-62,-118 L0,-20 L62,-118 L200,-86 L246,250 L-246,250 Z' fill='${P.m}' ${S(P)}/>` +
+  `<path d='M-62,-118 L0,-20 L-40,40 L-96,-70 Z' fill='${P.l}' ${S(P, 4)}/><path d='M62,-118 L0,-20 L40,40 L96,-70 Z' fill='${P.l}' ${S(P, 4)}/>` +
+  `<line x1='0' y1='-20' x2='0' y2='250' stroke='${P.d}' stroke-width='5'/>` +
+  [40, 110, 180].map(y => `<circle cx='-26' cy='${y}' r='11' fill='${W}' ${S(P, 3)}/>`).join('') +
+  `<g transform='rotate(-12 120 110)'><rect x='70' y='40' width='110' height='120' rx='8' fill='${W}' ${S(P, 4)}/><rect x='86' y='62' width='78' height='8' rx='4' fill='${P.l}'/><rect x='86' y='80' width='60' height='8' rx='4' fill='${P.l}'/>${heart(124, 116, 18, CO, P.d, 3)}</g>` +
+  `<path d='M50,130 L190,130 L182,214 L58,214 Z' fill='${P.m}' ${S(P, 5)}/><path d='M66,146 L176,146' stroke='${W}' stroke-width='3' stroke-dasharray='6 7' opacity='.6'/>` +
+  sp(-330, -170, 22) + sp(320, -200, 16) + sp(320, 170, 14, P.m) + heart(-320, 160, 24, CO, P.d)];
 // ---------- General pages ----------
 M.course = ['indigo', 'course-overview', (P) =>
   `<g transform='rotate(-6 -150 20)'><rect x='-300' y='-150' width='300' height='340' rx='16' fill='${P.l}' ${S(P)}/><rect x='-280' y='-170' width='300' height='340' rx='16' fill='${W}' ${S(P)}/>` +

@@ -7914,6 +7914,82 @@
   html #app .b-text-view:has(.vw-word) > br:last-child{display:none;}
   html #app .vw-intro{line-height:1.5;}
   html #app:not(.editing) .blocks .block:has(> .b-text-view .vw-intro){padding-bottom:10px;}
+  /* ===== v132: "This week in class" spotlight on Home ===== */
+  html #app .wk-card{position:relative;margin:14px 0 6px;border-radius:28px;overflow:hidden;background:var(--surface);color:var(--ink);
+    box-shadow:0 0 0 .5px rgba(17,22,38,0.07), 0 1px 2px rgba(17,22,38,0.05), 0 22px 40px -26px rgba(17,22,38,0.38);
+    animation:wkIn .6s cubic-bezier(.22,1,.36,1) both;}
+  html[data-theme="dark"] #app .wk-card{background:#161C2E;box-shadow:0 18px 34px -24px rgba(0,0,0,0.75), inset 0 0 0 1px rgba(255,255,255,0.08);}
+  @keyframes wkIn{from{opacity:0;transform:translateY(10px) scale(.985);}to{opacity:1;transform:none;}}
+  html #app .wk-head{position:relative;display:flex;align-items:flex-end;min-height:196px;padding:18px 18px 18px;color:#fff;cursor:pointer;overflow:hidden;isolation:isolate;}
+  html #app .wk-mesh{position:absolute;inset:0;z-index:-1;pointer-events:none;
+    background:radial-gradient(120% 90% at 0% 0%, rgba(255,255,255,0.28), transparent 55%), radial-gradient(80% 80% at 100% 110%, rgba(0,0,0,0.22), transparent 60%);}
+  html #app .wk-head::after{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.22;
+    background-image:radial-gradient(rgba(255,255,255,0.9) 1px, transparent 1.3px);background-size:16px 16px;
+    -webkit-mask:linear-gradient(100deg, transparent 30%, #000 75%);mask:linear-gradient(100deg, transparent 30%, #000 75%);}
+  html #app .wk-art{position:absolute;right:-24px;top:16px;width:min(50%, 360px);aspect-ratio:1600/680;border-radius:18px;overflow:hidden;z-index:0;
+    transform:rotate(-4deg);background:#fff;border:4px solid rgba(255,255,255,0.92);
+    box-shadow:0 18px 30px -14px rgba(0,0,0,0.45), 0 2px 6px rgba(0,0,0,0.12);transition:transform .5s cubic-bezier(.22,1,.36,1);}
+  html #app .wk-art img{display:block;width:100%;height:100%;object-fit:cover;}
+  @media (hover:hover){ html #app .wk-head:hover .wk-art{transform:rotate(-2deg) translateY(-3px) scale(1.02);} }
+  html #app .wk-copy{position:relative;z-index:1;display:flex;flex-direction:column;align-items:flex-start;gap:4px;max-width:100%;padding-top:84px;}
+  html #app .wk-title{max-width:min(100%, 330px);}
+  html #app .wk-kicker{display:inline-flex;align-items:center;gap:7px;padding:5px 11px 5px 9px;border-radius:999px;font-family:var(--font-head);
+    font-size:10.5px;font-weight:800;letter-spacing:.11em;text-transform:uppercase;background:rgba(255,255,255,0.22);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,0.45), 0 4px 10px -6px rgba(0,0,0,0.35);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+    position:absolute;top:-2px;left:0;white-space:nowrap;}
+  html #app .wk-live{width:7px;height:7px;border-radius:50%;background:#fff;box-shadow:0 0 0 0 rgba(255,255,255,0.7);animation:wkPulse 2.2s ease-out infinite;flex-shrink:0;}
+  @keyframes wkPulse{0%{box-shadow:0 0 0 0 rgba(255,255,255,0.75);}70%{box-shadow:0 0 0 8px rgba(255,255,255,0);}100%{box-shadow:0 0 0 0 rgba(255,255,255,0);}}
+  html #app .wk-unit{font-family:var(--font-head);font-size:13px;font-weight:700;opacity:.92;letter-spacing:.02em;margin-top:6px;}
+  html #app .wk-title{font-family:var(--font-head);font-size:23px;font-weight:800;line-height:1.08;letter-spacing:-.01em;text-shadow:0 1px 10px rgba(0,0,0,0.18);}
+  html #app .wk-open{display:inline-flex;align-items:center;gap:2px;margin-top:8px;padding:6px 8px 6px 12px;border-radius:999px;background:#fff;color:#1B2033;
+    font-family:var(--font-head);font-size:12px;font-weight:700;box-shadow:0 6px 14px -8px rgba(0,0,0,0.45);}
+  html #app .wk-open svg{width:14px;height:14px;}
+  html #app .wk-plan{display:flex;align-items:flex-start;gap:12px;width:100%;margin:0;padding:14px 18px 12px;border:0;background:none;color:inherit;text-align:left;cursor:pointer;font:inherit;}
+  html #app .wk-plan-ico{flex-shrink:0;display:grid;place-items:center;width:34px;height:34px;border-radius:11px;color:var(--crimson);background:rgba(var(--accent-rgb),0.10);}
+  html #app .wk-plan-ico svg{width:19px;height:19px;}
+  html #app .wk-plan-t{display:flex;flex-direction:column;gap:2px;font-size:14px;line-height:1.38;font-weight:600;color:var(--ink);}
+  html #app .wk-plan-t small{font-family:var(--font-head);font-size:10.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--crimson);}
+  html #app .wk-parts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:4px 12px 4px;}
+  html #app .wk-part{display:flex;align-items:center;gap:10px;min-width:0;padding:10px 10px 10px 10px;border-radius:18px;border:0;cursor:pointer;text-align:left;font:inherit;color:var(--ink);
+    background:linear-gradient(180deg, rgba(17,22,38,0.035), rgba(17,22,38,0.055));box-shadow:inset 0 0 0 .5px rgba(17,22,38,0.06);
+    transition:transform .25s cubic-bezier(.22,1,.36,1), box-shadow .25s;animation:wkIn .55s cubic-bezier(.22,1,.36,1) both;animation-delay:var(--d,0s);}
+  html[data-theme="dark"] #app .wk-part{background:rgba(255,255,255,0.05);box-shadow:inset 0 0 0 1px rgba(255,255,255,0.07);}
+  html #app .wk-part:active{transform:scale(.97);}
+  @media (hover:hover){ html #app .wk-part:hover{transform:translateY(-2px);box-shadow:inset 0 0 0 .5px rgba(17,22,38,0.08), 0 10px 18px -12px rgba(17,22,38,0.35);} }
+  html #app .wk-pi{position:relative;flex-shrink:0;display:grid;place-items:center;width:38px;height:38px;border-radius:12px;color:#fff;overflow:hidden;
+    box-shadow:0 6px 12px -7px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.4);}
+  html #app .wk-pi > svg{width:20px;height:20px;position:relative;z-index:1;}
+  html #app .wk-pi .ri{position:absolute;inset:0;}
+  html #app .wk-pi .ri svg{width:100%;height:100%;}
+  html #app .wk-pi.has-ri > svg{opacity:0;}
+  html #app .wk-pt{display:flex;flex-direction:column;min-width:0;flex:1;}
+  html #app .wk-pt b{font-family:var(--font-head);font-size:13.5px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  html #app .wk-pt small{font-size:11.5px;color:var(--ink-soft);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  html #app .wk-part:not(.is-done) .wk-pg{display:none;}
+  html #app .wk-pg{flex-shrink:0;display:grid;place-items:center;width:22px;height:22px;border-radius:50%;color:var(--ink-soft);}
+  html #app .wk-pg svg{width:14px;height:14px;}
+  html #app .wk-part.is-done .wk-pg{background:#22A55B;color:#fff;}
+  html #app .wk-part.is-empty{opacity:.62;}
+  html #app .wk-foot{display:flex;align-items:center;gap:10px;padding:10px 18px 15px;font-size:12px;font-weight:600;color:var(--ink-soft);}
+  html #app .wk-segs{display:flex;gap:4px;flex:1;}
+  html #app .wk-segs i{flex:1;height:5px;border-radius:99px;background:rgba(17,22,38,0.09);}
+  html[data-theme="dark"] #app .wk-segs i{background:rgba(255,255,255,0.1);}
+  @media (min-width:640px){
+    html #app .wk-head{min-height:200px;padding:22px;}
+    html #app .wk-copy{max-width:52%;padding-top:64px;}
+    html #app .wk-title{font-size:28px;}
+    html #app .wk-art{right:18px;top:50%;transform:translateY(-50%) rotate(-4deg);}
+    @media (hover:hover){ html #app .wk-head:hover .wk-art{transform:translateY(-52%) rotate(-2deg) scale(1.02);} }
+  }
+  /* the unit being taught this week, on the Units grid */
+  html #app .unit-card.is-focus{box-shadow:0 0 0 2.5px #fff, 0 0 0 5px rgba(var(--glow, var(--accent-rgb)),0.55), 0 18px 30px -18px rgba(var(--glow, var(--accent-rgb)),0.7);}
+  html #app .unit-card .wk-pill{position:absolute;right:56px;top:13px;z-index:3;display:inline-flex;align-items:center;gap:6px;padding:4px 9px 4px 8px;border-radius:999px;
+    background:rgba(255,255,255,0.24);color:#fff;font-family:var(--font-head);font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,0.45);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);}
+  html #app .unit-card .wk-pill .wk-live{width:6px;height:6px;}
+  /* clearer greeting on the Home banner */
+  html #app .hero-greet{color:#fff;text-shadow:0 1px 2px rgba(0,0,0,0.18);}
+  @media (prefers-reduced-motion: reduce){ html #app .wk-card, html #app .wk-part{animation:none;} html #app .wk-live{animation:none;} }
 </style>
 </head>
 <body>
@@ -8405,6 +8481,7 @@ function migrate(){
   if(!ICONS[state.icon]) state.icon = EMOJI_TO_ICON[state.icon] || 'cap';
   if(!('tagline' in state) || !state.tagline) state.tagline = DEFAULT_TAGLINE;
   if(!('heroColor' in state)) state.heroColor = null;
+  if(!('focusUnit' in state)) state.focusUnit = null;
   if(!('bookImg' in state)) state.bookImg = null;
   (function walk(pages){
     pages.forEach(function(p){
@@ -14493,9 +14570,11 @@ function unitCard(p, i){
   const numeral = parts ? parts.num : '';
   const name = parts ? (parts.name || ('Unit ' + parts.num)) : p.title;
   const locked = isLockedForViewer(p.id), hid = !locked && hiddenInPath(p.id);
-  return '<div class="unit-card '+cls+(done?' is-done':'')+(locked?' is-locked':'')+'" style="--d:'+(i*0.045).toFixed(3)+'s" onclick="'+(locked ? 'lockedTap()' : 'openPage(\''+p.id+'\')')+'">' +
+  const focus = !locked && state.focusUnit === p.id;
+  return '<div class="unit-card '+cls+(done?' is-done':'')+(locked?' is-locked':'')+(focus?' is-focus':'')+'" style="--d:'+(i*0.045).toFixed(3)+'s" onclick="'+(locked ? 'lockedTap()' : 'openPage(\''+p.id+'\')')+'">' +
     (locked ? '<span class="lock-pill">'+iconHTML('lock')+'Opens soon</span>' : '') +
     (hid ? '<span class="hid-pill">'+iconHTML('lock')+'Hidden</span>' : '') +
+    (focus ? '<span class="wk-pill"><i class="wk-live" aria-hidden="true"></i>This week</span>' : '') +
     (hasCover ? '<div class="unit-card-inner"><div class="unit-thumb" style="background-image:url(\''+escapeAttr(convertDriveImageUrl(p.cover))+'\')"></div></div>' : '') +
     '<span class="unit-mesh" aria-hidden="true"></span>' +
     (numeral && !hasCover ? '<span class="unit-ghost" aria-hidden="true">'+escapeHtml(numeral)+'</span>' : '') +
@@ -14907,6 +14986,109 @@ function podcastBannerHTML(p){
     podArtSVG() +
   '</div>';
 }
+/* ================= v132: "This week in class" spotlight on Home =================
+   The teacher picks the unit being taught (Settings → This week's unit, stored as state.focusUnit).
+   The card shows that unit's illustration, today's line from the Weekly Schedule and one tap into each part. */
+const WK_DAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+function focusUnitPage(){
+  if(!state.focusUnit) return null;
+  const p = unitPages().filter(function(u){ return u.id === state.focusUnit; })[0];
+  return (p && !isLockedForViewer(p.id)) ? p : null;
+}
+function setFocusUnit(id){ state.focusUnit = id || null; persist(); render(); }
+function wkStrip(s){ return String(s==null?'':s).replace(/<[^>]*>/g,' ').replace(/&nbsp;/g,' ').replace(/&amp;/g,'&').replace(/\s+/g,' ').trim(); }
+/* the first lesson illustration inside the unit (the vocabulary art), used as the card's picture */
+function wkArtFor(unit){
+  let found = '';
+  (function walkPages(list){
+    (list||[]).forEach(function(c){
+      if(found) return;
+      (function walk(bs){ (bs||[]).forEach(function(b){ if(found || !b) return; if(b.type==='image' && /^https?:/.test(b.imgKey||'')) found = b.imgKey; else if(b.blocks) walk(b.blocks); }); })(c.blocks);
+      if(!found) walkPages(c.children);
+    });
+  })(unit.children);
+  return found;
+}
+/* today's row of this unit's table on the Weekly Schedule page; on weekends it looks ahead to Monday */
+function wkTodayPlan(unit){
+  const up = unitParts(unit.title); if(!up) return null;
+  const sched = generalPages().filter(function(p){ return /schedule/i.test(p.title||''); })[0];
+  if(!sched) return null;
+  let rows = null;
+  (sched.blocks||[]).forEach(function(b){
+    if(rows || b.type!=='toggle') return;
+    const u = unitParts(wkStrip(b.title));
+    if(!u || u.num !== up.num) return;
+    (function walk(bs){ (bs||[]).forEach(function(x){ if(!rows && x.type==='table' && x.rows) rows = x.rows; else if(!rows && x.blocks) walk(x.blocks); }); })(b.blocks);
+  });
+  if(!rows || !rows.length) return null;
+  const d = new Date().getDay();
+  const weekend = (d === 0 || d === 6);
+  const want = weekend ? 'Monday' : WK_DAYS[d];
+  const row = rows.filter(function(r){ return wkStrip(r[0]).toLowerCase() === want.toLowerCase(); })[0];
+  if(!row) return null;
+  return {label: weekend ? 'Next class · Monday' : 'Today · ' + want, text: wkStrip(row[1]), sched: sched.id};
+}
+function wkPartSub(c){
+  const t = String(c.title||'').toLowerCase();
+  const kids = (c.children||[]).filter(function(k){ return !isLockedForViewer(k.id); });
+  let words = 0;
+  kids.forEach(function(k){ const m = String(k.subtitle||'').match(/(\d+)\s*words?/i); if(m) words += +m[1]; });
+  if(kids.length && words) return words + ' words';
+  if(kids.length) return kids.length + (kids.length===1 ? ' part' : ' parts');
+  const readings = (c.blocks||[]).filter(function(b){ return b && b.type==='reading'; }).length;
+  if(readings) return readings + (readings===1 ? ' story' : ' stories');
+  const q = quizIdsIn(c.blocks).length;
+  if(/gramm/.test(t) && q) return q + (q===1 ? ' quiz' : ' quizzes');
+  if((c.blocks||[]).length) return (c.blocks.length) + (c.blocks.length===1 ? ' section' : ' sections');
+  return 'Coming soon';
+}
+function weekSpotlightHTML(){
+  const u = focusUnitPage(); if(!u) return '';
+  const idx = unitPages().indexOf(u);
+  const cls = pageColorClass(u, idx);
+  const up = unitParts(u.title);
+  const art = wkArtFor(u);
+  const plan = wkTodayPlan(u);
+  const parts = (u.children||[]).filter(function(c){ return !isLockedForViewer(c.id); });
+  const done = parts.filter(partDone).length;
+  const tick = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  const go = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  const cal = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5.5" width="17" height="15" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3.5 10h17M8 3.5V7M16 3.5V7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="15" r="1.8" fill="currentColor"/></svg>';
+  const tiles = parts.map(function(c, i){
+    const pc = pageColorClass(c, i);
+    const m = String(c.title||'').match(/^\s*(\d+)\s*[.)]\s*(.+)$/);
+    const name = m ? m[2].trim() : c.title;
+    const sub = wkPartSub(c), empty = sub === 'Coming soon', isDone = !empty && partDone(c);
+    return '<button class="wk-part'+(empty?' is-empty':'')+(isDone?' is-done':'')+'" style="--d:'+(0.12+i*0.06).toFixed(2)+'s" onclick="openFromSearch(\''+c.id+'\')">' +
+      '<span class="wk-pi has-ri" style="background:'+GRAD_VAR[pc]+'"><span class="ri">'+richTileSVG(pc, c.icon)+'</span>'+iconHTML(c.icon)+'</span>' +
+      '<span class="wk-pt"><b>'+escapeHtml(name)+'</b><small>'+escapeHtml(sub)+'</small></span>' +
+      '<span class="wk-pg">'+(isDone ? tick : go)+'</span>' +
+    '</button>';
+  }).join('');
+  const segs = parts.map(function(c,i){ const on = partDone(c); return '<i'+(on?' class="on" style="background:'+GRAD_VAR[pageColorClass(c,i)]+'"':'')+'></i>'; }).join('');
+  return '<section class="wk-card '+cls+'" aria-label="This week in class">' +
+    '<div class="wk-head" style="background:'+GRAD_VAR[cls]+'" onclick="openPage(\''+u.id+'\')" role="button" tabindex="0" onkeydown="if(event.key===\'Enter\')this.click()">' +
+      '<span class="wk-mesh" aria-hidden="true"></span>' +
+      (art ? '<span class="wk-art"><img src="'+escapeAttr(art)+'" alt="" loading="lazy" decoding="async" onerror="this.parentNode.remove()"/></span>' : '') +
+      '<div class="wk-copy">' +
+        '<span class="wk-kicker"><i class="wk-live" aria-hidden="true"></i>This week in class</span>' +
+        '<span class="wk-unit">'+(up ? 'Unit '+escapeHtml(up.num) : '')+'</span>' +
+        '<span class="wk-title">'+escapeHtml(up && up.name ? up.name : u.title)+'</span>' +
+        '<span class="wk-open">Open unit '+go+'</span>' +
+      '</div>' +
+    '</div>' +
+    (plan ? '<button class="wk-plan" onclick="openFromSearch(\''+plan.sched+'\')">'+'<span class="wk-plan-ico">'+cal+'</span><span class="wk-plan-t"><small>'+escapeHtml(plan.label)+'</small>'+escapeHtml(plan.text)+'</span></button>' : '') +
+    (tiles ? '<div class="wk-parts">'+tiles+'</div>' : '') +
+    (parts.length ? '<div class="wk-foot"><span class="wk-segs" aria-hidden="true">'+segs+'</span><span>'+(done===parts.length ? '✓ All parts done' : done+' of '+parts.length+' parts done')+'</span></div>' : '') +
+  '</section>';
+}
+function focusUnitSettingHTML(){
+  const opts = '<option value="">None</option>' + unitPages().map(function(u){ return '<option value="'+escapeAttr(u.id)+'"'+(state.focusUnit===u.id?' selected':'')+'>'+escapeHtml(u.title)+'</option>'; }).join('');
+  return '<div class="settings-row stacked"><div class="settings-row-left"><div class="settings-icon has-ri g-coral"><span class="ri">'+richTileSVG('g-coral','calendar')+'</span>'+iconHTML('calendar')+'</div><div>This week’s unit</div></div>' +
+    '<select class="settings-input wide" onchange="setFocusUnit(this.value)">'+opts+'</select>' +
+    '<div class="hint">Shown at the top of Home with today’s plan from the Weekly Schedule and a shortcut to each part.</div></div>';
+}
 function renderHomeGrid(){
   const pod = podcastPage();
   const generals = generalPages().filter(function(p){ return p !== pod; });
@@ -14935,7 +15117,7 @@ function renderHomeGrid(){
       '<div class="hero-tagline" contenteditable="'+editMode+'" onblur="onTaglineEdited(this)">'+escapeHtml(state.tagline)+'</div>' +
     '</div>' +
     announcementHTML() +
-    liveJoinCardHTML() + homeworkHTML() + exitTicketHTML() +
+    liveJoinCardHTML() + weekSpotlightHTML() + homeworkHTML() + exitTicketHTML() +
     todayCardHTML() +
     '<div class="section-label">Practice</div>' +
     quickGridHTML(pod) +
@@ -15656,6 +15838,7 @@ function renderSettings(){
         '</div>' +
         '<div class="hint">Match the banner to your coursebook — pick any colour family for your unit banners.</div>' +
       '</div>' +
+      focusUnitSettingHTML() +
       '<div class="settings-row"><div class="settings-row-left"><div class="settings-icon has-ri g-sky"><span class="ri">'+richTileSVG('g-sky','lock')+'</span>'+iconHTML('lock')+'</div><div>Teacher PIN</div></div><button class="btn" onclick="openPinSetModal()">'+(state.pin?'Change PIN':'Set PIN')+'</button></div>' +
     '</div>' +
     '<div class="settings-card">' +
