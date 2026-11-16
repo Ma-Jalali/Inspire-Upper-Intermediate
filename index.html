@@ -7949,6 +7949,30 @@
   html #app .ms-qo button{border:var(--edge,1px solid rgba(120,130,160,0.25));background:var(--surface);color:var(--ink);font:inherit;font-weight:600;font-size:14px;padding:8px 13px;border-radius:12px;cursor:pointer;box-shadow:var(--shadow-xs);}
   html #app .ms-qa{font-size:13.5px;color:var(--ink-soft);font-weight:600;}
   html #app .ms-q.ok .ms-qa{color:#1E9A5A;} html #app .ms-q.no .ms-qa{color:#D0443A;}
+  /* the collapsed mission row and the date-line pills */
+  html #app .ms-mini{display:flex;align-items:center;gap:12px;width:100%;margin:12px 0;padding:10px 12px 10px 10px;border:none;cursor:pointer;font:inherit;text-align:left;color:var(--ink);
+    border-radius:20px;background:var(--surface);box-shadow:var(--lift,0 10px 24px -18px rgba(10,16,40,0.4)), inset 0 0 0 1px rgba(var(--accent-rgb),0.07);}
+  html #app .ms-ring{position:relative;width:40px;height:40px;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#F06A1F;}
+  html #app .ms-ring svg{position:absolute;inset:0;width:40px;height:40px;transform:rotate(-90deg);}
+  html #app .ms-ring > svg:not(:first-child),html #app .ms-ring .icon svg{position:static;transform:none;}
+  html #app .ms-ring .ms-ring-bg{fill:none;stroke:rgba(120,130,160,0.18);stroke-width:3.5;}
+  html #app .ms-ring .ms-ring-fg{fill:none;stroke:#F06A1F;stroke-width:3.5;stroke-linecap:round;transition:stroke-dashoffset .6s var(--spring);}
+  html #app .ms-ring > :not(svg:first-child){width:17px;height:17px;}
+  html #app .ms-mini-t{flex:1;min-width:0;display:flex;flex-direction:column;}
+  html #app .ms-mini-t b{font-family:var(--font-display);font-weight:800;font-size:15.5px;}
+  html #app .ms-mini-t small{font-size:12px;color:var(--ink-soft);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  html #app .ms-mini-go{flex-shrink:0;font-family:var(--font-head);font-weight:800;font-size:13px;color:#fff;padding:7px 14px;border-radius:999px;background:var(--g-crimson);
+    box-shadow:0 8px 16px -10px rgba(var(--accent-rgb),0.9), inset 0 1px 0 rgba(255,255,255,0.35);}
+  html #app .ms-head{cursor:pointer;}
+  html #app .ms-fold{color:var(--ink-soft);font-size:15px;padding:0 2px 0 4px;}
+  html #app .hd-pills{margin-left:auto;display:flex;gap:6px;letter-spacing:0;text-transform:none;}
+  html #app .hd-pill{position:relative;display:inline-flex;align-items:center;gap:4px;border:none;cursor:pointer;font:inherit;padding:4px 10px 4px 8px;border-radius:999px;
+    background:var(--surface);box-shadow:0 4px 10px -8px rgba(10,16,40,0.5), inset 0 0 0 1px rgba(120,130,160,0.16);color:var(--ink-soft);}
+  html #app .hd-pill svg{width:14px;height:14px;}
+  html #app .hd-pill b{font-family:var(--font-head);font-size:13px;font-weight:800;color:var(--ink);}
+  html #app .hd-streak.lit{color:#F06A1F;}
+  html #app .hd-xp{color:#E8A317;}
+  html #app .hd-dot{position:absolute;top:1px;right:1px;width:7px;height:7px;border-radius:50%;background:#E0453C;box-shadow:0 0 0 2px var(--paper);}
   /* weekly goal */
   html #app .wg-row{display:flex;align-items:center;gap:10px;margin-top:8px;padding:11px 12px;border-radius:16px;background:rgba(var(--accent-rgb),0.05);}
   html #app .wg-row.hit{background:rgba(31,164,99,0.1);}
@@ -15175,7 +15199,7 @@ function renderHomeGrid(){
   const heroStyle = state.heroColor ? ' style="background:'+GRAD_VAR[state.heroColor]+';"' : '';
   const today = new Date().toLocaleDateString('en-GB', {weekday:'long', day:'numeric', month:'long'});
   return '' +
-    '<div class="home-date"><span>'+escapeHtml(today)+'</span></div>' +
+    '<div class="home-date"><span>'+escapeHtml(today)+'</span>'+statusPillsHTML()+'</div>' +
     '<div class="hero-card'+(state.heroColor?' custom':'')+'"'+heroStyle+'>' +
       /* every decorative layer lives in one rounded, masked wrapper so nothing can poke past the corners (Safari) */
       '<div class="hero-layers" aria-hidden="true">' +
@@ -15196,11 +15220,12 @@ function renderHomeGrid(){
       '<div class="hero-tagline" contenteditable="'+editMode+'" onblur="onTaglineEdited(this)">'+escapeHtml(state.tagline)+'</div>' +
     '</div>' +
     announcementHTML() +
-    liveJoinCardHTML() + starHTML() + missionHTML() + weekPlanHTML() + homeworkHTML() + exitTicketHTML() + leagueCardHTML() + installCardHTML() +
+    liveJoinCardHTML() + starHTML() + missionHTML() + weekPlanHTML() + homeworkHTML() + exitTicketHTML() +
     '<div class="section-label">Practice</div>' +
     quickGridHTML(pod) +
     (generals.length ? ('<div class="section-label">Course</div>' + courseRowHTML(generals)) : '') +
     (units.length ? ('<div class="section-label">Units<span class="sl-count">'+units.length+'</span></div><div class="unit-grid">' + units.map(function(p,i){ return unitCard(p,i); }).join('') + '</div>') : '') +
+    installCardHTML() +
     (editMode ? '<button class="btn primary full" onclick="openNewPageModal(null)">+ New page</button>' : '');
 }
 /* a numbered page inside a unit ("1. Vocabulary") reads as a part of that unit */
@@ -21265,16 +21290,25 @@ function checkMission(){
   setTimeout(function(){ showMiniToast('🏅 Mission complete! +'+XP_PER.mission+' XP'); try{ fireConfetti(true); }catch(e){} }, 900);
   syncProgress(true);
 }
+let missionOpen = false;
 function missionHTML(){
   if(editMode) return '';
   try{ checkMission(); }catch(e){}
   const m = missionToday();
   const doneN = m.steps.filter(function(s){ return missionStepDone(m, s); }).length;
   const all = doneN === m.steps.length;
+  if(all) return '';
+  if(!missionOpen){
+    const r = 15, c = 2*Math.PI*r, off = c*(1 - doneN/m.steps.length);
+    return '<button class="ms-mini" onclick="missionOpen=true;render()" aria-expanded="false">' +
+      '<span class="ms-ring"><svg viewBox="0 0 36 36"><circle cx="18" cy="18" r="'+r+'" class="ms-ring-bg"/><circle cx="18" cy="18" r="'+r+'" class="ms-ring-fg" style="stroke-dasharray:'+c.toFixed(1)+';stroke-dashoffset:'+off.toFixed(1)+'"/></svg>'+iconHTML('target')+'</span>' +
+      '<span class="ms-mini-t"><b>Today\u2019s mission</b><small>'+doneN+' of '+m.steps.length+' done \u00B7 about 5 min</small></span>' +
+      '<span class="ms-mini-go">'+(doneN ? 'Continue' : 'Start')+'</span></button>';
+  }
   const tick = '<svg viewBox="0 0 24 24"><path d="M6 12.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-  let h = '<div class="ms-card'+(all?' all':'')+'"><div class="ms-head"><span class="ms-ico">'+iconHTML('target')+'</span>' +
+  let h = '<div class="ms-card'+(all?' all':'')+'"><div class="ms-head" onclick="missionOpen=false;render()" role="button" aria-expanded="true"><span class="ms-ico">'+iconHTML('target')+'</span>' +
     '<span class="ms-ht"><b>'+(all ? 'Mission complete' : 'Today’s mission')+'</b><small>'+(all ? 'Great work. A new one is waiting tomorrow.' : 'About 5 minutes · +'+XP_PER.mission+' XP bonus')+'</small></span>' +
-    '<span class="ms-count">'+doneN+'/'+m.steps.length+'</span></div>' +
+    '<span class="ms-count">'+doneN+'/'+m.steps.length+'</span><span class="ms-fold" aria-label="Hide">\u2303</span></div>' +
     '<div class="ms-bar"><i style="width:'+Math.round(doneN/m.steps.length*100)+'%"></i></div>';
   if(!all){
     m.steps.forEach(function(s){
@@ -21293,7 +21327,19 @@ function missionHTML(){
       }
     });
   }
-  return h + weekGoalHTML() + '</div>';
+  return h + '</div>';
+}
+/* streak and XP as two small pills on the date line: always there, never in the way */
+function statusPillsHTML(){
+  if(editMode) return '';
+  const n = streakDays(), lit = !!deviceGet('activity', {})[dayKey()];
+  const flame = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5c.6 3.2 3.3 4.9 4.6 7.4 1.9 3.7.1 8.9-4.6 9.6-4.2.6-7.4-2.5-7-6.4.3-2.6 2-3.8 2.6-5.9.9 1.4 1.1 2.6 1 3.9 1.6-1.6 3.4-4.8 3.4-8.6z" fill="currentColor"/></svg>';
+  const bolt = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 2 5 13.5h6L10 22l9-12h-6.2z" fill="currentColor"/></svg>';
+  const ch = challenge() && chActive() && deviceGet('ch-done','') !== challenge().id;
+  return '<span class="hd-pills">' +
+    '<button class="hd-pill hd-streak'+(lit?' lit':'')+'" onclick="openBadges()" aria-label="'+n+'-day streak. My progress">'+flame+'<b>'+n+'</b></button>' +
+    '<button class="hd-pill hd-xp" onclick="openLeague()" aria-label="'+weekXP()+' XP this week. Class league">'+bolt+'<b>'+weekXP()+'</b>'+(ch ? '<i class="hd-dot" aria-hidden="true"></i>' : '')+'</button>' +
+  '</span>';
 }
 
 /* ---- #5 this week in class: the teacher's checklist, ticked automatically where it can be ---- */
