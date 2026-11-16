@@ -11,12 +11,29 @@
 import webpush from "npm:web-push@3.6.7";
 import { createClient } from "jsr:@supabase/supabase-js@2";
 
-const VAPID_PUBLIC = Deno.env.get("VAPID_PUBLIC_KEY") ?? "";
-const VAPID_PRIVATE = Deno.env.get("VAPID_PRIVATE_KEY") ?? "";
-const VAPID_SUBJECT = Deno.env.get("VAPID_SUBJECT") ?? "mailto:teacher@example.com";
+const VAPID_SUBJECT = Deno.env.get("VAPID_SUBJECT") ?? "https://github.com/Ma-Jalali/Inspire-Upper-Intermediate";
 const TABLE = "app_storage";
 
 const sb = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!);
+
+/* The push key pair. Set VAPID_PUBLIC_KEY / VAPID_PRIVATE_KEY as secrets to choose your own;
+   otherwise one is made on first use and kept in the private push_secrets table, which only
+   this function (service role) can read. */
+let VAPID_PUBLIC = Deno.env.get("VAPID_PUBLIC_KEY") ?? "";
+let VAPID_PRIVATE = Deno.env.get("VAPID_PRIVATE_KEY") ?? "";
+async function ensureKeys() {
+  if (VAPID_PUBLIC && VAPID_PRIVATE) return;
+  const read = async () => (await sb.from("push_secrets").select("value").eq("id", "vapid").maybeSingle()).data?.value;
+  let k = await read();
+  if (!k) {
+    const fresh = webpush.generateVAPIDKeys();
+    await sb.from("push_secrets").upsert({ id: "vapid", value: fresh }, { onConflict: "id", ignoreDuplicates: true });
+    k = await read();
+  }
+  if (!k?.publicKey || !k?.privateKey) throw new Error("push keys unavailable");
+  VAPID_PUBLIC = k.publicKey; VAPID_PRIVATE = k.privateKey;
+  webpush.setVapidDetails(VAPID_SUBJECT, VAPID_PUBLIC, VAPID_PRIVATE);
+}
 if (VAPID_PUBLIC && VAPID_PRIVATE) webpush.setVapidDetails(VAPID_SUBJECT, VAPID_PUBLIC, VAPID_PRIVATE);
 
 const CORS = {
@@ -130,8 +147,8 @@ async function notify(kind: string) {
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: CORS });
-  if (!VAPID_PUBLIC || !VAPID_PRIVATE) return json({ error: "VAPID keys are not set" }, 500);
   try {
+    await ensureKeys();
     if (req.method === "GET") return json({ pk: VAPID_PUBLIC });
     const body = await req.json().catch(() => ({}));
     if (body.action === "tick") return json({ sent: await tick() });

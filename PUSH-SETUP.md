@@ -15,48 +15,24 @@ What students get once it's on:
 On iPhone, notifications only work after the student installs the app
 (Share → Add to Home Screen) and turns reminders on from inside the installed app.
 
-## One-time setup (about 10 minutes)
+## Status: set up (16 Nov 2026)
 
-You need the Supabase CLI (`npm i -g supabase`) and to be logged in (`supabase login`).
+Everything below is already done on the **Inspire Upper-Intermediate** Supabase project:
 
-1. Make a key pair for push (keep the private key secret, never put it in the app):
+- The `push` edge function is deployed (JWT check off, like the other functions).
+- The push key pair was created by the function itself on first run and is kept in the
+  private `push_secrets` table (row-level security on, no policies, so the app's public key
+  can't read it). To use your own keys instead, set `VAPID_PUBLIC_KEY` and
+  `VAPID_PRIVATE_KEY` as Edge Function secrets.
+- `pg_cron` and `pg_net` are enabled, and the job `inspire-study-reminders` calls the
+  function every 15 minutes.
 
-   ```bash
-   npx web-push generate-vapid-keys
-   ```
+To check it, open
+`https://pykflxozwpoifbbcmusc.supabase.co/functions/v1/push?pk=1`: it shows the public key.
+To pause reminders, run `select cron.unschedule('inspire-study-reminders');` in the SQL editor.
 
-2. Save the keys on Supabase (use your own email for the subject):
-
-   ```bash
-   supabase secrets set --project-ref pykflxozwpoifbbcmusc VAPID_PUBLIC_KEY=<public key> VAPID_PRIVATE_KEY=<private key> VAPID_SUBJECT=mailto:<your email>
-   ```
-
-3. Deploy the function from the repository folder:
-
-   ```bash
-   supabase functions deploy push --project-ref pykflxozwpoifbbcmusc --no-verify-jwt
-   ```
-
-4. Run the daily reminders every 15 minutes. In the Supabase dashboard, open
-   **Database → Extensions** and enable `pg_cron` and `pg_net`, then run this in the
-   **SQL editor**:
-
-   ```sql
-   select cron.schedule(
-     'inspire-study-reminders',
-     '*/15 * * * *',
-     $$ select net.http_post(
-          url := 'https://pykflxozwpoifbbcmusc.supabase.co/functions/v1/push',
-          headers := '{"Content-Type":"application/json"}'::jsonb,
-          body := '{"action":"tick"}'::jsonb
-        ); $$
-   );
-   ```
-
-5. Check it: open
-   `https://pykflxozwpoifbbcmusc.supabase.co/functions/v1/push?pk=1`.
-   It should show your public key. Then on a phone, open the app, go to
-   **Settings → Study reminders** and turn them on.
+Changing the push key pair later means every student has to turn reminders off and on again,
+so leave it as it is unless it leaks.
 
 ## How it works
 
