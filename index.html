@@ -8139,25 +8139,6 @@
   html[data-theme="dark"] #app .st-t small{color:#F2C46A;}
   html #app .db-star{opacity:.35;filter:grayscale(1);}
   html #app .db-star.on{opacity:1;filter:none;}
-  /* how did this unit feel */
-  html #app .uf-box{margin:16px 0 4px;padding:14px 16px;border-radius:20px;background:var(--surface);box-shadow:inset 0 0 0 1px rgba(var(--accent-rgb),0.08);}
-  html #app .uf-q{font-family:var(--font-display);font-weight:800;font-size:16px;color:var(--ink);margin-bottom:10px;}
-  html #app .uf-opts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
-  html #app .uf-opt{display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 6px;border-radius:16px;border:none;cursor:pointer;font:inherit;background:rgba(120,130,160,0.09);transition:transform .15s var(--spring);}
-  html #app .uf-opt i{font-style:normal;font-size:28px;}
-  html #app .uf-opt span{font-size:12.5px;font-weight:700;color:var(--ink-soft);}
-  html #app .uf-opt.on{background:rgba(var(--accent-rgb),0.12);box-shadow:inset 0 0 0 2px rgba(var(--accent-rgb),0.5);transform:scale(1.03);}
-  html #app .uf-tally{display:flex;flex-direction:column;gap:6px;margin-top:12px;}
-  html #app .uf-t{display:flex;align-items:center;gap:8px;}
-  html #app .uf-t i{font-style:normal;font-size:16px;width:22px;}
-  html #app .uf-tb{flex:1;height:7px;border-radius:999px;background:rgba(120,130,160,0.14);overflow:hidden;}
-  html #app .uf-tb b{display:block;height:100%;border-radius:inherit;}
-  html #app .uf-good .uf-tb b{background:#1FA463;} html #app .uf-ok .uf-tb b{background:#F0A020;} html #app .uf-hard .uf-tb b{background:#E0335A;}
-  html #app .uf-t em{font-style:normal;font-family:var(--font-head);font-size:12px;font-weight:800;color:var(--ink-soft);min-width:18px;text-align:right;}
-  html #app .uf-unit{padding:8px 0;border-top:1px solid rgba(120,130,160,0.14);}
-  html #app .uf-unit:first-child{border-top:none;}
-  html #app .uf-unit b{font-size:13.5px;color:var(--ink);}
-  html #app .uf-unit .uf-tally{margin-top:6px;}
   /* install */
   html #app .ins-card{display:flex;align-items:center;gap:11px;margin:12px 0;padding:12px 12px 12px 14px;border-radius:20px;background:var(--surface);
     box-shadow:var(--lift,0 10px 24px -18px rgba(10,16,40,0.4)), inset 0 0 0 1px rgba(var(--accent-rgb),0.1);}
@@ -13168,7 +13149,6 @@ async function loadDashboard(){
   try{
     const res = await fetch(SB_TABLE_URL + '?key=like.' + encodeURIComponent('prog:*') + '&select=key,value', {headers: SB_HEADERS});
     const rows = res.ok ? await res.json() : [];
-    setTimeout(dashFeelsHTMLLoad, 0);
     dash = {loading:false, rows: rows.map(function(r){ try{ const v = typeof r.value==='string' ? JSON.parse(r.value) : r.value; v.key = r.key; return v; }catch(e){ return null; } }).filter(function(v){ return v && v.name; }).sort(function(a,b){ return b.t - a.t; })};
   }catch(e){ dash = {loading:false, rows:[], error:true}; }
   if(selectedTab==='dashboard') render();
@@ -13207,7 +13187,7 @@ function renderDashboard(){
   const classAvg = avgs.length ? Math.round(avgs.reduce(function(a,r){ return a+r.avg; },0)/avgs.length) : null;
   h += '<div class="db-tiles"><div><b>'+rows.length+'</b><span>students</span></div><div><b>'+today+'</b><span>active today</span></div><div><b>'+(classAvg===null?'\u2013':classAvg+'%')+'</b><span>avg best score</span></div></div>';
   if(!rows.length) return h + '<div class="hw-empty">No students yet. Ask them to write their name in Settings.</div>';
-  h += assignmentsHTML(rows) + dashWeekPlanHTML(rows) + dashFeelsHTML();
+  h += assignmentsHTML(rows) + dashWeekPlanHTML(rows);
   h += '<div class="section-label">Students</div><div class="db-list">';
   rows.forEach(function(r, i){
     const init = String(r.name).trim().split(/\s+/).map(function(w){ return w[0]; }).join('').slice(0,2).toUpperCase();
@@ -13381,9 +13361,6 @@ function liveSpectatePaint(){
   const t = document.getElementById('liveWatchTitle');
   if(t && live.s) t.textContent = live.s.title;
 }
-/* ================= v97: questions & comments per unit ================= */
-let unitComments = {};
-let unitCommentsLoading = {};
 function timeAgo(ts){
   const s = Math.max(0, Math.round((Date.now()-ts)/1000));
   if(s < 60) return 'just now';
@@ -13391,73 +13368,6 @@ function timeAgo(ts){
   const h = Math.round(m/60); if(h < 24) return h+'h ago';
   const d = Math.round(h/24); if(d < 30) return d+'d ago';
   return new Date(ts).toLocaleDateString('en-GB', {day:'numeric', month:'short'});
-}
-async function loadUnitComments(pageId){
-  if(unitCommentsLoading[pageId]) return;
-  unitCommentsLoading[pageId] = true;
-  try{
-    const res = await fetch(SB_TABLE_URL + '?key=like.' + encodeURIComponent('cmt:'+pageId+':*') + '&select=key,value', {headers: SB_HEADERS});
-    const rows = res.ok ? await res.json() : [];
-    const kud = unitKudos[pageId] = {};
-    unitComments[pageId] = rows.map(function(r){
-      const seg = String(r.key).split(':');
-      if(seg[3] === 'k'){ try{ const v = JSON.parse(r.value); (kud[seg[2]] = kud[seg[2]] || {})[seg[4]] = v.name || 'Someone'; }catch(e){} return null; }
-      try{ const v = JSON.parse(r.value); v._key = r.key; v._pageId = pageId; return v; }catch(e){ return null; }
-    }).filter(Boolean).sort(function(a,b){ return a.at - b.at; });
-  }catch(e){ unitComments[pageId] = unitComments[pageId] || []; }
-  unitCommentsLoading[pageId] = false;
-  if(pageStack[pageStack.length-1] === pageId) render();
-}
-async function postUnitComment(pageId){
-  const el = document.getElementById('cmtInput-'+pageId); if(!el) return;
-  const text = el.value.trim(); if(!text) return;
-  let name = studentName();
-  if(!name){ name = (prompt('Your name (shown with your comment)')||'').trim().slice(0,40); if(!name) return; setStudentName(name); }
-  const id = uid(), key = 'cmt:'+pageId+':'+id;
-  const c = {id:id, name:name, text:text.slice(0,500), at:Date.now(), _key:key, _pageId:pageId};
-  unitComments[pageId] = (unitComments[pageId]||[]).concat([c]);
-  el.value = ''; render();
-  try{ await window.storage.set(key, JSON.stringify({id:c.id, name:c.name, text:c.text, at:c.at}), true); }
-  catch(e){ showMiniToast('Could not post. Check your internet.'); }
-}
-async function startCommentReply(pageId, key){
-  const c = (unitComments[pageId]||[]).find(function(x){ return x._key===key; }); if(!c) return;
-  const v = prompt('Reply to '+(c.name||'this student')+':', c.reply||'');
-  if(v === null) return;
-  c.reply = v.trim().slice(0,500); c.replyAt = Date.now(); render();
-  try{ await window.storage.set(key, JSON.stringify({id:c.id, name:c.name, text:c.text, at:c.at, reply:c.reply, replyAt:c.replyAt}), true); }
-  catch(e){ showMiniToast('Could not save reply. Check your internet.'); }
-}
-async function deleteUnitComment(pageId, key){
-  if(!confirm('Delete this comment?')) return;
-  unitComments[pageId] = (unitComments[pageId]||[]).filter(function(c){ return c._key!==key; });
-  render();
-  try{ await window.storage.delete(key, true); }catch(e){}
-}
-function commentRowHTML(c){
-  return '<div class="cmt-row">' +
-    '<div class="cmt-head"><b>'+escapeHtml(c.name||'Student')+'</b><span>'+timeAgo(c.at)+'</span>' +
-      (editMode ? '<button class="cmt-del" onclick="deleteUnitComment(\''+c._pageId+'\',\''+escapeAttr(c._key)+'\')" aria-label="Delete">✕</button>' : '') +
-    '</div>' +
-    '<div class="cmt-text">'+escapeHtml(c.text)+'</div>' +
-    '<div class="cmt-foot">'+kudoBtnHTML((unitKudos[c._pageId]||{})[c.id], 'cmtKudo(\''+c._pageId+'\',\''+escapeAttr(c.id)+'\')')+'</div>' +
-    (c.reply ? '<div class="cmt-reply"><b>Teacher reply</b><span>'+escapeHtml(c.reply)+'</span></div>' :
-      (editMode ? '<button class="cmt-reply-btn" onclick="startCommentReply(\''+c._pageId+'\',\''+escapeAttr(c._key)+'\')">Reply</button>' : '')) +
-  '</div>';
-}
-function unitCommentsHTML(page){
-  if(!unitParts(page.title)) return '';
-  const list = unitComments[page.id];
-  if(list === undefined) loadUnitComments(page.id);
-  const items = list || [];
-  return '<div class="section-label">Questions & comments'+(items.length ? '<span class="sl-count">'+items.length+'</span>' : '')+'</div>' +
-    '<div class="cmt-box">' +
-      (items.length ? items.map(commentRowHTML).join('') : '<div class="hw-empty">'+(list===undefined ? 'Loading…' : 'No questions yet. Be the first to ask!')+'</div>') +
-      '<div class="cmt-compose">' +
-        '<input class="cmt-input" id="cmtInput-'+page.id+'" maxlength="500" placeholder="Ask a question or leave a comment…" onkeydown="if(event.key===\'Enter\')postUnitComment(\''+page.id+'\')"/>' +
-        '<button class="chip-btn cmt-send" onclick="postUnitComment(\''+page.id+'\')">Post</button>' +
-      '</div>' +
-    '</div>';
 }
 /* ---- player ---- */
 async function livePeekCheck(){
@@ -15460,8 +15370,6 @@ function renderPageDetail(){
     }
     if((page.blocks||[]).length > 8) html += '<div class="to-top-wrap"><button class="to-top" onclick="window.scrollTo({top:0,behavior:\'smooth\'});var sc=document.querySelector(\'.app-scroll\');if(sc)sc.scrollTo({top:0,behavior:\'smooth\'});">\u2191 Back to top</button></div>';
   }
-  html += unitFeelHTML(page);
-  html += unitCommentsHTML(page);
   return html;
 }
 /* the end of a unit page points onward: previous and next unit in their own colours */
@@ -21859,16 +21767,6 @@ function renderDuel(){
 }
 
 /* ---- #10 kudos on comments, and the star of the week ---- */
-let unitKudos = {};       /* pageId -> commentId -> {dev: name} */
-async function cmtKudo(pageId, cid){
-  const k = (unitKudos[pageId] = unitKudos[pageId] || {}), m = (k[cid] = k[cid] || {}), dev = deviceId();
-  const key = 'cmt:'+pageId+':'+cid+':k:'+dev, had = !!m[dev];
-  if(had) delete m[dev]; else m[dev] = studentName() || 'Someone';
-  try{ haptic('tick'); }catch(e){}
-  render();
-  try{ if(had) await window.storage.delete(key, true); else await window.storage.set(key, JSON.stringify({name:m[dev], at:Date.now()}), true); }
-  catch(e){ showMiniToast('Could not save. Check your internet.'); }
-}
 function kudoBtnHTML(map, onclick){
   map = map || {}; const n = Object.keys(map).length, mine = !!map[deviceId()];
   const who = Object.keys(map).map(function(k){ return map[k]; }).join(', ');
@@ -21903,70 +21801,6 @@ function starHTML(){
     (editMode ? '<button class="hw-del" onclick="clearStar()" aria-label="Remove">✕</button>' : '') + '</div>';
 }
 
-/* ---- #11 how did this unit feel? ---- */
-const FEELS = [['good','😀','Good'],['ok','😐','OK'],['hard','😵','Hard']];
-let unitFeels = {};       /* pageId -> list of {v} */
-async function loadUnitFeels(pageId){
-  if(unitFeels[pageId] && unitFeels[pageId].loading) return;
-  unitFeels[pageId] = {loading:true, list:(unitFeels[pageId]||{}).list || []};
-  try{
-    const res = await fetch(SB_TABLE_URL + '?key=like.' + encodeURIComponent('urx:'+pageId+':*') + '&select=key,value', {headers: SB_HEADERS});
-    const rows = res.ok ? await res.json() : [];
-    unitFeels[pageId] = {list: rows.map(function(r){ try{ return typeof r.value==='string' ? JSON.parse(r.value) : r.value; }catch(e){ return null; } }).filter(Boolean)};
-  }catch(e){ unitFeels[pageId] = {list:[]}; }
-  if(pageStack[pageStack.length-1] === pageId) render();
-}
-async function setUnitFeel(pageId, v){
-  const mine = deviceGet('urx', {});
-  mine[pageId] = v; deviceSet('urx', mine);
-  const st = unitFeels[pageId] || {list:[]};
-  st.list = st.list.filter(function(x){ return x.dev !== deviceId(); }).concat([{v:v, dev:deviceId()}]);
-  unitFeels[pageId] = st;
-  render(); showMiniToast('Thanks! Your teacher will see this');
-  try{ await window.storage.set('urx:'+pageId+':'+deviceId(), JSON.stringify({v:v, dev:deviceId(), name:studentName(), at:Date.now()}), true); }
-  catch(e){ showMiniToast('Could not send. Check your internet.'); }
-}
-function feelTallyHTML(list){
-  const c = {}; list.forEach(function(x){ c[x.v] = (c[x.v]||0) + 1; });
-  const n = list.length || 1;
-  return '<div class="uf-tally">' + FEELS.map(function(f){
-    const k = c[f[0]]||0;
-    return '<span class="uf-t uf-'+f[0]+'"><i>'+f[1]+'</i><span class="uf-tb"><b style="width:'+Math.round(k/n*100)+'%"></b></span><em>'+k+'</em></span>';
-  }).join('') + '</div>';
-}
-function unitFeelHTML(page){
-  if(!unitParts(page.title)) return '';
-  const st = unitFeels[page.id];
-  if(!st) loadUnitFeels(page.id);
-  const list = (st && st.list) || [];
-  if(editMode){
-    return '<div class="section-label">How students found this unit'+(list.length ? '<span class="sl-count">'+list.length+'</span>' : '')+'</div><div class="uf-box">' +
-      (list.length ? feelTallyHTML(list) : '<div class="hw-empty">No answers yet.</div>') + '</div>';
-  }
-  const mine = deviceGet('urx', {})[page.id];
-  return '<div class="uf-box"><div class="uf-q">How did this unit feel?</div><div class="uf-opts">' + FEELS.map(function(f){
-    return '<button class="uf-opt'+(mine===f[0]?' on':'')+'" onclick="setUnitFeel(\''+page.id+'\',\''+f[0]+'\')"><i>'+f[1]+'</i><span>'+f[2]+'</span></button>';
-  }).join('') + '</div>' + (mine && list.length > 1 ? feelTallyHTML(list) : '') + '</div>';
-}
-async function dashFeelsHTMLLoad(){
-  try{
-    const res = await fetch(SB_TABLE_URL + '?key=like.' + encodeURIComponent('urx:*') + '&select=key,value', {headers: SB_HEADERS});
-    const rows = res.ok ? await res.json() : [];
-    const by = {};
-    rows.forEach(function(r){ const pid = String(r.key).split(':')[1]; let v; try{ v = typeof r.value==='string' ? JSON.parse(r.value) : r.value; }catch(e){ return; } if(v) (by[pid] = by[pid] || []).push(v); });
-    if(dash) dash.feels = by;
-  }catch(e){ if(dash) dash.feels = {}; }
-  if(selectedTab === 'dashboard') render();
-}
-function dashFeelsHTML(){
-  if(!dash || !dash.feels) return '';
-  const units = unitPages().filter(function(u){ return dash.feels[u.id] && dash.feels[u.id].length; });
-  if(!units.length) return '';
-  return '<div class="section-label">How units feel</div><div class="uf-box">' + units.map(function(u){
-    const up = unitParts(u.title);
-    return '<div class="uf-unit"><b>'+escapeHtml(up ? 'Unit '+up.num : u.title)+'</b>'+feelTallyHTML(dash.feels[u.id])+'</div>';
-  }).join('') + '</div>';
-}
 function dashWeekPlanHTML(rows){
   const items = wpItems(); if(!items.length) return '';
   const total = rows.length;

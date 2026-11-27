@@ -1,7 +1,7 @@
 /* Inspire service worker: makes the hub installable, keeps a copy for when the
    connection drops, and shows push reminders. Course content and progress always
    come from the network first, so students see the newest version when online. */
-const CACHE = 'inspire-v134';
+const CACHE = 'inspire-v135';
 const SHELL = ['./', './index.html', './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png'];
 const CDN = ['fonts.googleapis.com', 'fonts.gstatic.com', 'cdn.plyr.io'];
 
